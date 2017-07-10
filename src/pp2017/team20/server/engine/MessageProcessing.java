@@ -49,20 +49,20 @@ public class MessageProcessing {
 	public void WhatMessageType(Message message) {
 		
 		//testet welchen typs die nachricht ist
-		if(message instanceof LoginMessage){
+		if(message instanceof LogInMessage){
 			//Castet die Nachricht um sie als LoginMessage benutzen zu k�nnen
-			LoginMessage login = (LoginMessage) message;
+			LogInMessage login = (LogInMessage) message;
 			//ruft die zugeh�rige Processing-Methode auf
-			LoginMessageProcessing(login);
+			LogInMessageProcessing(login);
 		}
 		
-		else if (message instanceof LogoutMessage){
-			LogoutMessage logout = (LogoutMessage) message;
-			LogoutMessageProcessing(logout);
+		else if (message instanceof LogOutMessage){
+			LogOutMessage logout = (LogOutMessage) message;
+			LogOutMessageProcessing(logout);
 		
-		}else if (message instanceof MovementMessage){
-			MovementMessage movement = (MovementMessage) message;
-			MovementMessageProcessing(movement);
+		}else if (message instanceof MoveMessage){
+			MoveMessage movement = (MoveMessage) message;
+			MoveMessageProcessing(movement);
 		
 		}else if (message instanceof HealthPotMessage){
 			HealthPotMessage healthpot = (HealthPotMessage) message;
@@ -72,13 +72,9 @@ public class MessageProcessing {
 			ManaPotMessage manapot = (ManaPotMessage) message;
 			ManaPotMessageProcessing(manapot);
 		
-		}else if (message instanceof PlayerAttackMessage){
-			PlayerAttackMessage playerattack = (PlayerAttackMessage) message;
-			PlayerAttackMessageProcessing(playerattack);
-		
-		}else if (message instanceof MonsterAttackMessage){
-			MonsterAttackMessage monsterattack = (MonsterAttackMessage) message;
-			MonsterAttackMessageProcessing(monsterattack);
+		}else if (message instanceof AttackMessage){
+			AttackMessage playerattack = (AttackMessage) message;
+			AttackMessageProcessing(playerattack);
 		
 		}else if (message instanceof PlayerDeadMessage){
 			PlayerDeadMessage playerdead = (PlayerDeadMessage) message;
@@ -88,10 +84,6 @@ public class MessageProcessing {
 			MonsterDeadMessage monsterdead = (MonsterDeadMessage) message;
 			MonsterDeadMessageProcessing(monsterdead);
 		
-		}else if (message instanceof NewPlayerMessage){
-			NewPlayerMessage newplayer = (NewPlayerMessage) message;
-			NewPlayerMessageProcessing(newplayer);
-			
 		}else if(message instanceof ItemPickUpMessage){
 			ItemPickUpMessage itempick = (ItemPickUpMessage) message;
 			ItemPickUpMessageProcessing(itempick);
@@ -109,7 +101,7 @@ public class MessageProcessing {
 //oder andernfalls neu eingetragen wurde
 
 
-	public void LoginMessageProcessing(LoginMessage message){
+	public void LoginMessageProcessing(LogInMessage message){
 		
 		//wenn der Levelgenerator succsess==true angibt hat der login bei ihm funktioniert
 		if(message.succsess==true){
@@ -127,7 +119,7 @@ public class MessageProcessing {
 		}
 	}
 	
-	public void LogoutMessageProcessing(LogoutMessage message){
+	public void LogoutMessageProcessing(LogOutMessage message){
 		
 		//�ndert den Zustand des Spielers zu LoggedOFF
 		message.player.loggedIN=false;
@@ -137,7 +129,7 @@ public class MessageProcessing {
 		System.out.println(message.player.playername+" "+"ist abgemeldet");
 	}
 
-	public void MovementMessageProcessing(MovementMessage message){
+	public void MovementMessageProcessing(MoveMessage message){
 			
 		//Test, ob das Feld benachbart zur vorherigen Position des Spielers
 			
@@ -223,8 +215,10 @@ public class MessageProcessing {
 
 	//Methode zum angriff von einem Spielr auf ein Monster
 	//Funktioniert noch nicht, da Monster Klasse nicht eingebungden
-		public void PlayerAttackMessageProcessing(PlayerAttackMessage message){
+		public void PlayerAttackMessageProcessing(AttackMessage message){
 	
+			if(Attacker is Human){
+				
 			
 			//Monster pr�ft ob der Anngriff erfolgen darf und schickt dann die Nachricht
 			if(moveAllowed==true){
@@ -238,29 +232,26 @@ public class MessageProcessing {
 					System.out.println("Monster gestorben");
 				}
 			}
-	}
-
-	public void MonsterAttackMessageProcessing(MonsterAttackMessage message){
-	
-		//Monster pr�ft ob der Anngriff erfolgen darf und schickt dann die Nachricht
-		if(moveAllowed==true){
-			
-			//f�ge dem Player Schaden zu
-			message.player.setDamage(10);
-			
-			//Falls der Player <=0 Hp f�llt entferne Ihn aus der Liste 
-			if(message.player.health<=0){
-				Player.LevelList.remove(message.player);
-				//Benutze Methode aus Levelmanagement um den Spieler an das anfangsfeld zu stellen
-				Levelmanagement l = new Levelmanagement(message.player);
-				l.placePlayer(message.player);
-				//regeneriere die stats des spielers
-				message.player.setHealth(100);
-				message.player.setMana(100);
+			}else{
+				if(moveAllowed==true){
+					
+					//f�ge dem Player Schaden zu
+					message.player.setDamage(10);
+					
+					//Falls der Player <=0 Hp f�llt entferne Ihn aus der Liste 
+					if(message.player.health<=0){
+						Player.LevelList.remove(message.player);
+						//Benutze Methode aus Levelmanagement um den Spieler an das anfangsfeld zu stellen
+						Levelmanagement l = new Levelmanagement(message.player);
+						l.placePlayer(message.player);
+						//regeneriere die stats des spielers
+						message.player.setHealth(100);
+						message.player.setMana(100);
+					}
+				}
 			}
-		}
-		
 	}
+			
 	//Methode falls der Spieler noch durch andere Einwirkung sterben kann
 	public void PlayerDeadMessageProcessing(PlayerDeadMessage message){
 		
@@ -284,9 +275,6 @@ public class MessageProcessing {
 	}
 	
 	//F�gt einen Spieler der Datenbank zu falls er noch keinen Eintrag hat
-	public void NewPlayerMessageProcessing(NewPlayerMessage message){
-		//Erledigt Datenbank automatisch bei login
-	}
 	
 	//Teste ob in der Konsole die Cheats aktiviert hat
 	public void ChatMessageProcessing(ChatMessage message){

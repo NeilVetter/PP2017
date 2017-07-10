@@ -1,5 +1,6 @@
 package pp2017.team20.server.engine;
 
+import pp2017.team20.server.map.Maze;
 import pp2017.team20.shared.*;
 import pp2017.team20.server.map.*;
 
@@ -11,7 +12,6 @@ public class Levelmanagement {
 	// Erstellt ein Objekt vom Typ "Player"
 	public Player player;
 	
-	//
 	public int LevelID = -1;
 	public int size=15;
 	
