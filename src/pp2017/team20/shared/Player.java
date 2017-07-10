@@ -1,98 +1,84 @@
 package pp2017.team20.shared;
 
-import java.io.File;
-import java.io.IOException;
+import pp2017.team20.server.map.*;
 
-import javax.imageio.ImageIO;
-
-// import datenstruktur.Heiltrank; //!
+import java.util.ArrayList;
 
 
-public class Player extends Figur { //VLLT Fâ€¹R DIE TESTUMGEBUNG EINFACH EINEN GANZ SIMPLEN SPIELER NUR MIT KOORDINATEN UND LEBEN ERSTELLEN
+//Klasse für ein Objetk der types "Player"
+//Neil Vetter 6021336
 
-	private String name;
+// erbt von der Klasse "Figur", übernommen aus HndiBones
+public class Player extends Figur{
 
-
-	private boolean hatSchluessel;
-	private int anzahlHeiltraenke;
-	private int heiltrankWirkung;
+	public int PosY;
+	public int PosX;
+	public int PlayerLvl;
+	public int [][] PlayerMap;
+	public static ArrayList<Maze> LevelList=new ArrayList<Maze>();
+	public ArrayList<Item> ItemList = new ArrayList<Item>();
+	public int PlayerID;
+	public String playername;
+	private String pasword;
+	public int HealthPotNumber;
+	public int ManaPotNumber;
+	public boolean loggedIN;
+	public boolean GotKey;
+	public boolean Door;
 	
-	private Testumgebung fenster;
-	
-	public Player(String imgDatei, Testumgebung fenster){
-		this.fenster = fenster;
-		
-		setAnzahlHeiltraenke(0);
-		setCoord(0,0);		
+	//Konstruktor für die Anmeldung(Macht jetzt Datebank)
+	public Player (String playername, String pasword,int PosX,int PosY,int PlayerID,boolean loggedIN){
+		this.playername=playername;
+		this.pasword=pasword;
+		this.PosX=PosX;
+		this.PosY=PosY;
+		this.PlayerID=PlayerID;
+		this.loggedIN=loggedIN;
+	}
+	//Konstruktor um einen neuen Spieler zu erstellen
+	//Nach zusammensetzen ohne PosX/PosY
+	public Player (int PlayerID,int PosX,int PosY,String playername){
+		this.PlayerID=PlayerID;
+		this.PosX=PosX;
+		this.PosY=PosY;
+		this.playername=playername;
 		setHealth(100);
+		setMana(100);
 		setMaxHealth(getHealth());
-		setName("Hindi Bones");
-		
-		// Bild fuer den Spieler laden
-		try {
-			setImage(ImageIO.read(new File(imgDatei)));
-		} catch (IOException e) {
-			System.err.print("Das Bild "+ imgDatei + " konnte nicht geladen werden.");
-		}
+		setMaxMana(getMana());
+		setHealthPotNumber(0);
+		setManaPotNumber(0);
+		GotKey=false;
+		Door=false;
+		loggedIN=false;
+		PlayerMap= new int [15][15];
 	}
 	
-
-	
-	// Methode, um den Schluessel aufzuheben
-	public void nimmSchluessel(){
-		hatSchluessel = true;
+	public String getPlayername(){
+		return playername;
 	}
-	
-	// Methode, um den Schluessel zu entfernen
-	public void entferneSchluessel(){
-		hatSchluessel = false;
-	}	
-	
-	public int benutzeHeiltrank(){
-		setAnzahlHeiltraenke(anzahlHeiltraenke-1);
-		return heiltrankWirkung;
+	public String getPasword(){
+		return pasword;
 	}
-	
-	//public void nimmHeiltrank(Heiltrank t){
-		//anzahlHeiltraenke++;
-		//heiltrankWirkung = t.getWirkung();
-	//}
-	
-	public void setAnzahlHeiltraenke(int anzahl){
-		if (anzahl >= 0) anzahlHeiltraenke = anzahl;
+	public int getPosX(){
+		return PosX;
 	}
-	
-	public int getAnzahlHeiltraenke(){
-		return anzahlHeiltraenke;
+	public int getPosY(){
+		return PosY;
 	}
-	
-	// Hat der Spieler den Schluessel?
-	public boolean hatSchluessel(){
-		return hatSchluessel;
+	public int getHealthPotNumber() {
+		return HealthPotNumber;
 	}
-		
-	public String getName(){
-		return name;
+	public void setHealthPotNumber(int HealthPotNumber){
+		this.HealthPotNumber=HealthPotNumber;
 	}
-	
-	public void setName(String name){
-		this.name = name;
+	public int getManaPotNumber(){
+		return ManaPotNumber;
 	}
-	
-	public Monster angriffsMonster(){
-		for(int i = 0; i < fenster.monsterListe.size(); i++){
-			Monster m = fenster.monsterListe.get(i);
-						
-			// Kann der Spieler angreifen?
-			boolean kannAngreifen = false;
-			if (m.getType() == 0) kannAngreifen = true; 
-			if (m.getType() == 1) kannAngreifen = hatSchluessel;
-			
-			if((Math.sqrt(Math.pow(getXPos() - m.getXPos(), 2)+ Math.pow(getYPos() - m.getYPos(), 2)) < 2)&&kannAngreifen){
-				return m;
-			}
-		}
-		
-		return null;
+	public void setManaPotNumber(int ManaPotNumber){
+		this.ManaPotNumber=ManaPotNumber;
+	}
+	public void setPlayerLvl(int PlayerLvl){
+		this.PlayerLvl=PlayerLvl;
 	}
 }
