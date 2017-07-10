@@ -1,6 +1,6 @@
 package pp2017.team20.shared;
 
-import pp2016.team03.shared.Level;
+import pp2017.team20.server.map.*;
 
 /**
  * 
@@ -13,16 +13,16 @@ import pp2016.team03.shared.Level;
 
 public class NewGameMessage extends Message {
 	
-	private Level lvl;
+	private Maze lvl;
 	
 	//Getter und Setter
 	//Initialisiert das zu ladene Level
-	public void setLevel(Level lvl){
+	public void setMaze(Maze lvl){
 		this.lvl = lvl;
 	}
 	
 	//Empfaengt das zu ladende Level
-	public Level getLevel(){
+	public Maze getMaze(){
 		return lvl;
 	}
 

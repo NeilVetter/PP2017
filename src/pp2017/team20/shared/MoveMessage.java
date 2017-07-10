@@ -14,6 +14,7 @@ public class MoveMessage extends Message {
 	//Geben die Position an
 	public int xPos;
 	public int yPos;
+	public boolean success = false;
 	
 
 	/**

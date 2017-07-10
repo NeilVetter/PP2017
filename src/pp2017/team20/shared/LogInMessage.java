@@ -20,7 +20,9 @@ public class LogInMessage extends Message {
 	public String password2;
 	private boolean success = false;
 	
-	private Maze maze;
+	int LevelID;
+	Maze maze = new Maze(LevelID);;
+	
 
 	/**
 	 * 
@@ -51,4 +53,6 @@ public class LogInMessage extends Message {
 	public void setMaze(Maze maze){
 		this.maze = maze;
 	}
+	
+	
 }

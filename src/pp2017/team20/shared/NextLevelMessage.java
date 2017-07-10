@@ -1,6 +1,6 @@
 package pp2017.team20.shared;
 
-import pp2017.team20.shared.*;
+import pp2017.team20.server.map.*;
 
 /**
  * 
@@ -19,7 +19,7 @@ public class NextLevelMessage extends Message{
 	
 	private boolean successReceive;
 	//Variable fuer ein neues Level
-	public Level lvl;
+	public Maze lvl;
 	
 	//Methode fuer das erfolgreiche uebermitteln eines neuen Levels
 	public boolean isSuccessReceive() {
@@ -32,7 +32,7 @@ public class NextLevelMessage extends Message{
 	}
 	
 	//Methode, um das zu ladende Level zu erhalten
-	public Level getLevel() {
+	public Maze getMaze() {
 		return lvl;
 	}
 

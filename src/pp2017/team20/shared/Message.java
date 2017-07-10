@@ -18,7 +18,7 @@ import java.util.Date;
 public abstract class Message implements Serializable{
 	
 	
-	private static final long serialVersionUID = -4125004909828171573L;
+	private static final long serialVersionUID = 1L;
 	
 	// timestamp
 //	private final long timestamp;

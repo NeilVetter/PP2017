@@ -1,7 +1,5 @@
 package pp2017.team20.shared;
 
-import Shared.Player;
-
 public class ItemPickUpMessage extends Message{
 
 	public int ItemID;
