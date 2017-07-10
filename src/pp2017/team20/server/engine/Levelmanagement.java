@@ -1,6 +1,7 @@
 package pp2017.team20.server.engine;
 
 import pp2017.team20.shared.*;
+import pp2017.team20.server.map.*;
 
 //Neil Vetter 6021336
 //Diese Klasse erzeugt erst, und speichert dann das Level in einem Array
