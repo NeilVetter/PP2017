@@ -6,5 +6,6 @@ public class Test1 {
 		
 		// commend333
 		System.out.println("blsasa");
+		System.out.println("test");
 	}
 }
