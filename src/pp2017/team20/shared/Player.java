@@ -15,8 +15,8 @@ import javax.imageio.ImageIO;
 // erbt von der Klasse "Figur", übernommen aus HndiBones
 public class Player extends Figure{
 
-	public int PosY;
-	public int PosX;
+	public int yPos;
+	public int xPos;
 	public int PlayerLvl;
 	public int [][] PlayerMap;
 	public static ArrayList<Maze> LevelList=new ArrayList<Maze>();
@@ -24,27 +24,27 @@ public class Player extends Figure{
 	public int PlayerID;
 	public String playername;
 	private String pasword;
-	public int HealthPotNumber;
-	public int ManaPotNumber;
+	public int healthPotNumber;
+	public int manaPotNumber;
 	public boolean loggedIN;
-	public boolean GotKey;
-	public boolean Door;
+	public boolean ownsKey;
+	public boolean door;
 	
 	//Konstruktor für die Anmeldung(Macht jetzt Datebank)
 	public Player (String playername, String pasword,int PosX,int PosY,int PlayerID,boolean loggedIN){
 		this.playername=playername;
 		this.pasword=pasword;
-		this.PosX=PosX;
-		this.PosY=PosY;
+		this.xPos=PosX;
+		this.yPos=PosY;
 		this.PlayerID=PlayerID;
 		this.loggedIN=loggedIN;
 	}
 	//Konstruktor um einen neuen Spieler zu erstellen
 	//Nach zusammensetzen ohne PosX/PosY
-	public Player (int PlayerID,int PosX,int PosY,String playername){
+	public Player (int PlayerID,int xPos,int yPos,String playername){
 		this.PlayerID=PlayerID;
-		this.PosX=PosX;
-		this.PosY=PosY;
+		this.xPos=xPos;
+		this.yPos=yPos;
 		this.playername=playername;
 		setHealth(100);
 		setMana(100);
@@ -52,8 +52,8 @@ public class Player extends Figure{
 		setMaxMana(getMana());
 		setHealthPotNumber(0);
 		setManaPotNumber(0);
-		GotKey=false;
-		Door=false;
+		ownsKey=false;
+		door=false;
 		loggedIN=false;
 		PlayerMap= new int [15][15];
 		
@@ -71,25 +71,26 @@ public class Player extends Figure{
 	public String getPasword(){
 		return pasword;
 	}
-	public int getPosX(){
-		return PosX;
-	}
-	public int getPosY(){
-		return PosY;
-	}
 	public int getHealthPotNumber() {
-		return HealthPotNumber;
+		return healthPotNumber;
 	}
 	public void setHealthPotNumber(int HealthPotNumber){
-		this.HealthPotNumber=HealthPotNumber;
+		this.healthPotNumber=HealthPotNumber;
 	}
 	public int getManaPotNumber(){
-		return ManaPotNumber;
+		return manaPotNumber;
 	}
 	public void setManaPotNumber(int ManaPotNumber){
-		this.ManaPotNumber=ManaPotNumber;
+		this.manaPotNumber=ManaPotNumber;
 	}
 	public void setPlayerLvl(int PlayerLvl){
 		this.PlayerLvl=PlayerLvl;
 	}
+	public boolean ownsKey(){
+		return ownsKey;
+	}
+	
+	
+	
+	
 }

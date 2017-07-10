@@ -34,7 +34,7 @@ public class Monster extends Figure {
 	public GamingArea window; //eingedeutscht f�r Testumgebung
 	private Player player; //eingedeutscht f�r Testumgebung
 	
-	public Monster(int x, int y, HindiBones fenster, int typ){
+	public Monster(int x, int y, GamingArea window, int typ){
 		/**
 		 * erstellt ein Monster an den Koordinaten (x,y) im Labyrinth und gibt ihm 
 		 * eine gewisse strength mit, die alle weiteren Werte beeinflusst
@@ -43,12 +43,12 @@ public class Monster extends Figure {
 		 * (Grundger�st: HindiBones)
 		 * 
 		 */
-		this.window = fenster;
-		this.player = fenster.spieler;
+		this.window = window;
+		this.player = window.player;
 		this.typ = typ;
 		setPos(x,y);
 		
-		double variable = Math.random() * 5 + fenster.currentLevel; //halb Zufall, halb Levelabh�ngig
+		double variable = Math.random() * 5 + window.currentLevel; //halb Zufall, halb Levelabh�ngig
 		if (variable < 5)
 			strength = 1;
 		else if (variable >= 5 && variable < 7)
@@ -64,8 +64,8 @@ public class Monster extends Figure {
 		lastAttack = System.currentTimeMillis();
 		lastStep = System.currentTimeMillis();
 		cooldownAttack = 500 - 10 * strength; 
-		cooldownWalk = 1000 - 20*strength - 5* fenster.currentLevel;
-		setSchaden(8+2*strength); //eingedeutscht f�r Testumgebung
+		cooldownWalk = 1000 - 20*strength - 5* window.currentLevel;
+		setDamage(8+2*strength); //eingedeutscht f�r Testumgebung
 		state = 0;
 		
 		
@@ -159,7 +159,7 @@ public class Monster extends Figure {
 		if(playerInFightRange()){
 			state = 2; // If im Fight Radius --> Attacke
 		}
-		else if(playerInVisibilityRange()||player.hatSchluessel()){ 
+		else if(playerInVisibilityRange()||player.ownsKey()){ 
 			boolean nextStep = (System.currentTimeMillis() - lastStep) >= cooldownWalk;
 			if (nextStep) {
 				dir = calculateDirection();
@@ -175,7 +175,7 @@ public class Monster extends Figure {
 		else  
 			state = 0; // Weder im Fight noch im Verfolgungsradius: "zur�ck" zum randomWalk
 	}
-	public boolean attackiereSpieler(boolean hatSchluessel){	
+	public boolean attackiereSpieler(boolean ownsKey){	
 		/** 
 		 * Schaltet hier in den Kampfmodus, abh�ngig davon ob der Spieler den Schl�ssel hat, und
 		 * �berpr�ft vorher, ob das Monster bei geringer Lebensenergie nicht lieber fliehen sollte, 
@@ -195,7 +195,7 @@ public class Monster extends Figure {
 				(Math.abs(player.getXPos() - this.getXPos()) + Math.abs(player.getYPos() - this.getYPos()) < 2);
 		boolean kannAngreifen = false;
 		if (typ == 0) kannAngreifen = ((System.currentTimeMillis() - lastAttack) >= cooldownAttack);
-		if (typ == 1) kannAngreifen = (hatSchluessel && ((System.currentTimeMillis() - lastAttack) >= cooldownAttack));
+		if (typ == 1) kannAngreifen = (ownsKey && ((System.currentTimeMillis() - lastAttack) >= cooldownAttack));
 		
 		// Kann das Monster angreifen?
 		if(spielerImRadius && kannAngreifen){
@@ -239,7 +239,7 @@ public class Monster extends Figure {
 			return;   // Falls keine Lebensenergie mehr --> monsterDies	
 			}
 		
-		if(player.hatSchluessel()){ // checkt, ob Spieler den Schl�ssel hat und wechselt den Modus
+		if(player.ownsKey()){ // checkt, ob Spieler den Schl�ssel hat und wechselt den Modus
 			if(playerInFightRange()){
 				state = 2; // --> Attackieren
 				return;  
@@ -331,9 +331,9 @@ public class Monster extends Figure {
 		 * (Grundger�st: HindiBones)
 		 */
 		
-		window.level[getXPos()][getYPos()] = new Heiltrank(30); // Monster hinterl�sst Heiltrank
+		window.level[getXPos()][getYPos()] = new HealthPot(30); // Monster hinterl�sst Heiltrank
 		// Random Verteilung von Heiltrank und Manatrank f�r Endversion hier
-		window.monsterListe.remove(this); // l�sche Monster
+		window.monsterList.remove(this); // l�sche Monster
 	}
 	
 	
@@ -616,10 +616,10 @@ public class Monster extends Figure {
 		if(zulaessig()){
 			if(nextWalk){	
 				switch(dir){
-					case 0 : hoch(); break;
-					case 1 : rechts(); break;
-					case 2 : runter(); break;
-					case 3 : links(); break;
+					case 0 : up(); break;
+					case 1 : right(); break;
+					case 2 : down(); break;
+					case 3 : left(); break;
 				}
 				lastStep = System.currentTimeMillis();
 			}
@@ -633,7 +633,7 @@ public class Monster extends Figure {
 		 */
 		super.changeHealth(change);
 		if(getHealth()<=0){
-			window.level[getXPos()][getYPos()] = new Heiltrank(30);
+			window.level[getXPos()][getYPos()] = new HealthPot(30);
 			window.monsterListe.remove(this);
 		}
 	}

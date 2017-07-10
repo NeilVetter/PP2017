@@ -90,7 +90,7 @@ public abstract class Figure {
 		yPos--;
 	}
 	
-	public void rights(){
+	public void right(){
 		xPos++;
 	}
 	
