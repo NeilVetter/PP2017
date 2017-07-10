@@ -1,6 +1,7 @@
 package pp2017.team20.shared;
 
 import pp2017.team20.shared.*;
+import pp2017.team20.server.map.*;
 
 /**
  * Nachrichtenklasse, die beim LogIn den aktuellen Spieler sowie das Passwort uebermittelt.
@@ -19,7 +20,7 @@ public class LogInMessage extends Message {
 	public String password2;
 	private boolean success = false;
 	
-	private Level level;
+	private Maze maze;
 
 	/**
 	 * 
@@ -44,10 +45,10 @@ public class LogInMessage extends Message {
 	public void setSuccess(boolean success) {
 		this.success = success;
 	}
-	public Level getLevel(){
-		return level;
+	public Maze getMaze(){
+		return maze;
 	}
-	public void setLevel(Level level){
-		this.level = level;
+	public void setMaze(Maze maze){
+		this.maze = maze;
 	}
 }
