@@ -1,6 +1,6 @@
 package pp2017.team20.shared;
 
-import gui.HindiBones;
+import pp2017.team20.client.gui.GamingArea;
 
 import java.io.File;
 import java.io.IOException;
@@ -9,7 +9,7 @@ import java.util.Random;
 
 import javax.imageio.ImageIO;
 
-public class Monster extends Figur {
+public class Monster extends Figure {
 	/**
 	 * Hier werden alle Monster erstellt und auch der Situation entsprechend gesteuert
 	 * @author Sell, Robin, 6071120
@@ -31,10 +31,10 @@ public class Monster extends Figur {
 	private int strength; //St�rke: 1 schwach, 2 normal, 3 stark, 6 Hulk-Modus
 	private int state; //Zustand des Monsters: 0 Spazieren 1 Verfolgung 2 Attackieren 3 Fl�chten 4 Sterben
 
-	public HindiBones fenster; //eingedeutscht f�r Testumgebung
-	private Spieler spieler; //eingedeutscht f�r Testumgebung
+	public GamingArea window; //eingedeutscht f�r Testumgebung
+	private Player player; //eingedeutscht f�r Testumgebung
 	
-	public Monster(int x, int y, HindiBones fenster, int typ){
+	public Monster(int x, int y, GamingArea window, int typ){
 		/**
 		 * erstellt ein Monster an den Koordinaten (x,y) im Labyrinth und gibt ihm 
 		 * eine gewisse strength mit, die alle weiteren Werte beeinflusst
@@ -43,12 +43,12 @@ public class Monster extends Figur {
 		 * (Grundger�st: HindiBones)
 		 * 
 		 */
-		this.fenster = fenster;
-		this.spieler = fenster.spieler;
+		this.window = window;
+		this.player = window.player;
 		this.typ = typ;
 		setPos(x,y);
 		
-		double variable = Math.random() * 5 + fenster.currentLevel; //halb Zufall, halb Levelabh�ngig
+		double variable = Math.random() * 5 + window.currentLevel; //halb Zufall, halb Levelabh�ngig
 		if (variable < 5)
 			strength = 1;
 		else if (variable >= 5 && variable < 7)
@@ -64,8 +64,8 @@ public class Monster extends Figur {
 		lastAttack = System.currentTimeMillis();
 		lastStep = System.currentTimeMillis();
 		cooldownAttack = 500 - 10 * strength; 
-		cooldownWalk = 1000 - 20*strength - 5* fenster.currentLevel;
-		setSchaden(8+2*strength); //eingedeutscht f�r Testumgebung
+		cooldownWalk = 1000 - 20*strength - 5* window.currentLevel;
+		setDamage(8+2*strength); //eingedeutscht f�r Testumgebung
 		state = 0;
 		
 		
@@ -159,7 +159,7 @@ public class Monster extends Figur {
 		if(playerInFightRange()){
 			state = 2; // If im Fight Radius --> Attacke
 		}
-		else if(playerInVisibilityRange()||spieler.hatSchluessel()){ 
+		else if(playerInVisibilityRange()||player.ownsKey()){ 
 			boolean nextStep = (System.currentTimeMillis() - lastStep) >= cooldownWalk;
 			if (nextStep) {
 				dir = calculateDirection();
@@ -175,7 +175,7 @@ public class Monster extends Figur {
 		else  
 			state = 0; // Weder im Fight noch im Verfolgungsradius: "zur�ck" zum randomWalk
 	}
-	public boolean attackiereSpieler(boolean hatSchluessel){	
+	public boolean attackiereSpieler(boolean ownsKey){	
 		/** 
 		 * Schaltet hier in den Kampfmodus, abh�ngig davon ob der Spieler den Schl�ssel hat, und
 		 * �berpr�ft vorher, ob das Monster bei geringer Lebensenergie nicht lieber fliehen sollte, 
@@ -192,15 +192,15 @@ public class Monster extends Figur {
 		
 		// Ist der Spieler im Radius des Monsters?	
 		boolean spielerImRadius = 
-				(Math.abs(spieler.getXPos() - this.getXPos()) + Math.abs(spieler.getYPos() - this.getYPos()) < 2);
+				(Math.abs(player.getXPos() - this.getXPos()) + Math.abs(player.getYPos() - this.getYPos()) < 2);
 		boolean kannAngreifen = false;
 		if (typ == 0) kannAngreifen = ((System.currentTimeMillis() - lastAttack) >= cooldownAttack);
-		if (typ == 1) kannAngreifen = (hatSchluessel && ((System.currentTimeMillis() - lastAttack) >= cooldownAttack));
+		if (typ == 1) kannAngreifen = (ownsKey && ((System.currentTimeMillis() - lastAttack) >= cooldownAttack));
 		
 		// Kann das Monster angreifen?
 		if(spielerImRadius && kannAngreifen){
 			lastAttack = System.currentTimeMillis();
-			spieler.changeHealth(-getSchaden());
+			player.changeHealth(-getSchaden());
 			state = 2; //k�nnte auch weggelassen werden, aber zur �bersicht
 			return spielerImRadius;
 		}
@@ -239,7 +239,7 @@ public class Monster extends Figur {
 			return;   // Falls keine Lebensenergie mehr --> monsterDies	
 			}
 		
-		if(spieler.hatSchluessel()){ // checkt, ob Spieler den Schl�ssel hat und wechselt den Modus
+		if(player.ownsKey()){ // checkt, ob Spieler den Schl�ssel hat und wechselt den Modus
 			if(playerInFightRange()){
 				state = 2; // --> Attackieren
 				return;  
@@ -253,9 +253,9 @@ public class Monster extends Figur {
 		boolean nextWalk = (System.currentTimeMillis() - lastStep) >= cooldownWalk;
 		if (nextWalk) {
 			// Spieler ist westl. vom Monster
-			if (spieler.getXPos() < this.getXPos()) { 		// Player <---> Monster
+			if (player.getXPos() < this.getXPos()) { 		// Player <---> Monster
 				
-				if (spieler.getYPos() < this.getYPos()) { 	// Player--->
+				if (player.getYPos() < this.getYPos()) { 	// Player--->
 															//       ---> Monster
 					dir = 1; // fliehe gen Osten
 					if (!zulaessig()) { // falls Wand, Tuer, Schluessel
@@ -285,7 +285,7 @@ public class Monster extends Figur {
 						
 				} else {	// Monster <---> Player
 					
-					if (spieler.getYPos() < this.getYPos()) {	//          <--- Player
+					if (player.getYPos() < this.getYPos()) {	//          <--- Player
 					         									//	Monster <--- 
 						dir = 2; // fliehe gen Sueden
 						if (!zulaessig()) { // falls Wand, Tuer, Schluessel
@@ -331,9 +331,9 @@ public class Monster extends Figur {
 		 * (Grundger�st: HindiBones)
 		 */
 		
-		fenster.level[getXPos()][getYPos()] = new Heiltrank(30); // Monster hinterl�sst Heiltrank
+		window.level[getXPos()][getYPos()] = new HealthPot(30); // Monster hinterl�sst Heiltrank
 		// Random Verteilung von Heiltrank und Manatrank f�r Endversion hier
-		fenster.monsterListe.remove(this); // l�sche Monster
+		window.monsterList.remove(this); // l�sche Monster
 	}
 	
 	
@@ -419,7 +419,7 @@ public class Monster extends Figur {
 		AStarNode begin = new AStarNode(this.getXPos(), this.getYPos());
 		
 		begin.setPredecessor(null); 
-		begin.setDistanceFrom(Math.abs(this.getXPos() - spieler.getXPos()) + Math.abs(this.getYPos() - spieler.getYPos()));
+		begin.setDistanceFrom(Math.abs(this.getXPos() - player.getXPos()) + Math.abs(this.getYPos() - player.getYPos()));
 		begin.setDistanceTo(0);
 		
 		
@@ -428,7 +428,7 @@ public class Monster extends Figur {
 
 		AStarNode current = begin; 
 	
-		while (!openedList.isEmpty() && !(current.getX() == spieler.getXPos() && current.getY() == spieler.getYPos())) {
+		while (!openedList.isEmpty() && !(current.getX() == player.getXPos() && current.getY() == player.getYPos())) {
 
 			openedList.remove(current); //entferne den current Knoten aus der openedList
 			
@@ -443,8 +443,8 @@ public class Monster extends Figur {
 			
 			// Hier wird jetzt in den sich dadr�ber befindenen Nachbarknoten gegangen
 			if (!((current.getY() == 0) 
-					|| (fenster.level[current.getX()][current.getY() - 1] instanceof Wand)
-					|| (fenster.level[current.getX()][current.getY() - 1] instanceof Tuer))) {
+					|| (window.level[current.getX()][current.getY() - 1] instanceof Wand)
+					|| (window.level[current.getX()][current.getY() - 1] instanceof Tuer))) {
 
 				boolean neew = true; // AB HIER GILT: neew = new bzw neu
 				for (AStarNode node : openedList) {
@@ -464,7 +464,7 @@ public class Monster extends Figur {
 				if (neew) {
 
 					AStarNode node = new AStarNode(current.getX(), current.getY() - 1);
-					node.setDistanceFrom(Math.abs(node.getX() - spieler.getXPos()) + Math.abs(node.getY() - spieler.getYPos()));
+					node.setDistanceFrom(Math.abs(node.getX() - player.getXPos()) + Math.abs(node.getY() - player.getYPos()));
 					node.setDistanceTo(current.getDistanceTo() + 1);
 					node.setPredecessor(current);
 					openedList.add(node);
@@ -473,9 +473,9 @@ public class Monster extends Figur {
 
 			
 			// Hier wird jetzt in den sich dadrunter befindenen Nachbarknoten gegangen
-			if (!((current.getY() == fenster.HEIGHT) 
-					|| (fenster.level[current.getX()][current.getY() + 1] instanceof Wand)
-					|| (fenster.level[current.getX()][current.getY() + 1] instanceof Tuer))) {
+			if (!((current.getY() == window.HEIGHT) 
+					|| (window.level[current.getX()][current.getY() + 1] instanceof Wand)
+					|| (window.level[current.getX()][current.getY() + 1] instanceof Tuer))) {
 
 				boolean neew = true;
 				for (AStarNode node : openedList) {
@@ -496,7 +496,7 @@ public class Monster extends Figur {
 				if (neew) {
 
 					AStarNode node = new AStarNode(current.getX(), current.getY() + 1);
-					node.setDistanceFrom(Math.abs(node.getX() - spieler.getXPos()) + Math.abs(node.getY() - spieler.getYPos()));
+					node.setDistanceFrom(Math.abs(node.getX() - player.getXPos()) + Math.abs(node.getY() - player.getYPos()));
 					node.setDistanceTo(current.getDistanceTo() + 1);
 					node.setPredecessor(current);
 					openedList.add(node);
@@ -506,8 +506,8 @@ public class Monster extends Figur {
 
 			// Hier wird jetzt in den sich links daneben befindenen Nachbarknoten gegangen
 			if (!((current.getX() == 0) 
-					|| (fenster.level[current.getX() - 1][current.getY()] instanceof Wand)
-					|| (fenster.level[current.getX() - 1][current.getY()] instanceof Tuer))) {
+					|| (window.level[current.getX() - 1][current.getY()] instanceof Wand)
+					|| (window.level[current.getX() - 1][current.getY()] instanceof Tuer))) {
 
 				boolean neew = true;
 				for (AStarNode node : openedList) {
@@ -527,7 +527,7 @@ public class Monster extends Figur {
 				if (neew) {
 
 					AStarNode node = new AStarNode(current.getX() - 1, current.getY());
-					node.setDistanceFrom(Math.abs(node.getX() - spieler.getXPos()) + Math.abs(node.getY() - spieler.getYPos()));
+					node.setDistanceFrom(Math.abs(node.getX() - player.getXPos()) + Math.abs(node.getY() - player.getYPos()));
 					node.setDistanceTo(current.getDistanceTo() + 1);
 					node.setPredecessor(current);
 					openedList.add(node);
@@ -536,9 +536,9 @@ public class Monster extends Figur {
 
 
 			// Hier wird jetzt in den sich rechts daneben befindenen Nachbarknoten gegangen
-			if (!((current.getX() == fenster.HEIGHT) 
-					|| (fenster.level[current.getX() + 1][current.getY()] instanceof Wand)
-					|| (fenster.level[current.getX() + 1][current.getY()] instanceof Tuer))) {
+			if (!((current.getX() == window.HEIGHT) 
+					|| (window.level[current.getX() + 1][current.getY()] instanceof Wand)
+					|| (window.level[current.getX() + 1][current.getY()] instanceof Tuer))) {
 
 				boolean neew = true;
 				for (AStarNode node : openedList) {
@@ -558,7 +558,7 @@ public class Monster extends Figur {
 				if (neew) {
 
 					AStarNode node = new AStarNode(current.getX() + 1, current.getY());
-					node.setDistanceFrom(Math.abs(node.getX() - spieler.getXPos()) + Math.abs(node.getY() - spieler.getYPos()));
+					node.setDistanceFrom(Math.abs(node.getX() - player.getXPos()) + Math.abs(node.getY() - player.getYPos()));
 					node.setDistanceTo(current.getDistanceTo() + 1);
 					node.setPredecessor(current);
 					openedList.add(node);
@@ -583,7 +583,7 @@ public class Monster extends Figur {
 		// Hier wird  solange zur�ckverfolgt bis man am ersten Knoten
 		// nach dem Startknoten landet, um die n�chsten Knoten f�r die
 		// Methode zu erhalten
-		if (current.getX() == spieler.getXPos() && current.getY() == spieler.getYPos()) {
+		if (current.getX() == player.getXPos() && current.getY() == player.getYPos()) {
 			while (!current.getPredecessor().equals(begin))
 				current = current.getPredecessor();
 
@@ -616,10 +616,10 @@ public class Monster extends Figur {
 		if(zulaessig()){
 			if(nextWalk){	
 				switch(dir){
-					case 0 : hoch(); break;
-					case 1 : rechts(); break;
-					case 2 : runter(); break;
-					case 3 : links(); break;
+					case 0 : up(); break;
+					case 1 : right(); break;
+					case 2 : down(); break;
+					case 3 : left(); break;
 				}
 				lastStep = System.currentTimeMillis();
 			}
@@ -633,8 +633,8 @@ public class Monster extends Figur {
 		 */
 		super.changeHealth(change);
 		if(getHealth()<=0){
-			fenster.level[getXPos()][getYPos()] = new Heiltrank(30);
-			fenster.monsterListe.remove(this);
+			window.level[getXPos()][getYPos()] = new HealthPot(30);
+			window.monsterListe.remove(this);
 		}
 	}
 	public double cooldownProzent(){
@@ -667,21 +667,21 @@ public class Monster extends Figur {
 		if(dir == -1) return true;
 		
 		if(dir == 0 && getYPos()-1 > 0){
-			return !(fenster.level[getXPos()][getYPos()-1] instanceof Wand) &&
-				   !(fenster.level[getXPos()][getYPos()-1] instanceof Tuer) &&
-				   !(fenster.level[getXPos()][getYPos()-1] instanceof Schluessel);
-		}else if(dir == 1 && getXPos()+1 < fenster.WIDTH){
-			return !(fenster.level[getXPos()+1][getYPos()] instanceof Wand) &&
-				   !(fenster.level[getXPos()+1][getYPos()] instanceof Tuer) &&
-				   !(fenster.level[getXPos()+1][getYPos()] instanceof Schluessel);
-		}else if(dir == 2 && getYPos()+1 < fenster.HEIGHT){
-			return !(fenster.level[getXPos()][getYPos()+1] instanceof Wand) &&
-				   !(fenster.level[getXPos()][getYPos()+1] instanceof Tuer) &&
-				   !(fenster.level[getXPos()][getYPos()+1] instanceof Schluessel);
+			return !(window.level[getXPos()][getYPos()-1] instanceof Wand) &&
+				   !(window.level[getXPos()][getYPos()-1] instanceof Tuer) &&
+				   !(window.level[getXPos()][getYPos()-1] instanceof Schluessel);
+		}else if(dir == 1 && getXPos()+1 < window.WIDTH){
+			return !(window.level[getXPos()+1][getYPos()] instanceof Wand) &&
+				   !(window.level[getXPos()+1][getYPos()] instanceof Tuer) &&
+				   !(window.level[getXPos()+1][getYPos()] instanceof Schluessel);
+		}else if(dir == 2 && getYPos()+1 < window.HEIGHT){
+			return !(window.level[getXPos()][getYPos()+1] instanceof Wand) &&
+				   !(window.level[getXPos()][getYPos()+1] instanceof Tuer) &&
+				   !(window.level[getXPos()][getYPos()+1] instanceof Schluessel);
 		}else if(dir == 3 && getXPos() > 0 ){
-			return !(fenster.level[getXPos()-1][getYPos()] instanceof Wand) &&
-				   !(fenster.level[getXPos()-1][getYPos()] instanceof Tuer) &&
-				   !(fenster.level[getXPos()-1][getYPos()] instanceof Schluessel);
+			return !(window.level[getXPos()-1][getYPos()] instanceof Wand) &&
+				   !(window.level[getXPos()-1][getYPos()] instanceof Tuer) &&
+				   !(window.level[getXPos()-1][getYPos()] instanceof Schluessel);
 		}
 		else return false;
 	}
@@ -694,17 +694,17 @@ public class Monster extends Figur {
 	 * @author Sell, Robin, 6071120
 	 */
 	public boolean playerInVisibilityRange() { //ab hier schaltet das Monster von randomWalk auf runBehind
-		return (Math.sqrt(Math.pow(spieler.getXPos() - this.getXPos(), 2) 
-				+ Math.pow(spieler.getYPos() - this.getYPos(), 2)) < 4);
+		return (Math.sqrt(Math.pow(player.getXPos() - this.getXPos(), 2) 
+				+ Math.pow(player.getYPos() - this.getYPos(), 2)) < 4);
 	}
 	
 	public boolean playerInFreedomVisibilityRange() { //ab hier ist das Monster weit genug gefl�chtet, ob restForHealth zu machen
-		return (Math.sqrt(Math.pow(spieler.getXPos() - this.getXPos(), 2) 
-				+ Math.pow(spieler.getYPos() - this.getYPos(), 2)) < 6);
+		return (Math.sqrt(Math.pow(player.getXPos() - this.getXPos(), 2) 
+				+ Math.pow(player.getYPos() - this.getYPos(), 2)) < 6);
 	}
 	public boolean playerInFightRange() { //ab hier wird attackiert
-		return (Math.abs(spieler.getXPos() - this.getXPos()) 
-				+ Math.abs(spieler.getYPos() - this.getYPos()) < 2);
+		return (Math.abs(player.getXPos() - this.getXPos()) 
+				+ Math.abs(player.getYPos() - this.getYPos()) < 2);
 	}
 	
 }
