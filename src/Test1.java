@@ -8,6 +8,6 @@ public class Test1 {
 		System.out.println("blsasa");
 		System.out.println("test");
 	    System.out.println("wizard");
-	    System.out.println("Robin");
+	    System.out.println("Robin test");
 	}
 }
