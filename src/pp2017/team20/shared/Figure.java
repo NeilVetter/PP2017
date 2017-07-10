@@ -2,7 +2,7 @@ package pp2017.team20.shared;
 
 import java.awt.Image;
 
-public abstract class Figur {
+public abstract class Figure {
 	
 	/**
 	 * @author HindiBones
@@ -13,7 +13,7 @@ public abstract class Figur {
 	private Image image;
 	
 	private int health;
-	private int schaden;
+	private int damage;
 	private int maxHealth;
 	private int mana;
 	private int maxMana;
@@ -37,12 +37,12 @@ public abstract class Figur {
 		this.maxMana = maxMana;
 	}
 	
-	public void setSchaden(int schaden){
-		this.schaden = schaden;
+	public void setDamage(int damage){
+		this.damage = damage;
 	}
 	
 	public int getSchaden(){
-		return schaden;
+		return damage;
 	}
 	
 	public void changeHealth(int change){
@@ -86,19 +86,19 @@ public abstract class Figur {
 		return xPos;
 	}
 	
-	public void hoch(){
+	public void up(){
 		yPos--;
 	}
 	
-	public void rechts(){
+	public void rights(){
 		xPos++;
 	}
 	
-	public void runter(){
+	public void down(){
 		yPos++;
 	}
 	
-	public void links(){
+	public void left(){
 		xPos--;
 	}
 	

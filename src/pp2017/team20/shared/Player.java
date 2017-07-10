@@ -2,14 +2,18 @@ package pp2017.team20.shared;
 
 import pp2017.team20.server.map.*;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
 
 
 //Klasse für ein Objetk der types "Player"
 //Neil Vetter 6021336
 
 // erbt von der Klasse "Figur", übernommen aus HndiBones
-public class Player extends Figur{
+public class Player extends Figure{
 
 	public int PosY;
 	public int PosX;
@@ -52,6 +56,13 @@ public class Player extends Figur{
 		Door=false;
 		loggedIN=false;
 		PlayerMap= new int [15][15];
+		
+//		// Bild fuer den Spieler laden
+//		try {
+//			setImage(ImageIO.read(new File(imgDatei)));
+//		} catch (IOException e) {
+//			System.err.print("Das Bild "+ imgDatei + " konnte nicht geladen werden.");
+//		}
 	}
 	
 	public String getPlayername(){
