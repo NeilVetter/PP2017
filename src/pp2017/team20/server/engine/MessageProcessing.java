@@ -64,13 +64,9 @@ public class MessageProcessing {
 			MoveMessage movement = (MoveMessage) message;
 			MoveMessageProcessing(movement);
 		
-		}else if (message instanceof HealthPotMessage){
-			HealthPotMessage healthpot = (HealthPotMessage) message;
-			HealthPotMessageProcessing(healthpot);
-		
-		}else if (message instanceof ManaPotMessage){
-			ManaPotMessage manapot = (ManaPotMessage) message;
-			ManaPotMessageProcessing(manapot);
+		}else if (message instanceof UsePotionMessage){
+			UsePotionMessage pot = (UsePotionMessage) message;
+			UsePotionMessageProcessing(pot);
 		
 		}else if (message instanceof AttackMessage){
 			AttackMessage playerattack = (AttackMessage) message;
@@ -163,55 +159,69 @@ public class MessageProcessing {
 	}
 	
 		//Nehmen eines Lebens-trankts
-	public void HealthPotMessageProcessing(HealthPotMessage message){
-	
-		// falls der Spieler beim aktiviern des Tranks volles Leben hat
-		// passiert nichts, kein Trank wird verbraucht 
-		if(message.Health==100){
-			System.out.println("Leben ist schon voll");
+	public void UsePotionMessageProcessing(UsePotionMessage message) {
 
-			//Testet ob der Spieler einen Trank besitzt
-		}else if(message.HealthPotNumber>0){
-			
-			//Erh�ht das Leben des Spielers
-			Health = message.Health +30;
-			//Testet ob leben das maxleben �bersteigt undd falls dem so ist
-			//setzte Leben gleich Maxeben
-			if (Health>=100){
-				Health=100;
+		for (int i = 0; i < PlayerList.size(); i++) {
+			Player player = PlayerList.get(i);
+			if (message.playerID == player.playerID) {
+
+				switch (message.id) {
+
+				case 0:
+
+					// falls der Spieler beim aktiviern des Tranks volles Leben
+					// hat
+					// passiert nichts, kein Trank wird verbraucht
+					if (player.getHealth() == 100) {
+						System.out.println("Leben ist schon voll");
+
+						// Testet ob der Spieler einen Trank besitzt
+					} else if (player.healthPotNumber > 0) {
+
+						// Erhoeht das Leben des Spielers
+						player.setHealth(player.getHealth() + 30);
+						// Testet ob leben das maxleben uebersteigt undd falls
+						// dem so ist
+						// setzte Leben gleich Maxeben
+						if (player.getHealth() >= 100) {
+							player.setHealth(100);
+						}
+						// Nach erfolgreicher benutzung des Tranks reduziere die
+						// anzahl der tr�nke um 1
+						// Soll noch ge�ndert werden um mit der Itemliste zu
+						// funktionieren
+						player.healthPotNumber--;
+					}
+					System.out.println(player.playername + " "+ "wurde geheilt");
+					System.out.println(Health);
+
+					System.out.println(player.healthPotNumber);
+					
+					break;
+					
+				case 1:
+					
+					if(player.getMana()==100){
+						System.out.println("Mana ist schon voll");
+					//Testet ob der Spieler einen Trank besitzt
+					}else if(player.manaPotNumber>0){
+					
+						//Erhoeht das Mana des Spielers
+						player.setMana(player.getMana() + 30);
+						//Testet ob Mana das Maxmana �bersteigt undd falls dem so ist
+						//setzte Mana gleich Maxmana
+						if (player.getMana()>=100){
+							player.setMana(100);
+						}
+						//Nach erfolgreicher benutzung des Tranks reduziere die anzahl der tr�nke um 1
+						//Soll noch ge�ndert werden um mit der Itemliste zu funktionieren
+						player.manaPotNumber--;
+					}
+				}
 			}
-			//Nach erfolgreicher benutzung des Tranks reduziere die anzahl der tr�nke um 1
-			//Soll noch ge�ndert werden um mit der Itemliste zu funktionieren
-			message.HealthPotNumber--;
 		}
-		System.out.println(message.player.playername+" "+"wurde geheilt");
-		System.out.println(Health);
-		
-		System.out.println(message.HealthPotNumber);
-
 	}
 
-	public void ManaPotMessageProcessing(ManaPotMessage message){
-	
-		// falls der Spieler beim aktiviern des Tranks volles Mana hat
-		// passiert nichts, kein Trank wird verbraucht
-		if(message.Mana==100){
-			System.out.println("Mana ist schon voll");
-		//Testet ob der Spieler einen Trank besitzt
-		}else if(message.ManaPotNumber>0){
-		
-			//Erh�ht das Mana des Spielers
-			Mana = message.Mana +30;
-			//Testet ob Mana das Maxmana �bersteigt undd falls dem so ist
-			//setzte Mana gleich Maxmana
-			if (Mana>=100){
-				Mana=100;
-			}
-			//Nach erfolgreicher benutzung des Tranks reduziere die anzahl der tr�nke um 1
-			//Soll noch ge�ndert werden um mit der Itemliste zu funktionieren
-			message.ManaPotNumber--;
-		}
-	}
 
 	//Methode zum angriff von einem Spielr auf ein Monster
 	//Funktioniert noch nicht, da Monster Klasse nicht eingebungden
