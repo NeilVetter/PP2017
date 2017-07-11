@@ -30,6 +30,7 @@ public class ServerReceiver extends Thread {
 	// Speichert Message-Objekte
 	private Message messageFC;
 
+	
 	/**
 	 * * Initialisiert den Socket 'client' und den HandlerServer 'networkHandler'
 	 * 

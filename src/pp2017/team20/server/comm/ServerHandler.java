@@ -122,6 +122,20 @@ public class ServerHandler {
 	}
 
 	
+	
+	/**
+	 * 
+	 * Gibt die Nachrichten aus, die vom Clienten geschickt werden
+	 *
+	 * @author Yuxuan Kong 6019218
+	 * @return Message-object, das vom ObjectInputStream gelesen wird
+	 */
+	public Message getMessageFromClient() {
+		return receiver.getMessage();
+	}
+
+
+	
 	/**
 	 * 
 	 * Schließt den Socket, den Timertask und die Anwendung. Diese Methode erlaubt
@@ -156,17 +170,6 @@ public class ServerHandler {
 
 	
 	/**
-	 * 
-	 * Gibt die Nachrichten aus, die vom Clienten geschickt werden
-	 *
-	 * @author Yuxuan Kong 6019218
-	 * @return Message-object, das vom ObjectInputStream gelesen wird
-	 */
-	public Message getMessageFromClient() {
-		return receiver.getMessage();
-	}
-
-	/**
 	 * Die folgenden Methoden sind ebenfalls wieder normale Getter und Setter, die nicht
 	 * ausführlich erklärt werden müssen
 	 * 
@@ -174,7 +177,6 @@ public class ServerHandler {
 	 * 
 	 */
 
-	
 	
 	public void setConnected(boolean connected) {
 		this.connected = connected;
