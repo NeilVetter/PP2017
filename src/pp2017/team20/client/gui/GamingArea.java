@@ -194,11 +194,11 @@ public class GamingArea extends JFrame implements KeyListener {
 		this.chat = new Chat(this);
 		this.map = new MiniMap(this);
 
-		this.player = new Player();
+		//this.player = new Player();
 
 		// hier wird das LogIn Fenster aufgerufen und Benutzername und Passwort
 		// werden abgefragt
-		Registration.main(null);
+		//Registration.main(null);
 
 		// Hier werden Breite und Hoehe der einzelnen Elemente des Spielfeldes
 		// festgelegt
