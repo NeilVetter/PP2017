@@ -23,7 +23,8 @@ public class ChatMessage extends Message {
 	 * @author Wagner, Tobias, 5416213
 	 * 
 	 */
-	public ChatMessage(String newMessage){
+	public ChatMessage(int clientID, String newMessage){
+		super(clientID);
 		messageContent = newMessage;
 	}
 	

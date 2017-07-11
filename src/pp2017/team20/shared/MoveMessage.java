@@ -24,7 +24,8 @@ public class MoveMessage extends Message {
 	 * @author Wagner, Tobias, 5416213
 	 * 
 	 */
-	public MoveMessage(int xPos, int yPos, int ID) {
+	public MoveMessage(int clientID, int xPos, int yPos, int ID) {
+		super(clientID);
 		this.xPos = xPos;
 		this.yPos = yPos;
 		this.id = ID;
