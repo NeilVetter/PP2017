@@ -28,7 +28,7 @@ public class GamingArea extends JFrame implements KeyListener {
 	private Chat chat;
 	private MiniMap map;
 
-	public Player player;
+//	public Player player;
 
 	public long startTime;
 	public int neededTime;
@@ -36,7 +36,6 @@ public class GamingArea extends JFrame implements KeyListener {
 	public boolean highscoreShown = false;
 	public boolean controlShown = false;
 	public boolean starFound = false;
-	public boolean success = false;
 	public int elixirs = 0;
 
 	// hier wird die Breite und Hoehe des gesamten Spielfeldes festgelegt
@@ -194,11 +193,6 @@ public class GamingArea extends JFrame implements KeyListener {
 		this.chat = new Chat(this);
 		this.map = new MiniMap(this);
 
-		this.player = new Player();
-
-		// hier wird das LogIn Fenster aufgerufen und Benutzername und Passwort
-		// werden abgefragt
-		Registration.main(null);
 
 		// Hier werden Breite und Hoehe der einzelnen Elemente des Spielfeldes
 		// festgelegt
@@ -385,4 +379,8 @@ public class GamingArea extends JFrame implements KeyListener {
 
 	public void keyReleased(KeyEvent e) {
 	}
+	
+//	public void resetGame() {
+//		player = new Player("img//player.png", this);
+//	}
 }
