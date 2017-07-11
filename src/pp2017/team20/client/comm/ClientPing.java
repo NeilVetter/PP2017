@@ -49,13 +49,13 @@ public class ClientPing extends TimerTask {
 	public void run() {
 		//Zählt die Ping-Nachrichten
 		pingIteration++;
-		if (this.networkHandler.getConnectedState1() && this.networkHandler.getConnectedState2()) {
+		if (this.networkHandler.getConnectedStatus1() && this.networkHandler.getConnectedStatus2()) {
 			// Sendet den ersten Versuch
 			pingOne();
-		} else if (!this.networkHandler.getConnectedState1() && this.networkHandler.getConnectedState2()) {
+		} else if (!this.networkHandler.getConnectedStatus1() && this.networkHandler.getConnectedStatus2()) {
 			// Sendet den zweiten Versuch
 			pingTwo();
-		} else if (!this.networkHandler.getConnectedState1() && !this.networkHandler.getConnectedState2()) {
+		} else if (!this.networkHandler.getConnectedStatus1() && !this.networkHandler.getConnectedStatus2()) {
 			// Schließt die Verbindung nach zwei fehlgeschlagenen Versuchen
 			stopConnection();
 		}
@@ -72,7 +72,7 @@ public class ClientPing extends TimerTask {
 	 */
 	private void pingOne() {
 
-		this.networkHandler.setConnectedState1(false);
+		this.networkHandler.setConnectedStatus1(false);
 		this.networkHandler.sendMessageToServer(new MessPing(100, 0));
 	}
 
@@ -86,8 +86,8 @@ public class ClientPing extends TimerTask {
 	 * @author Yuxuan Kong 6019218
 	 */
 	private void pingTwo() {
-		this.networkHandler.setConnectedState1(false);
-		this.networkHandler.setConnectedState2(false);
+		this.networkHandler.setConnectedStatus1(false);
+		this.networkHandler.setConnectedStatus2(false);
 		this.networkHandler.sendMessageToServer(new MessPing(100, 0));
 	}
 

@@ -19,7 +19,7 @@ import pp2017.team20.shared.*;
  * @author Yuxuan Kong 6019218
  * 
  */
-public class TransmitterServer extends Thread {
+public class ServerTransmitter extends Thread {
 
 	
 	private Socket client;
@@ -37,7 +37,7 @@ public class TransmitterServer extends Thread {
 	 * @param client
 	 *            definiert den Socket des Clienten
 	 */
-	public TransmitterServer(Socket client) {
+	public ServerTransmitter(Socket client) {
 		this.client = client;
 	}
 
@@ -56,7 +56,7 @@ public class TransmitterServer extends Thread {
 			out = new ObjectOutputStream(client.getOutputStream());
 			while (true) {
 				// Der Thread wartet bis die Nachrichten abgefragt werden können
-				messageTC = messagesToClient.poll(100, TimeUnit.MILLISECONDS);
+				messageTC = messagesToClient.poll(200, TimeUnit.MILLISECONDS);
 				if (messageTC != null) {
 					// Schreibt eine Nachricht in einem OutputStream
 					out.writeObject(messageTC);
@@ -79,7 +79,7 @@ public class TransmitterServer extends Thread {
 				
 				this.out.close();
 			} catch (IOException e) {
-				System.out.println("ERROR: TRANSMITTERSERVER in transmitMessage()");
+				System.out.println("Fehler: TRANSMITTERSERVER in transmitMessage()");
 				e.printStackTrace();
 			}
 			
@@ -106,7 +106,7 @@ public class TransmitterServer extends Thread {
 			
 			this.messagesToClient.put(message);
 		} catch (InterruptedException e) {
-			System.out.println("ERROR: TRANSMITTERSERVER.writeMessage(Message message)");
+			System.out.println("Fehler: TRANSMITTERSERVER.writeMessage(Message message)");
 			e.printStackTrace();
 		}
 	}
