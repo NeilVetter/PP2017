@@ -546,12 +546,12 @@ public class ClientEngine {
 				// Neues Level wird angefordert
 				window.currentLevel++;
 				// Neues Level wird geladen
-				window.level = message.getLevel().gameworld;
+				window.maze = message.getMaze().gameworld;
 				// Laedt die Startposition des Spielers
-				window.xPos = message.getLevel().getXPos();
-				window.yPos = message.getLevel().getYPos();
+				window.xPos = message.getMaze().getxPos();
+				window.yPos = message.getMaze().getyPos();
 				// Laedt die Monster des Levels
-				window.buffermonsterList = message.getLevel().monsterList;
+				window.buffermonsterList = message.getMaze().monsterList;
 				// Wen die Spielfeldkachel nicht vom Spieler belegt wird, also
 				// ungleich -1 ist, dann wird ein Monster platziert
 				for (int i = 0; i < message.getMaze().monsterfield.length; i++) {
@@ -632,23 +632,23 @@ public class ClientEngine {
 
 	public void receiveNewGameMessage(NewGameMessage message) {
 		if (message.success) {
-			window.level = message.getLevel().gameworld;
-			window.xPos = message.getLevel().getXPos();
-			window.yPos = message.getLevel().getYPos();
-			window.buffermonsterList = message.getLevel().monsterList;
+			window.maze = message.getMaze().gameworld;
+			window.xPos = message.getMaze().getXPos();
+			window.yPos = message.getMaze().getYPos();
+			window.buffermonsterList = message.getMaze().monsterList;
 			// Wen die Spielfeldkachel nicht vom Spieler belegt wird, also
 			// ungleich -1 ist, dann wird ein Monster platziert
-			for (int i = 0; i < message.getLevel().monsterfield.length; i++) {
-				for (int j = 0; j < message.getLevel().monsterfield.length; j++) {
-					if (message.getLevel().monsterfield[i][j] != -1) {
-						window.buffermonsterList.get(message.getLevel().monsterfield[i][j]).setPos(i, j);
+			for (int i = 0; i < message.getMaze().monsterfield.length; i++) {
+				for (int j = 0; j < message.getMaze().monsterfield.length; j++) {
+					if (message.getMaze().monsterfield[i][j] != -1) {
+						window.buffermonsterList.get(message.getMaze().monsterfield[i][j]).setPos(i, j);
 					}
 				}
 			}
 		}
 
 		window.gameReset();
-		window.showGameWorld();
+		window.showGamingWorld();
 	}
 
 }
