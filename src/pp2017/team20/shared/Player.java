@@ -100,7 +100,7 @@ public class Player extends Figure{
 		this.manaPotNumber=ManaPotNumber;
 	}
 	public void setPlayerLvl(int PlayerLvl){
-		this.PlayerLvl=PlayerLvl;
+		this.playerLvl=PlayerLvl;
 	}
 	public boolean ownsKey(){
 		return ownsKey;
