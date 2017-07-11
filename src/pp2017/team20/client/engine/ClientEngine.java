@@ -35,7 +35,7 @@ public class ClientEngine {
 	 * 
 	 */
 
-	public ClientEngine(ClientCommunication communication, Window window) {
+	public ClientEngine(ClientCommunication communication, GamingArea window) {
 		this.communication = communication;
 		this.window = window;
 	}
