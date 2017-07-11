@@ -9,5 +9,9 @@ package pp2017.team20.shared;
  */
 
 public class OpenDoorMessage extends Message {
+	
+	public OpenDoorMessage(int clientID) {
+		super(clientID);
+	}
 
 }

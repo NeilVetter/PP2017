@@ -21,7 +21,7 @@ import pp2017.team20.shared.*;
  * @author Yuxuan Kong 6019218
  * 
  */
-public class TransmitterClient extends Thread {
+public class ClientTransmitter extends Thread {
 
 	private Socket server;
 	// Zum Senden von Message-Objekten
@@ -37,7 +37,7 @@ public class TransmitterClient extends Thread {
 	 * @param server
 	 *            definiert den Socket des Clienten
 	 */
-	public TransmitterClient(Socket server) {
+	public ClientTransmitter(Socket server) {
 		this.server = server;
 	}
 

@@ -20,7 +20,8 @@ public class UsePotionMessage extends Message{
 	 * @author Wagner, Tobias, 5416213
 	 */
 	
-	public UsePotionMessage(int id){
+	public UsePotionMessage(int clientID, int id){
+		super(clientID);
 		this.id = id;
 	}
 

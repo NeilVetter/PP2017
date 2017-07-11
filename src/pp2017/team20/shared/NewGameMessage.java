@@ -15,6 +15,10 @@ public class NewGameMessage extends Message {
 	
 	private Maze lvl;
 	
+	public NewGameMessage(int clientID) {
+		super(clientID);
+	}
+	
 	//Getter und Setter
 	//Initialisiert das zu ladene Level
 	public void setMaze(Maze lvl){

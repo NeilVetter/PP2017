@@ -21,7 +21,8 @@ public class HighScoreMessage extends Message {
 	 * 
 	 */
 	
-	public HighScoreMessage(String user, int time) {
+	public HighScoreMessage(int clientID, String user, int time) {
+		super(clientID);
 		this.user = user;
 		this.time = time;
 	}
