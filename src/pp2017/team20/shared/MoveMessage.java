@@ -15,6 +15,8 @@ public class MoveMessage extends Message {
 	public int xPos;
 	public int yPos;
 	public boolean success = false;
+	public int playerID;
+	public boolean succsess;
 	
 
 	/**
