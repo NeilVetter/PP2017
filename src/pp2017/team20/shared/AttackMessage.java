@@ -19,6 +19,8 @@ public class AttackMessage extends Message {
 	//Variablen, um die jeweils aktuelle Position zu bestimmen
 	public int xPos;
 	public int yPos;
+	public int playerID;
+	public int monsterID;
 	
 	/**
 	 * 
@@ -28,7 +30,8 @@ public class AttackMessage extends Message {
 	 * @author Wagner, Tobias, 5416213
 	 */
 	
-	public AttackMessage(int attackID, int defendID) {
+	public AttackMessage(int clientID, int attackID, int defendID) {
+		super(clientID);
 		this.attackID = attackID;
 		this.defendID = defendID;
 	}

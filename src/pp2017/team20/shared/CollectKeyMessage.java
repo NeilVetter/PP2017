@@ -10,5 +10,11 @@ package pp2017.team20.shared;
  */
 
 public class CollectKeyMessage extends Message {
+	
+	public boolean success;
+	
+	public CollectKeyMessage(int clientID) {
+		super(clientID);
+	}
 
 }

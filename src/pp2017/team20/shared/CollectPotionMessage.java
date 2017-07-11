@@ -9,5 +9,9 @@ package pp2017.team20.shared;
  */
 
 public class CollectPotionMessage extends Message {
+	
+	public CollectPotionMessage(int clientID) {
+		super(clientID);
+	}
 
 }
