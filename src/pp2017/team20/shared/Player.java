@@ -9,10 +9,10 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
 
-//Klasse für ein Objetk der types "Player"
+//Klasse fï¿½r ein Objetk der types "Player"
 //Neil Vetter 6021336
 
-// erbt von der Klasse "Figur", übernommen aus HndiBones
+// erbt von der Klasse "Figur", ï¿½bernommen aus HndiBones
 public class Player extends Figure{
 
 	public int yPos;
@@ -30,19 +30,19 @@ public class Player extends Figure{
 	public boolean ownsKey;
 	public boolean door;
 	
-	//Konstruktor für die Anmeldung(Macht jetzt Datebank)
+	//Konstruktor fï¿½r die Anmeldung(Macht jetzt Datebank)
 	public Player (String playername, String pasword,int PosX,int PosY,int PlayerID,boolean loggedIN){
 		this.playername=playername;
 		this.pasword=pasword;
 		this.xPos=PosX;
 		this.yPos=PosY;
-		this.PlayerID=PlayerID;
+		this.playerID=PlayerID;
 		this.loggedIN=loggedIN;
 	}
 	//Konstruktor um einen neuen Spieler zu erstellen
 	//Nach zusammensetzen ohne PosX/PosY
 	public Player (int PlayerID,int xPos,int yPos,String playername){
-		this.PlayerID=PlayerID;
+		this.playerID=PlayerID;
 		this.xPos=xPos;
 		this.yPos=yPos;
 		this.playername=playername;
@@ -55,7 +55,7 @@ public class Player extends Figure{
 		ownsKey=false;
 		door=false;
 		loggedIN=false;
-		PlayerMap= new int [15][15];
+		playerMap= new int [15][15];
 		
 //		// Bild fuer den Spieler laden
 //		try {
