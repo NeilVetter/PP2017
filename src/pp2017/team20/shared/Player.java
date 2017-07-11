@@ -31,8 +31,7 @@ public class Player extends Figure{
 	public boolean ownsKey;
 	public boolean door;
 	
-<<<<<<< HEAD
-=======
+	
 	private GamingArea window;
 	
 	public Player(String imgFile, GamingArea window){
@@ -53,7 +52,6 @@ public class Player extends Figure{
 		}
 	}
 	
->>>>>>> branch 'master' of https://github.com/NeilVetter/PP2017
 	//Konstruktor f�r die Anmeldung(Macht jetzt Datebank)
 	public Player (String playername, String pasword,int PosX,int PosY,int PlayerID,boolean loggedIN){
 		this.playername=playername;
