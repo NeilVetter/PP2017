@@ -19,6 +19,8 @@ public class AttackMessage extends Message {
 	//Variablen, um die jeweils aktuelle Position zu bestimmen
 	public int xPos;
 	public int yPos;
+	public int playerID;
+	public int mosterID;
 	
 	/**
 	 * 
