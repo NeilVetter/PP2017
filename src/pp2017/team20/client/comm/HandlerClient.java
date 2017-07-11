@@ -33,9 +33,9 @@ public class HandlerClient {
 	// Verbindungen zum Socket schließen
 	private boolean closeNetwork;
 	// Verbindungsstatus
-	private boolean connectedState1;
+	private boolean connectedStatus1;
 	// Verbindungsstatus
-	private boolean connectedState2;
+	private boolean connectedStatus2;
 
 	/**
 	 * 
@@ -55,8 +55,8 @@ public class HandlerClient {
 		while (this.server == null) {
 			try {
 				this.server = new Socket(adresse, 44444);
-				this.connectedState1 = true;
-				this.connectedState2 = true;
+				this.connectedStatus1 = true;
+				this.connectedStatus2 = true;
 			} catch (UnknownHostException e) {
 				System.out.println("ERROR: HandlerClient");
 				e.printStackTrace();
@@ -188,22 +188,22 @@ public class HandlerClient {
 
 	
 	public void setConnectedState1(boolean connectedState1) {
-		this.connectedState1 = connectedState1;
+		this.connectedStatus1 = connectedState1;
 	}
 
 	
 	public boolean getConnectedState1() {
-		return this.connectedState1;
+		return this.connectedStatus1;
 	}
 
 	
 	public void setConnectedState2(boolean connectedState2) {
-		this.connectedState2 = connectedState2;
+		this.connectedStatus2 = connectedState2;
 	}
 
 	
 	public boolean getConnectedState2() {
-		return this.connectedState2;
+		return this.connectedStatus2;
 	}
 
 	
