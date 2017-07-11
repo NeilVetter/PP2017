@@ -17,12 +17,12 @@ import pp2017.team20.shared.*;
  * 
  * @author Yuxuan Kong 6019218
  */
-public class PingCheckServer extends TimerTask {
+public class ServerPing extends TimerTask {
 
 	
 	private int pingIteration = 0;
 	//Verbindungsstatuts und senden von MessPing-Nachrichten
-	private HandlerServer networkHandler;
+	private ServerHandler networkHandler;
 
 	/**
 	 * Initialisiert HandlerServer 'networkHandler'
@@ -31,7 +31,7 @@ public class PingCheckServer extends TimerTask {
 	 * @param networkHandler
 	 *            definiert HandlerServer, der TimerTask startet
 	 */
-	public PingCheckServer(HandlerServer networkHandler) {
+	public ServerPing(ServerHandler networkHandler) {
 		this.networkHandler = networkHandler;
 	}
 
@@ -46,13 +46,13 @@ public class PingCheckServer extends TimerTask {
 	@Override
 	public void run() {
 		pingIteration++;
-		if (this.networkHandler.getConnectedState1() && this.networkHandler.getConnectedState2()) {
+		if (this.networkHandler.getConnectedStatus1() && this.networkHandler.getConnectedStatus2()) {
 			
 			pingOne();
-		} else if (!this.networkHandler.getConnectedState1() && this.networkHandler.getConnectedState2()) {
+		} else if (!this.networkHandler.getConnectedStatus1() && this.networkHandler.getConnectedStatus2()) {
 
 			pingTwo();
-		} else if (!this.networkHandler.getConnectedState1() && !this.networkHandler.getConnectedState2()) {
+		} else if (!this.networkHandler.getConnectedStatus1() && !this.networkHandler.getConnectedStatus2()) {
 
 			stopConnection();
 		}
@@ -62,8 +62,8 @@ public class PingCheckServer extends TimerTask {
 	 * @author Yuxuan Kong 6019218
 	 */
 	private void pingTwo() {
-		this.networkHandler.setConnectedState1(false);
-		this.networkHandler.setConnectedState2(false);
+		this.networkHandler.setConnectedStatus1(false);
+		this.networkHandler.setConnectedStatus2(false);
 		
 		this.networkHandler.sendMessageToClient(new shared.MessPing(100, 0));
 	}
@@ -72,7 +72,7 @@ public class PingCheckServer extends TimerTask {
 	 * @author Yuxuan Kong 6019218
 	 */
 	private void pingOne() {
-		this.networkHandler.setConnectedState1(false);
+		this.networkHandler.setConnectedStatus1(false);
 		this.networkHandler.sendMessageToClient(new MessPing(100, 0));
 	}
 

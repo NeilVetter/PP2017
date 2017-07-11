@@ -17,11 +17,11 @@ public class Player extends Figure{
 
 	public int yPos;
 	public int xPos;
-	public int PlayerLvl;
-	public int [][] PlayerMap;
+	public int playerLvl;
+	public int [][] playerMap;
 	public static ArrayList<Maze> LevelList=new ArrayList<Maze>();
 	public ArrayList<Item> ItemList = new ArrayList<Item>();
-	public int PlayerID;
+	public int playerID;
 	public String playername;
 	private String pasword;
 	public int healthPotNumber;

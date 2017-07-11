@@ -12,6 +12,7 @@ public class UsePotionMessage extends Message{
 	
 	//id zur Identifikation des aktuellen Spielers
 	public int id;
+	public int playerID;
 	
 	/**
 	 * 
@@ -20,9 +21,10 @@ public class UsePotionMessage extends Message{
 	 * @author Wagner, Tobias, 5416213
 	 */
 	
-	public UsePotionMessage(int clientID, int id){
+	public UsePotionMessage(int clientID, int id,int playerID){
 		super(clientID);
 		this.id = id;
+		this.playerID=playerID;
 	}
 
 }

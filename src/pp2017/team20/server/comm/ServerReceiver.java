@@ -18,9 +18,9 @@ import pp2017.team20.shared.*;
  * @author Yuxuan Kong 6019218
  * 
  */
-public class ReceiverServer extends Thread {
+public class ServerReceiver extends Thread {
 
-	private HandlerServer networkHandler;
+	private ServerHandler networkHandler;
 	
 	private Socket client;
 	
@@ -30,6 +30,7 @@ public class ReceiverServer extends Thread {
 	// Speichert Message-Objekte
 	private Message messageFC;
 
+	
 	/**
 	 * * Initialisiert den Socket 'client' und den HandlerServer 'networkHandler'
 	 * 
@@ -37,7 +38,7 @@ public class ReceiverServer extends Thread {
 	 * @param client
 	 *            definiert Socket des Clienten
 	 */
-	public ReceiverServer(Socket client, HandlerServer networkHandler) {
+	public ServerReceiver(Socket client, ServerHandler networkHandler) {
 		this.client = client;
 		this.networkHandler = networkHandler;
 	}
@@ -57,20 +58,19 @@ public class ReceiverServer extends Thread {
 				ThreadWaitForMessage.waitFor(100L);
 				
 				messageFC = (Message) in.readObject();
-				this.networkHandler.setConnectedState1(true);
-				this.networkHandler.setConnectedState2(true);
-				// System.out.println(messageFC.toString());
+				this.networkHandler.setConnectedStatus1(true);
+				this.networkHandler.setConnectedStatus2(true);
 				if (messageFC != null) {
 					messagesFromClient.put(messageFC);
 				}
 			}
 		} catch (EOFException e) {
-			System.out.println("ERROR ObjectInputStream: RECEIVERSERVER");
+			System.out.println("Fehler ObjectInputStream: RECEIVERSERVER");
 			e.printStackTrace();
 		} catch (SocketException e) {
 			
 			this.networkHandler.close();
-			System.out.println("ERROR SocketException: RECEIVERSERVER");
+			System.out.println("Fehler SocketException: RECEIVERSERVER");
 			e.printStackTrace();
 		} catch (IOException | ClassNotFoundException | InterruptedException e) {
 			System.out.println("readObject() ERROR in RECEIVERSERVER.receiveMessage()");

@@ -15,7 +15,7 @@ import pp2017.team20.shared.*;
  * @author Yuxuan Kong 6019218
  * 
  */
-public class HandlerServer {
+public class ServerHandler {
 
 	// Definiert den Serverport
 	private ServerSocket server;
@@ -24,25 +24,25 @@ public class HandlerServer {
 	// Führt TimerTask aus
 	private Timer pingTimer;
 	// Startet receiving Thread
-	private ReceiverServer receiver;
+	private ServerReceiver receiver;
 	// Startet sending Thread
-	private TransmitterServer transmitter;
+	private ServerTransmitter transmitter;
 	// Verbindungsstatuts zwischen Server und Client
 	private boolean connected;
 
 	private boolean closeNetwork;
 	
-	private boolean connectedState1;
+	private boolean connectedStatus1;
 	
-	private boolean connectedState2;
+	private boolean connectedStatus2;
 
 	/**
 	 * 
-	 * Führt die init()-Methode aus, s.d. die Verbindung zwischen Server und Client aufgebaut werden kann
+	 * Führt die init()-Methode aus, s.d. die Verbindung zwischen Server und Client aufgebaut werden kann.
 	 * 
 	 * @author Yuxuan Kong 6019218
 	 */
-	public HandlerServer() {
+	public ServerHandler() {
 		init();
 	}
 
@@ -58,8 +58,8 @@ public class HandlerServer {
 	public void init() {
 
 		pingTimer = new Timer();
-		this.connectedState1 = true;
-		this.connectedState2 = true;
+		this.connectedStatus1 = true;
+		this.connectedStatus2 = true;
 		this.closeNetwork = false;
 
 		try {
@@ -69,12 +69,12 @@ public class HandlerServer {
 				client = server.accept();
 				// Startet die Threads und den TimerTask
 				if (client.isConnected()) {
-					receiver = new ReceiverServer(client, this);
-					transmitter = new TransmitterServer(client);
+					receiver = new ServerReceiver(client, this);
+					transmitter = new ServerTransmitter(client);
 					receiver.start();
 					transmitter.start();
 					
-					pingTimer.scheduleAtFixedRate(new PingCheckServer(this), 3000, 3000);
+					pingTimer.scheduleAtFixedRate(new ServerPing(this), 2000, 2000);
 					connected = true;
 				}
 
@@ -84,38 +84,6 @@ public class HandlerServer {
 			e.printStackTrace();
 			
 			System.exit(1);
-		}
-	}
-
-	/**
-	 * 
-	 * Schließt den Socket, den Timertask und die Anwendung. Diese Methode erlaubt
-	 * das Schließen der Verbindung zwischen Server und Client. Startet dann wieder
-	 * die Verbindung.
-	 * 
-	 * @author Yuxuan Kong 6019218
-	 */
-	public void close() {
-
-		try {
-			System.out.println("CLOSED: HandlerServer");
-			// Beendet den Timer
-			this.pingTimer.cancel();
-			this.setConnected(false);
-			// Beendet den Thread für Nachrichten empfangen
-			this.receiver.interrupt();
-			// Beendet den Thread für Nachrichten senden
-			this.transmitter.interrupt();
-			// Schließt den Socket
-			this.client.close();
-			// Schließt den Server-Socket
-			this.server.close();
-			// Startet eine Verbindung mit einem Client
-			this.init();
-			
-		} catch (IOException e) {
-			System.out.println("ERROR: HANDLERSERVER");
-			e.printStackTrace();
 		}
 	}
 
@@ -153,6 +121,8 @@ public class HandlerServer {
 		transmitter.writeMessage(message);
 	}
 
+	
+	
 	/**
 	 * 
 	 * Gibt die Nachrichten aus, die vom Clienten geschickt werden
@@ -164,6 +134,41 @@ public class HandlerServer {
 		return receiver.getMessage();
 	}
 
+
+	
+	/**
+	 * 
+	 * Schließt den Socket, den Timertask und die Anwendung. Diese Methode erlaubt
+	 * das Schließen der Verbindung zwischen Server und Client. Startet dann wieder
+	 * die Verbindung.
+	 * 
+	 * @author Yuxuan Kong 6019218
+	 */
+	public void close() {
+
+		try {
+			System.out.println("CLOSED: HandlerServer");
+			// Beendet den Timer
+			this.pingTimer.cancel();
+			this.setConnected(false);
+			// Beendet den Thread für Nachrichten empfangen
+			this.receiver.interrupt();
+			// Beendet den Thread für Nachrichten senden
+			this.transmitter.interrupt();
+			// Schließt den Socket
+			this.client.close();
+			// Schließt den Server-Socket
+			this.server.close();
+			// Startet eine Verbindung mit einem Client
+			this.init();
+			
+		} catch (IOException e) {
+			System.out.println("ERROR: HANDLERSERVER");
+			e.printStackTrace();
+		}
+	}
+
+	
 	/**
 	 * Die folgenden Methoden sind ebenfalls wieder normale Getter und Setter, die nicht
 	 * ausführlich erklärt werden müssen
@@ -172,7 +177,6 @@ public class HandlerServer {
 	 * 
 	 */
 
-	
 	
 	public void setConnected(boolean connected) {
 		this.connected = connected;
@@ -190,30 +194,20 @@ public class HandlerServer {
 		return this.closeNetwork;
 	}
 
-	public void setConnectedState1(boolean connectedState1) {
-		this.connectedState1 = connectedState1;
+	public void setConnectedStatus1(boolean connectedStatus1) {
+		this.connectedStatus1 = connectedStatus1;
 	}
 
-	public boolean getConnectedState1() {
-		return this.connectedState1;
+	public boolean getConnectedStatus1() {
+		return this.connectedStatus1;
 	}
 
-	public void setConnectedState2(boolean connectedState2) {
-		this.connectedState2 = connectedState2;
+	public void setConnectedStatus2(boolean connectedStatus2) {
+		this.connectedStatus2 = connectedStatus2;
 	}
 
-	public boolean getConnectedState2() {
-		return this.connectedState2;
+	public boolean getConnectedStatus2() {
+		return this.connectedStatus2;
 	}
-
-	// For Testing
-//	public void addMessage(Message message) {
-//		try {
-//			receiver.messagesFromClient.put(message);
-//		} catch (InterruptedException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//	}
 
 }
