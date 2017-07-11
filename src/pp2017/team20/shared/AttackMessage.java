@@ -20,7 +20,7 @@ public class AttackMessage extends Message {
 	public int xPos;
 	public int yPos;
 	public int playerID;
-	public int mosterID;
+	public int monsterID;
 	
 	/**
 	 * 

@@ -217,9 +217,9 @@ public class MessageProcessing {
 	//Funktioniert noch nicht, da Monster Klasse nicht eingebungden
 		public void AttackMessageProcessing(AttackMessage message){
 	
-			if(Attacker is Human){
+			if(message.attackID==1){
 				
-				for(int i=0;i<PlayerList.size();i++){
+				for(int i=0;i<MonsterList.size();i++){
 					Monster monster = MonsterList.get(i);
 					if(message.monsterID==monster.monsterID){
 						
@@ -239,11 +239,16 @@ public class MessageProcessing {
 				}
 			
 			
-			}else{
+			}else if(message.attackID==0){
+				
+				for(int i=0;i<PlayerList.size();i++){
+					Player player = PlayerList.get(i);
+					if(message.playerID==player.playerID){
+				
 				if(moveAllowed==true){
 					
 					//f�ge dem Player Schaden zu
-					message.player.setDamage(10);
+					player.setDamage(10);
 					
 					//Falls der Player <=0 Hp f�llt entferne Ihn aus der Liste 
 					if(message.player.health<=0){
