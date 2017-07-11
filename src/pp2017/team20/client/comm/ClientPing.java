@@ -19,10 +19,10 @@ import pp2017.team20.shared.*;
  * 
  * @author Yuxuan Kong 6019218
  */
-public class PingCheckClient extends TimerTask {
+public class ClientPing extends TimerTask {
 
 	//Um Ping-Nachrichten zu senden
-	private HandlerClient networkHandler;
+	private ClientHandler networkHandler;
 	// Zählt die gesendeten Ping-Nachrichten
 	private int pingIteration = 0;
 
@@ -33,7 +33,7 @@ public class PingCheckClient extends TimerTask {
 	 * @param networkHandler
 	 *            definiert den HandlerClient, der den TimerTask ausführt
 	 */
-	public PingCheckClient(HandlerClient networkHandler) {
+	public ClientPing(ClientHandler networkHandler) {
 		this.networkHandler = networkHandler;
 	}
 

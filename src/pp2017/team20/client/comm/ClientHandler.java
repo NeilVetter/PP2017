@@ -19,23 +19,23 @@ import pp2017.team20.shared.*;
  * 
  */
 
-public class HandlerClient {
+public class ClientHandler {
 	// Sammelt die Nachrichten, die zum Server geschickt werden, in einer Queue
 	public LinkedBlockingQueue<Message> outputQueue = new LinkedBlockingQueue<>();
 	// Verbindung mit dem Server-Port
 	private Socket server;
 	// Erhalte Nachrichten mit Threads
-	private ReceiverClient receiver;
+	private ClientReceiver receiver;
 	// Sende Nachrichten mit Threads
-	private TransmitterClient transmitter;
+	private ClientTransmitter transmitter;
 	// Executes the TimerTask
 	private Timer pingTimer;
 	// Verbindungen zum Socket schließen
 	private boolean closeNetwork;
 	// Verbindungsstatus
-	private boolean connectedState1;
+	private boolean connectedStatus1;
 	// Verbindungsstatus
-	private boolean connectedState2;
+	private boolean connectedStatus2;
 
 	/**
 	 * 
@@ -48,15 +48,15 @@ public class HandlerClient {
 	 * @param adresse
 	 *            definiert Serveradresse
 	 */
-	public HandlerClient(String adresse) {
+	public ClientHandler(String adresse) {
 		this.pingTimer = new Timer();
 		this.closeNetwork = false;
 		//Verbindung mit dem ServerSocket
 		while (this.server == null) {
 			try {
 				this.server = new Socket(adresse, 44444);
-				this.connectedState1 = true;
-				this.connectedState2 = true;
+				this.connectedStatus1 = true;
+				this.connectedStatus2 = true;
 			} catch (UnknownHostException e) {
 				System.out.println("ERROR: HandlerClient");
 				e.printStackTrace();
@@ -82,12 +82,12 @@ public class HandlerClient {
 	private void startComponents() {
 		System.out.println("HandlerClient.startComponents()");
 		// Initialisiert Thread um Nachrichten zu senden und empfangen
-		transmitter = new TransmitterClient(server);
-		receiver = new ReceiverClient(server, this);
+		transmitter = new ClientTransmitter(server);
+		receiver = new ClientReceiver(server, this);
 		transmitter.start();
 		receiver.start();
 		// Der Timer 'pingTimer' führt den TimerTask-PingCheckClient innerhalb eines bestimmten Intervalls aus
-		this.pingTimer.scheduleAtFixedRate(new PingCheckClient(this), 3000, 3000);
+		this.pingTimer.scheduleAtFixedRate(new ClientPing(this), 3000, 3000);
 	}
 
 	/**
@@ -155,7 +155,7 @@ public class HandlerClient {
 	 * @author Yuxuan Kong 6019218
 	 * @return Instanz TransmitterClient
 	 */
-	public TransmitterClient getTransmitterC() {
+	public ClientTransmitter getTransmitterC() {
 		return this.transmitter;
 	}
 
@@ -165,7 +165,7 @@ public class HandlerClient {
 	 * @author Yuxuan Kong 6019218
 	 * @return Instanz ReceiverClient
 	 */
-	public ReceiverClient getReceiverC() {
+	public ClientReceiver getReceiverC() {
 		return this.receiver;
 	}
 
@@ -188,22 +188,22 @@ public class HandlerClient {
 
 	
 	public void setConnectedState1(boolean connectedState1) {
-		this.connectedState1 = connectedState1;
+		this.connectedStatus1 = connectedState1;
 	}
 
 	
 	public boolean getConnectedState1() {
-		return this.connectedState1;
+		return this.connectedStatus1;
 	}
 
 	
 	public void setConnectedState2(boolean connectedState2) {
-		this.connectedState2 = connectedState2;
+		this.connectedStatus2 = connectedState2;
 	}
 
 	
 	public boolean getConnectedState2() {
-		return this.connectedState2;
+		return this.connectedStatus2;
 	}
 
 	

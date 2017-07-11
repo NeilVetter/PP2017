@@ -20,10 +20,10 @@ import pp2017.team20.shared.*;
  * @author Yuxuan Kong 6019218
  * 
  */
-public class ReceiverClient extends Thread {
+public class ClientReceiver extends Thread {
 
 	// Verbindungsstatus nach dem Empfangen der Nachrichten
-	private HandlerClient networkHandler;
+	private ClientHandler networkHandler;
 	// Sammelt die vom Server empfangenen Nachrichten
 	private LinkedBlockingQueue<Message> messagesFromServer = new LinkedBlockingQueue<>();
 	
@@ -42,7 +42,7 @@ public class ReceiverClient extends Thread {
 	 *            Definiert den Socket für den Client
 	 * 
 	 */
-	public ReceiverClient(Socket server, HandlerClient networkHandler) {
+	public ClientReceiver(Socket server, ClientHandler networkHandler) {
 		this.server = server;
 		this.networkHandler = networkHandler;
 	}
