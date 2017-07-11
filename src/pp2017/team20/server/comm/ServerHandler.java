@@ -38,7 +38,7 @@ public class ServerHandler {
 
 	/**
 	 * 
-	 * Führt die init()-Methode aus, s.d. die Verbindung zwischen Server und Client aufgebaut werden kann
+	 * Führt die init()-Methode aus, s.d. die Verbindung zwischen Server und Client aufgebaut werden kann.
 	 * 
 	 * @author Yuxuan Kong 6019218
 	 */
