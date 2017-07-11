@@ -28,7 +28,8 @@ public class AttackMessage extends Message {
 	 * @author Wagner, Tobias, 5416213
 	 */
 	
-	public AttackMessage(int attackID, int defendID) {
+	public AttackMessage(int clientID, int attackID, int defendID) {
+		super(clientID);
 		this.attackID = attackID;
 		this.defendID = defendID;
 	}

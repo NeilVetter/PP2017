@@ -30,8 +30,9 @@ public class LogInMessage extends Message {
 	 * 
 	 * @author Wagner, Tobias, 5416213
 	 */
-	public LogInMessage(String user, String password1, String password2) {
-
+	public LogInMessage(int clientID, String user, String password1, String password2) {
+		
+		super(clientID);
 		this.user = user;
 		this.password1 = password1;
 		this.password2 = password2;

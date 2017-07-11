@@ -36,6 +36,7 @@ public class GamingArea extends JFrame implements KeyListener {
 	public boolean highscoreShown = false;
 	public boolean controlShown = false;
 	public boolean starFound = false;
+	public boolean success = false;
 	public int elixirs = 0;
 
 	// hier wird die Breite und Hoehe des gesamten Spielfeldes festgelegt
