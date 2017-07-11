@@ -19,15 +19,15 @@ import pp2017.team20.shared.*;
  * 
  */
 
-public class HandlerClient {
+public class ClientHandler {
 	// Sammelt die Nachrichten, die zum Server geschickt werden, in einer Queue
 	public LinkedBlockingQueue<Message> outputQueue = new LinkedBlockingQueue<>();
 	// Verbindung mit dem Server-Port
 	private Socket server;
 	// Erhalte Nachrichten mit Threads
-	private ReceiverClient receiver;
+	private ClientReceiver receiver;
 	// Sende Nachrichten mit Threads
-	private TransmitterClient transmitter;
+	private ClientTransmitter transmitter;
 	// Executes the TimerTask
 	private Timer pingTimer;
 	// Verbindungen zum Socket schließen
@@ -48,7 +48,7 @@ public class HandlerClient {
 	 * @param adresse
 	 *            definiert Serveradresse
 	 */
-	public HandlerClient(String adresse) {
+	public ClientHandler(String adresse) {
 		this.pingTimer = new Timer();
 		this.closeNetwork = false;
 		//Verbindung mit dem ServerSocket
@@ -82,12 +82,12 @@ public class HandlerClient {
 	private void startComponents() {
 		System.out.println("HandlerClient.startComponents()");
 		// Initialisiert Thread um Nachrichten zu senden und empfangen
-		transmitter = new TransmitterClient(server);
-		receiver = new ReceiverClient(server, this);
+		transmitter = new ClientTransmitter(server);
+		receiver = new ClientReceiver(server, this);
 		transmitter.start();
 		receiver.start();
 		// Der Timer 'pingTimer' führt den TimerTask-PingCheckClient innerhalb eines bestimmten Intervalls aus
-		this.pingTimer.scheduleAtFixedRate(new PingCheckClient(this), 3000, 3000);
+		this.pingTimer.scheduleAtFixedRate(new ClientPing(this), 3000, 3000);
 	}
 
 	/**
@@ -155,7 +155,7 @@ public class HandlerClient {
 	 * @author Yuxuan Kong 6019218
 	 * @return Instanz TransmitterClient
 	 */
-	public TransmitterClient getTransmitterC() {
+	public ClientTransmitter getTransmitterC() {
 		return this.transmitter;
 	}
 
@@ -165,7 +165,7 @@ public class HandlerClient {
 	 * @author Yuxuan Kong 6019218
 	 * @return Instanz ReceiverClient
 	 */
-	public ReceiverClient getReceiverC() {
+	public ClientReceiver getReceiverC() {
 		return this.receiver;
 	}
 
