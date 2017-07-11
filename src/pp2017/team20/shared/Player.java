@@ -1,5 +1,6 @@
 package pp2017.team20.shared;
 
+import pp2017.team20.client.gui.GamingArea;
 import pp2017.team20.server.map.*;
 
 import java.io.File;
@@ -9,10 +10,10 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
 
-//Klasse für ein Objetk der types "Player"
+//Klasse fï¿½r ein Objetk der types "Player"
 //Neil Vetter 6021336
 
-// erbt von der Klasse "Figur", übernommen aus HndiBones
+// erbt von der Klasse "Figur", ï¿½bernommen aus HndiBones
 public class Player extends Figure{
 
 	public int yPos;
@@ -30,7 +31,27 @@ public class Player extends Figure{
 	public boolean ownsKey;
 	public boolean door;
 	
-	//Konstruktor für die Anmeldung(Macht jetzt Datebank)
+	private GamingArea window;
+	
+	public Player(String imgFile, GamingArea window){
+		this.window = window;
+
+		setHealthPotNumber(0);
+		setPos(0, 0);
+//		setLeben(100);
+//		setMaxLeben(getLeben());
+//		setName("Hindi Bones");
+//		setSchaden(8);
+		
+		// Bild fuer den Spieler laden
+		try {
+			setImage(ImageIO.read(new File(imgFile)));
+		} catch (IOException e) {
+			System.err.print("Das Bild "+ imgFile + " konnte nicht geladen werden.");
+		}
+	}
+	
+	//Konstruktor fï¿½r die Anmeldung(Macht jetzt Datebank)
 	public Player (String playername, String pasword,int PosX,int PosY,int PlayerID,boolean loggedIN){
 		this.playername=playername;
 		this.pasword=pasword;
@@ -57,12 +78,6 @@ public class Player extends Figure{
 		loggedIN=false;
 		PlayerMap= new int [15][15];
 		
-//		// Bild fuer den Spieler laden
-//		try {
-//			setImage(ImageIO.read(new File(imgDatei)));
-//		} catch (IOException e) {
-//			System.err.print("Das Bild "+ imgDatei + " konnte nicht geladen werden.");
-//		}
 	}
 	
 	public String getPlayername(){

@@ -28,7 +28,7 @@ public class GamingArea extends JFrame implements KeyListener {
 	private Chat chat;
 	private MiniMap map;
 
-	public Player player;
+//	public Player player;
 
 	public long startTime;
 	public int neededTime;
