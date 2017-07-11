@@ -215,28 +215,40 @@ public class MessageProcessing {
 
 	//Methode zum angriff von einem Spielr auf ein Monster
 	//Funktioniert noch nicht, da Monster Klasse nicht eingebungden
-		public void PlayerAttackMessageProcessing(AttackMessage message){
+		public void AttackMessageProcessing(AttackMessage message){
 	
-			if(Attacker is Human){
+			if(message.attackID==1){
 				
-			
-			//Monster pr�ft ob der Anngriff erfolgen darf und schickt dann die Nachricht
-			if(moveAllowed==true){
-				
-				//f�ge dem Monster schaden zu
-				message.monster.setDamage(10);
-				
-				//Falls das Monster auf <=0 Hp f�llt entferne es aus dem Spiel
-				if(message.monster.health<=0){
-					MonsterList.remove(message.monster);
-					System.out.println("Monster gestorben");
+				for(int i=0;i<MonsterList.size();i++){
+					Monster monster = MonsterList.get(i);
+					if(message.monsterID==monster.monsterID){
+						
+						//Monster pr�ft ob der Anngriff erfolgen darf und schickt dann die Nachricht
+						if(moveAllowed==true){
+							
+							//f�ge dem Monster schaden zu
+							monster.setDamage(10);
+							
+							//Falls das Monster auf <=0 Hp f�llt entferne es aus dem Spiel
+							if(monster.getHealth()<=0){
+								MonsterList.remove(monster);
+								System.out.println("Monster gestorben");
+							}
+						}
+					}
 				}
-			}
-			}else{
+			
+			
+			}else if(message.attackID==0){
+				
+				for(int i=0;i<PlayerList.size();i++){
+					Player player = PlayerList.get(i);
+					if(message.playerID==player.playerID){
+				
 				if(moveAllowed==true){
 					
 					//f�ge dem Player Schaden zu
-					message.player.setDamage(10);
+					player.setDamage(10);
 					
 					//Falls der Player <=0 Hp f�llt entferne Ihn aus der Liste 
 					if(message.player.health<=0){
