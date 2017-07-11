@@ -66,8 +66,8 @@ public class ClientReceiver extends Thread {
 				//Setze die Variablen connectedState1 und connectedState2 auf true, 
 				//damit die Verbindung zwischen Server und Client steht.
 				//Der PingCheckClient checkt ob der Inputstream lesbar ist
-				networkHandler.setConnectedState1(true);
-				networkHandler.setConnectedState2(true);
+				networkHandler.setConnectedStatus1(true);
+				networkHandler.setConnectedStatus2(true);
 				if (messageFS != null) {
 					// Speichert die Nachrichten in die Queue messagesFromServer
 					messagesFromServer.put(messageFS);
