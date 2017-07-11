@@ -21,7 +21,8 @@ public class LogInMessage extends Message {
 	private boolean success = false;
 	
 	int LevelID;
-	Maze maze = new Maze(LevelID);;
+	Maze maze = new Maze(LevelID);
+	public boolean succsess;
 	
 
 	/**

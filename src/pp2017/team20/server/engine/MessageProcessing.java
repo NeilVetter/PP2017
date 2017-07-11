@@ -1,164 +1,187 @@
 package pp2017.team20.server.engine;
 
 import java.util.*;
-
 import pp2017.team20.shared.*;
+import pp2017.team20.server.comm.*;
 
 public class MessageProcessing {
 
-//Database database = new database();
-	//movement
+	// Database database = new database();
+	// movement
 	private boolean neighbour;
 	private int Health;
 	private int Mana;
 	private boolean moveAllowed;
 
-	Queue <Message> MessageQueue= new LinkedList<Message>();
+	Queue<Message> MessageQueue = new LinkedList<Message>();
 	private LinkedList<Monster> MonsterList = new LinkedList<Monster>();
-	public ArrayList <Player> PlayerList = new ArrayList<Player>();
-	public ArrayList <String> ChatList = new ArrayList<String>();
-	
+	public ArrayList<Player> PlayerList = new ArrayList<Player>();
+	public ArrayList<String> ChatList = new ArrayList<String>();
 
+	// ServerHandler comm;
+	// Message message=comm.getMessageFromClient();
+	// MessageQueue.add(message);
+	// MessageProcess(MessageQueue);
 
-	
-	
-	//Leerer Konstruktor f�r MassageProcessing
-	public MessageProcessing(){
-		
+	// LKonstruktor fuer MassageProcessing
+
+	public MessageProcessing() {
+
 	}
-	
-	//Nimmt eine Message aus dem Queue und entscheidet welcher Unterklasse sie angeh�rt
-	public void MessageProcess(Queue <Message> queue){
-		
-		
-		
-		
-		try{
-			//Pr�ft solange eine Message im Queue ist welchen Typ die Nachricht hat
-			while(!queue.isEmpty()){
-			
+
+	// Nimmt eine Message aus dem Queue und entscheidet welcher Unterklasse sie
+	// angeh�rt
+	public void MessageProcess(Queue<Message> queue) {
+
+		try {
+			// Pr�ft solange eine Message im Queue ist welchen Typ die
+			// Nachricht hat
+			while (!queue.isEmpty()) {
+
 				Message message = queue.poll();
 				WhatMessageType(message);
 			}
-		}catch(Exception e){
-			
+		} catch (Exception e) {
+
 		}
 	}
-	//Wird in MessageProcess aufgerufen und entscheidet welchen Typs die Message ist 
+
+	// Wird in MessageProcess aufgerufen und entscheidet welchen Typs die
+	// Message ist
 
 	public void WhatMessageType(Message message) {
-		
-		//testet welchen typs die nachricht ist
-		if(message instanceof LogInMessage){
-			//Castet die Nachricht um sie als LoginMessage benutzen zu k�nnen
+
+		// testet welchen typs die nachricht ist
+		if (message instanceof LogInMessage) {
+			// Castet die Nachricht um sie als LoginMessage benutzen zu k�nnen
 			LogInMessage login = (LogInMessage) message;
-			//ruft die zugeh�rige Processing-Methode auf
+			// ruft die zugeh�rige Processing-Methode auf
 			LogInMessageProcessing(login);
 		}
-		
-		else if (message instanceof LogOutMessage){
+
+		else if (message instanceof LogOutMessage) {
 			LogOutMessage logout = (LogOutMessage) message;
 			LogOutMessageProcessing(logout);
-		
-		}else if (message instanceof MoveMessage){
+
+		} else if (message instanceof MoveMessage) {
 			MoveMessage movement = (MoveMessage) message;
 			MoveMessageProcessing(movement);
-		
-		}else if (message instanceof UsePotionMessage){
+
+		} else if (message instanceof UsePotionMessage) {
 			UsePotionMessage pot = (UsePotionMessage) message;
 			UsePotionMessageProcessing(pot);
-		
-		}else if (message instanceof AttackMessage){
+
+		} else if (message instanceof AttackMessage) {
 			AttackMessage playerattack = (AttackMessage) message;
 			AttackMessageProcessing(playerattack);
-		
-		}else if (message instanceof PlayerDeadMessage){
-			PlayerDeadMessage playerdead = (PlayerDeadMessage) message;
-			PlayerDeadMessageProcessing(playerdead);
-		
-		}else if (message instanceof MonsterDeadMessage){
-			MonsterDeadMessage monsterdead = (MonsterDeadMessage) message;
-			MonsterDeadMessageProcessing(monsterdead);
-		
-		}else if(message instanceof ItemPickUpMessage){
+
+		} else if (message instanceof DeathMessage) {
+			DeathMessage dead = (DeathMessage) message;
+			DeathMessageProcessing(dead);
+		} else if (message instanceof ItemPickUpMessage) {
 			ItemPickUpMessage itempick = (ItemPickUpMessage) message;
 			ItemPickUpMessageProcessing(itempick);
-		}else if(message instanceof NextLevelMessage){
+		} else if (message instanceof NextLevelMessage) {
 			NextLevelMessage next = (NextLevelMessage) message;
 			NextLevelMessageProcessing(next);
-		}else if(message instanceof LevelMessage){
-			LevelMessage lvl = (LevelMessage) message;
-			LevelMessageProcessing(lvl);
+		} else if (message instanceof SendLevelMessage) {
+			SendLevelMessage lvl = (SendLevelMessage) message;
+			SendLevelMessageProcessing(lvl);
 		}
 	}
-	
-//Wird gesendet nachdem Levelgenerator in der Datenbank gepr�ft hat,
-//ob der Nutzer schon existiert
-//oder andernfalls neu eingetragen wurde
 
+	// Wird gesendet nachdem Levelgenerator in der Datenbank gepr�ft hat,
+	// ob der Nutzer schon existiert
+	// oder andernfalls neu eingetragen wurde
 
-	public void LoginMessageProcessing(LogInMessage message){
-		
-		//wenn der Levelgenerator succsess==true angibt hat der login bei ihm funktioniert
-		if(message.succsess==true){
-			// �ndert den Zustand des Spieler zu LoggedIN so dass dies immer bekannt
-			message.player.loggedIN=true;
-			//F�gt den Spieler der Liste aktiver Spieler bei
-			PlayerList.add(message.player);
-			
-			System.out.println(message.player.playername+"'s login war erfolgreich");
-		}else{
-			// meldet zur�ck, dass der login gescheitert ist
-			message.player.loggedIN= false;
-			
-			System.out.println(message.player.playername+"'s login war nicht erfolgreich");
-		}
-	}
-	
-	public void LogoutMessageProcessing(LogOutMessage message){
-		
-		//�ndert den Zustand des Spielers zu LoggedOFF
-		message.player.loggedIN=false;
-		//Entfernt den Spieler aus der Liste der aktiven Spieler
-		PlayerList.remove(message.player);
-		
-		System.out.println(message.player.playername+" "+"ist abgemeldet");
-	}
+	public void LogInMessageProcessing(LogInMessage message) {
 
-	public void MovementMessageProcessing(MoveMessage message){
-			
-		//Test, ob das Feld benachbart zur vorherigen Position des Spielers
-			
-		if(Math.abs(message.DPosX-message.player.PosX)+Math.abs(message.DPosY-message.player.PosY)<=1){
-			
-			neighbour = true;
-			
-			//falls das feld benachbart ist...
-			if(neighbour == true){
-					
-				//...Teste ob angesprochenes Feld begehbar ist
-				if(message.player.PlayerMap[message.DPosX][message.DPosY]!=0);
-										
-					//Setze die Position des Spielers auf die aus der Message
-					message.player.PosX=message.DPosX;
-					message.player.PosY=message.DPosY;
-					//Gebe zur�ck dass der Schritt erfolgreich
-					message.succsess =true;
-					System.out.println(message.player.playername+" "+"Hat sich ein Feld bewegt");
-						
-			}else{
-				//Gebe zur�ck das der Schritt gesscheitert
-				message.succsess=false;
-				System.out.println(message.player.playername+" "+"Hat sich nicht bewegt");
+		for (int i = 0; i < PlayerList.size(); i++) {
+			Player player = PlayerList.get(i);
+			if (player.playerID == player.playerID) {
+				// wenn der Levelgenerator succsess==true angibt hat der login
+				// bei ihm funktioniert
+				if (message.succsess == true) {
+					// Aendert den Zustand des Spieler zu LoggedIN so dass dies
+					// immer bekannt
+					player.loggedIN = true;
+					// F�gt den Spieler der Liste aktiver Spieler bei
+					PlayerList.add(player);
 
+					System.out.println(player.playername
+							+ "'s login war erfolgreich");
+				} else {
+					// meldet zur�ck, dass der login gescheitert ist
+					player.loggedIN = false;
+
+					System.out.println(player.playername
+							+ "'s login war nicht erfolgreich");
+				}
 			}
 		}
-		//Position des Spielers nach dem Schritt(unver�ndert falls fehlgeschlagen
-		System.out.println(message.player.PosX);
-		System.out.println(message.player.PosY);
 	}
-	
-		//Nehmen eines Lebens-trankts
+
+	public void LogOutMessageProcessing(LogOutMessage message) {
+		for (int i = 0; i < PlayerList.size(); i++) {
+			Player player = PlayerList.get(i);
+			if (message.playerID == player.playerID) {
+				// Aendert den Zustand des Spielers zu LoggedOFF
+				player.loggedIN = false;
+				// Entfernt den Spieler aus der Liste der aktiven Spieler
+				PlayerList.remove(player);
+
+				System.out.println(player.playername + " " + "ist abgemeldet");
+				// sendMessageToClient(message);
+			}
+		}
+	}
+
+	public void MoveMessageProcessing(MoveMessage message) {
+
+		for (int i = 0; i < PlayerList.size(); i++) {
+			Player player = PlayerList.get(i);
+			if (message.playerID == player.playerID) {
+				// Test, ob das Feld benachbart zur vorherigen Position des
+				// Spielers
+
+				if (Math.abs(message.xPos - player.xPos)
+						+ Math.abs(message.yPos - player.yPos) <= 1) {
+
+					neighbour = true;
+
+					// falls das feld benachbart ist...
+					if (neighbour == true) {
+
+						// ...Teste ob angesprochenes Feld begehbar ist
+						if (player.playerMap[message.xPos][message.yPos] != 0)
+							;
+
+						// Setze die Position des Spielers auf die aus der
+						// Message
+						player.xPos = message.xPos;
+						player.yPos = message.yPos;
+						// Gebe zur�ck dass der Schritt erfolgreich
+						message.succsess = true;
+						System.out.println(player.playername + " "
+								+ "Hat sich ein Feld bewegt");
+
+					} else {
+						// Gebe zur�ck das der Schritt gesscheitert
+						message.succsess = false;
+						System.out.println(player.playername + " "
+								+ "Hat sich nicht bewegt");
+
+					}
+				}
+				// Position des Spielers nach dem Schritt(unver�ndert falls
+				// fehlgeschlagen
+				System.out.println(player.xPos);
+				System.out.println(player.yPos);
+			}
+		}
+	}
+
+	// Nehmen eines Lebens-trankts
 	public void UsePotionMessageProcessing(UsePotionMessage message) {
 
 		for (int i = 0; i < PlayerList.size(); i++) {
@@ -192,29 +215,33 @@ public class MessageProcessing {
 						// funktionieren
 						player.healthPotNumber--;
 					}
-					System.out.println(player.playername + " "+ "wurde geheilt");
+					System.out.println(player.playername + " "
+							+ "wurde geheilt");
 					System.out.println(Health);
 
 					System.out.println(player.healthPotNumber);
-					
+
 					break;
-					
+
 				case 1:
-					
-					if(player.getMana()==100){
+
+					if (player.getMana() == 100) {
 						System.out.println("Mana ist schon voll");
-					//Testet ob der Spieler einen Trank besitzt
-					}else if(player.manaPotNumber>0){
-					
-						//Erhoeht das Mana des Spielers
+						// Testet ob der Spieler einen Trank besitzt
+					} else if (player.manaPotNumber > 0) {
+
+						// Erhoeht das Mana des Spielers
 						player.setMana(player.getMana() + 30);
-						//Testet ob Mana das Maxmana �bersteigt undd falls dem so ist
-						//setzte Mana gleich Maxmana
-						if (player.getMana()>=100){
+						// Testet ob Mana das Maxmana �bersteigt undd falls
+						// dem so ist
+						// setzte Mana gleich Maxmana
+						if (player.getMana() >= 100) {
 							player.setMana(100);
 						}
-						//Nach erfolgreicher benutzung des Tranks reduziere die anzahl der tr�nke um 1
-						//Soll noch ge�ndert werden um mit der Itemliste zu funktionieren
+						// Nach erfolgreicher benutzung des Tranks reduziere die
+						// anzahl der tr�nke um 1
+						// Soll noch ge�ndert werden um mit der Itemliste zu
+						// funktionieren
 						player.manaPotNumber--;
 					}
 				}
@@ -222,143 +249,169 @@ public class MessageProcessing {
 		}
 	}
 
+	// Methode zum angriff von einem Spielr auf ein Monster
+	// Funktioniert noch nicht, da Monster Klasse nicht eingebungden
+	public void AttackMessageProcessing(AttackMessage message) {
 
-	//Methode zum angriff von einem Spielr auf ein Monster
-	//Funktioniert noch nicht, da Monster Klasse nicht eingebungden
-		public void AttackMessageProcessing(AttackMessage message){
-	
-			if(message.attackID==1){
-				
-				for(int i=0;i<MonsterList.size();i++){
-					Monster monster = MonsterList.get(i);
-					if(message.monsterID==monster.monsterID){
-						
-						//Monster pr�ft ob der Anngriff erfolgen darf und schickt dann die Nachricht
-						if(moveAllowed==true){
-							
-							//f�ge dem Monster schaden zu
-							monster.setDamage(10);
-							
-							//Falls das Monster auf <=0 Hp f�llt entferne es aus dem Spiel
-							if(monster.getHealth()<=0){
-								MonsterList.remove(monster);
-								System.out.println("Monster gestorben");
-							}
+		if (message.attackID == 1) {
+
+			for (int i = 0; i < MonsterList.size(); i++) {
+				Monster monster = MonsterList.get(i);
+				if (message.monsterID == monster.monsterID) {
+
+					// Monster pr�ft ob der Anngriff erfolgen darf und schickt
+					// dann die Nachricht
+					if (moveAllowed == true) {
+
+						// f�ge dem Monster schaden zu
+						monster.setDamage(10);
+
+						// Falls das Monster auf <=0 Hp f�llt entferne es aus
+						// dem Spiel
+						if (monster.getHealth() <= 0) {
+							MonsterList.remove(monster);
+							System.out.println("Monster gestorben");
 						}
 					}
 				}
-			
-			
-			}else if(message.attackID==0){
-				
-				for(int i=0;i<PlayerList.size();i++){
-					Player player = PlayerList.get(i);
-					if(message.playerID==player.playerID){
-				
-				if(moveAllowed==true){
-					
-					//f�ge dem Player Schaden zu
-					player.setDamage(10);
-					
-					//Falls der Player <=0 Hp f�llt entferne Ihn aus der Liste 
-					if(message.player.health<=0){
-						Player.LevelList.remove(message.player);
-						//Benutze Methode aus Levelmanagement um den Spieler an das anfangsfeld zu stellen
-						Levelmanagement l = new Levelmanagement(message.player);
-						l.placePlayer(message.player);
-						//regeneriere die stats des spielers
-						message.player.setHealth(100);
-						message.player.setMana(100);
+			}
+
+		} else if (message.attackID == 0) {
+
+			for (int i = 0; i < PlayerList.size(); i++) {
+				Player player = PlayerList.get(i);
+				if (message.playerID == player.playerID) {
+
+					if (moveAllowed == true) {
+
+						// f�ge dem Player Schaden zu
+						player.setDamage(10);
+
+						// Falls der Player <=0 Hp f�llt entferne Ihn aus der
+						// Liste
+						if (player.getHealth() <= 0) {
+							Player.LevelList.remove(player);
+							// Benutze Methode aus Levelmanagement um den
+							// Spieler an das anfangsfeld zu stellen
+							Levelmanagement l = new Levelmanagement(player);
+							l.placePlayer(player.playerID);
+							// regeneriere die stats des spielers
+							player.setHealth(100);
+							player.setMana(100);
+						}
 					}
 				}
 			}
+		}
 	}
-			
-	//Methode falls der Spieler noch durch andere Einwirkung sterben kann
-	public void PlayerDeadMessageProcessing(PlayerDeadMessage message){
-		
-		//entferne Spieler aus der Liste
-		PlayerList.remove(message.player);
-		//Benutze Methode aus Levelmanagement um den Spieler an das Anfangsfeld zu stellen
-		Levelmanagement l = new Levelmanagement(message.player);
-		l.placePlayer(message.player);
-		//regeneriere die stats des spielers
-		message.player.setHealth(100);
-		message.player.setMana(100);
-		
-	}
-	
-	//Methode Falls Monster durch anderes Event sterben kann
-	public void MonsterDeadMessageProcessing(MonsterDeadMessage message){
-		
-		//Entferne Monster
-		MonsterList.remove(message.monster);
-		
-	}
-	
-	//F�gt einen Spieler der Datenbank zu falls er noch keinen Eintrag hat
-	
-	//Teste ob in der Konsole die Cheats aktiviert hat
-	public void ChatMessageProcessing(ChatMessage message){
-		
-		try{
-		
-			// Aktiviere Cheats
-			if(message.getChat()=="CheatON"){
-				System.out.println("Cheats aktiviert");
-			//Deaktivier Cheats
-			}else if(message.getChat()=="CheatOFF"){
-				System.out.println("Cheats deaktiviert");
-			//Speichere den Text der Nachricht f�r das messagesystem
-			//z.B dem anderen Spielern anzeigen
-			}else{
-				ChatList.add(message.chat);
+
+	// Methode falls der Spieler noch durch andere Einwirkung sterben kann
+	public void DeathMessageProcessing(DeathMessage message) {
+
+		if (message.id == 0) {
+
+			for (int i = 0; i < PlayerList.size(); i++) {
+				Player player = PlayerList.get(i);
+
+				if (message.playerID == player.playerID) {
+					// entferne Spieler aus der Liste
+					PlayerList.remove(player);
+					// Benutze Methode aus Levelmanagement um den Spieler an das
+					// Anfangsfeld zu stellen
+					Levelmanagement l = new Levelmanagement(player);
+					l.placePlayer(player.playerID);
+					// regeneriere die stats des spielers
+					player.setHealth(100);
+					player.setMana(100);
+				}
 			}
-		}catch(Exception e){
+		} else if (message.id == 1) {
+			for (int i = 0; i < MonsterList.size(); i++) {
+				Monster monster = MonsterList.get(i);
+				if (message.monsterID == monster.monsterID) {
+					MonsterList.remove(monster);
+				}
+			}
+		}
+	}
+
+	// Teste ob in der Konsole die Cheats aktiviert hat
+	public void ChatMessageProcessing(ChatMessage message) {
+
+		try {
+
+			// Aktiviere Cheats
+			if (message.messageContent == "CheatON") {
+				System.out.println("Cheats aktiviert");
+				// Deaktivier Cheats
+			} else if (message.messageContent == "CheatOFF") {
+				System.out.println("Cheats deaktiviert");
+				// Speichere den Text der Nachricht f�r das messagesystem
+				// z.B dem anderen Spielern anzeigen
+			} else {
+				ChatList.add(message.messageContent);
+			}
+		} catch (Exception e) {
 			System.out.println("Unbkannter Befehl");
 		}
 	}
-	//Unterscheidet unter den verf�gbaren Items und f�gt sie dem inventar hinzu
-	public void ItemPickUpMessageProcessing(ItemPickUpMessage message){
-		
-		switch(message.ItemID){
-		
-		//Healthpot aufnehmen
-		case 0:
-			//erzeugt einen HealthPot und f�gt ihm dem Inventar hinzu
-			HealthPot h = new HealthPot();
-			message.player.HealthPotNumber++;
-			message.player.ItemList.add(h);
-			System.out.println("HealthPot aufgenommen");
-			break;
-			
-		//Manapot aufnehmen 
-		case 1:
-			//erzeugt einen ManaPot und f�gt ihm dem Inventar hinzu
-			ManaPot m = new ManaPot();
-			message.player.ManaPotNumber++;
-			message.player.ItemList.add(m);
-			System.out.println("ManaPot aufgenommen");
-			break;
-		//Schl�ssel aufnehmen
-		case 2:
-			//�ndert den Zustand des Spielers so dass er den schl�ssel besitzt
-			//So kann er t�ren �ffnen
-			message.player.GotKey=true;
+
+	// Unterscheidet unter den verf�gbaren Items und f�gt sie dem inventar
+	// hinzu
+	public void ItemPickUpMessageProcessing(ItemPickUpMessage message) {
+
+		for (int i = 0; i < PlayerList.size(); i++) {
+			Player player = PlayerList.get(i);
+
+			if (message.playerID == player.playerID) {
+
+				switch (message.ItemID) {
+
+				// Healthpot aufnehmen
+				case 0:
+					// erzeugt einen HealthPot und fuegt ihm dem Inventar hinzu
+					player.healthPotNumber++;
+					// player.ItemList.add(h);
+					System.out.println("HealthPot aufgenommen");
+					break;
+
+				// Manapot aufnehmen
+				case 1:
+					// erzeugt einen ManaPot und fuegt ihm dem Inventar hinzu
+					// ManaPot m = new ManaPot();
+					player.manaPotNumber++;
+					// player.ItemList.add(m);
+					System.out.println("ManaPot aufgenommen");
+					break;
+				// Schluessel aufnehmen
+				case 2:
+					// Aendert den Zustand des Spielers so dass er den
+					// schluessel besitzt
+					// So kann er tueren oeffnen
+					player.ownsKey = true;
+				}
+			}
 		}
 	}
-	
-	public void NextLevelMessageProcessing(NextLevelMessage message){
-		
-		Levelmanagement level = new Levelmanagement(message.player);
-		//Setzt den spieler in n�chstes level
-		level.newLevel(message.player.PlayerLvl+1);
-		//Setze den Spieler an den Eingang
-		level.placePlayer(message.player);
+
+	public void NextLevelMessageProcessing(NextLevelMessage message) {
+		for (int i = 0; i < PlayerList.size(); i++) {
+			Player player = PlayerList.get(i);
+
+			if (message.playerID == player.playerID) {
+
+				Levelmanagement level = new Levelmanagement(player);
+				// Setzt den spieler in naechstes level
+				level.newLevel(player.playerLvl + 1);
+				// Setze den Spieler an den Eingang
+				level.placePlayer(player.playerID);
+			}
+		}
 	}
-	public void LevelMessageProcessing(LevelMessage message){
-		
+
+	public void SendLevelMessageProcessing(SendLevelMessage message) {
+
 		System.out.println("Eine Kopie des Levels wurde dem Client geschickt");
-		
+
 	}
 }

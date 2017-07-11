@@ -31,6 +31,7 @@ public class Player extends Figure{
 	public boolean ownsKey;
 	public boolean door;
 	
+	
 	private GamingArea window;
 	
 	public Player(String imgFile, GamingArea window){
