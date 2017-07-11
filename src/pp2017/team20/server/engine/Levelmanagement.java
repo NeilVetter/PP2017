@@ -1,6 +1,5 @@
 package pp2017.team20.server.engine;
 
-import pp2017.team20.server.map.Maze;
 
 import pp2017.team20.shared.*;
 import pp2017.team20.server.map.*;
@@ -31,12 +30,12 @@ public class Levelmanagement {
 
 		//Speicher im Spieler welches Level er zuletzt gespielt hat
 		//Lvlindex geht von 0,1,...
-		player.PlayerLvl = LevelID;
+		player.playerLvl = LevelID;
 
 		//Speichert die Map beim Spieler, sodass Elemente darauf abgelesen werden k�nnen
 		for (int i = 0; i < size; i++) {
 			for (int j = 0; j < size; j++) {
-				player.PlayerMap[i][j] = maze.Map[i][j];
+				player.playerMap[i][j] = maze.Map[i][j];
 			}
 		}
 		
@@ -56,14 +55,20 @@ public class Levelmanagement {
 	//Diese Methode setzt einen Spieler zur�ck an den anfang des levels
 	//(des von ihm gespeicherten)
 	//z.B. nach seinem tot
-	public void placePlayer(Player player){
-	
+	public void placePlayer(int playerID) {
+
+		MessageProcessing m=new MessageProcessing();
 		
-		for (int i = 0; i < size; i++) {
-			for (int j = 0; j < size; j++) {
-				if(player.PlayerMap[i][j] ==2){
-					player.PosX=i;
-					player.PosY=j;
+		for (int i = 0; i < m.PlayerList.size(); i++) {
+			Player player = m.PlayerList.get(i);
+			if (playerID == player.playerID) {
+				for (int j = 0; j < size; j++) {
+					for (int k = 0; k < size; k++) {
+						if (player.playerMap[j][k] == 2) {
+							player.xPos = j;
+							player.yPos = k;
+						}
+					}
 				}
 			}
 		}
