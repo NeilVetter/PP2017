@@ -10,6 +10,7 @@ import java.util.LinkedList;
 
 import javax.imageio.ImageIO;
 
+import pp2016.team03.shared.Heiltrank;
 import pp2016.team03.shared.Monster;
 
 
@@ -31,6 +32,7 @@ public class Player extends Figure{
 	private String pasword;
 	public int healthPotNumber;
 	public int manaPotNumber;
+	public int impactHealth;
 	public boolean loggedIN;
 	public boolean ownsKey;
 	public boolean door;
@@ -134,6 +136,19 @@ public class Player extends Figure{
 		}
 
 		return null;
+	}
+	
+	public void collectPotion(Healthpot h) {
+		healthPotNumber++;
+		impactHealth = h.getimpact();
+	}
+	
+	public int usePotion() {
+		if (healthPotNumber > 0) {
+			setHealthPotNumber(healthPotNumber - 1);
+			return impactHealth;
+		} else
+			return 0;
 	}
 	
 	

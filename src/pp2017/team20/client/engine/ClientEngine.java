@@ -183,16 +183,16 @@ public class ClientEngine {
 	 * 
 	 */
 	
-	public void sendOpenDoorMessage(int clientID) {
-		//instanceof door
-		if (window.level[window.player.getXPos()][window.player.getXPos()] instanceof Door && 
-				//door
-				//((ddor) window...
-				(window.level[window.player.getXPos()][window.player.getYPos()]).key) {
-					OpenDoorMessage message = new OpenDoorMessage(clientID);
-					communication.sendMessageToServer(message);
-		}
-	}
+//	public void sendOpenDoorMessage(int clientID) {
+//		//instanceof door
+//		if (window.level[window.player.getXPos()][window.player.getXPos()] instanceof Door && 
+//				//door
+//				//((ddor) window...
+//				(window.level[window.player.getXPos()][window.player.getYPos()]).key) {
+//					OpenDoorMessage message = new OpenDoorMessage(clientID);
+//					communication.sendMessageToServer(message);
+//		}
+//	}
 
 	/**
 	 * 
@@ -321,10 +321,10 @@ public class ClientEngine {
 		}
 
 		// Tuer Nachricht empfangen
-		else if (msg instanceof OpenDoorMessage) {
-			OpenDoorMessage message = (OpenDoorMessage) msg;
-			receiveOpenDoorMessage(message);
-		}
+//		else if (msg instanceof OpenDoorMessage) {
+//			OpenDoorMessage message = (OpenDoorMessage) msg;
+//			receiveOpenDoorMessage(message);
+//		}
 
 		// Benutze Trank empfangen
 		else if (msg instanceof UsePotionMessage) {
@@ -398,7 +398,7 @@ public class ClientEngine {
 			// Wenn man sich nicht zum ersten Mal einloggt, muss kein komplett
 			// neues Spiel gestartet werden
 			if (window.firstLogIn = true) {
-				window.firstLogin = false;
+				window.firstLogIn = false;
 			} else {
 				window.startNewGame();
 			}
@@ -422,7 +422,7 @@ public class ClientEngine {
 	public void receiveLogOutMessage(LogOutMessage message) {
 		if (message.success) {
 			// Zeigt nach dem Ausloggen wieder das Anmeldefenster an
-			window.LogIn();
+			window.login();
 		}
 	}
 
@@ -475,7 +475,7 @@ public class ClientEngine {
 //					window.monsterListe.get(message.defendID).setHealth(message.hpDefender);
 //				}
 			if (message.hpDefender != 0) {
-				window.monsterList.get(message.defendID.setHealth(message.hpDefender));
+				window.monsterList.get(message.defendID).setHealth(message.hpDefender);
 			}
 			}
 			// Hier ist das Monster der Angreifer und der Spieler der
@@ -552,13 +552,13 @@ public class ClientEngine {
 	 * 
 	 */
 
-	public void receiveOpenDoorMessage(OpenDoorMessage message) {
-		if (message.success) {
-			// Nach dem Oeffnen der Tuere wird ein neues Level geladen
-			window.player.openDoor();
-			window.NextLevel();
-		}
-	}
+//	public void receiveOpenDoorMessage(OpenDoorMessage message) {
+//		if (message.success) {
+//			// Nach dem Oeffnen der Tuere wird ein neues Level geladen
+//			window.player.openDoor();
+//			window.NextLevel();
+//		}
+//	}
 
 	/**
 	 * 
@@ -647,23 +647,23 @@ public class ClientEngine {
 		switch (messageContent) {
 		// Gibg dem Spieler quasi ungbegrenztes Leben
 		case "UnlimitLife":
-			window.player.ChatOutput.append("Unbesiegbar freigeschaltet");
+			window.chat.chatOutput.append("Unbesiegbar freigeschaltet");
 			window.player.setHealth(100000);
 			break;
 		// Laesst den Spieler Monster mit einem Schlag/Klick toeten
 		case "IncreaseDamage":
-			window.player.ChatOutput.append("Erhoeter Schaden");
+			window.chat.chatOutput.append("Erhoeter Schaden");
 			window.player.setDamage(100);
 			break;
 		// Setzt die Cheats wieder zurueck
 		case "Normal":
-			window.player.ChatOutput.append("Cheats sind deaktiviert");
+			window.chat.chatOutput.append("Cheats sind deaktiviert");
 			window.player.setHealth(200);
 			window.player.setDamage(10);
 			break;
 		// Wird kein Cheat eingegeben, wird die Eingabe ausgegeben
 		default:
-			window.chat.ChatOutput(message);
+			window.chat.chatOutput.append(messageContent);
 			break;
 		}
 	}

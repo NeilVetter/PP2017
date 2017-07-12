@@ -62,6 +62,7 @@ public class GamingArea extends JFrame implements KeyListener {
 	public int time;
 	public String user;
 	public boolean success = false;
+	public boolean firstLogIn = true;
 
 	public int currentLevel = 0;
 	public long startTime;
