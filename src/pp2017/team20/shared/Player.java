@@ -9,6 +9,8 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
+import pp2016.team03.shared.Monster;
+
 
 //Klasse f�r ein Objetk der types "Player"
 //Neil Vetter 6021336
@@ -53,14 +55,14 @@ public class Player extends Figure{
 	}
 	
 	//Konstruktor f�r die Anmeldung(Macht jetzt Datebank)
-	public Player (String playername, String pasword,int PosX,int PosY,int PlayerID,boolean loggedIN){
-		this.playername=playername;
-		this.pasword=pasword;
-		this.xPos=PosX;
-		this.yPos=PosY;
-		this.playerID=PlayerID;
-		this.loggedIN=loggedIN;
-	}
+//	public Player (String playername, String pasword,int PosX,int PosY,int PlayerID,boolean loggedIN){
+//		this.playername=playername;
+//		this.pasword=pasword;
+//		this.xPos=PosX;
+//		this.yPos=PosY;
+//		this.playerID=PlayerID;
+//		this.loggedIN=loggedIN;
+//	}
 	//Konstruktor um einen neuen Spieler zu erstellen
 	//Nach zusammensetzen ohne PosX/PosY
 	public Player (int PlayerID,int xPos,int yPos,String playername){
@@ -81,6 +83,11 @@ public class Player extends Figure{
 		
 	}
 	
+	// Methode, um den Schluessel zu entfernen
+	public void removeKey(){
+		ownsKey = false;
+	}	
+		
 	public String getPlayername(){
 		return playername;
 	}
@@ -106,7 +113,26 @@ public class Player extends Figure{
 		return ownsKey;
 	}
 	
-	
+	public Monster attackMonster(){
+		for (int i = 0; i < window.monsterList.size(); i++) {
+			Monster m = window.monsterList.get(i);
+
+			// Kann der Spieler angreifen?
+			boolean canAttack = false;
+			if (m.getTyp() == 0)
+				canAttack = true;
+			if (m.getTyp() == 1)
+				canAttack = ownsKey;
+
+			if ((Math.sqrt(Math.pow(getXPos() - m.getXPos(), 2)
+					+ Math.pow(getYPos() - m.getYPos(), 2)) < 2)
+					&& canAttack) {
+				return m;
+			}
+		}
+
+		return null;
+	}
 	
 	
 }

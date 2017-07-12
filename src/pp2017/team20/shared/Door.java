@@ -2,7 +2,7 @@ package pp2017.team20.shared;
 
 
 
-public class Door extends Elements {
+public class Door extends GameElement {
 	private boolean open;
 	
 	public Door(boolean open){
