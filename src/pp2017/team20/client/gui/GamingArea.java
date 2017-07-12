@@ -8,7 +8,7 @@ import java.util.LinkedList;
 
 import javax.swing.JFrame;
 
-import datenstruktur.Tuer;
+import pp2017.team20.shared.Door;
 import pp2017.team20.client.gui.Highscore;
 import pp2017.team20.client.comm.ClientHandler;
 import pp2017.team20.client.engine.ClientEngine;
@@ -40,10 +40,11 @@ public class GamingArea extends JFrame implements KeyListener {
 	private MenuBar menubar;
 	private Chat chat;
 	private MiniMap map;
+	private String adresse = "12345";
 
 	public ClientHandler communication = new ClientHandler(adresse);
 	public ClientEngine engine = new ClientEngine(communication, this);
-			
+
 	public Player player;
 	public LinkedList<Monster> monsterList;
 	public GameElement[][] level;
@@ -54,25 +55,27 @@ public class GamingArea extends JFrame implements KeyListener {
 	public int attackID;
 	public int defendID;
 	public int playerID;
+	public int time;
+	public String user;
+	public boolean success = false;
 
 	public int currentLevel = 0;
 	public long startTime;
 	public int neededTime;
 	public boolean gameEnd = false;
 	public boolean gameLost = false;
-//	public boolean starFound = false;
-//	public int elixirs = 0;
-//	public success = false;
+	// public boolean starFound = false;
+	// public int elixirs = 0;
+	// public success = false;
 
 	public boolean controlShown = false;
 	public boolean highscoreShown = false;
-	public boolean playerInHighscore = false;
+	// public boolean playerInHighscore = false;
 
 	// hier wird die Breite und Hoehe des gesamten Spielfeldes festgelegt
 	public final int WIDTH = 19;
 	public final int HEIGHT = 19;
 	public final int BOX = 40;
-
 
 	/**
 	 * Diese Methode wird von der Main Methode in der Startklasse aufgerufen
@@ -80,6 +83,7 @@ public class GamingArea extends JFrame implements KeyListener {
 	 * @author Heck, Liz, 5991099
 	 */
 	public GamingArea(String title) {
+		communication.runComp();
 		initializeJFrame(title);
 		startNewGame();
 	}
@@ -116,7 +120,7 @@ public class GamingArea extends JFrame implements KeyListener {
 		this.setTitle(title);
 		this.setVisible(true);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		
+
 		this.chat.chatOutput.append("Sie sind eingeloggt");
 
 		// das Spielfenster wird auf dem Bildschirm zentriert
@@ -264,7 +268,7 @@ public class GamingArea extends JFrame implements KeyListener {
 			else if (e.getKeyCode() == KeyEvent.VK_B) {
 				engine.sendUsePotionMessage(clientID, id, playerID);
 				System.out.println("Wenn Heiltrank vorhanden, benutzen");
-//				Anzeige der Heiltränke?
+				// Anzeige der Heiltränke?
 			}
 			// wenn Escape gedrueckt wird, schliesse das Spielfenster
 			else if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
@@ -281,16 +285,16 @@ public class GamingArea extends JFrame implements KeyListener {
 				System.out.println("Falls Spieler auf Schlüssel oder Heiltrank, nehme diesen auf");
 			} else if (level[player.getXPos()][player.getYPos()] instanceof Healthpot) {
 				engine.sendCollectPotionMessage(clientID);
-//			Anzeige Tränke erhöhen?
+				// Anzeige Tränke erhöhen?
 				System.out.println("Falls Spieler auf Schlüssel oder Heiltrank, nehme diesen auf");
 			}
 			if (level[player.getXPos()][player.getYPos()] instanceof Door) {
 				if (level[player.getXPos()][player.getYPos()] instanceof Door && player.ownsKey()) {
 					engine.sendNextLevelMessage(clientID);
-					} 
 				}
 			}
 		}
+	}
 
 	public void keyTyped(KeyEvent e) {
 	}
@@ -308,8 +312,8 @@ public class GamingArea extends JFrame implements KeyListener {
 		currentLevel = 0;
 		gameEnd = false;
 		gameLost = false;
-		
-		playerInHighscore = false;
+
+//		playerInHighscore = false;
 		startTime = System.currentTimeMillis();
 
 	}
@@ -334,9 +338,15 @@ public class GamingArea extends JFrame implements KeyListener {
 			} else {
 				neededTime = (int) ((System.currentTimeMillis() - startTime) / 1000); 
 				
-				if (!gameLost && !playerInHighscore) {
-					getHighscore().addPlayerToHighscore(neededTime)
+				if (gameLost) {
+					engine.sendHighscoreMessage(clientID, user, time);
+					getHighscore().repaint();
+				} else {
+					getGamingWorld().repaint();
+					engine.receiveMessage();
 				}
 			}
-		}
-}}
+		} while (success);
+	}
+
+}
