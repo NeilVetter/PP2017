@@ -1,6 +1,6 @@
 package pp2017.team20.client;
 
-import pp2017.team20.client.gui.*;
+import pp2017.team20.client.gui.GamingArea;
 
 /**
  * Klasse der Main-Methode fuer den Client, um den Client zu starten, sich mit dem Server zu verbinden
