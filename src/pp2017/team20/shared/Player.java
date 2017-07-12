@@ -6,6 +6,7 @@ import pp2017.team20.server.map.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 import javax.imageio.ImageIO;
 
@@ -24,6 +25,7 @@ public class Player extends Figure{
 	public int [][] playerMap;
 	public static ArrayList<Maze> LevelList=new ArrayList<Maze>();
 	public ArrayList<Item> ItemList = new ArrayList<Item>();
+	public ArrayList<Monster> monsterList = new ArrayList<Monster>();
 	public int playerID;
 	public String playername;
 	private String pasword;
@@ -65,7 +67,7 @@ public class Player extends Figure{
 //	}
 	//Konstruktor um einen neuen Spieler zu erstellen
 	//Nach zusammensetzen ohne PosX/PosY
-	public Player (int PlayerID,int xPos,int yPos,String playername){
+	public Player (int PlayerID,int xPos,int yPos){//,String playername){ // um im Lvlmanager zupassen.
 		this.playerID=PlayerID;
 		this.xPos=xPos;
 		this.yPos=yPos;

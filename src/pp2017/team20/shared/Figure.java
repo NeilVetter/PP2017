@@ -41,7 +41,7 @@ public abstract class Figure {
 		this.damage = damage;
 	}
 	
-	public int getSchaden(){
+	public int getDamage(){
 		return damage;
 	}
 	

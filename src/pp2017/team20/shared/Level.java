@@ -13,7 +13,7 @@ public class Level implements Serializable {
 	private int xPos;
 	private int yPos;
 	
-	public LinkedList<Monster> monsterList = new LinkedList<Monster>();
+	
 			
 	public Elements[][] gamearea = new Elements [Maze.size][Maze.size];
 	

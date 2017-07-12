@@ -2,7 +2,7 @@ package pp2017.team20.shared;
 
 /**
  * 
- * Nachrichtenklasse, die die Bewegung des Spielers bzw. eines Monsters uebermittelt
+ * Nachrichtenklasse, die die Bewegung des Spielers bzw. eines Monsters uebermittelt.
  * 
  * @author Wagner, Tobias, 5416213
  *
