@@ -21,7 +21,7 @@ public class LogInMessage extends Message {
 	private boolean success = false;
 	
 	int LevelID;
-	Maze maze = new Maze(LevelID);
+	Level level = new Level();
 	public boolean succsess;
 	
 
@@ -49,11 +49,11 @@ public class LogInMessage extends Message {
 	public void setSuccess(boolean success) {
 		this.success = success;
 	}
-	public Maze getMaze(){
-		return maze;
+	public Level getLevel(){
+		return level;
 	}
-	public void setMaze(Maze maze){
-		this.maze = maze;
+	public void setLevel(Level level){
+		this.level = level;
 	}
 	
 	

@@ -20,7 +20,7 @@ public class NextLevelMessage extends Message{
 	private boolean successReceive;
 	//Variable fuer ein neues Level
 	public int playerID;
-	public Maze lvl;
+	public Level lvl;
 	
 	public NextLevelMessage(int clientID) {
 		super(clientID);
@@ -37,7 +37,7 @@ public class NextLevelMessage extends Message{
 	}
 	
 	//Methode, um das zu ladende Level zu erhalten
-	public Maze getMaze() {
+	public Level getLevel() {
 		return lvl;
 	}
 
