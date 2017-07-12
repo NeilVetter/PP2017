@@ -84,7 +84,7 @@ public class ClientEngine {
 	 */
 
 	public void sendMoveMessage(int clientID, int xPos, int yPos, int id) {
-		if (!(window.maze[xPos][yPos] instanceof wall)) {
+		if (!(window.level[xPos][yPos] instanceof wall)) {
 			MoveMessage message = new MoveMessage(clientID, xPos, yPos, id);
 			communication.sendMessageToServer(message);
 		}
@@ -129,7 +129,7 @@ public class ClientEngine {
 	 */
 
 	public void sendCollectKeyMessage(int clientID) {
-		if (window.maze[window.player.getXPos()][window.player.getYPos()] instanceof Key) {
+		if (window.level[window.player.getXPos()][window.player.getYPos()] instanceof Key) {
 			CollectKeyMessage message = new CollectKeyMessage(clientID);
 			communication.sendMessageToServer(message);
 		}
@@ -145,7 +145,7 @@ public class ClientEngine {
 	 */
 	
 	public void sendOpenDoorMessage(int clientID) {
-		if (window.maze[window.player.getXPos()][window.player.getYPos()] instanceof door && 
+		if (window.level[window.player.getXPos()][window.player.getYPos()] instanceof door && 
 				((door) window.level[window.player.getXPos()][window.player.getYPos()]).key) ) {
 					OpenDoorMessage message = new OpenDoorMessage(clientID);
 					communication.sendMessageToServer(message);
@@ -334,18 +334,18 @@ public class ClientEngine {
 		if (message.isSuccess()) {
 			window.success = true;
 			// Laedt das Level
-			window.maze = message.getMaze().gameworld;
+			window.level = message.getLevel().gamearea;
 			// Laedt die Startposition des Spielers
-			window.xPos = message.getMaze().getxXPos();
-			window.yPos = message.getMaze().getYPos();
+			window.xPos = message.getLevel().getxPos();
+			window.yPos = message.getLevel().getyPos();
 			// Laedt die Monster des Levels
-			window.buffermonsterList = message.getMaze().monsterList;
+			window.buffermonsterList = message.getLevel().monsterList;
 			// Wen die Spielfeldkachel nicht vom Spieler belegt wird, also
 			// ungleich -1 ist, dann wird ein Monster platziert
-			for (int i = 0; i < message.getMaze().monsterfield.length; i++) {
-				for (int j = 0; j < message.getMaze().monsterfield.length; j++) {
-					if (message.getMaze().monsterfield[i][j] != -1) {
-						window.buffermonsterList.get(message.getMaze().monsterfield[i][j]).setPos(i, j);
+			for (int i = 0; i < message.getLevel().monsterfield.length; i++) {
+				for (int j = 0; j < message.getLevel().monsterfield.length; j++) {
+					if (message.getLevel().monsterfield[i][j] != -1) {
+						window.buffermonsterList.get(message.getLevel().monsterfield[i][j]).setPos(i, j);
 					}
 				}
 			}
@@ -464,11 +464,11 @@ public class ClientEngine {
 			int xPos = window.player.getxPos();
 			int yPos = window.player.getyPos();
 			// Steht der Spieler auf einem Trank, so wird dieser aufgenommen
-			if (window.maze[xPos][yPos] instanceof Potion) {
-				window.player.collectPotion((Potion) window.maze[xPos][yPos]);
+			if (window.level[xPos][yPos] instanceof Potion) {
+				window.player.collectPotion((Potion) window.level[xPos][yPos]);
 				// An die Stelle des Trankes wird eine leere Spielkachel
 				// platziert
-				window.maze[xPos][yPos] = new Ground();
+				window.level[xPos][yPos] = new Ground();
 			}
 		}
 	}
@@ -492,7 +492,7 @@ public class ClientEngine {
 				window.player.collectKey();
 				// An der Stelle des Schluessels wird eine leere Spielkachel
 				// platziert
-				window.maze[xPos][yPos] = new Ground();
+				window.level[xPos][yPos] = new Ground();
 			}
 		}
 	}
@@ -546,18 +546,18 @@ public class ClientEngine {
 				// Neues Level wird angefordert
 				window.currentLevel++;
 				// Neues Level wird geladen
-				window.level = message.getLevel().gameworld;
+				window.level = message.getLevel().gamearea;
 				// Laedt die Startposition des Spielers
-				window.xPos = message.getLevel().getXPos();
-				window.yPos = message.getLevel().getYPos();
+				window.xPos = message.getLevel().getxPos();
+				window.yPos = message.getLevel().getyPos();
 				// Laedt die Monster des Levels
 				window.buffermonsterList = message.getLevel().monsterList;
 				// Wen die Spielfeldkachel nicht vom Spieler belegt wird, also
 				// ungleich -1 ist, dann wird ein Monster platziert
-				for (int i = 0; i < message.getMaze().monsterfield.length; i++) {
-					for (int j = 0; j < message.getMaze().monsterfield.length; j++) {
-						if (message.getMaze().monsterfield[i][j] != -1) {
-							window.buffermonsterList.get(message.getMaze().monsterfield[i][j]).setPos(i, j);
+				for (int i = 0; i < message.getLevel().monsterfield.length; i++) {
+					for (int j = 0; j < message.getLevel().monsterfield.length; j++) {
+						if (message.getLevel().monsterfield[i][j] != -1) {
+							window.buffermonsterList.get(message.getLevel().monsterfield[i][j]).setPos(i, j);
 						}
 					}
 				}
@@ -632,9 +632,9 @@ public class ClientEngine {
 
 	public void receiveNewGameMessage(NewGameMessage message) {
 		if (message.success) {
-			window.level = message.getLevel().gameworld;
-			window.xPos = message.getLevel().getXPos();
-			window.yPos = message.getLevel().getYPos();
+			window.level = message.getLevel().gamearea;
+			window.xPos = message.getLevel().getxPos();
+			window.yPos = message.getLevel().getyPos();
 			window.buffermonsterList = message.getLevel().monsterList;
 			// Wen die Spielfeldkachel nicht vom Spieler belegt wird, also
 			// ungleich -1 ist, dann wird ein Monster platziert
@@ -648,7 +648,7 @@ public class ClientEngine {
 		}
 
 		window.gameReset();
-		window.showGameWorld();
+		window.showGamingWorld();
 	}
 
 }
