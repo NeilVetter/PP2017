@@ -602,7 +602,7 @@ public class Monster extends Figure {
 	}
 	
 	
-	
+	MoveMessage m=new MoveMessage(1,2,1);
 	
 	/**reine HindiBones Methoden
 	 * 
