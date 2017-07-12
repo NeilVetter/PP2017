@@ -80,7 +80,7 @@ public class ClientHandler {
 	 * 
 	 * @author Yuxuan Kong 6019218
 	 */
-	private void runComp() {
+	public void runComp() {
 		System.out.println("HandlerClient.startComp()");
 		// Initialisiert Thread um Nachrichten zu senden und empfangen
 		transmitter = new ClientTransmitter(server);
