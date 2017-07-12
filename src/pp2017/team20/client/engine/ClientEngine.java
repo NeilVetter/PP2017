@@ -41,6 +41,9 @@ public class ClientEngine {
 		this.communication = communication;
 		this.window = window;
 	}
+	
+	ClientHandler comm;
+	Message msg = comm.getMessageFromServer();
 
 	// Erstellung der Nachrichten, die an den Server geschickt werden
 
