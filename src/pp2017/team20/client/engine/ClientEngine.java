@@ -5,7 +5,6 @@ import java.util.*;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-import pp2016.team03.shared.Nachrichtenobjekt;
 import pp2017.team20.shared.*;
 import pp2017.team20.client.gui.*;
 import pp2017.team20.client.comm.*;
@@ -122,7 +121,8 @@ public class ClientEngine {
 	 */
 
 	public void sendMoveMessage(int clientID, int xPos, int yPos, int id) {
-		if (!(window.level[xPos][yPos] instanceof wall)) {
+		//instanceof wall ersetzt durch 0
+		if (!(window.level[xPos][yPos] == 0)) {
 			MoveMessage message = new MoveMessage(clientID, xPos, yPos, id);
 			communication.sendMessageToServer(message);
 		}
@@ -167,7 +167,8 @@ public class ClientEngine {
 	 */
 
 	public void sendCollectKeyMessage(int clientID) {
-		if (window.level[window.player.getXPos()][window.player.getYPos()] instanceof Key) {
+		// instanceof Key
+		if (window.level[window.player.getxPos()][window.player.getyPos()] == 5) {
 			CollectKeyMessage message = new CollectKeyMessage(clientID);
 			communication.sendMessageToServer(message);
 		}
@@ -183,8 +184,11 @@ public class ClientEngine {
 	 */
 	
 	public void sendOpenDoorMessage(int clientID) {
-		if (window.level[window.player.getXPos()][window.player.getYPos()] instanceof door && 
-				((door) window.level[window.player.getXPos()][window.player.getYPos()]).key) ) {
+		//instanceof door
+		if (window.level[window.player.getxPos()][window.player.getyPos()] == 3 && 
+				//door
+				//((ddor) window...
+				(window.level[window.player.getxPos()][window.player.getyPos()]).key) ) {
 					OpenDoorMessage message = new OpenDoorMessage(clientID);
 					communication.sendMessageToServer(message);
 		}
@@ -370,7 +374,7 @@ public class ClientEngine {
 	public void receiveLogInMessage(LogInMessage message) {
 		// Wenn die Enlogdaten korrekt sind, dann wird das Level geladen
 		if (message.isSuccess()) {
-			window.success = true;
+//			window.success = true;
 			// Laedt das Level
 			window.level = message.getLevel().gamearea;
 			// Laedt die Startposition des Spielers
@@ -471,7 +475,7 @@ public class ClientEngine {
 //					window.monsterListe.get(message.defendID).setHealth(message.hpDefender);
 //				}
 			if (message.hpDefender != 0) {
-				window.monsterList.get(message.defendID.setHealth(message.hpDefender;
+				window.monsterList.get(message.defendID.setHealth(message.hpDefender);
 			}
 			}
 			// Hier ist das Monster der Angreifer und der Spieler der
@@ -502,11 +506,13 @@ public class ClientEngine {
 			int xPos = window.player.getxPos();
 			int yPos = window.player.getyPos();
 			// Steht der Spieler auf einem Trank, so wird dieser aufgenommen
-			if (window.level[xPos][yPos] instanceof Potion) {
-				window.player.collectPotion((Potion) window.level[xPos][yPos]);
+			//Potion hat Zahl 4
+			//instanceof Potion
+			if (window.level[xPos][yPos] == 4) {
+				window.player.collectPotion((Healthpot) window.level[xPos][yPos]);
 				// An die Stelle des Trankes wird eine leere Spielkachel
 				// platziert
-				window.level[xPos][yPos] = new Ground();
+				window.level[xPos][yPos] = 1; //new Ground();
 			}
 		}
 	}
@@ -526,11 +532,14 @@ public class ClientEngine {
 			int yPos = window.player.getyPos();
 			// Steht der Spieler auf einem Feld mit einem Schluessel, so wird
 			// dieser aufgenommen
-			if (window.level[xPos][yPos] instanceof Key) {
-				window.player.collectKey();
+			//instanceof Key
+			if (window.level[xPos][yPos] == 5) {
+				//collectKey()
+				window.player.ownsKey();
 				// An der Stelle des Schluessels wird eine leere Spielkachel
 				// platziert
-				window.level[xPos][yPos] = new Ground();
+				// new Ground()
+				window.level[xPos][yPos] == 1;
 			}
 		}
 	}
