@@ -89,9 +89,51 @@ public class Levelmanagement {
 				else if (player.playerMap[i][j]== 6){
 					doorx =j;
 					doory =i;
-				}
+				}}
 		}
-		// Testmap
+	}
+		
+		// Getter Methoden für SpielerListe, MonsterListe
+		// und Heiltrank
+		public Player[] getPlayerList() {
+			return playerList;
+		}
+		
+		public Monster[] getMonsterList(){
+			return monsterList;
+		}
+		
+		public Healthpot[] getHealthpot(){
+			return healpotList;
+		}
+		
+		/** 
+		 * überprüfen ob einer der Spieler einen Heiltrank nutzt.
+		 * 
+		 *   @author Hamid, Kirli 6041663 
+		 *   */
+		
+		public boolean healpotuse(int playerID){
+			boolean correct;
+			if(playerList[playerID].getHealthPotNumber()> 0){
+				correct = true;
+			}else
+				correct = false;
+			
+		return correct;
+		}
+		
+		/** 
+		 *Methode zum Benutzen von Heiltränken  */
+		public void useHealthpot(int playerID){
+			if(healpotuse(playerID)){
+				playerList[playerID].setHealthPotNumber(playerList[playerID].getHealthPotNumber()-1);
+				playerList[playerID].setHealth(10);
+	
+			}
+		}
+		
+		/* Testmap
 		int[][] test = new int[15][15];
 
 		// Testweises Ausgeben der Map, wie in der Klasse "Maze"
@@ -102,8 +144,8 @@ public class Levelmanagement {
 			}
 			System.out.println();
 		}
-	}
-
+	}*/
+	
 	// Diese Methode setzt einen Spieler zurï¿½ck an den anfang des levels
 	// (des von ihm gespeicherten)
 	// z.B. nach seinem tot
