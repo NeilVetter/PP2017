@@ -5,6 +5,7 @@ import java.util.*;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import pp2016.team03.shared.Nachrichtenobjekt;
 import pp2017.team20.shared.*;
 import pp2017.team20.client.gui.*;
 import pp2017.team20.client.comm.*;
@@ -27,7 +28,7 @@ public class ClientEngine {
 	// Spielfenster erstellen
 	public GamingArea window;
 	
-	Queue <Message> MessageQueue = new LinkedList<Message>();
+//	Queue <Message> MessageQueue = new LinkedList<Message>();
 
 	/**
 	 * 
@@ -42,8 +43,42 @@ public class ClientEngine {
 		this.window = window;
 	}
 	
-	ClientHandler comm;
-	Message msg = comm.getMessageFromServer();
+//	ClientHandler comm;
+//	Message msg = comm.getMessageFromServer();
+//	MessageQueue.add(msg);
+//	MessageProcess(MessageQueue);
+//	
+//	// Nimmt eine Message aus dem Queue und entscheidet welcher Unterklasse sie
+//		// angeh�rt
+//		public void MessageProcess(Queue<Message> queue) {
+//
+//			try {
+//				// Pr�ft solange eine Message im Queue ist welchen Typ die
+//				// Nachricht hat
+//				while (!queue.isEmpty()) {
+//
+//					Message msg = queue.poll();
+//					receiveRequest(msg);
+//				}
+//			} catch (Exception e) {
+//
+//			}
+//		}
+	
+	
+	/**
+	 * 
+	 * Methode um Nachricht zu empfangen
+	 * 
+	 * 
+	 * @author Wagner, Tobias, 5416213
+	 */
+	public void receiveMessage() {
+		Message msg = communication.getMessageFromServer();
+		receiveRequest(msg);
+	}
+
+	
 
 	// Erstellung der Nachrichten, die an den Server geschickt werden
 

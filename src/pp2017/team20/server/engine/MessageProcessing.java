@@ -18,10 +18,10 @@ public class MessageProcessing {
 	public ArrayList<Player> PlayerList = new ArrayList<Player>();
 	public ArrayList<String> ChatList = new ArrayList<String>();
 
-	// ServerHandler comm;
-	// Message message=comm.getMessageFromClient();
-	// MessageQueue.add(message);
-	// MessageProcess(MessageQueue);
+//	 ServerHandler comm;
+//	 Message message=comm.getMessageFromClient();
+//	 MessageQueue.add(message);
+//	 MessageProcess(MessageQueue);
 
 	// LKonstruktor fuer MassageProcessing
 
