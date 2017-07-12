@@ -2,9 +2,11 @@ package pp2017.team20.shared;
 
 import java.util.LinkedList;
 
+import pp2016.team03.shared.Monster;
 import pp2017.team20.server.map.Maze;
 
 import java.io.Serializable;
+import java.util.LinkedList;
 
 public class Level implements Serializable {
 
@@ -12,10 +14,12 @@ public class Level implements Serializable {
 	public int[][] lvlMaze;
 	private int xPos;
 	private int yPos;
+	public LinkedList<Monster> monsterList = new LinkedList<Monster>();
+
 	
 	
 			
-	public Elements[][] gamearea = new Elements [Maze.size][Maze.size];
+	public GameElement[][] gamearea = new GameElement [Maze.size][Maze.size];
 	
 	public int[][] monsterfield = new int[Maze.size][Maze.size];
 	
@@ -48,7 +52,7 @@ public class Level implements Serializable {
 	}
 	
 	
-	/**Setzen Startpositionen fest? wie wichtig für uns @Tobi */
+	/**Setzen Startpositionen fest? wie wichtig fï¿½r uns @Tobi */
 	public int getxPos(){
 		return xPos;
 	}
