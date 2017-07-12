@@ -1,11 +1,15 @@
 package pp2017.team20.client.engine;
 
-import java.util.LinkedList;
+import java.util.*;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import pp2017.team20.shared.*;
+import pp2017.team20.client.gui.*;
+import pp2017.team20.client.comm.*;
+import pp2017.team20.server.engine.*;
+import pp2017.team20.server.map.*;
 
 /**
  * 
@@ -19,9 +23,11 @@ import pp2017.team20.shared.*;
 public class ClientEngine {
 
 	// Aufbau der Kommunikation zwischen CLient und Server
-	ClientCommunication communication;
+	ClientHandler communication;
 	// Spielfenster erstellen
-	public Window window;
+	public GamingArea window;
+	
+//	Queue <Message> MessageQueue = new LinkedList<Message>();
 
 	/**
 	 * 
@@ -31,10 +37,47 @@ public class ClientEngine {
 	 * 
 	 */
 
-	public ClientEngine(ClientCommunication communication, Window window) {
+	public ClientEngine(ClientHandler communication, GamingArea window) {
 		this.communication = communication;
 		this.window = window;
 	}
+	
+//	ClientHandler comm;
+//	Message msg = comm.getMessageFromServer();
+//	MessageQueue.add(msg);
+//	MessageProcess(MessageQueue);
+//	
+//	// Nimmt eine Message aus dem Queue und entscheidet welcher Unterklasse sie
+//		// angeh�rt
+//		public void MessageProcess(Queue<Message> queue) {
+//
+//			try {
+//				// Pr�ft solange eine Message im Queue ist welchen Typ die
+//				// Nachricht hat
+//				while (!queue.isEmpty()) {
+//
+//					Message msg = queue.poll();
+//					receiveRequest(msg);
+//				}
+//			} catch (Exception e) {
+//
+//			}
+//		}
+	
+	
+	/**
+	 * 
+	 * Methode um Nachricht zu empfangen
+	 * 
+	 * 
+	 * @author Wagner, Tobias, 5416213
+	 */
+	public void receiveMessage() {
+		Message msg = communication.getMessageFromServer();
+		receiveRequest(msg);
+	}
+
+	
 
 	// Erstellung der Nachrichten, die an den Server geschickt werden
 
@@ -47,10 +90,10 @@ public class ClientEngine {
 	 * 
 	 */
 
-	public void sendLogInMessage(String user, String password1, String password2) {
+	public void sendLogInMessage(int clientID, String user, String password1, String password2) {
 		if (password1.equals(password2)) {
-			LogInMessage message = new LogInMessage(user, password1, password2);
-			communication.sendMessage(message);
+			LogInMessage message = new LogInMessage(clientID, user, password1, password2);
+			communication.sendMessageToServer(message);
 		}
 	}
 
@@ -62,9 +105,9 @@ public class ClientEngine {
 	 * 
 	 */
 
-	public void sendLogOutMessage() {
-		LogOutMessage message = new LogOutMessage();
-		communication.senMessage(message);
+	public void sendLogOutMessage(int clientID) {
+		LogOutMessage message = new LogOutMessage(clientID);
+		communication.sendMessageToServer(message);
 	}
 
 	/**
@@ -77,10 +120,11 @@ public class ClientEngine {
 	 * 
 	 */
 
-	public void sendMoveMessage(int xPos, int yPos, int id) {
-		if (!(window.level[xPos][yPos] instanceof wall)) {
-			MoveMessage message = new MoveMessage(xPos, yPos, id);
-			communication.sendMessage(message);
+	public void sendMoveMessage(int clientID, int xPos, int yPos, int id) {
+		//instanceof wall ersetzt durch 0
+		if (!(window.level[xPos][yPos] instanceof Wall)) {
+			MoveMessage message = new MoveMessage(clientID, xPos, yPos, id);
+			communication.sendMessageToServer(message);
 		}
 	}
 
@@ -93,9 +137,9 @@ public class ClientEngine {
 	 * 
 	 */
 
-	public void sendAttackMessage(int attackID, int defendID) {
-		AttackMessage message = new AttackMessage(attackID, defendID);
-		communication.sendMessage(message);
+	public void sendAttackMessage(int clientID, int attackID, int defendID) {
+		AttackMessage message = new AttackMessage(clientID, attackID, defendID);
+		communication.sendMessageToServer(message);
 	}
 
 	/**
@@ -107,9 +151,9 @@ public class ClientEngine {
 	 * 
 	 */
 
-	public void sendCollectPotionMessage() {
-		CollectPotionMessage message = new CollectPotionMessage();
-		communication.sendMessage(message);
+	public void sendCollectPotionMessage(int clientID) {
+		CollectPotionMessage message = new CollectPotionMessage(clientID);
+		communication.sendMessageToServer(message);
 	}
 
 	/**
@@ -122,10 +166,11 @@ public class ClientEngine {
 	 * 
 	 */
 
-	public void sendCollectKeyMessage() {
-		if (window.level[window.player.getXPos()][window.player.getYPos()] instanceof Key) {
-			CollectKeyMessage message = new CollectKeyMessage();
-			communication.sendMessage(message);
+	public void sendCollectKeyMessage(int clientID) {
+		// instanceof Key
+		if (window.level[window.player.getXPos()][window.player.getXPos()] instanceof Key) {
+			CollectKeyMessage message = new CollectKeyMessage(clientID);
+			communication.sendMessageToServer(message);
 		}
 	}
 
@@ -138,13 +183,16 @@ public class ClientEngine {
 	 * 
 	 */
 	
-	public void sendOpenDoorMessage() {
-		if (window.level[window.player.getXPos()][window.player.getYPos()] instanceof door && 
-				((door) window.level[window.player.getXPos()][window.player.getYPos()]).key) ) {
-					OpenDoorMessage message = new OpenDoorMessage();
-					communication.sendMessage(message);
-		}
-	}
+//	public void sendOpenDoorMessage(int clientID) {
+//		//instanceof door
+//		if (window.level[window.player.getXPos()][window.player.getXPos()] instanceof Door && 
+//				//door
+//				//((ddor) window...
+//				(window.level[window.player.getXPos()][window.player.getYPos()]).key) {
+//					OpenDoorMessage message = new OpenDoorMessage(clientID);
+//					communication.sendMessageToServer(message);
+//		}
+//	}
 
 	/**
 	 * 
@@ -157,14 +205,14 @@ public class ClientEngine {
 	 * 
 	 */
 
-	public void sendUsePotionMessage(int id) {
+	public void sendUsePotionMessage(int clientID, int id, int playerID) {
 		if (id == -1) {
-			if (window.player.getNumberPotion() > 0) {
-				UsePotionMessage message = new UsePotionMessage(id);
-				communication.sendMessage(message);
+			if (window.player.getHealthPotNumber() > 0) {
+				UsePotionMessage message = new UsePotionMessage(clientID, -1, playerID);
+				communication.sendMessageToServer(message);
 			} else {
-				UsePotionMessage message = new PotionMessage(id);
-				communication.sendMessage(message);
+				UsePotionMessage message = new UsePotionMessage(clientID, id, playerID);
+				communication.sendMessageToServer(message);
 			}
 		}
 	}
@@ -178,9 +226,9 @@ public class ClientEngine {
 	 * 
 	 */
 
-	public void sendNextLevelMessage() {
-		NextLevelMessage message = new NextLevelMessage();
-		communication.sendMessage(message);
+	public void sendNextLevelMessage(int clientID) {
+		NextLevelMessage message = new NextLevelMessage(clientID);
+		communication.sendMessageToServer(message);
 	}
 
 	/**
@@ -192,9 +240,9 @@ public class ClientEngine {
 	 * 
 	 */
 
-	public void sendHighscoreMessage(String user, int time) {
-		HighScoreMessage message = new HighScoreMessage(user, time);
-		communication.sendMessage(message);
+	public void sendHighscoreMessage(int clientID, String user, int time) {
+		HighScoreMessage message = new HighScoreMessage(clientID, user, time);
+		communication.sendMessageToServer(message);
 	}
 
 	/**
@@ -205,9 +253,9 @@ public class ClientEngine {
 	 * 
 	 */
 
-	public void sendChatMessage(String content) {
-		ChatMessage message = new ChatMessage(content);
-		communication.sendMessage(message);
+	public void sendChatMessage(int clientID, String content) {
+		ChatMessage message = new ChatMessage(clientID, content);
+		communication.sendMessageToServer(message);
 	}
 
 	/**
@@ -218,9 +266,9 @@ public class ClientEngine {
 	 * 
 	 */
 
-	public void sendNewGameMessage() {
-		NewGameMessage message = new NewGameMessage();
-		communication.sendMessage(message);
+	public void sendNewGameMessage(int clientID) {
+		NewGameMessage message = new NewGameMessage(clientID);
+		communication.sendMessageToServer(message);
 	}
 
 	/**
@@ -273,10 +321,10 @@ public class ClientEngine {
 		}
 
 		// Tuer Nachricht empfangen
-		else if (msg instanceof OpenDoorMessage) {
-			OpenDoorMessage message = (OpenDoorMessage) msg;
-			receiveOpenDoorMessage(message);
-		}
+//		else if (msg instanceof OpenDoorMessage) {
+//			OpenDoorMessage message = (OpenDoorMessage) msg;
+//			receiveOpenDoorMessage(message);
+//		}
 
 		// Benutze Trank empfangen
 		else if (msg instanceof UsePotionMessage) {
@@ -326,12 +374,12 @@ public class ClientEngine {
 	public void receiveLogInMessage(LogInMessage message) {
 		// Wenn die Enlogdaten korrekt sind, dann wird das Level geladen
 		if (message.isSuccess()) {
-			window.success = true;
+//			window.success = true;
 			// Laedt das Level
-			window.level = message.getLevel().gameworld;
+			window.level = message.getLevel().gamearea;
 			// Laedt die Startposition des Spielers
-			window.xPos = message.getLevel().getxXPos();
-			window.yPos = message.getLevel().getYPos();
+			window.xPos = message.getLevel().getxPos();
+			window.yPos = message.getLevel().getyPos();
 			// Laedt die Monster des Levels
 			window.buffermonsterList = message.getLevel().monsterList;
 			// Wen die Spielfeldkachel nicht vom Spieler belegt wird, also
@@ -344,13 +392,13 @@ public class ClientEngine {
 				}
 			}
 			// Anzeigen der Spielwelt
-			window.showGameworld();
+			window.showGamingWorld();
 			window.setVisible(true);
 
 			// Wenn man sich nicht zum ersten Mal einloggt, muss kein komplett
 			// neues Spiel gestartet werden
 			if (window.firstLogIn = true) {
-				window.firstLogin = false;
+				window.firstLogIn = false;
 			} else {
 				window.startNewGame();
 			}
@@ -374,7 +422,7 @@ public class ClientEngine {
 	public void receiveLogOutMessage(LogOutMessage message) {
 		if (message.success) {
 			// Zeigt nach dem Ausloggen wieder das Anmeldefenster an
-			window.LogIn();
+			window.login();
 		}
 	}
 
@@ -419,13 +467,16 @@ public class ClientEngine {
 			if (message.attackID == -1 && message.defendID != -1) {
 				// Ist das Monster besiegt, also hat kein Leben mehr, so
 				// hinterlaesst es einen Trank
-				if (message.hpDefender == 0) {
-					window.level[message.xPos][message.yPos] = new Potion();
-				}
-				// Andernfalls werden die Lebenspunkte des Monsters angepasst
-				else {
-					window.monsterListe.get(message.defendID).setHealth(message.hpDefender);
-				}
+//				if (message.hpDefender == 0) {
+//					window.maze[message.xPos][message.yPos] = new Potion();
+//				}
+//				// Andernfalls werden die Lebenspunkte des Monsters angepasst
+//				else {
+//					window.monsterListe.get(message.defendID).setHealth(message.hpDefender);
+//				}
+			if (message.hpDefender != 0) {
+				window.monsterList.get(message.defendID).setHealth(message.hpDefender);
+			}
 			}
 			// Hier ist das Monster der Angreifer und der Spieler der
 			// Verteidiger
@@ -435,7 +486,7 @@ public class ClientEngine {
 				// Fallen die Lebenspunkte des Spielers auf Null, so endet das
 				// Spiel
 				if (message.hpDefender == 0) {
-					window.gameEnding = true;
+					window.gameEnd = true;
 				}
 			}
 		}
@@ -452,14 +503,16 @@ public class ClientEngine {
 	public void receiveCollectPotionMessage(CollectPotionMessage message) {
 		if (message.success) {
 			// Variablen, um die Position des Spielers zu bestimmen
-			int xPos = window.player.getXpos();
-			int yPos = window.player.getYPos();
+			int xPos = window.player.getXPos();
+			int yPos = window.player.getXPos();
 			// Steht der Spieler auf einem Trank, so wird dieser aufgenommen
+			//Potion hat Zahl 4
+			//instanceof Potion
 			if (window.level[xPos][yPos] instanceof Potion) {
-				window.player.collectPotion((Potion) window.level[xPos][yPos]);
+				window.player.collectPotion((Healthpot) window.level[xPos][yPos]);
 				// An die Stelle des Trankes wird eine leere Spielkachel
 				// platziert
-				window.level[xPos][yPos] = new Ground();
+				window.level[xPos][yPos] = new Floor(); //new Ground();
 			}
 		}
 	}
@@ -475,15 +528,18 @@ public class ClientEngine {
 	public void receiveCollectKeyMessage(CollectKeyMessage message) {
 		if (message.success) {
 			// Variablen, um die Position des Spielers zu bestimmen
-			int xPos = window.player.getXpos();
-			int yPos = window.player.getYPos();
+			int xPos = window.player.getXPos();
+			int yPos = window.player.getXPos();
 			// Steht der Spieler auf einem Feld mit einem Schluessel, so wird
 			// dieser aufgenommen
+			//instanceof Key
 			if (window.level[xPos][yPos] instanceof Key) {
-				window.player.collectKey();
+				//collectKey()
+				window.player.ownsKey();
 				// An der Stelle des Schluessels wird eine leere Spielkachel
 				// platziert
-				window.level[xPos][yPos] = new Ground();
+				// new Ground()
+				window.level[xPos][yPos] = new Floor();
 			}
 		}
 	}
@@ -496,13 +552,13 @@ public class ClientEngine {
 	 * 
 	 */
 
-	public void receiveOpenDoorMessage(OpenDoorMessage message) {
-		if (message.success) {
-			// Nach dem Oeffnen der Tuere wird ein neues Level geladen
-			window.player.openDoor();
-			window.NextLevel();
-		}
-	}
+//	public void receiveOpenDoorMessage(OpenDoorMessage message) {
+//		if (message.success) {
+//			// Nach dem Oeffnen der Tuere wird ein neues Level geladen
+//			window.player.openDoor();
+//			window.NextLevel();
+//		}
+//	}
 
 	/**
 	 * 
@@ -537,10 +593,10 @@ public class ClientEngine {
 				// Neues Level wird angefordert
 				window.currentLevel++;
 				// Neues Level wird geladen
-				window.level = message.getLevel().gameworld;
+				window.level = message.getLevel().gamearea;
 				// Laedt die Startposition des Spielers
-				window.XPos = message.getLevel().getXPos();
-				window.YPos = message.getLevel().getYPos();
+				window.xPos = message.getLevel().getxPos();
+				window.yPos = message.getLevel().getyPos();
 				// Laedt die Monster des Levels
 				window.buffermonsterList = message.getLevel().monsterList;
 				// Wen die Spielfeldkachel nicht vom Spieler belegt wird, also
@@ -558,7 +614,7 @@ public class ClientEngine {
 			// Wurde das letzte moegliche Level bereits geladen, so endet das
 			// Spiel
 			else {
-				window.gameEnding = true;
+				window.gameEnd = true;
 			}
 		}
 	}
@@ -573,7 +629,7 @@ public class ClientEngine {
 
 	public void receiveHighScoreMessage(HighScoreMessage message) {
 		// Eintragen des neuen HighScores
-		window.getHighScore().repaint();
+		window.getHighscore().repaint();
 	}
 
 	/**
@@ -591,23 +647,23 @@ public class ClientEngine {
 		switch (messageContent) {
 		// Gibg dem Spieler quasi ungbegrenztes Leben
 		case "UnlimitLife":
-			window.player.ChatOutput.append("Unbesiegbar freigeschaltet");
-			window.player.setLife(100000);
+			window.chat.chatOutput.append("Unbesiegbar freigeschaltet");
+			window.player.setHealth(100000);
 			break;
 		// Laesst den Spieler Monster mit einem Schlag/Klick toeten
 		case "IncreaseDamage":
-			window.player.ChatOutput.append("Erhoeter Schaden");
+			window.chat.chatOutput.append("Erhoeter Schaden");
 			window.player.setDamage(100);
 			break;
 		// Setzt die Cheats wieder zurueck
 		case "Normal":
-			window.player.ChatOutput.append("Cheats sind deaktiviert");
-			window.player.setLife(200);
+			window.chat.chatOutput.append("Cheats sind deaktiviert");
+			window.player.setHealth(200);
 			window.player.setDamage(10);
 			break;
 		// Wird kein Cheat eingegeben, wird die Eingabe ausgegeben
 		default:
-			window.chat.ChatOutput(message);
+			window.chat.chatOutput.append(messageContent);
 			break;
 		}
 	}
@@ -623,9 +679,9 @@ public class ClientEngine {
 
 	public void receiveNewGameMessage(NewGameMessage message) {
 		if (message.success) {
-			window.level = message.getLevel().gameworld;
-			window.xPos = message.getLevel().getXPos();
-			window.yPos = message.getLevel().getYPos();
+			window.level = message.getLevel().gamearea;
+			window.xPos = message.getLevel().getxPos();
+			window.yPos = message.getLevel().getyPos();
 			window.buffermonsterList = message.getLevel().monsterList;
 			// Wen die Spielfeldkachel nicht vom Spieler belegt wird, also
 			// ungleich -1 ist, dann wird ein Monster platziert
@@ -639,7 +695,7 @@ public class ClientEngine {
 		}
 
 		window.gameReset();
-		window.showGameWorld();
+		window.showGamingWorld();
 	}
 
 }

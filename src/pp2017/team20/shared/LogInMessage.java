@@ -21,7 +21,8 @@ public class LogInMessage extends Message {
 	private boolean success = false;
 	
 	int LevelID;
-	Maze maze = new Maze(LevelID);;
+	Level level = new Level();
+	public boolean succsess;
 	
 
 	/**
@@ -30,8 +31,9 @@ public class LogInMessage extends Message {
 	 * 
 	 * @author Wagner, Tobias, 5416213
 	 */
-	public LogInMessage(String user, String password1, String password2) {
-
+	public LogInMessage(int clientID, String user, String password1, String password2) {
+		
+		super(clientID);
 		this.user = user;
 		this.password1 = password1;
 		this.password2 = password2;
@@ -47,11 +49,11 @@ public class LogInMessage extends Message {
 	public void setSuccess(boolean success) {
 		this.success = success;
 	}
-	public Maze getMaze(){
-		return maze;
+	public Level getLevel(){
+		return level;
 	}
-	public void setMaze(Maze maze){
-		this.maze = maze;
+	public void setLevel(Level level){
+		this.level = level;
 	}
 	
 	

@@ -119,7 +119,7 @@ public class Registration {
 				 if(i==1){
 					 //Wenn Benutzername und Passwort korrekt und sich in der db. befinden
 					 JOptionPane.showMessageDialog(null, "Username and Password is correct");
-				// anmelden()
+					 new GamingArea("Mario's Adventure");
 				 }
 				 else{
 					 //Wenn Benutzername oder das Passwort falsch sind.
@@ -153,11 +153,11 @@ public class Registration {
 		window.getContentPane().add(btnButton);
 		
 		//Lade ein Hintergrundsbild hoch
-		lblLabel = new JLabel("");
+	/*	lblLabel = new JLabel("");
 		Image img= new ImageIcon(this.getClass().getResource("/menu.png")).getImage();
 		lblLabel.setIcon(new ImageIcon(img));
 		lblLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblLabel.setBounds(27, 15, 266, 110);
-		window.getContentPane().add(lblLabel);
+		window.getContentPane().add(lblLabel);*/
 	}
 }

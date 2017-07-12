@@ -13,16 +13,20 @@ import pp2017.team20.server.map.*;
 
 public class NewGameMessage extends Message {
 	
-	private Maze lvl;
+	private Level lvl;
+	
+	public NewGameMessage(int clientID) {
+		super(clientID);
+	}
 	
 	//Getter und Setter
 	//Initialisiert das zu ladene Level
-	public void setMaze(Maze lvl){
+	public void setLevel(Level lvl){
 		this.lvl = lvl;
 	}
 	
 	//Empfaengt das zu ladende Level
-	public Maze getMaze(){
+	public Level getLevel(){
 		return lvl;
 	}
 

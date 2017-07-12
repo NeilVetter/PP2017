@@ -4,10 +4,24 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.LinkedList;
 
 import javax.swing.JFrame;
 
+
+
+import pp2017.team20.client.gui.Highscore;
+import pp2017.team20.client.comm.ClientHandler;
+import pp2017.team20.client.engine.ClientEngine;
+import pp2017.team20.client.gui.GamingWorld;
+import pp2017.team20.client.gui.StatusBar;
+import pp2017.team20.shared.Door;
+import pp2017.team20.shared.GameElement;
+import pp2017.team20.shared.Healthpot;
+import pp2017.team20.shared.Key;
+import pp2017.team20.shared.Monster;
 import pp2017.team20.shared.Player;
+import pp2017.team20.shared.Wall;
 
 /**
  * Klasse in der das Spielfenster erstellt wird
@@ -25,148 +39,46 @@ public class GamingArea extends JFrame implements KeyListener {
 	private Control control;
 	private StatusBar statusbar;
 	private MenuBar menubar;
-	private Chat chat;
+	public Chat chat;
 	private MiniMap map;
+	private String adresse = "12345";
+
+	public ClientHandler communication = new ClientHandler(adresse);
+	public ClientEngine engine = new ClientEngine(communication, this);
 
 	public Player player;
+	public LinkedList<Monster> monsterList;
+	public LinkedList<Monster> buffermonsterList;
+	public GameElement[][] level;
+	public int xPos;
+	public int yPos;
+	public int clientID;
+	public int id;
+	public int attackID;
+	public int defendID;
+	public int playerID;
+	public int time;
+	public String user;
+	public boolean success = false;
+	public boolean firstLogIn = true;
 
+	public int currentLevel = 0;
 	public long startTime;
 	public int neededTime;
 	public boolean gameEnd = false;
-	public boolean highscoreShown = false;
+	public boolean gameLost = false;
+	// public boolean starFound = false;
+	// public int elixirs = 0;
+	// public success = false;
+
 	public boolean controlShown = false;
-	public boolean starFound = false;
-	public int elixirs = 0;
+	public boolean highscoreShown = false;
+	// public boolean playerInHighscore = false;
 
 	// hier wird die Breite und Hoehe des gesamten Spielfeldes festgelegt
 	public final int WIDTH = 19;
 	public final int HEIGHT = 19;
 	public final int BOX = 40;
-
-	// hier wird das Testlevel als 2-Dimensionales Array erzeugt
-	int[][] level = new int[19][19];
-
-	{
-		int i, j;
-
-		// 0 = Wand
-		// zuerst wird alles als Wand gespeichert
-		for (i = 0; i < 19; i++) {
-			for (j = 0; j < 19; j++) {
-				level[j][i] = 0;
-			}
-		}
-
-		// 1 = Boden
-		// hier werden die Wege gespeichert
-		i = 1;
-		for (j = 1; j < 18; j++) {
-			level[j][i] = 1;
-		}
-		i = 3;
-		for (j = 14; j < 17; j++) {
-			level[j][i] = 1;
-		}
-		i = 4;
-		for (j = 3; j < 8; j++) {
-			level[j][i] = 1;
-		}
-		i = 6;
-		for (j = 7; j < 17; j++) {
-			level[j][i] = 1;
-		}
-		i = 8;
-		for (j = 2; j < 9; j++) {
-			level[j][i] = 1;
-		}
-		i = 10;
-		for (j = 4; j < 7; j++) {
-			level[j][i] = 1;
-		}
-		i = 12;
-		for (j = 3; j < 5; j++) {
-			level[j][i] = 1;
-		}
-		i = 12;
-		for (j = 8; j < 17; j++) {
-			level[j][i] = 1;
-		}
-		i = 15;
-		for (j = 2; j < 11; j++) {
-			level[j][i] = 1;
-		}
-		i = 15;
-		for (j = 13; j < 16; j++) {
-			level[j][i] = 1;
-		}
-		i = 17;
-		for (j = 1; j < 18; j++) {
-			level[j][i] = 1;
-		}
-
-		j = 1;
-		for (i = 2; i < 17; i++) {
-			level[j][i] = 1;
-		}
-		j = 3;
-		for (i = 2; i < 7; i++) {
-			level[j][i] = 1;
-		}
-		j = 4;
-		for (i = 9; i < 16; i++) {
-			level[j][i] = 1;
-		}
-		j = 7;
-		for (i = 2; i < 8; i++) {
-			level[j][i] = 1;
-		}
-		j = 8;
-		for (i = 9; i < 12; i++) {
-			level[j][i] = 1;
-		}
-		j = 10;
-		for (i = 13; i < 17; i++) {
-			level[j][i] = 1;
-		}
-		j = 11;
-		for (i = 2; i < 6; i++) {
-			level[j][i] = 1;
-		}
-		j = 13;
-		for (i = 7; i < 16; i++) {
-			level[j][i] = 1;
-		}
-		j = 14;
-		for (i = 2; i < 3; i++) {
-			level[j][i] = 1;
-		}
-		j = 15;
-		for (i = 14; i < 15; i++) {
-			level[j][i] = 1;
-		}
-		j = 17;
-		for (i = 2; i < 17; i++) {
-			level[j][i] = 1;
-		}
-
-		// 2 = offene Tuer
-		level[3][6] = 2;
-
-		// 3 = geschlossene Tuer
-		level[15][14] = 3;
-
-		// 4, 5, 6, 7 = Monster
-		level[4][15] = 4;
-		level[10][12] = 5;
-		level[15][6] = 6;
-		level[15][3] = 7;
-
-		// 8 = Stern
-		level[14][3] = 8;
-
-		// 9 = Lebenstrank
-		level[13][9] = 9;
-	}
 
 	/**
 	 * Diese Methode wird von der Main Methode in der Startklasse aufgerufen
@@ -174,7 +86,9 @@ public class GamingArea extends JFrame implements KeyListener {
 	 * @author Heck, Liz, 5991099
 	 */
 	public GamingArea(String title) {
+		communication.runComp();
 		initializeJFrame(title);
+		startNewGame();
 	}
 
 	/**
@@ -193,12 +107,6 @@ public class GamingArea extends JFrame implements KeyListener {
 		this.chat = new Chat(this);
 		this.map = new MiniMap(this);
 
-		this.player = new Player();
-
-		// hier wird das LogIn Fenster aufgerufen und Benutzername und Passwort
-		// werden abgefragt
-		Registration.main(null);
-
 		// Hier werden Breite und Hoehe der einzelnen Elemente des Spielfeldes
 		// festgelegt
 		gamingworld.setPreferredSize(new Dimension(WIDTH * BOX, HEIGHT * BOX));
@@ -216,13 +124,11 @@ public class GamingArea extends JFrame implements KeyListener {
 		this.setVisible(true);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-		// hier wird die Methode zugegriffen die das Spielfenster zeichnet
-		showGamingWorld();
+		this.chat.chatOutput.append("Sie sind eingeloggt");
 
 		// das Spielfenster wird auf dem Bildschirm zentriert
 		final Dimension d = this.getToolkit().getScreenSize();
 		this.setLocation((int) ((d.getWidth() - this.getWidth()) / 2), (int) ((d.getHeight() - this.getHeight()) / 2));
-
 	}
 
 	/**
@@ -296,6 +202,19 @@ public class GamingArea extends JFrame implements KeyListener {
 		control.repaint();
 	}
 
+	// Getter fuer die Spielflaeche bzw. Statusleiste
+	public GamingWorld getGamingWorld() {
+		return gamingworld;
+	}
+
+	public StatusBar getStatusBar() {
+		return statusbar;
+	}
+
+	public Highscore getHighscore() {
+		return highscore;
+	}
+
 	/**
 	 * Hier werden die Tastaturbefehle verarbeitet
 	 * 
@@ -312,35 +231,37 @@ public class GamingArea extends JFrame implements KeyListener {
 			// dem aktuellen Feld des Spielers keine Wand ist, bewege den
 			// Spieler ein Feld nach oben
 			if (e.getKeyCode() == KeyEvent.VK_UP) {
-				if (yPos > 0 && !(level[xPos][yPos - 1] == 0))
-					player.up();
+				if (yPos > 0 && !(level[xPos][yPos - 1] instanceof Wall))
+					engine.sendMoveMessage(clientID, xPos, yPos--, id);
 			}
 			// wenn die Pfeiltaste nach untenn gedrueckt wird und das Feld unter
 			// dem aktuellen Feld des Spielers keine Wand ist, bewege den
 			// Spieler ein Feld nach unten
 			else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-				if (yPos < HEIGHT - 1 && !(level[xPos][yPos + 1] == 0))
-					player.down();
+				if (yPos < HEIGHT - 1 && !(level[xPos][yPos + 1] instanceof Wall))
+					engine.sendMoveMessage(clientID, xPos, yPos++, id);
 			}
 			// wenn die Pfeiltaste nach links gedrueckt wird und das Feld links
 			// neben dem aktuellen Feld des Spielers keine Wand ist, bewege den
 			// Spieler ein Feld nach links
 			else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-				if (xPos > 0 && !(level[xPos - 1][yPos] == 0))
-					player.left();
+				if (xPos > 0 && !(level[xPos - 1][yPos] instanceof Wall))
+					engine.sendMoveMessage(clientID, xPos--, yPos, id);
 			}
 			// wenn die Pfeiltaste nach rechts gedrueckt wird und das Feld
 			// rechts neben dem
 			// aktuellen Feld des Spielers keine Wand ist, bewege den Spieler
 			// ein Feld nach rechts
 			else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-				if (xPos < WIDTH - 1 && !(level[xPos + 1][yPos] == 0))
-					player.right();
+				if (xPos < WIDTH - 1 && !(level[xPos + 1][yPos] instanceof Wall))
+					engine.sendMoveMessage(clientID, xPos++, yPos, id);
 			}
 			// wenn Taste Q gedrueckt wird und ein Monster in der Naehe des
 			// Spielers ist, wird dieses angegriffen und in seinen Lebenspunkten
 			// geschwaecht
 			else if (e.getKeyCode() == KeyEvent.VK_Q) {
+				Monster m = player.attackMonster();
+				engine.sendAttackMessage(clientID, attackID, defendID);
 				System.out.println("Wenn Monster in der Nähe, attackieren");
 			}
 			// wenn Taste B gedrueckt wird und der Spieler einen oder mehrere
@@ -348,11 +269,9 @@ public class GamingArea extends JFrame implements KeyListener {
 			// hat, reduziere Trankanzahl in der Statusleiste um 1 und setze
 			// Lebensanzeige wieder voll
 			else if (e.getKeyCode() == KeyEvent.VK_B) {
+				engine.sendUsePotionMessage(clientID, id, playerID);
 				System.out.println("Wenn Heiltrank vorhanden, benutzen");
-				if (elixirs > 0) {
-					elixirs = elixirs - 1;
-				}
-				repaint();
+				// Anzeige der Heiltränke?
 			}
 			// wenn Escape gedrueckt wird, schliesse das Spielfenster
 			else if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
@@ -364,19 +283,20 @@ public class GamingArea extends JFrame implements KeyListener {
 		// ein Trank liegt, nehme Stern/Trank auf und fuege Stern in
 		// Statusleiste hinzu bzw. erhoehe Trankanzahl um 1
 		if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-			if (level[player.getXPos()][player.getYPos()] == 8) {
-				starFound = true;
-				level[player.getXPos()][player.getYPos()] = 1;
-				repaint();
+			if (level[player.getXPos()][player.getYPos()] instanceof Key) {
+				engine.sendCollectKeyMessage(clientID);
 				System.out.println("Falls Spieler auf Schlüssel oder Heiltrank, nehme diesen auf");
-			} else if (level[player.getXPos()][player.getYPos()] == 9) {
-				elixirs = elixirs + 1;
-				level[player.getXPos()][player.getYPos()] = 1;
-				repaint();
+			} else if (level[player.getXPos()][player.getYPos()] instanceof Healthpot) {
+				engine.sendCollectPotionMessage(clientID);
+				// Anzeige Tränke erhöhen?
 				System.out.println("Falls Spieler auf Schlüssel oder Heiltrank, nehme diesen auf");
 			}
+			if (level[player.getXPos()][player.getYPos()] instanceof Door) {
+				if (level[player.getXPos()][player.getYPos()] instanceof Door && player.ownsKey()) {
+					engine.sendNextLevelMessage(clientID);
+				}
+			}
 		}
-
 	}
 
 	public void keyTyped(KeyEvent e) {
@@ -384,4 +304,52 @@ public class GamingArea extends JFrame implements KeyListener {
 
 	public void keyReleased(KeyEvent e) {
 	}
+
+	public void resetGame() {
+
+		player = new Player("img//player.png", this);
+		// player.setPos(xPos, yPos);
+		monsterList = new LinkedList<Monster>();
+		level = new GameElement[WIDTH][HEIGHT];
+
+		currentLevel = 0;
+		gameEnd = false;
+		gameLost = false;
+
+//		playerInHighscore = false;
+		startTime = System.currentTimeMillis();
+
+	}
+
+	public void startNewGame() {
+		resetGame();
+		
+		do {
+			if (!gameEnd){
+				try {
+					Thread.sleep(50);
+				} catch (InterruptedException e) {}
+				
+				engine.receiveMessage();
+				getGamingWorld().repaint();
+				getStatusBar().repaint();
+				
+				if (player.getHealth() <= 0) {
+					gameEnd = true;
+					gameLost = true;
+				}
+			} else {
+				neededTime = (int) ((System.currentTimeMillis() - startTime) / 1000); 
+				
+				if (gameLost) {
+					engine.sendHighscoreMessage(clientID, user, time);
+					getHighscore().repaint();
+				} else {
+					getGamingWorld().repaint();
+					engine.receiveMessage();
+				}
+			}
+		} while (success);
+	}
+
 }

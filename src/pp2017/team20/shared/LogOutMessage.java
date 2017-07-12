@@ -9,5 +9,13 @@ package pp2017.team20.shared;
  */
 
 public class LogOutMessage extends Message {
+	
+	
+	public int playerID;
+
+	public LogOutMessage (int clientID) {
+		super(clientID);
+		
+	}
 
 }

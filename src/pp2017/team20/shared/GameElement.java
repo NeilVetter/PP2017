@@ -4,4 +4,6 @@ import java.io.Serializable;
 
 public class GameElement implements Serializable{
 
+	public boolean key;
+
 }

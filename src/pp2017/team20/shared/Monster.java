@@ -33,6 +33,7 @@ public class Monster extends Figure {
 
 	public GamingArea window; //eingedeutscht f�r Testumgebung
 	private Player player; //eingedeutscht f�r Testumgebung
+	public int monsterID;
 	
 	public Monster(int x, int y, GamingArea window, int typ){
 		/**
