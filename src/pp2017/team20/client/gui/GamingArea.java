@@ -8,7 +8,10 @@ import java.util.LinkedList;
 
 import javax.swing.JFrame;
 
+<<<<<<< HEAD
 import pp2017.team20.shared.Door;
+=======
+>>>>>>> branch 'master' of https://github.com/NeilVetter/PP2017
 import pp2017.team20.client.gui.Highscore;
 import pp2017.team20.client.comm.ClientHandler;
 import pp2017.team20.client.engine.ClientEngine;
@@ -38,7 +41,7 @@ public class GamingArea extends JFrame implements KeyListener {
 	private Control control;
 	private StatusBar statusbar;
 	private MenuBar menubar;
-	private Chat chat;
+	public Chat chat;
 	private MiniMap map;
 	private String adresse = "12345";
 
@@ -47,6 +50,7 @@ public class GamingArea extends JFrame implements KeyListener {
 
 	public Player player;
 	public LinkedList<Monster> monsterList;
+	public LinkedList<Monster> buffermonsterList;
 	public GameElement[][] level;
 	public int xPos;
 	public int yPos;
