@@ -10,12 +10,8 @@ import java.util.LinkedList;
 
 import javax.imageio.ImageIO;
 
-<<<<<<< HEAD
 import pp2017.team20.shared.Monster;
-=======
-import pp2016.team03.shared.Heiltrank;
-import pp2016.team03.shared.Monster;
->>>>>>> branch 'master' of https://github.com/NeilVetter/PP2017
+
 
 
 //Klasse f�r ein Objetk der types "Player"
@@ -127,9 +123,9 @@ public class Player extends Figure{
 
 			// Kann der Spieler angreifen?
 			boolean canAttack = false;
-			if (m.getTyp() == 0)
+			if (m.getType() == 0)
 				canAttack = true;
-			if (m.getTyp() == 1)
+			if (m.getType() == 1)
 				canAttack = ownsKey;
 
 			if ((Math.sqrt(Math.pow(getXPos() - m.getXPos(), 2)
