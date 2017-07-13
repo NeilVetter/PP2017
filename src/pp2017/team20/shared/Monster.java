@@ -634,7 +634,7 @@ public class Monster extends Figure {
 		super.changeHealth(change);
 		if(getHealth()<=0){
 			window.level[getXPos()][getYPos()] = new HealthPot(30);
-			window.monsterListe.remove(this);
+			window.monsterList.remove(this);
 		}
 	}
 	public double cooldownProzent(){
