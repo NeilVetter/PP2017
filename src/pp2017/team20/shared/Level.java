@@ -8,7 +8,7 @@ import pp2017.team20.server.map.Maze;
 import java.io.Serializable;
 import java.util.LinkedList;
 
-public class Level implements Serializable {
+public class Level  {
 
 	public int LevelID;
 	public int[][] lvlMaze;
@@ -22,6 +22,7 @@ public class Level implements Serializable {
 	public GameElement[][] gamearea = new GameElement [Maze.size][Maze.size];
 	
 	public int[][] monsterfield = new int[Maze.size][Maze.size];
+	
 	
 	public Level(){
 		for (int i= 0; i< monsterfield.length; i++){
