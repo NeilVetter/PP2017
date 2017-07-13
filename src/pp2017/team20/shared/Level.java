@@ -47,7 +47,8 @@ public class Level implements Serializable {
 		return lvlMaze;
 	}
 	
-	public int getanyplacelvl(int x,int y){
+	// @Robin auf das hier muss du zugreifen. 
+	public int getFieldlvl(int x,int y){
 		return lvlMaze[x][y];
 	}
 	
