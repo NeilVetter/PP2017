@@ -13,14 +13,9 @@ import pp2017.team20.client.comm.ClientHandler;
 import pp2017.team20.client.engine.ClientEngine;
 import pp2017.team20.client.gui.GamingWorld;
 import pp2017.team20.client.gui.StatusBar;
-import pp2017.team20.shared.GameElement;
-import pp2017.team20.shared.Door;
-import pp2017.team20.shared.Healthpot;
-import pp2017.team20.shared.Key;
 import pp2017.team20.shared.Level;
 import pp2017.team20.shared.Monster;
 import pp2017.team20.shared.Player;
-import pp2017.team20.shared.Wall;
 
 /**
  * Klasse in der das Spielfenster erstellt wird
@@ -245,7 +240,7 @@ public class GamingArea extends JFrame implements KeyListener {
 			// neben dem aktuellen Feld des Spielers keine Wand ist, bewege den
 			// Spieler ein Feld nach links
 			else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-				if (xPos > 0 && !(level[xPos - 1][yPos] instanceof Wall))
+				if (xPos > 0 && !(level.getlvlMaze(xPos - 1, yPos) == 0))
 					engine.sendMoveMessage(clientID, xPos--, yPos, id);
 			}
 			// wenn die Pfeiltaste nach rechts gedrueckt wird und das Feld
@@ -253,7 +248,7 @@ public class GamingArea extends JFrame implements KeyListener {
 			// aktuellen Feld des Spielers keine Wand ist, bewege den Spieler
 			// ein Feld nach rechts
 			else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-				if (xPos < WIDTH - 1 && !(level[xPos + 1][yPos] instanceof Wall))
+				if (xPos < WIDTH - 1 && !(level.getlvlMaze(xPos + 1, yPos) == 0))
 					engine.sendMoveMessage(clientID, xPos++, yPos, id);
 			}
 			// wenn Taste Q gedrueckt wird und ein Monster in der Naehe des
@@ -283,16 +278,16 @@ public class GamingArea extends JFrame implements KeyListener {
 		// ein Trank liegt, nehme Stern/Trank auf und fuege Stern in
 		// Statusleiste hinzu bzw. erhoehe Trankanzahl um 1
 		if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-			if (level[player.getXPos()][player.getYPos()] instanceof Key) {
+			if (level.getlvlMaze(xPos, yPos + 1) == 5) {
 				engine.sendCollectKeyMessage(clientID);
 				System.out.println("Falls Spieler auf Schlüssel oder Heiltrank, nehme diesen auf");
-			} else if (level[player.getXPos()][player.getYPos()] instanceof Healthpot) {
+			} else if (level.getlvlMaze(xPos, yPos + 1) == 4) {
 				engine.sendCollectPotionMessage(clientID);
 				// Anzeige Tränke erhöhen?
 				System.out.println("Falls Spieler auf Schlüssel oder Heiltrank, nehme diesen auf");
 			}
-			if (level[player.getXPos()][player.getYPos()] instanceof Door) {
-				if (level[player.getXPos()][player.getYPos()] instanceof Door && player.ownsKey()) {
+			if (level.getlvlMaze(xPos, yPos + 1) == 3) {
+				if (level.getlvlMaze(xPos, yPos + 1) == 3 && player.ownsKey()) {
 					engine.sendNextLevelMessage(clientID);
 				}
 			}
