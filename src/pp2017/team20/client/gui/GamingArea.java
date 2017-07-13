@@ -17,6 +17,7 @@ import pp2017.team20.shared.GameElement;
 import pp2017.team20.shared.Door;
 import pp2017.team20.shared.Healthpot;
 import pp2017.team20.shared.Key;
+import pp2017.team20.shared.Level;
 import pp2017.team20.shared.Monster;
 import pp2017.team20.shared.Player;
 import pp2017.team20.shared.Wall;
@@ -47,7 +48,7 @@ public class GamingArea extends JFrame implements KeyListener {
 	public Player player;
 	public LinkedList<Monster> monsterList;
 	public LinkedList<Monster> buffermonsterList;
-	public GameElement[][] level;
+	public Level[][] level;
 	public int xPos;
 	public int yPos;
 	public int clientID;
@@ -55,6 +56,7 @@ public class GamingArea extends JFrame implements KeyListener {
 	public int attackID;
 	public int defendID;
 	public int playerID;
+	public int monsterID;
 	public int time;
 	public String user;
 	public boolean success = false;
@@ -229,7 +231,7 @@ public class GamingArea extends JFrame implements KeyListener {
 			// dem aktuellen Feld des Spielers keine Wand ist, bewege den
 			// Spieler ein Feld nach oben
 			if (e.getKeyCode() == KeyEvent.VK_UP) {
-				if (yPos > 0 && !(level[xPos][yPos - 1] instanceof Wall))
+				if (yPos > 0 && !(level.getFieldlvl[xPos][yPos - 1] == 0))
 					engine.sendMoveMessage(clientID, xPos, yPos--, id);
 			}
 			// wenn die Pfeiltaste nach untenn gedrueckt wird und das Feld unter
@@ -258,7 +260,7 @@ public class GamingArea extends JFrame implements KeyListener {
 			// Spielers ist, wird dieses angegriffen und in seinen Lebenspunkten
 			// geschwaecht
 			else if (e.getKeyCode() == KeyEvent.VK_Q) {
-				Monster m = player.attackMonster();
+//				Monster m = player.attackMonster();
 				engine.sendAttackMessage(clientID, attackID, defendID);
 				System.out.println("Wenn Monster in der Nähe, attackieren");
 			}
@@ -306,10 +308,17 @@ public class GamingArea extends JFrame implements KeyListener {
 	public void resetGame() {
 
 		player = new Player("img//player.png", this);
-		// player.setPos(xPos, yPos);
+		player.setPos(xPos, yPos);
 		monsterList = new LinkedList<Monster>();
-		level = new GameElement[WIDTH][HEIGHT];
+//		level = new GameElement[WIDTH][HEIGHT];
 
+		if (buffermonsterList != null) {
+			for (int i = 0; i < buffermonsterList.size(); i++) {
+				Monster element = buffermonsterList.get(i);
+				element = new Monster(monsterID, element.getXPos(), element.getYPos(), this, element.getType());
+				monsterList.add(element);
+			}
+		}
 		currentLevel = 0;
 		gameEnd = false;
 		gameLost = false;

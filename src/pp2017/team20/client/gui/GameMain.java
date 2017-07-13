@@ -14,7 +14,7 @@ public class GameMain {
 		new GamingArea("Mario's Adventure");
 		
 		//new GamingArea("Mario's Adventure");
-		Registration.main(null);
+//		Registration.main(null);
 
 	}
 
