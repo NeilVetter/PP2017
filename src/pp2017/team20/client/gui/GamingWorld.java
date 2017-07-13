@@ -68,10 +68,10 @@ public class GamingWorld extends JPanel {
 		// 7 = Monster Wario
 		// 8 = Stern
 		// 9 = Trank
-		for (i = 0; i < 19; i++) {
-			for (j = 0; j < 19; j++) {
+		for (i = 0; i < window.WIDTH; i++) {
+			for (j = 0; j < window.HEIGHT; j++) {
 
-				switch (window.level[i][j]) {
+				switch (window.level.getlvlMaze(i, j)) {
 
 				case 0:
 					g.drawImage(wall, i * window.BOX, j * window.BOX, null);
