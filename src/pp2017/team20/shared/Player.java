@@ -10,7 +10,7 @@ import java.util.LinkedList;
 
 import javax.imageio.ImageIO;
 
-import pp2016.team03.shared.Monster;
+import pp2017.team20.shared.Monster;
 
 
 //Klasse f�r ein Objetk der types "Player"
