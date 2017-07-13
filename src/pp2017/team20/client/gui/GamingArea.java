@@ -260,7 +260,7 @@ public class GamingArea extends JFrame implements KeyListener {
 			// Spielers ist, wird dieses angegriffen und in seinen Lebenspunkten
 			// geschwaecht
 			else if (e.getKeyCode() == KeyEvent.VK_Q) {
-				Monster m = player.attackMonster();
+//				Monster m = player.attackMonster();
 				engine.sendAttackMessage(clientID, attackID, defendID);
 				System.out.println("Wenn Monster in der Nähe, attackieren");
 			}

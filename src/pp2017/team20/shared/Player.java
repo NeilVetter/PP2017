@@ -117,26 +117,26 @@ public class Player extends Figure{
 		return ownsKey;
 	}
 	
-	public Monster attackMonster(){
-		for (int i = 0; i < window.monsterList.size(); i++) {
-			Monster m = window.monsterList.get(i);
-
-			// Kann der Spieler angreifen?
-			boolean canAttack = false;
-			if (m.getType() == 0)
-				canAttack = true;
-			if (m.getType() == 1)
-				canAttack = ownsKey;
-
-			if ((Math.sqrt(Math.pow(getXPos() - m.getXPos(), 2)
-					+ Math.pow(getYPos() - m.getYPos(), 2)) < 2)
-					&& canAttack) {
-				return m;
-			}
-		}
-
-		return null;
-	}
+//	public Monster attackMonster(){
+//		for (int i = 0; i < window.monsterList.size(); i++) {
+//			Monster m = window.monsterList.get(i);
+//
+//			// Kann der Spieler angreifen?
+//			boolean canAttack = false;
+//			if (m.getType() == 0)
+//				canAttack = true;
+//			if (m.getType() == 1)
+//				canAttack = ownsKey;
+//
+//			if ((Math.sqrt(Math.pow(getXPos() - m.getXPos(), 2)
+//					+ Math.pow(getYPos() - m.getYPos(), 2)) < 2)
+//					&& canAttack) {
+//				return m;
+//			}
+//		}
+//
+//		return null;
+//	}
 	
 	public void collectPotion(Healthpot h) {
 		healthPotNumber++;

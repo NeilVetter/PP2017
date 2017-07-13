@@ -694,7 +694,7 @@ public class ClientEngine {
 			}
 		}
 
-		window.gameReset();
+		window.resetGame();
 		window.showGamingWorld();
 	}
 
