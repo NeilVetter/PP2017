@@ -2,7 +2,7 @@ package pp2017.team20.shared;
 
 import java.util.LinkedList;
 
-import pp2016.team03.shared.Monster;
+
 import pp2017.team20.server.map.Maze;
 
 import java.io.Serializable;
@@ -47,7 +47,8 @@ public class Level implements Serializable {
 		return lvlMaze;
 	}
 	
-	public int getanyplacelvl(int x,int y){
+	// @Robin auf das hier muss du zugreifen. 
+	public int getFieldlvl(int x,int y){
 		return lvlMaze[x][y];
 	}
 	

@@ -4,6 +4,7 @@ import pp2017.team20.shared.*;
 
 import java.util.ArrayList;
 
+import pp2017.team20.client.gui.GamingArea;
 import pp2017.team20.server.map.*;
 
 //Neil Vetter 6021336
@@ -31,7 +32,7 @@ public class Levelmanagement {
 	}
 
 	// Diese Methode erzeugt ein Map nach Vorgaben vom Levelgenerator
-	public void newLevel(int LevelID) {
+	public void newLevel(int LevelID, GamingArea window, int type) {
 
 		// erstelle neues "Maze" mit Hilfe des Konstruktors der Klasse Maze
 		Maze maze = new Maze(LevelID);
@@ -52,6 +53,11 @@ public class Levelmanagement {
 				
 			}
 		}
+		
+		/** 
+		 * Gibt den Spielern, Monstern und den Heiltränken eine ID und speichert diese
+		 * 
+		 * @autor Hamid Kirli 6041663*/
 		int playerID = 0;
 		int monsterID = 0;
 		int healpotID =0;
@@ -70,7 +76,8 @@ public class Levelmanagement {
 					playerID++;
 				}
 				else if (player.playerMap[i][j]== 6){
-					Monster monster = new Monster(monsterID, i , j);
+					
+					Monster monster = new Monster(monsterID, i , j, window ,  type );
 					// Robin muss den Construktor ändern // also einfach eine monsterID einfügen
 					monsterList[monsterID]= monster;
 					monsterID++;	
@@ -82,7 +89,8 @@ public class Levelmanagement {
 					healpotID++;		
 				}
 				else if(player.playerMap[i][j] == 5){
-					Monster monster = new Monster(monsterID, i, j);
+					int k;
+					Monster monster = new Monster(monsterID, i, j, window, type);
 					monsterList[monsterID]= monster;
 					monsterID++;
 			}
@@ -93,9 +101,11 @@ public class Levelmanagement {
 		}
 	}
 		
-		// Getter Methoden für SpielerListe, MonsterListe
-		// und Heiltrank
-		public Player[] getPlayerList() {
+		/** Getter Methoden für SpielerListe, MonsterListe
+		// und Heiltrank 
+		 * 
+		 * @author Hamid Kirli 6041663*/
+ 		public Player[] getPlayerList() {
 			return playerList;
 		}
 		
