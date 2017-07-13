@@ -278,16 +278,16 @@ public class GamingArea extends JFrame implements KeyListener {
 		// ein Trank liegt, nehme Stern/Trank auf und fuege Stern in
 		// Statusleiste hinzu bzw. erhoehe Trankanzahl um 1
 		if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-			if (level.getlvlMaze(xPos, yPos + 1) == 5) {
+			if (level.getlvlMaze(xPos, yPos) == 5) {
 				engine.sendCollectKeyMessage(clientID);
 				System.out.println("Falls Spieler auf Schlüssel oder Heiltrank, nehme diesen auf");
-			} else if (level.getlvlMaze(xPos, yPos + 1) == 4) {
+			} else if (level.getlvlMaze(xPos, yPos) == 4) {
 				engine.sendCollectPotionMessage(clientID);
 				// Anzeige Tränke erhöhen?
 				System.out.println("Falls Spieler auf Schlüssel oder Heiltrank, nehme diesen auf");
 			}
 			if (level.getlvlMaze(xPos, yPos + 1) == 3) {
-				if (level.getlvlMaze(xPos, yPos + 1) == 3 && player.ownsKey()) {
+				if (level.getlvlMaze(xPos, yPos) == 3 && player.ownsKey()) {
 					engine.sendNextLevelMessage(clientID);
 				}
 			}
