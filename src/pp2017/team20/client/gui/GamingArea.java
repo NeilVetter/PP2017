@@ -231,7 +231,7 @@ public class GamingArea extends JFrame implements KeyListener {
 			// dem aktuellen Feld des Spielers keine Wand ist, bewege den
 			// Spieler ein Feld nach oben
 			if (e.getKeyCode() == KeyEvent.VK_UP) {
-				if (yPos > 0 && !(level.getFieldlvl[xPos][yPos - 1] == 0))
+				if (yPos > 0 && !(level.lvlMaze(xPos, yPos - 1) == 0))
 					engine.sendMoveMessage(clientID, xPos, yPos--, id);
 			}
 			// wenn die Pfeiltaste nach untenn gedrueckt wird und das Feld unter
