@@ -123,7 +123,7 @@ public class ClientEngine {
 	public void sendMoveMessage(int clientID, int xPos, int yPos, int id) {
 		
 		//instanceof wall ersetzt durch 0
-		if (!(window.level.getFieldlvl(Player.getXPos(), Player.getYPos()) == 0)) {
+		if (!(window.level.getlvlMaze(Player.getXPos(), Player.getYPos()) == 0)) {
 			MoveMessage message = new MoveMessage(clientID, xPos, yPos, id);
 			communication.sendMessageToServer(message);
 		}
