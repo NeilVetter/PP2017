@@ -124,13 +124,13 @@ public class Levelmanagement {
 		 *   */
 		
 		public boolean healpotuse(int playerID){
-			boolean correct;
-			if(playerList[playerID].getHealthPotNumber()> 0){
-				correct = true;
+			boolean used;
+			if(playerList[playerID].getHealthPotNumber() ==  0){
+				used = false;
 			}else
-				correct = false;
+				used = true;
 			
-		return correct;
+		return used;
 		}
 		
 		/** 
