@@ -2,7 +2,7 @@ package pp2017.team20.shared;
 
 import java.util.LinkedList;
 
-import pp2016.team03.shared.Monster;
+
 import pp2017.team20.server.map.Maze;
 
 import java.io.Serializable;

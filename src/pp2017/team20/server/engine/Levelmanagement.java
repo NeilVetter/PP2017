@@ -52,6 +52,11 @@ public class Levelmanagement {
 				
 			}
 		}
+		
+		/** 
+		 * Gibt den Spielern, Monstern und den Heiltränken eine ID und speichert diese
+		 * 
+		 * @autor Hamid Kirli 6041663*/
 		int playerID = 0;
 		int monsterID = 0;
 		int healpotID =0;
@@ -93,9 +98,11 @@ public class Levelmanagement {
 		}
 	}
 		
-		// Getter Methoden für SpielerListe, MonsterListe
-		// und Heiltrank
-		public Player[] getPlayerList() {
+		/** Getter Methoden für SpielerListe, MonsterListe
+		// und Heiltrank 
+		 * 
+		 * @author Hamid Kirli 6041663*/
+ 		public Player[] getPlayerList() {
 			return playerList;
 		}
 		
