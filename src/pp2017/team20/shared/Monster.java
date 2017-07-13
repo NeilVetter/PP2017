@@ -26,27 +26,28 @@ public class Monster extends Figure {
 	private int cooldownWalk;
 	
 	private int dir; // Laufrichtung: 0 Nord, 1 Ost, 2 Sued, 3 West
-	private int typ; // Von Beginn an anwesend: 0, Erscheint sp�ter: 1 	(eingedeutscht f�r Testumgebung)
+	private int type; // Von Beginn an anwesend: 0, Erscheint spaeter: 1 	
 	
 	private int strength; //St�rke: 1 schwach, 2 normal, 3 stark, 6 Hulk-Modus
-	private int state; //Zustand des Monsters: 0 Spazieren 1 Verfolgung 2 Attackieren 3 Fl�chten 4 Sterben
+	private int state; //Zustand des Monsters: 0 Spazieren 1 Verfolgung 2 Attackieren 3 Fluechten 4 Sterben
 
-	public GamingArea window; //eingedeutscht f�r Testumgebung
-	private Player player; //eingedeutscht f�r Testumgebung
+	public GamingArea window; 
+	private Player player; 
 	public int monsterID;
 	
-	public Monster(int x, int y, GamingArea window, int typ){
+	public Monster(int monsterID, int x, int y, GamingArea window, int type){
 		/**
 		 * erstellt ein Monster an den Koordinaten (x,y) im Labyrinth und gibt ihm 
 		 * eine gewisse strength mit, die alle weiteren Werte beeinflusst
 		 * 
 		 * @author Sell, Robin, 6071120 
-		 * (Grundger�st: HindiBones)
+		 * (Grundgeruest: HindiBones)
 		 * 
 		 */
+		this.monsterID = monsterID;
 		this.window = window;
 		this.player = window.player;
-		this.typ = typ;
+		this.type = type;
 		setPos(x,y);
 		
 		double variable = Math.random() * 5 + window.currentLevel; //halb Zufall, halb Levelabh�ngig
@@ -195,13 +196,13 @@ public class Monster extends Figure {
 		boolean spielerImRadius = 
 				(Math.abs(player.getXPos() - this.getXPos()) + Math.abs(player.getYPos() - this.getYPos()) < 2);
 		boolean kannAngreifen = false;
-		if (typ == 0) kannAngreifen = ((System.currentTimeMillis() - lastAttack) >= cooldownAttack);
-		if (typ == 1) kannAngreifen = (ownsKey && ((System.currentTimeMillis() - lastAttack) >= cooldownAttack));
+		if (type == 0) kannAngreifen = ((System.currentTimeMillis() - lastAttack) >= cooldownAttack);
+		if (type == 1) kannAngreifen = (ownsKey && ((System.currentTimeMillis() - lastAttack) >= cooldownAttack));
 		
 		// Kann das Monster angreifen?
 		if(spielerImRadius && kannAngreifen){
 			lastAttack = System.currentTimeMillis();
-			player.changeHealth(-getSchaden());
+			player.changeHealth(-getDamage());
 			state = 2; //k�nnte auch weggelassen werden, aber zur �bersicht
 			return spielerImRadius;
 		}
@@ -409,7 +410,7 @@ public class Monster extends Figure {
 		 * Attribute etc. erhalten kann.
 		 * 
 		 * @author Sell, Robin, 6071120
-		 * (unter Online-Hilfe zum Verst�ndnis des Algorithmus)
+		 * (unter Online-Hilfe zum Verstaendnis des Algorithmus)
 		 */
 
 		// Erstellt 2 LinkedListen, die wir sp�ter benutzen.
@@ -603,8 +604,6 @@ public class Monster extends Figure {
 	}
 	
 	
-	MoveMessage m=new MoveMessage(1,2,1);
-	
 	/**reine HindiBones Methoden
 	 * 
 	 * @author HindiBones
@@ -644,11 +643,11 @@ public class Monster extends Figure {
 		 */
 		return 1.0*(System.currentTimeMillis() - lastAttack)/cooldownAttack;
 	}
-	public int getTyp(){
+	public int getType(){
 		/**
 		 * @author HindiBones
 		 */
-		return typ;
+		return type;
 	}
 	
 	public void changeDir(){
