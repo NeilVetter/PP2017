@@ -40,6 +40,10 @@ public class Player extends Figure{
 	
 	private GamingArea window;
 	
+	public Player() {
+		setPos(3, 5);
+	}
+		
 	public Player(String imgFile, GamingArea window){
 		this.window = window;
 

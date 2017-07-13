@@ -59,16 +59,16 @@ public class MiniMap extends JPanel {
 				} else if (level[i][j] == 1) {
 					g.setColor(Color.WHITE);
 					g.fillRect(i * (window.BOX / 4), j * (window.BOX / 4), window.BOX / 4, window.BOX / 4);
-				} else if (level[i][j] == 2 || level[i][j] == 3) {
+				} else if (level[i][j] == 3) {
 					g.setColor(Color.GREEN);
 					g.fillRect(i * (window.BOX / 4), j * (window.BOX / 4), window.BOX / 4, window.BOX / 4);
-				} else if (level[i][j] == 4 || level[i][j] == 5 || level[i][j] == 6 || level[i][j] == 7) {
+				} else if (level[i][j] == 6) {
 					g.setColor(Color.RED);
 					g.fillRect(i * (window.BOX / 4), j * (window.BOX / 4), window.BOX / 4, window.BOX / 4);
-				} else if (level[i][j] == 8) {
+				} else if (level[i][j] == 5) {
 					g.setColor(Color.YELLOW);
 					g.fillRect(i * (window.BOX / 4), j * (window.BOX / 4), window.BOX / 4, window.BOX / 4);
-				} else if (level[i][j] == 9) {
+				} else if (level[i][j] == 4) {
 					g.setColor(Color.CYAN);
 					g.fillRect(i * (window.BOX / 4), j * (window.BOX / 4), window.BOX / 4, window.BOX / 4);
 				}
