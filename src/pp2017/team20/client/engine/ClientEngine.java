@@ -513,7 +513,7 @@ public class ClientEngine {
 				window.player.collectPotion();
 				// An die Stelle des Trankes wird eine leere Spielkachel
 				// platziert
-				window.level.getlvlMaze(xPos, yPos) = 1; //new Ground();
+				window.level.setLvlMaze(xPos, yPos) = 1; //new Ground();
 			}
 		}
 	}
@@ -680,7 +680,7 @@ public class ClientEngine {
 
 	public void receiveNewGameMessage(NewGameMessage message) {
 		if (message.success) {
-			window.level = message.getLevel().gamearea;
+			window.level = message.getLevel();
 			window.xPos = message.getLevel().getxPos();
 			window.yPos = message.getLevel().getyPos();
 			window.buffermonsterList = message.getLevel().monsterList;
