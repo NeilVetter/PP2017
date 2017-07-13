@@ -62,5 +62,9 @@ public class Healthpot extends GameElement {
  public int getPosy(){
 	 return posy;
  }
+ 
+ public int getPosx(){
+	 return posx;
+ }
 
 }

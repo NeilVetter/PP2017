@@ -18,7 +18,7 @@ public class Levelmanagement {
 	Player[] playerList;
 	Monster[] monsterList;
 	Healthpot[] healpotList;
-	public int[][] lvlMaze;
+	public static int[][] lvlMaze;
 	public int LevelID = -1;
 	public static int size;
 	public int lvlcount;
@@ -155,7 +155,57 @@ public class Levelmanagement {
 			System.out.println();
 		}
 	}*/
-	
+	/** Setter-Um einzelne Level Elemente zu verändern
+	 * 
+	 *  @author Hamid  Kirli  6041663 */
+		public void setLvlMaze (int levelID, int x, int y,int substance, Levelmanagement game1 ){
+			lvlMaze[x][y] = substance;
+			if(substance == 2){
+				int playerID = 0;
+				game1.playerList[playerID].setXPos(x);
+				game1.playerList[playerID].setYPos(y);
+			} else if ( substance == 6){
+				boolean monsterbaby = false;
+				int monsterID = 0;
+				while(!monsterbaby){
+					if(Levelmanagement.lvlMaze[x][y] != 0 &&
+							monsterList[monsterID].getXPos()== x &&
+							monsterList[monsterID].getYPos() == y){
+						monsterbaby = true;
+						Levelmanagement.lvlMaze[monsterList[monsterID].getXPos()][monsterList[monsterID].getYPos()] = 1;
+						game1.monsterList[monsterID].setXPos(x);
+						game1.monsterList[monsterID].setYPos(y);	
+					} else {
+						if (monsterID < monsterList.length -1){
+							monsterID++;
+						}
+						else { 
+							monsterbaby = true;
+						}
+					}
+				}
+				}else if ( substance == 4 ){
+					boolean healpotbaby = false;
+					int healpotID = 0 ;
+					while(!healpotbaby){
+						if(healpotList[healpotID].getPosx() == x && 
+								healpotList[healpotID].getPosy()== y){
+							healpotbaby = true;
+							healpotList[healpotID].setPosx(x);
+							healpotList[healpotID].setPosy(y);
+							healpotList[healpotID].take= false;
+						} else {
+							if (healpotID < healpotList.length -1){
+								healpotID++;
+							} else
+								healpotbaby =true;
+						}
+					}
+					
+				}
+			
+		}
+		
 	// Diese Methode setzt einen Spieler zurï¿½ck an den anfang des levels
 	// (des von ihm gespeicherten)
 	// z.B. nach seinem tot
