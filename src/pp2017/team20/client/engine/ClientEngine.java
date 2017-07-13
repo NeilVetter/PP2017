@@ -169,7 +169,7 @@ public class ClientEngine {
 
 	public void sendCollectKeyMessage(int clientID) {
 		// instanceof Key
-		if (window.level[window.player.getXPos()][window.player.getXPos()] instanceof Key) {
+		if (window.level.getlvlMaze(window.player.getXPos(), window.player.getYPos() ) == 5) {
 			CollectKeyMessage message = new CollectKeyMessage(clientID);
 			communication.sendMessageToServer(message);
 		}
@@ -377,7 +377,7 @@ public class ClientEngine {
 		if (message.isSuccess()) {
 //			window.success = true;
 			// Laedt das Level
-			window.level = message.getLevel().gamearea;
+			window.level = message.getLevel();
 			// Laedt die Startposition des Spielers
 			window.xPos = message.getLevel().getxPos();
 			window.yPos = message.getLevel().getyPos();
@@ -509,11 +509,11 @@ public class ClientEngine {
 			// Steht der Spieler auf einem Trank, so wird dieser aufgenommen
 			//Potion hat Zahl 4
 			//instanceof Potion
-			if (window.level[xPos][yPos] instanceof Potion) {
-				window.player.collectPotion((Healthpot) window.level[xPos][yPos]);
+			if (window.level.getlvlMaze(window.player.getXPos(), window.player.getYPos() ) == 4) {
+				window.player.collectPotion();
 				// An die Stelle des Trankes wird eine leere Spielkachel
 				// platziert
-				window.level[xPos][yPos] = new Floor(); //new Ground();
+				window.level.getlvlMaze(xPos, yPos) = 1; //new Ground();
 			}
 		}
 	}
@@ -534,7 +534,7 @@ public class ClientEngine {
 			// Steht der Spieler auf einem Feld mit einem Schluessel, so wird
 			// dieser aufgenommen
 			//instanceof Key
-			if (window.level[xPos][yPos] instanceof Key) {
+			if (window.level.getlvlMaze(window.player.getXPos(), window.player.getYPos() ) == 5) {
 				//collectKey()
 				window.player.ownsKey();
 				// An der Stelle des Schluessels wird eine leere Spielkachel
@@ -594,7 +594,7 @@ public class ClientEngine {
 				// Neues Level wird angefordert
 				window.currentLevel++;
 				// Neues Level wird geladen
-				window.level = message.getLevel().gamearea;
+				window.level = message.getLevel();
 				// Laedt die Startposition des Spielers
 				window.xPos = message.getLevel().getxPos();
 				window.yPos = message.getLevel().getyPos();

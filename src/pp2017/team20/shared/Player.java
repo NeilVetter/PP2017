@@ -138,9 +138,8 @@ public class Player extends Figure{
 //		return null;
 //	}
 	
-	public void collectPotion(Healthpot h) {
+	public void collectPotion() {
 		healthPotNumber++;
-		impactHealth = h.getimpact();
 	}
 	
 	public int usePotion() {
