@@ -48,7 +48,7 @@ public class GamingArea extends JFrame implements KeyListener {
 	public Player player;
 	public LinkedList<Monster> monsterList;
 	public LinkedList<Monster> buffermonsterList;
-	public GameElement[][] level;
+	public Level level;
 	public int xPos;
 	public int yPos;
 	public int clientID;
@@ -231,14 +231,14 @@ public class GamingArea extends JFrame implements KeyListener {
 			// dem aktuellen Feld des Spielers keine Wand ist, bewege den
 			// Spieler ein Feld nach oben
 			if (e.getKeyCode() == KeyEvent.VK_UP) {
-				if (yPos > 0 && !(level.lvlMaze(xPos, yPos - 1) == 0))
+				if (yPos > 0 && !(level.getlvlMaze(xPos, yPos - 1) == 0))
 					engine.sendMoveMessage(clientID, xPos, yPos--, id);
 			}
 			// wenn die Pfeiltaste nach untenn gedrueckt wird und das Feld unter
 			// dem aktuellen Feld des Spielers keine Wand ist, bewege den
 			// Spieler ein Feld nach unten
 			else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-				if (yPos < HEIGHT - 1 && !(level[xPos][yPos + 1] instanceof Wall))
+				if (yPos < HEIGHT - 1 && !(level.getlvlMaze(xPos, yPos + 1) == 0))
 					engine.sendMoveMessage(clientID, xPos, yPos++, id);
 			}
 			// wenn die Pfeiltaste nach links gedrueckt wird und das Feld links

@@ -48,10 +48,7 @@ public class Level  {
 		return lvlMaze;
 	}
 	
-	// @Robin auf das hier muss du zugreifen. 
-	public int getFieldlvl(int x,int y){
-		return lvlMaze[x][y];
-	}
+
 	
 	
 	/**Setzen Startpositionen fest? wie wichtig f�r uns @Tobi */
@@ -67,5 +64,12 @@ public class Level  {
 	public void setPos(int xPos, int yPos){
 		this.xPos = xPos;
 		this.yPos = yPos;
+	}
+
+
+
+	public int getlvlMaze(int xPos, int yPos) {
+		
+		return lvlMaze[xPos][yPos];
 	}
 }
