@@ -8,17 +8,13 @@ import java.util.LinkedList;
 
 import javax.swing.JFrame;
 
-<<<<<<< HEAD
-import pp2017.team20.shared.Door;
-=======
->>>>>>> branch 'master' of https://github.com/NeilVetter/PP2017
 import pp2017.team20.client.gui.Highscore;
 import pp2017.team20.client.comm.ClientHandler;
 import pp2017.team20.client.engine.ClientEngine;
 import pp2017.team20.client.gui.GamingWorld;
 import pp2017.team20.client.gui.StatusBar;
-import pp2017.team20.shared.Door;
 import pp2017.team20.shared.GameElement;
+import pp2017.team20.shared.Door;
 import pp2017.team20.shared.Healthpot;
 import pp2017.team20.shared.Key;
 import pp2017.team20.shared.Monster;
