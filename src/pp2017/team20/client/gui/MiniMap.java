@@ -46,7 +46,7 @@ public class MiniMap extends JPanel {
 	 */
 	public void paint(Graphics g) {
 		super.paintComponent(g);
-		int[][] level = window.level;
+		int[][] level = window.level.lvlMaze;
 
 		// alle Eintraege des Testlevels (aus GamingArea) werden abgefragt, und
 		// mit unterschiedlich farblichen Rechtecken in der MiniMap dargestellt
