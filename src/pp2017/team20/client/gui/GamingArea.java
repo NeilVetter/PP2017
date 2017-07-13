@@ -48,7 +48,7 @@ public class GamingArea extends JFrame implements KeyListener {
 	public Player player;
 	public LinkedList<Monster> monsterList;
 	public LinkedList<Monster> buffermonsterList;
-	public Level[][] level;
+	public GameElement[][] level;
 	public int xPos;
 	public int yPos;
 	public int clientID;
