@@ -1,6 +1,8 @@
 package pp2017.team20.server.engine;
 
 import java.util.*;
+
+import pp2016.team03.shared.Nachrichtenobjekt;
 import pp2017.team20.shared.*;
 import pp2017.team20.server.comm.*;
 
@@ -18,7 +20,7 @@ public class MessageProcessing {
 	public ArrayList<Player> PlayerList = new ArrayList<Player>();
 	public ArrayList<String> ChatList = new ArrayList<String>();
 
-//	 ServerHandler comm;
+	ServerHandler comm;
 //	 Message message=comm.getMessageFromClient();
 //	 MessageQueue.add(message);
 //	 MessageProcess(MessageQueue);
@@ -28,7 +30,15 @@ public class MessageProcessing {
 	public MessageProcessing() {
 
 	}
-
+	
+	public void RecieveMessage() {
+		
+		// Empfange bis der Server beendet wird Nachrichten von der Kommunikation
+		while (true) {
+			Message message = comm.getMessageFromClient();
+			WhatMessageType(message);
+		}
+	}
 	// Nimmt eine Message aus dem Queue und entscheidet welcher Unterklasse sie
 	// angeh�rt
 	public void MessageProcess(Queue<Message> queue) {
