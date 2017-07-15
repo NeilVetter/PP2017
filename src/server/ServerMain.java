@@ -8,8 +8,8 @@ public class ServerMain {
 
 		System.out.println("test");
 
-		MessageProcessing messageProcessing = new MessageProcessing();
-
-		messageProcessing.RecieveMessage();
+//		MessageProcessing messageProcessing = new MessageProcessing();
+//
+//		messageProcessing.RecieveMessage();
 	}
 }

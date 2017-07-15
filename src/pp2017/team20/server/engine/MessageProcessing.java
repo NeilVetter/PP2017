@@ -2,7 +2,7 @@ package pp2017.team20.server.engine;
 
 import java.util.*;
 
-import pp2016.team03.shared.Nachrichtenobjekt;
+
 import pp2017.team20.shared.*;
 import pp2017.team20.server.comm.*;
 
