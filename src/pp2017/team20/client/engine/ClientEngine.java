@@ -505,7 +505,7 @@ public class ClientEngine {
 		if (message.success) {
 			// Variablen, um die Position des Spielers zu bestimmen
 			int xPos = window.player.getXPos();
-			int yPos = window.player.getXPos();
+			int yPos = window.player.getYPos();
 			// Steht der Spieler auf einem Trank, so wird dieser aufgenommen
 			//Potion hat Zahl 4
 			//instanceof Potion
@@ -513,7 +513,7 @@ public class ClientEngine {
 				window.player.collectPotion();
 				// An die Stelle des Trankes wird eine leere Spielkachel
 				// platziert
-				window.level.setLvlMaze(yPos, yPos,1); //new Ground(); // @tobi so sollte es jetzt gehen. 
+				window.level.setLvlMaze(xPos, yPos,1); //new Ground(); // @tobi so sollte es jetzt gehen. 
 			}
 		}
 	}
@@ -530,7 +530,7 @@ public class ClientEngine {
 		if (message.success) {
 			// Variablen, um die Position des Spielers zu bestimmen
 			int xPos = window.player.getXPos();
-			int yPos = window.player.getXPos();
+			int yPos = window.player.getYPos();
 			// Steht der Spieler auf einem Feld mit einem Schluessel, so wird
 			// dieser aufgenommen
 			//instanceof Key
@@ -540,7 +540,7 @@ public class ClientEngine {
 				// An der Stelle des Schluessels wird eine leere Spielkachel
 				// platziert
 				// new Ground()
-				window.level.setLvlMaze(xPos, yPos, 1);; //Same gruß Hamid
+				window.level.setLvlMaze(xPos, yPos, 1);; //Same gruï¿½ Hamid
 			}
 		}
 	}
