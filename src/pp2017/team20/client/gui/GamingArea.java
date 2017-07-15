@@ -6,7 +6,11 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.LinkedList;
 
+import javax.crypto.Cipher;
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import pp2017.team20.client.gui.Highscore;
 import pp2017.team20.client.comm.ClientHandler;
@@ -54,6 +58,7 @@ public class GamingArea extends JFrame implements KeyListener {
 	public int monsterID;
 	public int time;
 	public String user;
+	public String loginName;
 	public boolean success = false;
 	public boolean firstLogIn = true;
 
@@ -350,6 +355,38 @@ public class GamingArea extends JFrame implements KeyListener {
 				}
 			}
 		} while (success);
+	}
+	
+	public void login() {
+		String username = JOptionPane.showInputDialog("Bitte logge dich ein");
+		String passwordcheck = JOptionPane
+				.showInputDialog("Bitte Passwort eingeben");
+		
+		//Verschluesselung
+				try {
+					KeyGenerator keygenerator = KeyGenerator.getInstance("DES");
+		            SecretKey key = keygenerator.generateKey();
+		 
+		            Cipher Encoding;
+		 
+		            // Schluessel erstellen 
+		            Encoding = Cipher.getInstance("DES/ECB/PKCS5Padding");
+		 
+		            // Schluessel initialisieren
+		            Encoding.init(Cipher.ENCRYPT_MODE, key);
+		 
+		            //Passwort vorbereiten fuer Verschluesselung
+		            byte[] password = passwordcheck.getBytes();
+
+		            // Passwort verschluesseln
+		            byte[] passwordEncoded = Encoding.doFinal(password);
+		        
+		        //Verschluesseltes Passwort wird mit dem generierten Schluessel an den Server uebermittelt
+				engine.sendLogInMessage(clientID, username, password, key);
+				loginName = username;
+			}catch (Exception e) {
+				System.out.println("Login konnte nicht gelesen werden");
+				}
 	}
 
 }

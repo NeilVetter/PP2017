@@ -2,6 +2,7 @@ package pp2017.team20.client.engine;
 
 import java.util.*;
 
+import javax.crypto.SecretKey;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -90,9 +91,9 @@ public class ClientEngine {
 	 * 
 	 */
 
-	public void sendLogInMessage(int clientID, String user, String password1, String password2) {
-		if (password1.equals(password2)) {
-			LogInMessage message = new LogInMessage(clientID, user, password1, password2);
+	public void sendLogInMessage(int clientID, String user, byte[] password, SecretKey key) {
+		if (password.equals(key)) {
+			LogInMessage message = new LogInMessage(clientID, user, password, key);
 			communication.sendMessageToServer(message);
 		}
 	}
