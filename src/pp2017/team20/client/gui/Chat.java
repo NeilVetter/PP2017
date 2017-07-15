@@ -34,6 +34,8 @@ public class Chat extends JPanel {
 	private JTextField chatInput;
 	public JTextArea chatOutput;
 
+	public int clientID;
+
 	/**
 	 * Hier werden das Eingabefenster, das Ausgabefenster und der Button zum
 	 * Versenden erstellt, mithilfe von GridBagLayout
@@ -110,7 +112,7 @@ public class Chat extends JPanel {
 	public class sendMessageListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent arg0) {
-			window.engine.sendChatMessage(chatInput.getText());
+			window.engine.sendChatMessage(clientID, chatInput.getText());
 		}
 	}
 
