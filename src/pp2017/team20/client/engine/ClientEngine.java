@@ -514,7 +514,7 @@ public class ClientEngine {
 				window.player.collectPotion();
 				// An die Stelle des Trankes wird eine leere Spielkachel
 				// platziert
-				window.level.setLvlMaze(xPos, yPos,1); //new Ground(); // @tobi so sollte es jetzt gehen. 
+				window.level.setLvlMaze(xPos, yPos,4); //new Ground(); // @tobi so sollte es jetzt gehen. 
 			}
 		}
 	}
@@ -541,7 +541,7 @@ public class ClientEngine {
 				// An der Stelle des Schluessels wird eine leere Spielkachel
 				// platziert
 				// new Ground()
-				window.level.setLvlMaze(xPos, yPos, 1);; //Same gru� Hamid
+				window.level.setLvlMaze(xPos, yPos, 5); //Same gru� Hamid
 			}
 		}
 	}
