@@ -18,7 +18,7 @@ public class StatusBar extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
-	private Image floor, star, elixir, player;
+	private Image floor, key, healthpot, player;
 
 	private GamingArea window;
 
@@ -33,8 +33,8 @@ public class StatusBar extends JPanel {
 		// Bilder werden geladen und ein moeglicher Fehler wird abgefangen
 		try {
 			floor = ImageIO.read(new File("img//floor.jpg"));
-			star = ImageIO.read(new File("img//star.png"));
-			elixir = ImageIO.read(new File("img//elixir.png"));
+			key = ImageIO.read(new File("img//key.png"));
+			healthpot = ImageIO.read(new File("img//healthpot.png"));
 			player = ImageIO.read(new File("img//player.png"));
 		} catch (Exception e) {
 			System.err.println("Image could not be found.");
@@ -61,12 +61,12 @@ public class StatusBar extends JPanel {
 		// gezeichnet
 		g.drawImage(player, 190, 0, window.BOX, window.BOX, null);
 		g.setColor(Color.WHITE);
-		g.drawString("" + window.player.getName(), window.BOX * (window.WIDTH - 13), 25);
+		g.drawString("" + window.player.getPlayername(), window.BOX * (window.WIDTH - 13), 25);
 
 		// das Symbol fuer die Lebenstraenke und die Anzahl werden in die Mitte
 		// unter das Spielfeld gezeichnet
-		g.drawImage(elixir, 510, 0, window.BOX, window.BOX, null);
-		g.drawString("" + window.elixirs, window.BOX * (window.WIDTH - 5), 25);
+		g.drawImage(healthpot, 510, 0, window.BOX, window.BOX, null);
+		g.drawString("" + window.player.getHealthPotNumber(), window.BOX * (window.WIDTH - 5), 25);
 
 		// hier wird die benoetigte Zeit des aktuellen Spiels angezeigt
 		g.drawString("Time: 0", window.BOX * (window.WIDTH + 1), 25);
@@ -80,8 +80,8 @@ public class StatusBar extends JPanel {
 
 		// falls der Spieler den Stern gefunden und aufgenommen hat, wird dieser
 		// ebenfalls in der Statusleiste angezeigt
-		if (window.starFound == true) {
-			g.drawImage(star, 460, 0, window.BOX, window.BOX, null);
+		if (window.player.ownsKey == true) {
+			g.drawImage(key, 460, 0, window.BOX, window.BOX, null);
 		}
 
 	}
