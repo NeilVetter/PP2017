@@ -62,7 +62,7 @@ public class Registration {
 
 	//Initialisiere das Fenster 
 	 
-	private void initialize() {
+	public void initialize() {
 		window = new JFrame();
 		//Setze gr��e des Fenster fest
 		window.setBounds(100, 100, 542, 409);

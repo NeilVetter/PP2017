@@ -362,7 +362,8 @@ public class GamingArea extends JFrame implements KeyListener {
 	}
 	
 	public void login() {
-		Registration.Main.Null();
+		Registration reg = new Registration();
+		reg.initialize();
 //		String username = JOptionPane.showInputDialog("Bitte logge dich ein");
 //		String passwordcheck = JOptionPane
 //				.showInputDialog("Bitte Passwort eingeben");
