@@ -439,8 +439,8 @@ public class Monster extends Figure {
 			
 			// Hier wird jetzt in den sich dadrueber befindenen Nachbarknoten gegangen
 			if (!((current.getY() == 0) 
-					|| (window.level[current.getX()][current.getY() - 1] instanceof Wall)
-					|| (window.level[current.getX()][current.getY() - 1] instanceof Door))) {
+					|| (window.level.getlvlMaze(current.getX(),current.getY() - 1 ) == 0
+					|| (window.level.getlvlMaze(current.getX(),current.getY() - 1 ) == 3)))) {
 
 				boolean neew = true; // AB HIER GILT: neew = new bzw neu
 				for (AStarNode node : openedList) {
@@ -470,8 +470,8 @@ public class Monster extends Figure {
 			
 			// Hier wird jetzt in den sich dadrunter befindenen Nachbarknoten gegangen
 			if (!((current.getY() == window.HEIGHT) 
-					|| (window.level[current.getX()][current.getY() + 1] instanceof Wall)
-					|| (window.level[current.getX()][current.getY() + 1] instanceof Door))) {
+					|| (window.level.getlvlMaze(current.getX(),current.getY() + 1 ) == 0
+					|| (window.level.getlvlMaze(current.getX(),current.getY() + 1 ) == 3)))) {
 
 				boolean neew = true;
 				for (AStarNode node : openedList) {
@@ -502,8 +502,8 @@ public class Monster extends Figure {
 
 			// Hier wird jetzt in den sich links daneben befindenen Nachbarknoten gegangen
 			if (!((current.getX() == 0) 
-					|| (window.level[current.getX() - 1][current.getY()] instanceof Wall)
-					|| (window.level[current.getX() - 1][current.getY()] instanceof Door))) {
+					|| (window.level.getlvlMaze(current.getX() -1 ,current.getY()) == 0
+					|| (window.level.getlvlMaze(current.getX() -1 ,current.getY()) == 3)))) {
 
 				boolean neew = true;
 				for (AStarNode node : openedList) {
@@ -533,8 +533,8 @@ public class Monster extends Figure {
 
 			// Hier wird jetzt in den sich rechts daneben befindenen Nachbarknoten gegangen
 			if (!((current.getX() == window.HEIGHT) 
-					|| (window.level[current.getX() + 1][current.getY()] instanceof Wall)
-					|| (window.level[current.getX() + 1][current.getY()] instanceof Door))) {
+					|| (window.level.getlvlMaze(current.getX() +1 ,current.getY()) == 0
+					|| (window.level.getlvlMaze(current.getX() +1 ,current.getY()) == 3)))) {
 
 				boolean neew = true;
 				for (AStarNode node : openedList) {
@@ -621,16 +621,16 @@ public class Monster extends Figure {
 			changeDir();			
 		}
 	}
-	public void changeHealth(int change){
-		/**
-		 * @author HindiBones
-		 */
-		super.changeHealth(change);
-		if(getHealth()<=0){
-			window.level[getXPos()][getYPos()] = new HealthPot(30);
-			window.monsterList.remove(this);
-		}
-	}
+//	public void changeHealth(int change){
+//		/**
+//		 * @author HindiBones
+//		 */
+//		super.changeHealth(change);
+//		if(getHealth()<=0){
+//			window.level.[getXPos()][getYPos()] = new HealthPot(30);
+//			window.monsterList.remove(this);
+//		}
+//	}
 	public double cooldownProzent(){
 		/**
 		 * @author: HindiBones 
@@ -661,21 +661,21 @@ public class Monster extends Figure {
 		if(dir == -1) return true;
 		
 		if(dir == 0 && getYPos()-1 > 0){
-			return !(window.level[getXPos()][getYPos()-1] instanceof Wall) &&
-				   !(window.level[getXPos()][getYPos()-1] instanceof Door) &&
-				   !(window.level[getXPos()][getYPos()-1] instanceof Key);
+			return	! ((window.level.getlvlMaze(getXPos(),getYPos()-1) == 0) &&
+					!((window.level.getlvlMaze(getXPos(),getYPos()-1) == 3) &&
+					!((window.level.getlvlMaze(getXPos(),getYPos()-1) == 5))));
 		}else if(dir == 1 && getXPos()+1 < window.WIDTH){
-			return !(window.level[getXPos()+1][getYPos()] instanceof Wall) &&
-				   !(window.level[getXPos()+1][getYPos()] instanceof Door) &&
-				   !(window.level[getXPos()+1][getYPos()] instanceof Key);
+			return  ! ((window.level.getlvlMaze(getXPos()+1,getYPos()) == 0) &&
+					!((window.level.getlvlMaze(getXPos()+1,getYPos()) == 3) &&
+					!((window.level.getlvlMaze(getXPos()+1,getYPos()) == 5))));
 		}else if(dir == 2 && getYPos()+1 < window.HEIGHT){
-			return !(window.level[getXPos()][getYPos()+1] instanceof Wall) &&
-				   !(window.level[getXPos()][getYPos()+1] instanceof Door) &&
-				   !(window.level[getXPos()][getYPos()+1] instanceof Key);
-		}else if(dir == 3 && getXPos() > 0 ){
-			return !(window.level[getXPos()-1][getYPos()] instanceof Wall) &&
-				   !(window.level[getXPos()-1][getYPos()] instanceof Door) &&
-				   !(window.level[getXPos()-1][getYPos()] instanceof Key);
+			return 	! ((window.level.getlvlMaze(getXPos(),getYPos()+1) == 0) &&
+					!((window.level.getlvlMaze(getXPos(),getYPos()+1) == 3) &&
+					!((window.level.getlvlMaze(getXPos(),getYPos()+1) == 5))));
+			}else if(dir == 3 && getXPos() > 0 ){
+			return! ((window.level.getlvlMaze(getXPos()-1,getYPos()) == 0) &&
+					!((window.level.getlvlMaze(getXPos()-1,getYPos()) == 3) &&
+					!((window.level.getlvlMaze(getXPos()-1,getYPos()) == 5))));
 		}
 		else return false;
 	}
