@@ -24,7 +24,6 @@ public class LogInMessage extends Message {
 	int LevelID;
 	Level level = new Level();
 //	public boolean succsess;
-	public boolean succsess;
 	
 
 	/**
