@@ -131,6 +131,7 @@ public class GamingArea extends JFrame implements KeyListener {
 		// das Spielfenster wird auf dem Bildschirm zentriert
 		final Dimension d = this.getToolkit().getScreenSize();
 		this.setLocation((int) ((d.getWidth() - this.getWidth()) / 2), (int) ((d.getHeight() - this.getHeight()) / 2));
+		System.out.println("Test Fesnter");
 	}
 
 	/**
@@ -359,6 +360,7 @@ public class GamingArea extends JFrame implements KeyListener {
 				}
 			}
 		} while (success);
+		System.out.println("Test NewGame");
 	}
 	
 	public void login() {
@@ -391,6 +393,7 @@ public class GamingArea extends JFrame implements KeyListener {
 				engine.sendLogInMessage(clientID, user, password, key);
 				loginName = user;
 //				}
+				System.out.println("test login");
 	}
 
 }
