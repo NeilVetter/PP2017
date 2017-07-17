@@ -9,7 +9,7 @@ public abstract class Figure {
 	 * (minimale Erg�nzung: Sell, Robin, 6071120)
 	 */
 
-	private int xPos, yPos;
+	private int xPos, yPos, id;
 	private Image image;
 	
 	private int health;
@@ -41,7 +41,7 @@ public abstract class Figure {
 		this.damage = damage;
 	}
 	
-	public int getSchaden(){
+	public int getDamage(){
 		return damage;
 	}
 	
@@ -84,6 +84,18 @@ public abstract class Figure {
 	
 	public int getXPos(){
 		return xPos;
+	}
+	
+	public void setYPos(int y) {
+		yPos = y;
+	}
+
+	public void setXPos(int x) {
+		xPos = x;
+	}
+
+	public void setID(int id) {
+		this.id = id;
 	}
 	
 	public void up(){

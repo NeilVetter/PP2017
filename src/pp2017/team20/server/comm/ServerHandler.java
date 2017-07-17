@@ -131,7 +131,9 @@ public class ServerHandler {
 	 * @return Message-object, das vom ObjectInputStream gelesen wird
 	 */
 	public Message getMessageFromClient() {
-		return receiver.getMessage();
+		
+			return receiver.getMessage();
+	
 	}
 
 

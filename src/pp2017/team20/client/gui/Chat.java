@@ -29,9 +29,12 @@ public class Chat extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
+	private GamingArea window;
 	private JButton send;
 	private JTextField chatInput;
 	public JTextArea chatOutput;
+
+	public int clientID;
 
 	/**
 	 * Hier werden das Eingabefenster, das Ausgabefenster und der Button zum
@@ -40,6 +43,7 @@ public class Chat extends JPanel {
 	 * @author Heck, Liz, 5991099
 	 */
 	public Chat(GamingArea window) {
+		this.window = window;
 		this.setLayout(new BorderLayout());
 
 		JPanel southPanel = new JPanel();
@@ -108,9 +112,7 @@ public class Chat extends JPanel {
 	public class sendMessageListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent arg0) {
-			chatOutput.append("Player: " + chatInput.getText() + "\n");
-			chatInput.setText("");
-			chatInput.requestFocusInWindow();
+			window.engine.sendChatMessage(clientID, chatInput.getText());
 		}
 	}
 

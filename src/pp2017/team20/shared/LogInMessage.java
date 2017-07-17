@@ -2,6 +2,7 @@ package pp2017.team20.shared;
 
 import pp2017.team20.shared.*;
 import pp2017.team20.server.map.*;
+import javax.crypto.SecretKey;
 
 /**
  * Nachrichtenklasse, die beim LogIn den aktuellen Spieler sowie das Passwort uebermittelt.
@@ -15,13 +16,14 @@ public class LogInMessage extends Message {
 	//Variable fuer den aktuellen Spieler
 	public String user;
 	//Variable fuer das Passwort
-	public String password1;
+	public byte [] password;
 	//Vairable zum Ueberpruefen des Passworts
-	public String password2;
+	public SecretKey key;
 	private boolean success = false;
 	
 	int LevelID;
-	Maze maze = new Maze(LevelID);;
+	Level level = new Level();
+//	public boolean succsess;
 	
 
 	/**
@@ -30,12 +32,12 @@ public class LogInMessage extends Message {
 	 * 
 	 * @author Wagner, Tobias, 5416213
 	 */
-	public LogInMessage(int clientID, String user, String password1, String password2) {
+	public LogInMessage(int clientID, String user, byte [] password, SecretKey key) {
 		
 		super(clientID);
 		this.user = user;
-		this.password1 = password1;
-		this.password2 = password2;
+		this.password = password;
+		this.key = key;
 	}
 
 	
@@ -48,11 +50,11 @@ public class LogInMessage extends Message {
 	public void setSuccess(boolean success) {
 		this.success = success;
 	}
-	public Maze getMaze(){
-		return maze;
+	public Level getLevel(){
+		return level;
 	}
-	public void setMaze(Maze maze){
-		this.maze = maze;
+	public void setLevel(Level level){
+		this.level = level;
 	}
 	
 	

@@ -2,7 +2,7 @@ package pp2017.team20.shared;
 
 /**
  * 
- * Nachrichtenklasse, die die Bewegung des Spielers bzw. eines Monsters uebermittelt
+ * Nachrichtenklasse, die die Bewegung des Spielers bzw. eines Monsters uebermittelt.
  * 
  * @author Wagner, Tobias, 5416213
  *
@@ -15,6 +15,8 @@ public class MoveMessage extends Message {
 	public int xPos;
 	public int yPos;
 	public boolean success = false;
+	public int playerID;
+	public boolean succsess;
 	
 
 	/**
