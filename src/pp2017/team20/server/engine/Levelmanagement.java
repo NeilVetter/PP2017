@@ -26,7 +26,7 @@ public class Levelmanagement {
 	static int keyy;
 	static int doorx;
 	static int doory;
-
+//abstest
 	public Levelmanagement(Player player) {
 		this.player = player;
 	}
