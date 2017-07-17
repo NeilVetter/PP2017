@@ -19,7 +19,7 @@ public class MessageProcessing {
 	public ArrayList<Player> PlayerList = new ArrayList<Player>();
 	public ArrayList<String> ChatList = new ArrayList<String>();
 
-	ServerHandler comm= new ServerHandler();
+	ServerKommunikation comm= new ServerKommunikation();
 //	 Message message=comm.getMessageFromClient();
 //	 MessageQueue.add(message);
 //	 MessageProcess(MessageQueue);
@@ -38,7 +38,7 @@ public class MessageProcessing {
 			// Kommunikation
 			while (true) {
 				try {
-				Message message = comm.getMessageFromClient();
+				Message message = comm.erhalteNachricht();
 				WhatMessageType(message);
 				} catch (Exception e) {
 					
