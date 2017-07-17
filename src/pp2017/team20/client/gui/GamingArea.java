@@ -13,7 +13,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import pp2017.team20.client.gui.Highscore;
-import pp2017.team20.client.comm.ClientHandler;
+import pp2017.team20.client.comm.ClientKommunikation;
 import pp2017.team20.client.engine.ClientEngine;
 import pp2017.team20.client.gui.GamingWorld;
 import pp2017.team20.client.gui.StatusBar;
@@ -41,8 +41,8 @@ public class GamingArea extends JFrame implements KeyListener {
 	private MiniMap map;
 	private String adresse = "55555";
 
-	public ClientHandler communication = new ClientHandler(adresse);
-	public ClientEngine engine = new ClientEngine(communication, this);
+	public ClientKommunikation kommunikation = new ClientKommunikation();
+	public ClientEngine engine = new ClientEngine(kommunikation, this);
 
 	public Player player;
 	public LinkedList<Monster> monsterList;
@@ -86,7 +86,8 @@ public class GamingArea extends JFrame implements KeyListener {
 	 * @author Heck, Liz, 5991099
 	 */
 	public GamingArea(String title) {
-		communication.runComp();
+		kommunikation.connectToServer();
+		kommunikation.start();
 		initializeJFrame(title);
 		startNewGame();
 	}
