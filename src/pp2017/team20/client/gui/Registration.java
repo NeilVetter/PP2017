@@ -122,6 +122,7 @@ public class Registration {
 					 //Wenn Benutzername und Passwort korrekt und sich in der db. befinden
 					 JOptionPane.showMessageDialog(null, "Username and Password is correct");
 					 new GamingArea("Mario's Adventure");
+					 window.dispose();
 				 }
 				 else{
 					 //Wenn Benutzername oder das Passwort falsch sind.
