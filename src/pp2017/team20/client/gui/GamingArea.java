@@ -39,7 +39,7 @@ public class GamingArea extends JFrame implements KeyListener {
 	private MenuBar menubar;
 	public Chat chat;
 	private MiniMap map;
-	private String adresse = "12345";
+	private String adresse = "55555";
 
 	public ClientHandler communication = new ClientHandler(adresse);
 	public ClientEngine engine = new ClientEngine(communication, this);
