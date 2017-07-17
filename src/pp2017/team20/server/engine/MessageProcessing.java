@@ -118,7 +118,7 @@ public class MessageProcessing {
 			if (player.playerID == player.playerID) {
 				// wenn der Levelgenerator succsess==true angibt hat der login
 				// bei ihm funktioniert
-				if (message.succsess == true) {
+				if (message.isSuccess() == true) {
 					// Aendert den Zustand des Spieler zu LoggedIN so dass dies
 					// immer bekannt
 					player.loggedIN = true;
