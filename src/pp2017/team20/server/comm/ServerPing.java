@@ -65,7 +65,7 @@ public class ServerPing extends TimerTask {
 		this.networkHandler.setConnectedStatus1(false);
 		this.networkHandler.setConnectedStatus2(false);
 		//Neil
-		this.networkHandler.sendMessageToClient(new pp2017.team20.shared.MessPing(1,100, 0));
+		this.networkHandler.sendMessageToClient(new pp2017.team20.shared.MessPing(100, 0));
 	}
 
 	/**
@@ -74,7 +74,7 @@ public class ServerPing extends TimerTask {
 	private void pingOne() {
 		this.networkHandler.setConnectedStatus1(false);
 		//Neil
-		this.networkHandler.sendMessageToClient(new MessPing(1,100, 0));
+		this.networkHandler.sendMessageToClient(new MessPing(100, 0));
 	}
 
 	/**

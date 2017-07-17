@@ -73,8 +73,8 @@ public class ClientPing extends TimerTask {
 	private void pingOne() {
 
 		this.networkHandler.setConnectedStatus1(false);
-		//Neil
-		this.networkHandler.sendMessageToServer(new MessPing(1,100, 0));
+		
+		this.networkHandler.sendMessageToServer(new MessPing(100, 0));
 	}
 
 	/**
@@ -89,8 +89,8 @@ public class ClientPing extends TimerTask {
 	private void pingTwo() {
 		this.networkHandler.setConnectedStatus1(false);
 		this.networkHandler.setConnectedStatus2(false);
-		//Neil
-		this.networkHandler.sendMessageToServer(new MessPing(1,100, 0));
+	
+		this.networkHandler.sendMessageToServer(new MessPing(100, 0));
 	}
 
 	/**
