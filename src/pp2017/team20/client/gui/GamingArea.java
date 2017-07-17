@@ -90,7 +90,7 @@ public class GamingArea extends JFrame implements KeyListener {
 	public GamingArea(String title) {
 		kommunikation.connectToServer();
 		kommunikation.start();
-		login();
+		
 		initializeJFrame(title);
 		startNewGame();
 	}

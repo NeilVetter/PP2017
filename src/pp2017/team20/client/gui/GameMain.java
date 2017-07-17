@@ -10,8 +10,8 @@ public class GameMain {
 
 	public static void main(String[] args) {
 
-		new GamingArea("Mario's Adventure");
-	
+	// 	new GamingArea("Mario's Adventure");
+	 Registration.main(null);
 	}
 
 }
