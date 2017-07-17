@@ -327,7 +327,7 @@ public class Monster extends Figure {
 		 * (Grundgeruest: HindiBones)
 		 */
 		
-		window.level[getXPos()][getYPos()] = new HealthPot(30); // Monster hinterlaesst Heiltrank
+		window.level.setLvlMaze(getXPos(), getYPos(), 6); // Monster hinterlaesst Heiltrank
 		// Random Verteilung von Heiltrank und Manatrank fuer Endversion hier
 		window.monsterList.remove(this); // loesche Monster
 	}
