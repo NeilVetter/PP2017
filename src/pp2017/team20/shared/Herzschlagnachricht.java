@@ -10,12 +10,9 @@ public class Herzschlagnachricht extends Message {
 
 	private static final long serialVersionUID = -3740108659792513974L;
 
-	public Herzschlagnachricht() {
 
-	}
-
-	public Herzschlagnachricht(int receiver) {
-		super.setReceiver(receiver);
+	public Herzschlagnachricht(int clientID) {
+		super(clientID);
 	}
 
 }
