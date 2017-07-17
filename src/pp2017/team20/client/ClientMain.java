@@ -1,6 +1,7 @@
 package pp2017.team20.client;
 
 import pp2017.team20.client.gui.GamingArea;
+import pp2017.team20.client.gui.Registration;
 
 /**
  * Klasse der Main-Methode fuer den Client, um den Client zu starten, sich mit dem Server zu verbinden
@@ -29,7 +30,7 @@ public class ClientMain {
 	
 	//startet das Spiel
 	public static void main(String args[]) {
-		new GamingArea("TeamLos");
+		Registration.main(null);
 
 	}
 }
