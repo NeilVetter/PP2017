@@ -264,7 +264,7 @@ public class GamingArea extends JFrame implements KeyListener {
 			// geschwaecht
 			else if (e.getKeyCode() == KeyEvent.VK_Q) {
 //				Monster m = player.attackMonster();
-				engine.sendAttackMessage(clientID, attackID, defendID);
+				engine.sendAttackMessage(clientID, attackID, playerID, monsterID);
 				System.out.println("Wenn Monster in der Nähe, attackieren");
 			}
 			// wenn Taste B gedrueckt wird und der Spieler einen oder mehrere

@@ -139,8 +139,8 @@ public class ClientEngine {
 	 * 
 	 */
 
-	public void sendAttackMessage(int clientID, int attackID, int defendID) {
-		AttackMessage message = new AttackMessage(clientID, attackID, defendID);
+	public void sendAttackMessage(int clientID, int attackID, int playerID, int monsterID) {
+		AttackMessage message = new AttackMessage(clientID, attackID, playerID, monsterID);
 		communication.sendeNachricht(message);
 	}
 
