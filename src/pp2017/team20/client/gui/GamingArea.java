@@ -387,9 +387,15 @@ public class GamingArea extends JFrame implements KeyListener {
 //		            // Passwort verschluesseln
 //		            byte[] passwordEncoded = Encoding.doFinal(password);
 //		        
+<<<<<<< HEAD
 		        //Verschluesseltes Passwort wird mit dem generierten Schluessel an den Client uebermittelt
 				engine.sendLogInMessage(clientID, user, password, key);
 				loginName = user;
+=======
+		        //Verschluesseltes Passwort wird mit dem generierten Schluessel an den Server uebermittelt
+//				engine.sendLogInMessage(clientID, user, password, key);
+//				loginName = user;
+>>>>>>> branch 'master' of https://github.com/NeilVetter/PP2017
 //				}
 	}
 

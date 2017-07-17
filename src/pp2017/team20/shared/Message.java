@@ -84,6 +84,11 @@ public abstract class Message implements Serializable{
 	public int getclientID() {
 		return clientID;
 	}
+
+	public void setClientID(int clientID) {
+		this.clientID=clientID;
+		
+	}
 	
 	
 }
