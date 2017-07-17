@@ -32,12 +32,20 @@ public class MessageProcessing {
 	}
 	
 	public void RecieveMessage() {
+
 		
-		// Empfange bis der Server beendet wird Nachrichten von der Kommunikation
-		while (true) {
-			Message message = comm.getMessageFromClient();
-			WhatMessageType(message);
-		}
+
+			// Empfange bis der Server beendet wird Nachrichten von der
+			// Kommunikation
+			while (true) {
+				try {
+				Message message = comm.getMessageFromClient();
+				WhatMessageType(message);
+				} catch (Exception e) {
+					
+				}
+			}
+		
 	}
 	// Nimmt eine Message aus dem Queue und entscheidet welcher Unterklasse sie
 	// angeh�rt
