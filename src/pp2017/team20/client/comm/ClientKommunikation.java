@@ -56,8 +56,8 @@ public class ClientKommunikation extends Thread {
 	public void run() {
 		// Ich-bin-noch-da Nachricht fuer Server
 		while (true) {
-			Herzschlagnachricht binMsg = new Herzschlagnachricht();
-			sendeNachricht(binMsg);
+			//Herzschlagnachricht binMsg = new Herzschlagnachricht();
+			//sendeNachricht(binMsg);
 			try {
 				// alle 30 Sekunden
 				Thread.sleep(30000);

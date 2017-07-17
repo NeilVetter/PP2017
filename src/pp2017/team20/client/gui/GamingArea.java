@@ -388,8 +388,8 @@ public class GamingArea extends JFrame implements KeyListener {
 //		            byte[] passwordEncoded = Encoding.doFinal(password);
 //		        
 		        //Verschluesseltes Passwort wird mit dem generierten Schluessel an den Server uebermittelt
-				engine.sendLogInMessage(clientID, user, password, key);
-				loginName = user;
+//				engine.sendLogInMessage(clientID, user, password, key);
+//				loginName = user;
 //				}
 	}
 
