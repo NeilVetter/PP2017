@@ -32,8 +32,9 @@ public class Levelmanagement {
 	}
 
 	// Diese Methode erzeugt ein Map nach Vorgaben vom Levelgenerator
-	public void newLevel(int LevelID, GamingArea window, int type) {
+	public void newLevel(int LevelID, GamingArea window) {
 
+		int type =0;
 		// erstelle neues "Maze" mit Hilfe des Konstruktors der Klasse Maze
 		Maze maze = new Maze(LevelID);
 
