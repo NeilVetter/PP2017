@@ -362,9 +362,9 @@ public class GamingArea extends JFrame implements KeyListener {
 	}
 	
 	public void login() {
-		Registration reg = new Registration();
-		reg.initialize();
-		
+		//Registration reg = new Registration();
+		//reg.initialize();
+		Registration.main(null);
 //		String username = JOptionPane.showInputDialog("Bitte logge dich ein");
 //		String passwordcheck = JOptionPane
 //				.showInputDialog("Bitte Passwort eingeben");
@@ -390,8 +390,8 @@ public class GamingArea extends JFrame implements KeyListener {
 //		        
 
 		        //Verschluesseltes Passwort wird mit dem generierten Schluessel an den Client uebermittelt
-				engine.sendLogInMessage(clientID, user, password, keylog);
-				loginName = user;
+			//	engine.sendLogInMessage(clientID, user, password, keylog);
+			//	loginName = user;
 
 		        //Verschluesseltes Passwort wird mit dem generierten Schluessel an den Server uebermittelt
 //				engine.sendLogInMessage(clientID, user, password, key);
