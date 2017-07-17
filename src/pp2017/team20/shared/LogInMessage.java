@@ -18,7 +18,7 @@ public class LogInMessage extends Message {
 	//Variable fuer das Passwort
 	public byte [] password;
 	//Vairable zum Ueberpruefen des Passworts
-	public SecretKey key;
+	public SecretKey keylog;
 	private boolean success = false;
 	
 	int LevelID;
@@ -32,12 +32,12 @@ public class LogInMessage extends Message {
 	 * 
 	 * @author Wagner, Tobias, 5416213
 	 */
-	public LogInMessage(int clientID, String user, byte [] password, SecretKey key) {
+	public LogInMessage(int clientID, String user, byte [] password, SecretKey keylog) {
 		
 		super(clientID);
 		this.user = user;
 		this.password = password;
-		this.key = key;
+		this.keylog = keylog;
 	}
 
 	

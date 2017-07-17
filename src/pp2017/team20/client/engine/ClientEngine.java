@@ -91,9 +91,9 @@ public class ClientEngine {
 	 * 
 	 */
 
-	public void sendLogInMessage(int clientID, String user, byte[] password, SecretKey key) {
-		if (password.equals(key)) {
-			LogInMessage message = new LogInMessage(clientID, user, password, key);
+	public void sendLogInMessage(int clientID, String user, byte[] password, SecretKey keylog) {
+		if (password.equals(keylog)) {
+			LogInMessage message = new LogInMessage(clientID, user, password, keylog);
 			communication.sendeNachricht(message);
 		}
 	}

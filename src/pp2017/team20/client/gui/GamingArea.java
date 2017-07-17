@@ -62,7 +62,7 @@ public class GamingArea extends JFrame implements KeyListener {
 	public boolean success = false;
 	public boolean firstLogIn = true;
 	public byte [] password;
-	public SecretKey key;
+	public SecretKey keylog;
 
 	public int currentLevel = 0;
 	public long startTime;
@@ -391,7 +391,7 @@ public class GamingArea extends JFrame implements KeyListener {
 //		        
 
 		        //Verschluesseltes Passwort wird mit dem generierten Schluessel an den Client uebermittelt
-				engine.sendLogInMessage(clientID, user, password, key);
+				engine.sendLogInMessage(clientID, user, password, keylog);
 				loginName = user;
 
 		        //Verschluesseltes Passwort wird mit dem generierten Schluessel an den Server uebermittelt
