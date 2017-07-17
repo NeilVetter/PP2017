@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="/Users/lizheck/Documents/workspace/2016_07_11_2310_ZCobra9/sqlite-jdbc-3.7.15.jar"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="C:/Users/Hamidk/git/PP2017/sqlite-jdbc-3.18.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
