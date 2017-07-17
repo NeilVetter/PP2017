@@ -58,6 +58,7 @@ public class Registration {
 		initialize();
 		//Setzt die "Connection"
 		connection=SqliteConnection.dbConnector();
+		
 	}
 
 	//Initialisiere das Fenster 
