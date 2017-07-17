@@ -44,6 +44,7 @@ public class Registration {
 				try {
 					Registration windowTest = new Registration();
 					windowTest.window.setVisible(true);
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -120,7 +121,7 @@ public class Registration {
 				 if(i==1){
 					 //Wenn Benutzername und Passwort korrekt und sich in der db. befinden
 					 JOptionPane.showMessageDialog(null, "Username and Password is correct");
-					 new GamingArea("Mario's Adventure");
+					 new GamingArea("bla");
 				 }
 				 else{
 					 //Wenn Benutzername oder das Passwort falsch sind.
