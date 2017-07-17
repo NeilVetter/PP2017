@@ -63,7 +63,7 @@ public class ServerHandler {
 		this.closeNetwork = false;
 
 		try {
-			server = new ServerSocket(44444);
+			server = new ServerSocket(55555);
 			while (!connected) {
 				
 				client = server.accept();
