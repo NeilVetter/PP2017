@@ -61,6 +61,8 @@ public class GamingArea extends JFrame implements KeyListener {
 	public String loginName;
 	public boolean success = false;
 	public boolean firstLogIn = true;
+	public byte [] password;
+	public SecretKey key;
 
 	public int currentLevel = 0;
 	public long startTime;
@@ -360,35 +362,34 @@ public class GamingArea extends JFrame implements KeyListener {
 	}
 	
 	public void login() {
-		String username = JOptionPane.showInputDialog("Bitte logge dich ein");
-		String passwordcheck = JOptionPane
-				.showInputDialog("Bitte Passwort eingeben");
-		
-		//Verschluesselung
-				try {
-					KeyGenerator keygenerator = KeyGenerator.getInstance("DES");
-		            SecretKey key = keygenerator.generateKey();
-		 
-		            Cipher Encoding;
-		 
-		            // Schluessel erstellen 
-		            Encoding = Cipher.getInstance("DES/ECB/PKCS5Padding");
-		 
-		            // Schluessel initialisieren
-		            Encoding.init(Cipher.ENCRYPT_MODE, key);
-		 
-		            //Passwort vorbereiten fuer Verschluesselung
-		            byte[] password = passwordcheck.getBytes();
-
-		            // Passwort verschluesseln
-		            byte[] passwordEncoded = Encoding.doFinal(password);
-		        
+		Registration.Main.Null();
+//		String username = JOptionPane.showInputDialog("Bitte logge dich ein");
+//		String passwordcheck = JOptionPane
+//				.showInputDialog("Bitte Passwort eingeben");
+//		
+//		//Verschluesselung
+//				try {
+//					KeyGenerator keygenerator = KeyGenerator.getInstance("DES");
+//		            SecretKey key = keygenerator.generateKey();
+//		 
+//		            Cipher Encoding;
+//		 
+//		            // Schluessel erstellen 
+//		            Encoding = Cipher.getInstance("DES/ECB/PKCS5Padding");
+//		 
+//		            // Schluessel initialisieren
+//		            Encoding.init(Cipher.ENCRYPT_MODE, key);
+//		 
+//		            //Passwort vorbereiten fuer Verschluesselung
+//		            byte[] password = passwordcheck.getBytes();
+//
+//		            // Passwort verschluesseln
+//		            byte[] passwordEncoded = Encoding.doFinal(password);
+//		        
 		        //Verschluesseltes Passwort wird mit dem generierten Schluessel an den Server uebermittelt
-				engine.sendLogInMessage(clientID, username, password, key);
-				loginName = username;
-			}catch (Exception e) {
-				System.out.println("Login konnte nicht gelesen werden");
-				}
+				engine.sendLogInMessage(clientID, user, password, key);
+				loginName = user;
+//				}
 	}
 
 }
