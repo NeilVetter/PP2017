@@ -114,7 +114,7 @@ public class Monster extends Figure {
 		/**
 		 * Spaziermodus, indem das Monster zufaellige Schritte macht
 		 * (Grundidee kommt von der urspruenglichen move() Methode aus
-		 * HindiBones, wurde dann aber fuer tacticMonster() erg�nzt
+		 * HindiBones, wurde dann aber fuer tacticMonster() ergaenzt
 		 * 
 		 * @author Sell, Robin, 6071120
 		 * (Grundgeruest: HindiBones)
@@ -132,7 +132,7 @@ public class Monster extends Figure {
 				state = 1; // Springt zu Zustand: runBehind
 			}
 			else{
-				state = 0; // Weiter: randomWalk (K�nnte auch weg)
+				state = 0; // Weiter: randomWalk (Koennte auch weg)
 			}
 				
 		}
@@ -165,20 +165,20 @@ public class Monster extends Figure {
 				return; 
 			}
 			move();
-			state = 1;	// Weiter: runBehind (K�nnte auch weg)
+			state = 1;	// Weiter: runBehind (Koennte auch weg)
 				}
 		}
 		else  
-			state = 0; // Weder im Fight noch im Verfolgungsradius: "zur�ck" zum randomWalk
+			state = 0; // Weder im Fight noch im Verfolgungsradius: "zurueck" zum randomWalk
 	}
 	public boolean attackiereSpieler(boolean ownsKey){	
 		/** 
-		 * Schaltet hier in den Kampfmodus, abh�ngig davon ob der Spieler den Schl�ssel hat, und
-		 * �berpr�ft vorher, ob das Monster bei geringer Lebensenergie nicht lieber fliehen sollte, 
-		 * um sich regenrieren zu k�nnen
+		 * Schaltet hier in den Kampfmodus, abhaengig davon ob der Spieler den Schluessel hat, und
+		 * ueberprueft vorher, ob das Monster bei geringer Lebensenergie nicht lieber fliehen sollte, 
+		 * um sich regenrieren zu koennen
 		 * 
 		 * @author HindiBones
-		 * @author Sell, Robin (Erg�nzungen)
+		 * @author Sell, Robin (Ergaenzungen)
 		 */
 		
 		if(this.getHealth() <= this.getMaxHealth()/4){  //Teste, ob Monster < oder = 25% Lebensenergie hat
@@ -187,28 +187,28 @@ public class Monster extends Figure {
 		}
 		
 		// Ist der Spieler im Radius des Monsters?	
-		boolean spielerImRadius = 
+		boolean playerINRadius = 
 				(Math.abs(player.getXPos() - this.getXPos()) + Math.abs(player.getYPos() - this.getYPos()) < 2);
-		boolean kannAngreifen = false;
-		if (type == 0) kannAngreifen = ((System.currentTimeMillis() - lastAttack) >= cooldownAttack);
-		if (type == 1) kannAngreifen = (ownsKey && ((System.currentTimeMillis() - lastAttack) >= cooldownAttack));
+		boolean ableToAttack = false;
+		if (type == 0) ableToAttack = ((System.currentTimeMillis() - lastAttack) >= cooldownAttack);
+		if (type == 1) ableToAttack = (ownsKey && ((System.currentTimeMillis() - lastAttack) >= cooldownAttack));
 		
 		// Kann das Monster angreifen?
-		if(spielerImRadius && kannAngreifen){
+		if(playerINRadius && ableToAttack){
 			lastAttack = System.currentTimeMillis();
 			player.changeHealth(-getDamage());
-			state = 2; //k�nnte auch weggelassen werden, aber zur �bersicht
-			return spielerImRadius;
+			state = 2; //koennte auch weggelassen werden, aber zur Uebersicht
+			return playerINRadius;
 		}
 		
 		state = 1;
-		return spielerImRadius;
+		return playerINRadius;
 	}	
 	public void flee(){
 		/**
 		 * Diese Methode testet zuerst, ob das Monster noch lebt, falls nicht --> monsterDies.
 		 * 
-		 * Dann testet es, ob der Spieler den Schl�ssel hat, falls ja dann wechselt es abhaengig
+		 * Dann testet es, ob der Spieler den Schluessel hat, falls ja dann wechselt es abhaengig
 		 * vom Radius in den Kampf- bzw. Verfolgungsmodus.
 		 * 
 		 * Falls das alles verneint wurde, geht es in die Flucht ueber, indem gecheckt wird,
@@ -407,7 +407,7 @@ public class Monster extends Figure {
 		 * (unter Online-Hilfe zum Verstaendnis des Algorithmus)
 		 */
 
-		// Erstellt 2 LinkedListen, die wir sp�ter benutzen.
+		// Erstellt 2 LinkedListen, die wir spaeter benutzen.
 		LinkedList<AStarNode> openedList = new LinkedList<AStarNode>(); // offene Liste
 		LinkedList<AStarNode> closedList = new LinkedList<AStarNode>(); // geschlossene Liste 
 
@@ -428,7 +428,7 @@ public class Monster extends Figure {
 
 			openedList.remove(current); //entferne den current Knoten aus der openedList
 			
-			closedList.add(current); ///und f�ge ihn zur closedList hinzu
+			closedList.add(current); ///und fuege ihn zur closedList hinzu
 			
 			
 			// Teste jetzt alle moeglichen Nachbarknoten des current Knoten, 
