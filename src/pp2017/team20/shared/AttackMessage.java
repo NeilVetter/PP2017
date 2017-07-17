@@ -30,10 +30,11 @@ public class AttackMessage extends Message {
 	 * @author Wagner, Tobias, 5416213
 	 */
 	
-	public AttackMessage(int clientID, int attackID, int defendID) {
+	public AttackMessage(int clientID, int attackID, int playerID,int monsterID) {
 		super(clientID);
 		this.attackID = attackID;
-		this.defendID = defendID;
+		this.playerID= playerID;
+		this.monsterID= monsterID;
 	}
 
 }
