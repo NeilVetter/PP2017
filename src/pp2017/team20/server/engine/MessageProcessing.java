@@ -2,7 +2,6 @@ package pp2017.team20.server.engine;
 
 import java.util.*;
 
-
 import pp2017.team20.shared.*;
 import pp2017.team20.server.comm.*;
 
@@ -20,7 +19,7 @@ public class MessageProcessing {
 	public ArrayList<Player> PlayerList = new ArrayList<Player>();
 	public ArrayList<String> ChatList = new ArrayList<String>();
 
-	ServerHandler comm;
+	ServerHandler comm= new ServerHandler();
 //	 Message message=comm.getMessageFromClient();
 //	 MessageQueue.add(message);
 //	 MessageProcess(MessageQueue);

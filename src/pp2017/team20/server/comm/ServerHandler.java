@@ -57,6 +57,7 @@ public class ServerHandler {
 	 */
 	public void init() {
 
+		System.out.println("test3");
 		pingTimer = new Timer();
 		this.connectedStatus1 = true;
 		this.connectedStatus2 = true;
@@ -131,7 +132,7 @@ public class ServerHandler {
 	 * @return Message-object, das vom ObjectInputStream gelesen wird
 	 */
 	public Message getMessageFromClient() {
-		
+		System.out.println("test2");
 			return receiver.getMessage();
 	
 	}
