@@ -34,7 +34,7 @@ public class GamingWorld extends JPanel {
 			key = ImageIO.read(new File("img//key.png")); // http://vignette4.wikia.nocookie.net/mario/images/d/df/Powerstern.png/revision/latest?cb=20140420194611&path-prefix=de
 			healthpot = ImageIO.read(new File("img//healthpot.png")); // https://cdn.wikimg.net/strategywiki/images/thumb/5/5a/New_SMB_Wii_1-up_mushroom.png/120px-New_SMB_Wii_1-up_mushroom.png
 			player = ImageIO.read(new File("img//player.png")); // http://mariopartylegacy.com/wp-content/gallery/Mario-Party%3A-Star-Rush---9/1/mpsrart1.png
-			monster1 = ImageIO.read(new File("img//wario1.png")); // http://vignette2.wikia.nocookie.net/fantendo/images/c/c3/Sochi_2014_olympic_wario_3d_render_by_ratchetmario-d8j2g4e.png/revision/latest?cb=20150517231540
+//			monster1 = ImageIO.read(new File("img//wario1.png")); // http://vignette2.wikia.nocookie.net/fantendo/images/c/c3/Sochi_2014_olympic_wario_3d_render_by_ratchetmario-d8j2g4e.png/revision/latest?cb=20150517231540
 //			waluigi = ImageIO.read(new File("img//waluigi.png")); // http://static.tvtropes.org/pmwiki/pub/images/waluigi-boardwin-mp9_1391.png
 //			boo = ImageIO.read(new File("img//boo.png")); // https://vignette1.wikia.nocookie.net/luigi/images/7/7c/Boo.png/revision/latest?cb=20080806155504&path-prefix=de
 //			donkey_kong = ImageIO.read(new File("img//donkey_kong.png")); // https://s-media-cache-ak0.pinimg.com/originals/c8/4f/92/c84f92638b3373ff3faf0ca6f4899b0c.png
@@ -98,10 +98,10 @@ public class GamingWorld extends JPanel {
 					g.drawImage(key, i * window.BOX, j * window.BOX, null);
 					break;
 
-				case 6:
-					g.drawImage(floor, i * window.BOX, j * window.BOX, null);
-					g.drawImage(monster1, i * window.BOX, j * window.BOX, null);
-					break;
+//				case 6:
+//					g.drawImage(floor, i * window.BOX, j * window.BOX, null);
+//					g.drawImage(monster1, i * window.BOX, j * window.BOX, null);
+//					break;
 
 				default:
 					System.err.println("Falsche Matrix");
