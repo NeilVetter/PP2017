@@ -5,6 +5,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Timer;
 
+import pp2016.team03.server.comm.ClientConnection;
+import pp2017.team20.client.comm.ClientHandler;
 import pp2017.team20.shared.*;
 
 /**
@@ -36,6 +38,7 @@ public class ServerHandler {
 	
 	private boolean connectedStatus2;
 
+	public String adresse = "55555";
 	/**
 	 * 
 	 * Führt die init()-Methode aus, s.d. die Verbindung zwischen Server und Client aufgebaut werden kann.
@@ -43,7 +46,24 @@ public class ServerHandler {
 	 * @author Yuxuan Kong 6019218
 	 */
 	public ServerHandler() {
-		init();
+		
+		try {
+
+			/**
+			 * hier wird der ServerSocket eingerichtet mit dem Port ueber den er
+			 * erreichbar ist
+			 */
+
+			server = new ServerSocket(2000);
+			System.out.println("Server gestartet!");
+
+		} catch (IOException e) {
+
+			System.out.println("Server konnte nicht gestartet werden" + e);
+		}
+		this.start();
+		
+		//init();
 	}
 
 	/**
@@ -55,38 +75,63 @@ public class ServerHandler {
 	 * 
 	 * @author Yuxuan Kong 6019218
 	 */
-	public void init() {
+	public void start() {
+		
+		while (true) {
 
-		System.out.println("test3");
-		pingTimer = new Timer();
-		this.connectedStatus1 = true;
-		this.connectedStatus2 = true;
-		this.closeNetwork = false;
+			// durchlaufen der while-Schleife: horcht nach Verbindungen
 
-		try {
-			server = new ServerSocket(55555);
-			while (!connected) {
-				
+			// Socket client;
+			try {
+
 				client = server.accept();
-				// Startet die Threads und den TimerTask
-				if (client.isConnected()) {
-					receiver = new ServerReceiver(client, this);
-					transmitter = new ServerTransmitter(client);
-					receiver.start();
-					transmitter.start();
-					
-					pingTimer.scheduleAtFixedRate(new ServerPing(this), 2000, 2000);
-					connected = true;
-				}
+				// akzeptiert diese, wenn ein neuer Client da ist
+				ClientHandler newClient = new ClientHandler(adresse);
+				server.start();
+				
+
+			} catch (IOException e) {
+				System.out.println("Verbindung zu Client fehlgeschlagen" + e);
 
 			}
-		} catch (IOException e) {
-			System.out.println("ERROR: HANDLERSERVER PORT NOT FOUND OR OCCUPIED");
-			e.printStackTrace();
-			
-			System.exit(1);
+
 		}
+
 	}
+		
+		
+	
+
+//		System.out.println("test3");
+//		pingTimer = new Timer();
+//		this.connectedStatus1 = true;
+//		this.connectedStatus2 = true;
+//		this.closeNetwork = false;
+//
+//		try {
+//			server = new ServerSocket(55555);
+//			while (!connected) {
+//				
+//				client = server.accept();
+//				// Startet die Threads und den TimerTask
+//				if (client.isConnected()) {
+//					receiver = new ServerReceiver(client, this);
+//					transmitter = new ServerTransmitter(client);
+//					receiver.start();
+//					transmitter.start();
+//					
+//					pingTimer.scheduleAtFixedRate(new ServerPing(this), 2000, 2000);
+//					connected = true;
+//				}
+//
+//			}
+//		} catch (IOException e) {
+//			System.out.println("ERROR: HANDLERSERVER PORT NOT FOUND OR OCCUPIED");
+//			e.printStackTrace();
+//			
+//			System.exit(1);
+//		}
+//	}
 
 	/**
 	 * 
