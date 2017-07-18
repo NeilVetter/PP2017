@@ -335,7 +335,7 @@ public class MessageProcessing {
 					PlayerList.remove(player);
 					// Benutze Methode aus Levelmanagement um den Spieler an das
 					// Anfangsfeld zu stellen
-					Levelmanagement l = new Levelmanagement(player);
+					Levelmanagement l = new Levelmanagement();
 					l.placePlayer(player.playerID);
 					// regeneriere die stats des spielers
 					player.setHealth(100);

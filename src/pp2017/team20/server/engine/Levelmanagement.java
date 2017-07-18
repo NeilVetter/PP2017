@@ -13,7 +13,7 @@ import pp2017.team20.server.map.*;
 public class Levelmanagement {
 	
 	// Erstellt ein Objekt vom Typ "Player"
-	public Player player;
+	//public Player player;
 	
 	Player[] playerList;
 	Monster[] monsterList;
@@ -46,14 +46,14 @@ public class Levelmanagement {
 		// Speicher im Spieler welches Level er zuletzt gespielt hat
 		// Lvlindex geht von 0,1,...
 		
-		player.setPlayerLvl(LevelID);
+		window.player.setPlayerLvl(LevelID);
 		
 
 		// Speichert die Map beim Spieler, sodass Elemente darauf abgelesen
 		// werden kï¿½nnen
 		for (int i = 0; i < size; i++) {
 			for (int j = 0; j < size; j++) {
-				player.playerMap[i][j] = maze.Map[i][j];
+				window.player.playerMap[i][j] = maze.Map[i][j];
 				
 			}
 		}
@@ -70,35 +70,35 @@ public class Levelmanagement {
 		monsterList = new Monster[LevelID*3];
 		healpotList = new Healthpot[LevelID];
 		
-		for (int i=0; i<player.playerMap.length; i++){
-			for (int j=0;j<player.playerMap.length;j++){
-				if (player.playerMap[i][j]==2){
+		for (int i=0; i<window.player.playerMap.length; i++){
+			for (int j=0;j<window.player.playerMap.length;j++){
+				if (window.player.playerMap[i][j]==2){
 					Player player = new Player(playerID ,i, j);
 					// wieso passt es nicht mit deinem Konstrucktor @neil
 					player.setPos(i,j);
 					playerList[playerID]= player;
 					playerID++;
 				}
-				else if (player.playerMap[i][j]== 6){
+				else if (window.player.playerMap[i][j]== 6){
 					
 					Monster monster = new Monster(monsterID, i , j, window ,  type );
 					// Robin muss den Construktor ändern // also einfach eine monsterID einfügen
 					monsterList[monsterID]= monster;
 					monsterID++;	
 				}
-				else if (player.playerMap[i][j]==4){
+				else if (window.player.playerMap[i][j]==4){
 					Healthpot healpot= new Healthpot(healpotID, i, j);
 					// muss ich in klasse healthpot ändern.
 					healpotList[healpotID] = healpot;
 					healpotID++;		
 				}
-				else if(player.playerMap[i][j] == 5){
+				else if(window.player.playerMap[i][j] == 5){
 					int k;
 					Monster monster = new Monster(monsterID, i, j, window, type);
 					monsterList[monsterID]= monster;
 					monsterID++;
 			}
-				else if (player.playerMap[i][j]== 6){
+				else if (window.player.playerMap[i][j]== 6){
 					doorx =j;
 					doory =i;
 				}}
