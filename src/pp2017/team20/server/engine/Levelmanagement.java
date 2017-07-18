@@ -54,16 +54,10 @@ public class Levelmanagement {
 		for (int i = 0; i < size; i++) {
 			for (int j = 0; j < size; j++) {
 				window.player.playerMap[i][j] = maze.Map[i][j];
-				
-			}
-		}
-		for (int i = 0; i < 15; i++) {
-			for (int j = 0; j < 15; j++) {
-				
 				System.out.print(window.player.playerMap[i][j]);
 			}
-			System.out.println();
 		}
+		
 		
 		/** 
 		 * Gibt den Spielern, Monstern und den Heiltränken eine ID und speichert diese
