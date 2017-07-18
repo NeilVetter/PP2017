@@ -18,7 +18,7 @@ public class Levelmanagement {
 	Player[] playerList;
 	Monster[] monsterList;
 	Healthpot[] healpotList;
-	//public static int[][] lvlMaze;
+	public int[][] test;
 	public int LevelID = -1;
 	public static int size;
 	public int lvlcount;
@@ -57,6 +57,13 @@ public class Levelmanagement {
 				
 			}
 		}
+		for (int i = 0; i < 15; i++) {
+			for (int j = 0; j < 15; j++) {
+				
+				System.out.print(window.player.playerMap[i][j]);
+			}
+			System.out.println();
+		}
 		
 		/** 
 		 * Gibt den Spielern, Monstern und den Heiltränken eine ID und speichert diese
@@ -66,9 +73,9 @@ public class Levelmanagement {
 		int monsterID = 0;
 		int healpotID =0;
 		//Arrays definieren 
-		playerList = new Player[LevelID];
-		monsterList = new Monster[LevelID*3];
-		healpotList = new Healthpot[LevelID];
+//		playerList = new Player[LevelID];
+//		monsterList = new Monster[LevelID*3];
+//		healpotList = new Healthpot[LevelID];
 		
 		for (int i=0; i<window.player.playerMap.length; i++){
 			for (int j=0;j<window.player.playerMap.length;j++){

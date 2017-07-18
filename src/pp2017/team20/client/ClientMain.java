@@ -30,8 +30,9 @@ public class ClientMain {
 	
 	//startet das Spiel
 	public static void main(String args[]) {
-		Registration.main(null);
-
+		GamingArea window;
+		//Registration.main(null);
+		window=new GamingArea("Marios World");
 	}
 }
 
