@@ -42,10 +42,10 @@ public class Level  {
 	}
 	
 	public void setLvlMaze(int i,int j, int maze ){
-		lvlMaze[i][j]=maze;
+		Player.playerMap[i][j]=maze;
 	}
 	public int[][] getfulllvl(){
-		return lvlMaze;
+		return Player.playerMap;
 	}
 	
 
@@ -70,6 +70,6 @@ public class Level  {
 
 	public int getlvlMaze(int xPos, int yPos) {
 		
-		return lvlMaze[xPos][yPos];
+		return Player.playerMap[xPos][yPos];
 	}
 }

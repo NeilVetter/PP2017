@@ -18,7 +18,7 @@ public class Levelmanagement {
 	Player[] playerList;
 	Monster[] monsterList;
 	Healthpot[] healpotList;
-	public static int[][] lvlMaze;
+	//public static int[][] lvlMaze;
 	public int LevelID = -1;
 	public static int size;
 	public int lvlcount;
@@ -160,7 +160,7 @@ public class Levelmanagement {
 	 * 
 	 *  @author Hamid  Kirli  6041663 */
 		public void setLvlMaze (int levelID, int x, int y,int substance, Levelmanagement game1 ){
-			lvlMaze[x][y] = substance;
+			Player.playerMap[x][y] = substance;
 			if(substance == 2){
 				int playerID = 0;
 				game1.playerList[playerID].setXPos(x);
@@ -169,11 +169,11 @@ public class Levelmanagement {
 				boolean monsterbaby = false;
 				int monsterID = 0;
 				while(!monsterbaby){
-					if(Levelmanagement.lvlMaze[x][y] != 0 &&
+					if(Player.playerMap[x][y] != 0 &&
 							monsterList[monsterID].getXPos()== x &&
 							monsterList[monsterID].getYPos() == y){
 						monsterbaby = true;
-						Levelmanagement.lvlMaze[monsterList[monsterID].getXPos()][monsterList[monsterID].getYPos()] = 1;
+						Player.playerMap[monsterList[monsterID].getXPos()][monsterList[monsterID].getYPos()] = 1;
 						game1.monsterList[monsterID].setXPos(x);
 						game1.monsterList[monsterID].setYPos(y);	
 					} else {

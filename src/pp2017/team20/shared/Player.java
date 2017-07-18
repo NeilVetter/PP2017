@@ -23,7 +23,7 @@ public class Player extends Figure{
 	public int yPos;
 	public int xPos;
 	public int playerLvl;
-	public int [][] playerMap;
+	public static int [][] playerMap;
 	public static ArrayList<Maze> LevelList=new ArrayList<Maze>();
 	public ArrayList<Item> ItemList = new ArrayList<Item>();
 	public ArrayList<Monster> monsterList = new ArrayList<Monster>();
