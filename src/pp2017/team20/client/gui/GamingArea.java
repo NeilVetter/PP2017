@@ -38,7 +38,7 @@ public class GamingArea extends JFrame implements KeyListener {
 	private StatusBar statusbar;
 	private MenuBar menubar;
 	public Chat chat;
-//	private MiniMap map;
+	private MiniMap map;
 //	private String adresse = "55555";
 
 	public ClientKommunikation kommunikation = new ClientKommunikation();
@@ -112,7 +112,7 @@ public class GamingArea extends JFrame implements KeyListener {
 		this.highscore = new Highscore();
 		this.control = new Control();
 		this.chat = new Chat(this);
-//		this.map = new MiniMap(this);
+		this.map = new MiniMap(this);
 
 		// Hier werden Breite und Hoehe der einzelnen Elemente des Spielfeldes
 		// festgelegt
@@ -121,7 +121,7 @@ public class GamingArea extends JFrame implements KeyListener {
 		highscore.setPreferredSize(new Dimension(WIDTH * BOX, HEIGHT * BOX));
 		control.setPreferredSize(new Dimension(WIDTH * BOX, HEIGHT * BOX));
 		chat.setPreferredSize(new Dimension(6 * BOX, HEIGHT));
-//		map.setPreferredSize(new Dimension((BOX * WIDTH) / 4, BOX));
+		map.setPreferredSize(new Dimension((BOX * WIDTH) / 4, BOX));
 
 		// Standadeinstellungen (Groesse des Fensters nicht veraenderbar, Titel
 		// setzen, sichtbar machen, schliessbar machen
@@ -155,7 +155,7 @@ public class GamingArea extends JFrame implements KeyListener {
 		this.add(menubar, BorderLayout.NORTH);
 		this.add(statusbar, BorderLayout.SOUTH);
 		this.add(chat, BorderLayout.EAST);
-//		this.add(map, BorderLayout.WEST);
+		this.add(map, BorderLayout.WEST);
 
 		// das fertige Spielfeld wird aktiviert
 		this.requestFocus();

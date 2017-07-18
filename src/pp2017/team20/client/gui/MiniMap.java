@@ -7,6 +7,8 @@ import java.awt.Graphics;
 
 import javax.swing.JPanel;
 
+import pp2017.team20.server.engine.Levelmanagement;
+
 /**
  * Klasse in der die MiniMap des Spielfensters erstellt wird, auf der das Level in verkleinerter Form
  * dargestellt ist
@@ -46,35 +48,92 @@ public class MiniMap extends JPanel {
 	 */
 	public void paint(Graphics g) {
 		super.paintComponent(g);
-		int[][] level = window.level.lvlMaze;
+		
+//		Levelmanagement level = new Levelmanagement(window);
+////		int[][] level = window.level.lvlMaze;
+//		
+		
+		
+////		Levelmanagement level = new Levelmanagement(window);
+//		switch (level.getMaze(i,j)){
 
 		// alle Eintraege des Testlevels (aus GamingArea) werden abgefragt, und
 		// mit unterschiedlich farblichen Rechtecken in der MiniMap dargestellt
-		for (int i = 0; i < window.HEIGHT; i++) {
-			for (int j = 0; j < window.WIDTH; j++) {
+		
+		for (int i = 0; i < window.WIDTH; i++) {
+			for (int j = 0; j < window.HEIGHT; j++) {
 
-				if (level[i][j] == 0) {
+				Levelmanagement level = new Levelmanagement(window);
+				switch (level.getMaze(i,j)){
+				case 0:
 					g.setColor(Color.BLACK);
 					g.fillRect(i * (window.BOX / 4), j * (window.BOX / 4), window.BOX / 4, window.BOX / 4);
-				} else if (level[i][j] == 1) {
+					break;
+
+				case 1:
 					g.setColor(Color.WHITE);
 					g.fillRect(i * (window.BOX / 4), j * (window.BOX / 4), window.BOX / 4, window.BOX / 4);
-				} else if (level[i][j] == 3) {
+					break;
+
+//				case 2:
+//					g.setColor(Color.BLACK);
+////					g.fillRect(i * (window.BOX / 4), j * (window.BOX / 4), window.BOX / 4, window.BOX / 4);
+//					break;
+
+				case 3:
 					g.setColor(Color.GREEN);
 					g.fillRect(i * (window.BOX / 4), j * (window.BOX / 4), window.BOX / 4, window.BOX / 4);
-				} else if (level[i][j] == 6) {
-					g.setColor(Color.RED);
-					g.fillRect(i * (window.BOX / 4), j * (window.BOX / 4), window.BOX / 4, window.BOX / 4);
-				} else if (level[i][j] == 5) {
-					g.setColor(Color.YELLOW);
-					g.fillRect(i * (window.BOX / 4), j * (window.BOX / 4), window.BOX / 4, window.BOX / 4);
-				} else if (level[i][j] == 4) {
+					break;
+
+				case 4:
 					g.setColor(Color.CYAN);
 					g.fillRect(i * (window.BOX / 4), j * (window.BOX / 4), window.BOX / 4, window.BOX / 4);
-				}
+					break;
 
+				case 5:
+					g.setColor(Color.YELLOW);
+					g.fillRect(i * (window.BOX / 4), j * (window.BOX / 4), window.BOX / 4, window.BOX / 4);
+					break;
+
+				case 6:
+					g.setColor(Color.RED);
+					g.fillRect(i * (window.BOX / 4), j * (window.BOX / 4), window.BOX / 4, window.BOX / 4);
+					break;
+
+				default:
+					System.err.println("Falsche Matrix");
+				}
 			}
-		}
+		
+//		for (int i = 0; i < window.HEIGHT; i++) {
+//			for (int j = 0; j < window.WIDTH; j++) {
+//
+//				int[][] levelel;
+//				Levelmanagement level = new Levelmanagement(window);
+//				levelel[i][j] = level.getMaze(i,j);
+//				
+//				if (levelel[i][j] == 0) {
+//					g.setColor(Color.BLACK);
+//					g.fillRect(i * (window.BOX / 4), j * (window.BOX / 4), window.BOX / 4, window.BOX / 4);
+//				} else if (levelel[i][j] == 1) {
+//					g.setColor(Color.WHITE);
+//					g.fillRect(i * (window.BOX / 4), j * (window.BOX / 4), window.BOX / 4, window.BOX / 4);
+//				} else if (levelel[i][j] == 3) {
+//					g.setColor(Color.GREEN);
+//					g.fillRect(i * (window.BOX / 4), j * (window.BOX / 4), window.BOX / 4, window.BOX / 4);
+//				} else if (levelel[i][j] == 6) {
+//					g.setColor(Color.RED);
+//					g.fillRect(i * (window.BOX / 4), j * (window.BOX / 4), window.BOX / 4, window.BOX / 4);
+//				} else if (levelel[i][j] == 5) {
+//					g.setColor(Color.YELLOW);
+//					g.fillRect(i * (window.BOX / 4), j * (window.BOX / 4), window.BOX / 4, window.BOX / 4);
+//				} else if (levelel[i][j] == 4) {
+//					g.setColor(Color.CYAN);
+//					g.fillRect(i * (window.BOX / 4), j * (window.BOX / 4), window.BOX / 4, window.BOX / 4);
+//				}
+//
+//			}
+//		}
 
 		// hier wird der Spieler als pinkes Kaestchen gezeichnet, der sich auf
 		// der
@@ -83,6 +142,6 @@ public class MiniMap extends JPanel {
 		g.fillRect(window.player.getXPos() * ((window.BOX * window.WIDTH) / 4) / window.WIDTH,
 				window.player.getYPos() * ((window.BOX * window.HEIGHT) / 4) / window.HEIGHT,
 				((window.BOX * window.WIDTH) / 4) / window.WIDTH, ((window.BOX * window.HEIGHT) / 4) / window.HEIGHT);
-		repaint();
-	}
+//		repaint();
+		}}
 }
