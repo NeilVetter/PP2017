@@ -8,6 +8,8 @@ import java.io.File;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
+import pp2017.team20.shared.Player;
+
 /**
  * Klasse in der die Spielflaeche erstellt wird
  * 
@@ -67,7 +69,7 @@ public class GamingWorld extends JPanel {
 		for (int i = 0; i < window.WIDTH; i++) {
 			for (int j = 0; j < window.HEIGHT; j++) {
 
-				switch (window.level.getlvlMaze(i, j)) {
+				switch (0){ //window.level.getlvlMaze(i,j)) {
 
 				case 0:
 					g.drawImage(wall, i * window.BOX, j * window.BOX, null);

@@ -34,7 +34,7 @@ public class Level  {
 	
 	public Level(int id, int[][] level){
 		LevelID= id;
-		lvlMaze = level;
+		Player.playerMap = level;
 	}
 	
 	public int getLevelID(){
