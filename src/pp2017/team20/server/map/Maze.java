@@ -11,7 +11,7 @@ public class Maze {
  * 6
  *  **/
 	
- 	public static int size = 16;
+ 	public static int size = 19;
 	public int[][] Map = new int [size][size];
 	static Coordinate [] floor;
 	
