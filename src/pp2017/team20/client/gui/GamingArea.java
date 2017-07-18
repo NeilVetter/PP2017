@@ -6,11 +6,11 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.LinkedList;
 
-import javax.crypto.Cipher;
-import javax.crypto.KeyGenerator;
+//import javax.crypto.Cipher;
+//import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
+//import javax.swing.JOptionPane;
 
 import pp2017.team20.client.gui.Highscore;
 import pp2017.team20.client.comm.ClientKommunikation;
@@ -39,7 +39,7 @@ public class GamingArea extends JFrame implements KeyListener {
 	private MenuBar menubar;
 	public Chat chat;
 //	private MiniMap map;
-	private String adresse = "55555";
+//	private String adresse = "55555";
 
 	public ClientKommunikation kommunikation = new ClientKommunikation();
 	public ClientEngine engine = new ClientEngine(kommunikation, this);
@@ -82,12 +82,15 @@ public class GamingArea extends JFrame implements KeyListener {
 	public final int HEIGHT = 19;
 	public final int BOX = 40;
 
+
 	/**
 	 * Diese Methode wird von der Main Methode in der Startklasse aufgerufen
 	 * 
 	 * @author Heck, Liz, 5991099
 	 */
 	public GamingArea(String title) {
+		this.player=new Player ("img//player.png", this);
+		
 		kommunikation.connectToServer();
 		kommunikation.start();
 		
@@ -310,7 +313,7 @@ public class GamingArea extends JFrame implements KeyListener {
 
 	public void resetGame() {
 
-		player = new Player("img//player.png", this);
+		//player = new Player("img//player.png", this);
 		player.setPos(xPos, yPos);
 		monsterList = new LinkedList<Monster>();
 //		level = new GameElement[WIDTH][HEIGHT];
