@@ -78,8 +78,8 @@ public class GamingArea extends JFrame implements KeyListener {
 	// public boolean playerInHighscore = false;
 
 	// hier wird die Breite und Hoehe des gesamten Spielfeldes festgelegt
-	public final int WIDTH = 19;
-	public final int HEIGHT = 19;
+	public final int WIDTH = 16;
+	public final int HEIGHT = 16;
 	public final int BOX = 40;
 
 
