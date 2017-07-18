@@ -26,9 +26,11 @@ public class Levelmanagement {
 	static int keyy;
 	static int doorx;
 	static int doory;
+	public Maze maze;
+	public int playerlvl;
 //abstest
-	public Levelmanagement(Player player) {
-		this.player = player;
+	public Levelmanagement(GamingArea window) {
+		newLevel(1,window);
 	}
 
 	// Diese Methode erzeugt ein Map nach Vorgaben vom Levelgenerator
@@ -36,14 +38,15 @@ public class Levelmanagement {
 
 		int type =0;
 		// erstelle neues "Maze" mit Hilfe des Konstruktors der Klasse Maze
-		Maze maze = new Maze(LevelID);
+		maze = new Maze(LevelID);
 
 		// F�gt das Spiel zur Levelliste des eingeloggten Spielers hinzu
 		Player.LevelList.add(maze);
 
 		// Speicher im Spieler welches Level er zuletzt gespielt hat
 		// Lvlindex geht von 0,1,...
-		player.playerLvl = LevelID;
+		
+		player.setPlayerLvl(LevelID);
 		
 
 		// Speichert die Map beim Spieler, sodass Elemente darauf abgelesen
@@ -227,5 +230,8 @@ public class Levelmanagement {
 				}
 			}
 		}
+	}
+	public int getMaze(int i,int j){
+		return maze.Map[i][j];
 	}
 }

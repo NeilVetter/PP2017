@@ -153,6 +153,6 @@ public class Player extends Figure{
 		} else
 			return 0;
 	}
-	
+
 	
 }
