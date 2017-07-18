@@ -44,7 +44,7 @@ public class GamingArea extends JFrame implements KeyListener {
 	public ClientKommunikation kommunikation = new ClientKommunikation();
 	public ClientEngine engine = new ClientEngine(kommunikation, this);
 
-	public Player player;
+//	public Player player;
 	public LinkedList<Monster> monsterList;
 	public LinkedList<Monster> buffermonsterList;
 	public Level level;
@@ -88,6 +88,8 @@ public class GamingArea extends JFrame implements KeyListener {
 	 * @author Heck, Liz, 5991099
 	 */
 	public GamingArea(String title) {
+		Player player = new Player("img//player.png", this);
+		
 		kommunikation.connectToServer();
 		kommunikation.start();
 		
@@ -310,7 +312,7 @@ public class GamingArea extends JFrame implements KeyListener {
 
 	public void resetGame() {
 
-		player = new Player("img//player.png", this);
+		//player = new Player("img//player.png", this);
 		player.setPos(xPos, yPos);
 		monsterList = new LinkedList<Monster>();
 //		level = new GameElement[WIDTH][HEIGHT];
