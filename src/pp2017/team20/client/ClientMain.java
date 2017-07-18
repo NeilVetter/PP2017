@@ -2,7 +2,7 @@ package pp2017.team20.client;
 
 import pp2017.team20.client.gui.GamingArea;
 import pp2017.team20.client.gui.Registration;
-
+import pp2017.team20.server.engine.*;
 /**
  * Klasse der Main-Methode fuer den Client, um den Client zu starten, sich mit dem Server zu verbinden
  * und ein neues Spiel zu starten
@@ -33,6 +33,7 @@ public class ClientMain {
 		GamingArea window;
 		//Registration.main(null);
 		window=new GamingArea("Marios World");
+		Levelmanagement lvl = new Levelmanagement(window);
 	}
 }
 

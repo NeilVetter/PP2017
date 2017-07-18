@@ -51,12 +51,13 @@ public class Levelmanagement {
 
 		// Speichert die Map beim Spieler, sodass Elemente darauf abgelesen
 		// werden kï¿½nnen
-		for (int i = 0; i < size; i++) {
-			for (int j = 0; j < size; j++) {
-				window.player.playerMap[i][j] = maze.Map[i][j];
-				System.out.print(window.player.playerMap[i][j]);
-			}
-		}
+//		for (int i = 0; i < 15; i++) {
+//			for (int j = 0; j < 15; j++) {
+//				System.out.print(maze.Map[i][j]);
+//				window.player.playerMap[i][j] = maze.Map[i][j];
+//				System.out.print(window.player.playerMap[i][j]);
+//			}
+//		}
 		
 		
 		/** 
@@ -67,39 +68,39 @@ public class Levelmanagement {
 		int monsterID = 0;
 		int healpotID =0;
 		//Arrays definieren 
-//		playerList = new Player[LevelID];
-//		monsterList = new Monster[LevelID*3];
-//		healpotList = new Healthpot[LevelID];
+		playerList = new Player[LevelID];
+		monsterList = new Monster[LevelID*3];
+		healpotList = new Healthpot[LevelID];
 		
-		for (int i=0; i<window.player.playerMap.length; i++){
-			for (int j=0;j<window.player.playerMap.length;j++){
-				if (window.player.playerMap[i][j]==2){
+		for (int i=0; i<maze.Map.length; i++){
+			for (int j=0;j<maze.Map.length;j++){
+				if (maze.Map[i][j]==2){
 					Player player = new Player(playerID ,i, j);
 					// wieso passt es nicht mit deinem Konstrucktor @neil
 					player.setPos(i,j);
 					playerList[playerID]= player;
 					playerID++;
 				}
-				else if (window.player.playerMap[i][j]== 6){
+				else if (maze.Map[i][j]== 6){
 					
 					Monster monster = new Monster(monsterID, i , j, window ,  type );
 					// Robin muss den Construktor ändern // also einfach eine monsterID einfügen
 					monsterList[monsterID]= monster;
 					monsterID++;	
 				}
-				else if (window.player.playerMap[i][j]==4){
+				else if (maze.Map[i][j]==4){
 					Healthpot healpot= new Healthpot(healpotID, i, j);
 					// muss ich in klasse healthpot ändern.
 					healpotList[healpotID] = healpot;
 					healpotID++;		
 				}
-				else if(window.player.playerMap[i][j] == 5){
+				else if(maze.Map[i][j] == 5){
 					int k;
 					Monster monster = new Monster(monsterID, i, j, window, type);
 					monsterList[monsterID]= monster;
 					monsterID++;
 			}
-				else if (window.player.playerMap[i][j]== 6){
+				else if (maze.Map[i][j]== 6){
 					doorx =j;
 					doory =i;
 				}}
