@@ -89,7 +89,7 @@ public class GamingArea extends JFrame implements KeyListener {
 	 * @author Heck, Liz, 5991099
 	 */
 	public GamingArea(String title) {
-		Player player = new Player("img//player.png", this);
+		this.player=new Player ("img//player.png", this);
 		
 		kommunikation.connectToServer();
 		kommunikation.start();
