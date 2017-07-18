@@ -1,5 +1,7 @@
 package pp2017.team20.shared;
 
+import pp2017.team20.client.comm.ClientKommunikation;
+import pp2017.team20.client.engine.ClientEngine;
 import pp2017.team20.client.gui.GamingArea;
 
 import java.io.File;
@@ -8,6 +10,7 @@ import java.util.LinkedList;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
+
 
 public class Monster extends Figure {
 	/**
@@ -30,6 +33,8 @@ public class Monster extends Figure {
 	public GamingArea window; 
 	private Player player; 
 	public int monsterID;
+//	public ClientKommunikation kommunikation = new ClientKommunikation();
+//	public ClientEngine engine = new ClientEngine(kommunikation, this);
 	
 	public Monster(int monsterID, int x, int y, GamingArea window, int type){
 		/**
@@ -69,11 +74,11 @@ public class Monster extends Figure {
 		
 		// Bild fuer das Monster laden
 		
-		try {
-			setImage(ImageIO.read(new File("img//drache" + strength + ".png")));
-		} catch (IOException e) {
-			System.err.print("Das Bild drache.png konnte nicht geladen werden.");
-		}
+//		try {
+//			setImage(ImageIO.read(new File("img//drache" + strength + ".png")));
+//		} catch (IOException e) {
+//			System.err.print("Das Bild drache.png konnte nicht geladen werden.");
+//		}
 		
 	}
 	
@@ -104,9 +109,9 @@ public class Monster extends Figure {
 		case 3: 
 			flee(); //-->flee, -->randomWalk, -->runBehind(attackPlayer)[Kamikaze-Modus], -->monsterDies
 			break;
-		case 4:  
-			monsterDies();
-			break; //ENDE
+//		case 4:  
+//			monsterDies();
+//			break; //ENDE
 		}
 		
 	}
@@ -231,7 +236,10 @@ public class Monster extends Figure {
 		 */
 		
 		if(getHealth() <= 0){
-			state = 4;
+			window.level.setLvlMaze(getXPos(), getYPos(), 6); // Monster hinterlaesst Heiltrank
+			// Random Verteilung von Heiltrank und Manatrank für Endversion hier
+			window.monsterList.remove(this); // lösche Monster
+//			state = 4;
 			return;   // Falls keine Lebensenergie mehr --> monsterDies	
 			}
 		
@@ -321,16 +329,16 @@ public class Monster extends Figure {
 				return; 
 				}
 	}
-	public void monsterDies(){
-		/**
-		 * @author Sell, Robin, 6071120
-		 * (Grundgeruest: HindiBones)
-		 */
-		
-		window.level.setLvlMaze(getXPos(), getYPos(), 6); // Monster hinterlaesst Heiltrank
-		// Random Verteilung von Heiltrank und Manatrank fuer Endversion hier
-		window.monsterList.remove(this); // loesche Monster
-	}
+//	public void monsterDies(){
+//		/**
+//		 * @author Sell, Robin, 6071120
+//		 * (Grundgeruest: HindiBones)
+//		 */
+//		
+//		window.level.setLvlMaze(getXPos(), getYPos(), 6); // Monster hinterlaesst Heiltrank
+//		// Random Verteilung von Heiltrank und Manatrank fuer Endversion hier
+//		window.monsterList.remove(this); // loesche Monster
+//	}
 	
 	
 	
@@ -614,6 +622,9 @@ public class Monster extends Figure {
 					case 1 : right(); break;
 					case 2 : down(); break;
 					case 3 : left(); break;
+//				shared.MoveMessage(this.getXPos(),this.getYPos()-1);
+//				engine.sendMoveMessage(clientID, xPos, yPos++, id);
+//					Hier muss die MoveMessage hin
 				}
 				lastStep = System.currentTimeMillis();
 			}
