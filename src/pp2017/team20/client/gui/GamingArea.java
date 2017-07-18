@@ -44,7 +44,7 @@ public class GamingArea extends JFrame implements KeyListener {
 	public ClientKommunikation kommunikation = new ClientKommunikation();
 	public ClientEngine engine = new ClientEngine(kommunikation, this);
 
-//	public Player player;
+	public Player player;
 	public LinkedList<Monster> monsterList;
 	public LinkedList<Monster> buffermonsterList;
 	public Level level;
@@ -81,6 +81,7 @@ public class GamingArea extends JFrame implements KeyListener {
 	public final int WIDTH = 19;
 	public final int HEIGHT = 19;
 	public final int BOX = 40;
+
 
 	/**
 	 * Diese Methode wird von der Main Methode in der Startklasse aufgerufen
