@@ -78,7 +78,6 @@ public class GamingWorld extends JPanel {
 
 				case 1:
 					g.drawImage(floor, i * window.BOX, j * window.BOX, null);
-					g.drawImage(player, i * window.BOX, j * window.BOX, null);
 					break;
 
 				case 2:
