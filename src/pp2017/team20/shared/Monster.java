@@ -4,6 +4,7 @@ import pp2017.team20.client.comm.ClientKommunikation;
 import pp2017.team20.client.engine.ClientEngine;
 import pp2017.team20.client.gui.GamingArea;
 import pp2017.team20.server.engine.Levelmanagement;
+import pp2017.team20.server.engine.MessageProcessing;
 
 import java.io.File;
 import java.io.IOException;
@@ -674,7 +675,7 @@ public class Monster extends Figure {
 		if(dir == -1) return true;
 		
 		if(dir == 0 && getYPos()-1 > 0){
-			return	! ((new Levelmanagement().getLvlMaze(getXPos(),getYPos()-1) == 0) &&
+			return	! ((MessageProcessing.getLvlMaze(getXPos(),getYPos()-1) == 0) &&
 					!((window.level.getlvlMaze(getXPos(),getYPos()-1) == 3) &&
 					!((window.level.getlvlMaze(getXPos(),getYPos()-1) == 5))));
 		}else if(dir == 1 && getXPos()+1 < window.WIDTH){

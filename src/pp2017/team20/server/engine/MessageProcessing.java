@@ -20,6 +20,9 @@ public class MessageProcessing {
 	public ArrayList<String> ChatList = new ArrayList<String>();
 
 	ServerKommunikation comm= new ServerKommunikation();
+	
+	public Levelmanagement lvl;
+	
 //	 Message message=comm.getMessageFromClient();
 //	 MessageQueue.add(message);
 //	 MessageProcess(MessageQueue);
@@ -128,7 +131,7 @@ public class MessageProcessing {
 
 		if((Registration(message.username,message.password)==true){
 			message.setSuccess(true);
-			Levelmanagement lvl = new Levelmanagement();
+			this.lvl = new Levelmanagement();
 			
 			LogInMessage login = new LogInMessage(1,message.username,message.password,lvl.getLvlMaze());
 			comm.sendeNachricht(login);
@@ -461,5 +464,8 @@ public class MessageProcessing {
 
 		System.out.println("Eine Kopie des Levels wurde dem Client geschickt");
 
+	}
+	public Levelmanagement getLvl(){
+		return lvl;
 	}
 }
