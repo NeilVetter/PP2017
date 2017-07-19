@@ -3,7 +3,9 @@ package pp2017.team20.server.engine;
 import pp2017.team20.shared.*;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
+import pp2017.team20.client.engine.ClientEngine;
 import pp2017.team20.client.gui.GamingArea;
 import pp2017.team20.server.map.*;
 
@@ -16,7 +18,7 @@ public class Levelmanagement {
 	//public Player player;
 	
 	Player[] playerList;
-	Monster[] monsterList;
+	ArrayList<Monster> MonsterList = new ArrayList<Monster>();
 	Healthpot[] healpotList;
 	public int[][] lvlMaze;
 	public int[][] test;
@@ -33,12 +35,12 @@ public class Levelmanagement {
 	
 	
 //abstest
-	public Levelmanagement(GamingArea window) {
-		newLevel(1,window,19);
+	public Levelmanagement(ClientEngine e) {
+		newLevel(1,e.getWindow(),19,e);
 	}
 
 	// Diese Methode erzeugt ein Map nach Vorgaben vom Levelgenerator
-	public void newLevel(int LevelID, GamingArea window , int size ) {
+	public void newLevel(int LevelID, GamingArea window , int size,ClientEngine e ) {
 		//this.lvlcounter = lvlcount;
 		
 		int type =0;
@@ -94,9 +96,9 @@ public class Levelmanagement {
 		int monsterID = 0;
 		int healpotID =0;
 		//Arrays definieren 
-		playerList = new Player[LevelID];
-		monsterList = new Monster[LevelID*3];
-		healpotList = new Healthpot[LevelID];
+//		playerList = new Player[LevelID];
+//		monsterList = new Monster[LevelID*3];
+//		healpotList = new Healthpot[LevelID];
 		
 		for (int i=0; i<maze.Map.length; i++){
 			for (int j=0;j<maze.Map.length;j++){
@@ -109,9 +111,9 @@ public class Levelmanagement {
 				}
 				else if (maze.Map[i][j]== 6){
 					
-					Monster monster = new Monster(monsterID, i , j, window ,  type );
+					Monster monster = new Monster(monsterID, i , j, e ,  type );
 					// Robin muss den Construktor ändern // also einfach eine monsterID einfügen
-					monsterList[monsterID]= monster;
+					MonsterList.add(monster);
 					monsterID++;	
 				}
 				else if (maze.Map[i][j]==4){
@@ -122,8 +124,8 @@ public class Levelmanagement {
 				}
 				else if(maze.Map[i][j] == 5){
 					int k;
-					Monster monster = new Monster(monsterID, i, j, window, type);
-					monsterList[monsterID]= monster;
+					Monster monster = new Monster(monsterID, i, j, e , type);
+					MonsterList.add(monster);
 					monsterID++;
 			}
 				else if (maze.Map[i][j]== 6){
@@ -141,8 +143,8 @@ public class Levelmanagement {
 			return playerList;
 		}
 		
-		public Monster[] getMonsterList(){
-			return monsterList;
+		public ArrayList getMonsterList(){
+			return MonsterList;
 		}
 		
 		public Healthpot[] getHealthpot(){

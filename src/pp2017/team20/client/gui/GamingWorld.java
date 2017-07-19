@@ -8,6 +8,7 @@ import java.io.File;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
+import pp2017.team20.client.engine.ClientEngine;
 import pp2017.team20.server.engine.Levelmanagement;
 import pp2017.team20.shared.Player;
 
@@ -23,6 +24,7 @@ public class GamingWorld extends JPanel {
 
 	private Image floor, wall, doorOpen, doorClosed, key, healthpot, player, monster1, monster2, monster;
 	private GamingArea window;
+	private ClientEngine engine;
 
 	public GamingWorld(GamingArea window) {
 		this.window = window;
@@ -66,7 +68,7 @@ public class GamingWorld extends JPanel {
 //		4 = Trank
 //		5 = Key
 //		6 = Monster
-		Levelmanagement level = new Levelmanagement(window);
+		Levelmanagement level = new Levelmanagement(engine);
 		for (int i = 0; i < window.WIDTH; i++) {
 			for (int j = 0; j < window.HEIGHT; j++) {
 

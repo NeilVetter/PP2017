@@ -27,7 +27,9 @@ public class ClientEngine {
 	ClientKommunikation communication;
 	// Spielfenster erstellen
 	public GamingArea window;
-	
+	public GamingArea getWindow(){
+		return window;
+	}
 //	Queue <Message> MessageQueue = new LinkedList<Message>();
 
 	/**

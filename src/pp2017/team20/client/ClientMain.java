@@ -6,7 +6,7 @@ import pp2017.team20.server.engine.*;
 /**
  * Klasse der Main-Methode fuer den Client, um den Client zu starten, sich mit dem Server zu verbinden
  * und ein neues Spiel zu starten
- * 
+ * H
  * @author Wagner, Tobias, 5416213
  */
 
