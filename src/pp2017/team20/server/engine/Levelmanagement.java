@@ -54,8 +54,9 @@ public class Levelmanagement {
 			for (int j= 0; j<size -1; j++){
 				this.lvlMaze[i][j]=maze.Map[i][j];
 				//this.lvlsafeall[counter-1][i][j]= maze.Map[i][j];
-				//System.out.println(lvlMaze[i][j]); funktioniert 
+				System.out.print(lvlMaze[i][j]);// funktioniert 
 			}
+			System.out.println();
 		 }
 	//	counter++;
 	//}
