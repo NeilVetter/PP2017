@@ -6,7 +6,6 @@ package pp2017.team20.server.comm;
  */
 
 import java.io.IOException; 
-
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -16,12 +15,14 @@ import pp2017.team20.shared.Message;
 /**
  * Klasse, um den Austausch mit den Server zu gestalten
  * 
+ * @author Koruk, Samet, 5869110
  * 
  */
 public class ServerKommunikation extends Thread {
 	/**
 	 * Attributblock
 	 * 
+	 * @author Koruk, Samet, 5869110
 	 */
 	public static LinkedBlockingQueue<Message> inputqueue = new LinkedBlockingQueue<Message>();
 	public static LinkedBlockingQueue<Message> outputqueue = new LinkedBlockingQueue<Message>();
@@ -33,6 +34,7 @@ public class ServerKommunikation extends Thread {
 	/**
 	 * Konstruktor fuer die Klasse
 	 * 
+	 * @author Koruk, Samet, 5869110
 	 * 
 	 */
 	public ServerKommunikation() {
@@ -81,6 +83,7 @@ public class ServerKommunikation extends Thread {
 	/**
 	 * Methode fuer das Senden von Nachrichten an die Clients
 	 * 
+	 * @author Koruk, Samet, 5869110
 	 */
 	public void sendeNachricht(Message neueNachricht) {
 		try {
@@ -93,6 +96,7 @@ public class ServerKommunikation extends Thread {
 	/**
 	 * Methode, um Nachrichten aus der Queue von den Clients an Server zu senden
 	 * 
+	 * @author Koruk, Samet, 5869110
 	 */
 	public Message erhalteNachricht() {
 

@@ -6,11 +6,21 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 import pp2017.team20.shared.*;
 
-
+/**
+ * Klasse fuer die einzelnen Clients, die in einzelnen Threads gehandelt werden
+ * und es werden ID`s gesetzt
+ * 
+ * @author Koruk, Samet, 5869110
+ * 
+ */
 
 public class ClientConnection extends Thread {
 
-
+	/**
+	 * Attributblock
+	 * 
+	 * @author Koruk, Samet, 5869110
+	 */
 	public int ClientID;
 	private ServerSenden sendThread;
 	private ServerEmpfangen receiveThread;
@@ -20,6 +30,7 @@ public class ClientConnection extends Thread {
 	 * Konstruktor fuer die Klasse, wo die inputqueue uebergeben wird ausserdem
 	 * werden die Send- und Receive Threads gestartet
 	 * 
+	 * @author Koruk, Samet, 5869110
 	 */
 	public ClientConnection(Socket clientSocket, LinkedBlockingQueue<Message> blockQ, int count, LinkedBlockingQueue<Message> blockQout) {
 
@@ -36,6 +47,7 @@ public class ClientConnection extends Thread {
 	 * Methode, die aufgerufen wird, wenn man eine Nachricht versenden will (auf
 	 * Server Seite)
 	 * 
+	 * @author Koruk, Samet, 5869110
 	 */
 	public void sendMessagetoClient(Message neueNachricht) {
 		try {
@@ -52,6 +64,7 @@ public class ClientConnection extends Thread {
 	/**
 	 * Methode, um Nachricht nicht mehr an den Client zu senden
 	 * 
+	 * @author Koruk, Samet, 5869110
 	 */
 	public void stopSendThread() {
 		sendThread.truth = false;

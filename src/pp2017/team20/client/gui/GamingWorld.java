@@ -100,10 +100,10 @@ public class GamingWorld extends JPanel {
 					g.drawImage(key, i * window.BOX, j * window.BOX, null);
 					break;
 
-				case 6:
-					g.drawImage(floor, i * window.BOX, j * window.BOX, null);
-					g.drawImage(monster , i * window.BOX, j * window.BOX, null);
-					break;
+//				case 6:
+//					g.drawImage(floor, i * window.BOX, j * window.BOX, null);
+//					g.drawImage(monster1, i * window.BOX, j * window.BOX, null);
+//					break;
 
 				default:
 					System.err.println("Falsche Matrix");
@@ -111,8 +111,8 @@ public class GamingWorld extends JPanel {
 
 //				// hier wird der Spieler an die Position gezeichnet die in
 //				// der Klasse Player uebergeben wird
-				g.drawImage(player, window.player.getXPos() * window.BOX, window.player.getYPos() * window.BOX, null);
-				repaint();
+//				g.drawImage(player, window.player.getXPos() * window.BOX, window.player.getYPos() * window.BOX, null);
+//				repaint();
 
 			}
 		}
