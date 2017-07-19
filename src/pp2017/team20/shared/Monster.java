@@ -7,6 +7,7 @@ import pp2017.team20.client.gui.GamingArea;
 import java.io.File;
 import java.io.IOException;
 import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
@@ -35,6 +36,8 @@ public class Monster extends Figure {
 	public int monsterID;
 //	public ClientKommunikation kommunikation = new ClientKommunikation();
 //	public ClientEngine engine = new ClientEngine(kommunikation, this);
+	ArrayList<Monster> monsterList = new ArrayList<Monster>(); 
+	
 	
 	public Monster(int monsterID, int x, int y, GamingArea window, int type){
 		/**
@@ -71,6 +74,7 @@ public class Monster extends Figure {
 		setDamage(8+2*strength); 
 		state = 0;
 		
+		monsterList.add(this);
 		
 		// Bild fuer das Monster laden
 		

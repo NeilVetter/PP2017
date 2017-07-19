@@ -155,7 +155,11 @@ public class GamingArea extends JFrame implements KeyListener {
 		this.add(menubar, BorderLayout.NORTH);
 		this.add(statusbar, BorderLayout.SOUTH);
 		this.add(chat, BorderLayout.EAST);
+<<<<<<< HEAD
 //		this.add(map, BorderLayout.WEST);
+=======
+		//this.add(map, BorderLayout.WEST);
+>>>>>>> branch 'master' of https://github.com/NeilVetter/PP2017
 
 		// das fertige Spielfeld wird aktiviert
 		this.requestFocus();

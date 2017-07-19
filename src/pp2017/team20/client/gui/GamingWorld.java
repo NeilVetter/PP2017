@@ -66,11 +66,11 @@ public class GamingWorld extends JPanel {
 //		4 = Trank
 //		5 = Key
 //		6 = Monster
-		
+		Levelmanagement level = new Levelmanagement(window);
 		for (int i = 0; i < window.WIDTH; i++) {
 			for (int j = 0; j < window.HEIGHT; j++) {
 
-				Levelmanagement level = new Levelmanagement(window);
+				
 				switch(level.getLvlMaze(i, j)){
 				case 0:
 					g.drawImage(wall, i * window.BOX, j * window.BOX, null);
