@@ -19,7 +19,7 @@ public class LogInMessage extends Message {
 	public String password;
 	//Vairable zum Ueberpruefen des Passworts
 	public SecretKey keylog;
-	private boolean success = false;
+	public boolean success = false;
 	int[][] lvlMaze;
 	
 //	public boolean succsess;
@@ -42,8 +42,11 @@ public class LogInMessage extends Message {
 	
 	// Getter und Setter Methoden 
 	
-	public boolean isSuccess() {
+	public boolean getSuccess() {
 		return success;
+	}
+	public void setLvlMaze(int i,int j){
+		this.lvlMaze[i][j]=lvlMaze[i][j];
 	}
 
 	public void setSuccess(boolean success) {

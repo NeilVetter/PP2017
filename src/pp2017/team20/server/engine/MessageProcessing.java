@@ -126,29 +126,47 @@ public class MessageProcessing {
 
 	public void LogInMessageProcessing(LogInMessage message) {
 
-		for (int i = 0; i < PlayerList.size(); i++) {
-			Player player = PlayerList.get(i);
-			if (player.playerID == player.playerID) {
-				// wenn der Levelgenerator succsess==true angibt hat der login
-				// bei ihm funktioniert
-				if (message.isSuccess() == true) {
-					// Aendert den Zustand des Spieler zu LoggedIN so dass dies
-					// immer bekannt
-					player.loggedIN = true;
-					// F�gt den Spieler der Liste aktiver Spieler bei
-					PlayerList.add(player);
-
-					System.out.println(player.playername
-							+ "'s login war erfolgreich");
-				} else {
-					// meldet zur�ck, dass der login gescheitert ist
-					player.loggedIN = false;
-
-					System.out.println(player.playername
-							+ "'s login war nicht erfolgreich");
+		if((Registration(message.username,message.password)==true){
+			message.setSuccess(true);
+			Levelmanagement lvl = new Levelmanagement();
+			for (int i=0 ; i <19 -1; i++){
+				for (int j= 0; j<19 -1; j++){
+					message.setLvlMaze(i,j) = lvl.getLvlMaze[i][j];
 				}
-			}
+			 }
+			
+		}else{
+			message.setSuccess(false);
 		}
+		
+		
+		
+		
+		
+		
+//		for (int i = 0; i < PlayerList.size(); i++) {
+//			Player player = PlayerList.get(i);
+//			if (player.playerID == player.playerID) {
+//				// wenn der Levelgenerator succsess==true angibt hat der login
+//				// bei ihm funktioniert
+//				if (message.isSuccess() == true) {
+//					// Aendert den Zustand des Spieler zu LoggedIN so dass dies
+//					// immer bekannt
+//					player.loggedIN = true;
+//					// F�gt den Spieler der Liste aktiver Spieler bei
+//					PlayerList.add(player);
+//
+//					System.out.println(player.playername
+//							+ "'s login war erfolgreich");
+//				} else {
+//					// meldet zur�ck, dass der login gescheitert ist
+//					player.loggedIN = false;
+//
+//					System.out.println(player.playername
+//							+ "'s login war nicht erfolgreich");
+//				}
+//			}
+//		}
 	}
 
 	public void LogOutMessageProcessing(LogOutMessage message) {
