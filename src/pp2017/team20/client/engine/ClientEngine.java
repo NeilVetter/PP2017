@@ -27,6 +27,7 @@ public class ClientEngine {
 	ClientKommunikation communication;
 	// Spielfenster erstellen
 	public GamingArea window;
+	public Level level;
 	public GamingArea getWindow(){
 		return window;
 	}
@@ -445,7 +446,7 @@ public class ClientEngine {
 		if (message.success) {
 			// Hier fuehrt der Spieler eine Bewegung aus
 			// xPos und yPos geben die neue Position des Spielers an
-			if (message.id == -1) {
+			if (message.id == 1) {
 				window.player.setPos(message.xPos, message.yPos);
 			}
 			// Es findet eine Monsterbewegung statt. xPos und yPos bezeichnen
