@@ -258,7 +258,7 @@ public class Levelmanagement {
 			}
 		}
 	}
-	public int getLvlSafeAll(int i,int j,int counter){
-		return lvlsafeall[counter-1][i][j];
+	public int getLvlMaze(int i,int j){
+		return lvlMaze[i][j];
 	}
 }

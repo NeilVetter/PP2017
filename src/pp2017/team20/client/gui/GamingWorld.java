@@ -71,7 +71,7 @@ public class GamingWorld extends JPanel {
 			for (int j = 0; j < window.HEIGHT; j++) {
 
 				Levelmanagement level = new Levelmanagement(window);
-				switch(level.getLvlSafeAll(i, j, level.LevelID)){
+				switch(level.getLvlMaze(i, j)){
 				case 0:
 					g.drawImage(wall, i * window.BOX, j * window.BOX, null);
 					break;
