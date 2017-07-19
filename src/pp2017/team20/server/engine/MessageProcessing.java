@@ -129,16 +129,14 @@ public class MessageProcessing {
 		if((Registration(message.username,message.password)==true){
 			message.setSuccess(true);
 			Levelmanagement lvl = new Levelmanagement();
-			for (int i=0 ; i <19 -1; i++){
-				for (int j= 0; j<19 -1; j++){
-					message.setLvlMaze(i,j) = lvl.getLvlMaze[i][j];
-				}
-			 }
+			
+			LogInMessage login = new LogInMessage(1,message.username,message.password,lvl.lvlMaze);
+			comm.sendeNachricht(login);
 			
 		}else{
 			message.setSuccess(false);
 		}
-		
+	}
 		
 		
 		
@@ -167,7 +165,7 @@ public class MessageProcessing {
 //				}
 //			}
 //		}
-	}
+	
 
 	public void LogOutMessageProcessing(LogOutMessage message) {
 		for (int i = 0; i < PlayerList.size(); i++) {
