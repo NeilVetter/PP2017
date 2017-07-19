@@ -14,15 +14,14 @@ import javax.crypto.SecretKey;
 
 public class LogInMessage extends Message {
 	//Variable fuer den aktuellen Spieler
-	public String user;
+	public String username;
 	//Variable fuer das Passwort
-	public byte [] password;
+	public String password;
 	//Vairable zum Ueberpruefen des Passworts
 	public SecretKey keylog;
 	private boolean success = false;
+	int[][] lvlMaze;
 	
-	int LevelID;
-	Level level = new Level();
 //	public boolean succsess;
 	
 
@@ -32,12 +31,12 @@ public class LogInMessage extends Message {
 	 * 
 	 * @author Wagner, Tobias, 5416213
 	 */
-	public LogInMessage(int clientID, String user, byte [] password, SecretKey keylog) {
+	public LogInMessage(int clientID, String username, String  password, int[][] lvlMaze) {
 		
 		super(clientID);
-		this.user = user;
+		this.username = username;
 		this.password = password;
-		this.keylog = keylog;
+		this.lvlMaze=lvlMaze;
 	}
 
 	
@@ -50,12 +49,4 @@ public class LogInMessage extends Message {
 	public void setSuccess(boolean success) {
 		this.success = success;
 	}
-	public Level getLevel(){
-		return level;
-	}
-	public void setLevel(Level level){
-		this.level = level;
-	}
-	
-	
 }
