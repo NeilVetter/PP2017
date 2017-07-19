@@ -33,9 +33,10 @@ public class Monster extends Figure {
 	private int state; //Zustand des Monsters: 0 Spazieren 1 Verfolgung 2 Attackieren 3 Fluechten 4 Sterben
 	private int LevelID;
 
-	public GamingArea window; 
+	
 	private Player player; 
 	public int monsterID;
+	public Levelmanagement lvl;
 //	public ClientKommunikation kommunikation = new ClientKommunikation();
 	public ClientEngine engine;
 	
@@ -53,7 +54,6 @@ public class Monster extends Figure {
 		this.type = type;
 		this.LevelID = LevelID;
 		setPos(x,y);
-		window=engine.getWindow();
 		double variable = Math.random() * 5 + LevelID; //halb Zufall, halb Levelabhaengig
 		if (variable < 5)
 			strength = 1;
