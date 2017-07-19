@@ -20,7 +20,7 @@ public class LogInMessage extends Message {
 	//Vairable zum Ueberpruefen des Passworts
 	public SecretKey keylog;
 	public boolean success = false;
-	int[][] lvlMaze;
+	public Level level;
 	
 //	public boolean succsess;
 	
@@ -31,12 +31,12 @@ public class LogInMessage extends Message {
 	 * 
 	 * @author Wagner, Tobias, 5416213
 	 */
-	public LogInMessage(int clientID, String username, String  password, int[][] lvlMaze) {
+	public LogInMessage(int clientID, String username, String  password, Level level) {
 		
 		super(clientID);
 		this.username = username;
 		this.password = password;
-		this.lvlMaze=lvlMaze;
+		this.level=level;
 	}
 
 	
@@ -45,14 +45,12 @@ public class LogInMessage extends Message {
 	public boolean getSuccess() {
 		return success;
 	}
-	public void setLvlMaze(int i,int j){
-		this.lvlMaze[i][j]=lvlMaze[i][j];
+	public Level getLevel(){
+		return level;
 	}
 
 	public void setSuccess(boolean success) {
 		this.success = success;
 	}
-	public int[][] getLvlMaze() {
-		return lvlMaze;
-	}
+	
 }

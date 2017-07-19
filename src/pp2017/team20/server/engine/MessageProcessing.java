@@ -132,8 +132,8 @@ public class MessageProcessing {
 		if((Registration(message.username,message.password)==true){
 			message.setSuccess(true);
 			this.lvl = new Levelmanagement();
-			
-			LogInMessage login = new LogInMessage(1,message.username,message.password,lvl.getLvlMaze());
+			Level level = new Level(lvl.getLvlMaze());
+			LogInMessage login = new LogInMessage(1,message.username,message.password,level);
 			comm.sendeNachricht(login);
 			
 		}else{
