@@ -244,10 +244,8 @@ public class Levelmanagement {
 	// z.B. nach seinem tot
 	public void placePlayer(int playerID) {
 
-		MessageProcessing m = new MessageProcessing();
-
-		for (int i = 0; i < m.PlayerList.size(); i++) {
-			Player player = m.PlayerList.get(i);
+		for (int i = 0; i < PlayerList.size(); i++) {
+			Player player = PlayerList.get(i);
 			if (playerID == player.playerID) {
 				for (int j = 0; j < size; j++) {
 					for (int k = 0; k < size; k++) {
