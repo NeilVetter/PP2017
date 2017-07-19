@@ -258,7 +258,7 @@ public class Levelmanagement {
 			}
 		}
 	}
-	public int getMaze(int i,int j){
-		return maze.Map[i][j];
+	public int getLvlSafeAll(int i,int j,int counter){
+		return lvlsafeall[counter-1][i][j];
 	}
 }

@@ -64,7 +64,7 @@ public class MiniMap extends JPanel {
 			for (int j = 0; j < window.HEIGHT; j++) {
 
 				Levelmanagement level = new Levelmanagement(window);
-				switch (level.getMaze(i,j)){
+				switch (level.getLvlSafeAll(i, j, level.LevelID)){
 				case 0:
 					g.setColor(Color.BLACK);
 					g.fillRect(i * (window.BOX / 4), j * (window.BOX / 4), window.BOX / 4, window.BOX / 4);
