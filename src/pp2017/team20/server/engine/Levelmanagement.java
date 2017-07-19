@@ -18,7 +18,6 @@ public class Levelmanagement {
 	//public Player player;
 	
 	Player[] playerList;
-	ArrayList<Monster> MonsterList = new ArrayList<Monster>();
 	Healthpot[] healpotList;
 	public int[][] lvlMaze;
 	public int[][] test;
@@ -34,7 +33,9 @@ public class Levelmanagement {
 	public int[][][] lvlsafeall;
 	public Player player;
 	
-	
+	public ArrayList<Monster> MonsterList = new ArrayList<Monster>();
+	public ArrayList<Player> PlayerList = new ArrayList<Player>();
+
 //abstest
 	public Levelmanagement(Player player) {
 		this.player=player;

@@ -15,10 +15,8 @@ public class MessageProcessing {
 	private boolean moveAllowed;
 
 	Queue<Message> MessageQueue = new LinkedList<Message>();
-	private LinkedList<Monster> MonsterList = new LinkedList<Monster>();
-	public ArrayList<Player> PlayerList = new ArrayList<Player>();
-	public ArrayList<String> ChatList = new ArrayList<String>();
-
+	
+	
 	public ServerKommunikation comm= new ServerKommunikation();
 	public Levelmanagement lvl;
 	
@@ -37,7 +35,7 @@ public class MessageProcessing {
 			while(true){
 				try{
 					Thread.sleep(50);
-					for(Monster monster:MonsterList){
+					for(Monster monster: lvl.MonsterList){
 						
 					}
 				}catch (InterruptedException e){
@@ -89,34 +87,28 @@ public class MessageProcessing {
 			LogInMessage login = (LogInMessage) message;
 			// ruft die zugeh�rige Processing-Methode auf
 			LogInMessageProcessing(login);
-		}
-
-		else if (message instanceof LogOutMessage) {
+		}else if (message instanceof LogOutMessage) {
 			LogOutMessage logout = (LogOutMessage) message;
 			LogOutMessageProcessing(logout);
-
-		} else if (message instanceof MoveMessage) {
+		}else if (message instanceof MoveMessage) {
 			MoveMessage movement = (MoveMessage) message;
 			MoveMessageProcessing(movement);
-
-		} else if (message instanceof UsePotionMessage) {
+		}else if (message instanceof UsePotionMessage) {
 			UsePotionMessage pot = (UsePotionMessage) message;
 			UsePotionMessageProcessing(pot);
-
-		} else if (message instanceof AttackMessage) {
+		}else if (message instanceof AttackMessage) {
 			AttackMessage playerattack = (AttackMessage) message;
 			AttackMessageProcessing(playerattack);
-
-		} else if (message instanceof DeathMessage) {
+		}else if (message instanceof DeathMessage) {
 			DeathMessage dead = (DeathMessage) message;
 			DeathMessageProcessing(dead);
-		} else if (message instanceof ItemPickUpMessage) {
+		}else if (message instanceof ItemPickUpMessage) {
 			ItemPickUpMessage itempick = (ItemPickUpMessage) message;
 			ItemPickUpMessageProcessing(itempick);
-		} else if (message instanceof NextLevelMessage) {
+		}else if (message instanceof NextLevelMessage) {
 			NextLevelMessage next = (NextLevelMessage) message;
 			NextLevelMessageProcessing(next);
-		} else if (message instanceof SendLevelMessage) {
+		}else if (message instanceof SendLevelMessage) {
 			SendLevelMessage lvl = (SendLevelMessage) message;
 			SendLevelMessageProcessing(lvl);
 		}
@@ -133,9 +125,7 @@ public class MessageProcessing {
 				message.setSuccess(true);
 				this.lvl = new Levelmanagement(new Player());
 				Level level = new Level(lvl.getLvlMaze());
-				
-				PlayerList.add(lvl.player);
-				
+				lvl.PlayerList.add(lvl.player);
 				
 				LogInMessage login = new LogInMessage(1,message.username,message.password,level);
 				comm.sendeNachricht(login);
@@ -152,13 +142,13 @@ public class MessageProcessing {
 	
 	public void LogOutMessageProcessing(LogOutMessage message) {
 		
-		for (int i = 0; i < PlayerList.size(); i++) {
-			Player player = PlayerList.get(i);
+		for (int i = 0; i < lvl.PlayerList.size(); i++) {
+			Player player = lvl.PlayerList.get(i);
 			if (message.playerID == player.playerID) {
 				// Aendert den Zustand des Spielers zu LoggedOFF
 				player.loggedIN = false;
 				// Entfernt den Spieler aus der Liste der aktiven Spieler
-				PlayerList.remove(player);
+				lvl.PlayerList.remove(player);
 
 				System.out.println(player.playername + " " + "ist abgemeldet");
 				// sendMessageToClient(message);
@@ -168,8 +158,8 @@ public class MessageProcessing {
 
 	public void MoveMessageProcessing(MoveMessage message) {
 
-		for (int i = 0; i < PlayerList.size(); i++) {
-			Player player = PlayerList.get(i);
+		for (int i = 0; i < lvl.PlayerList.size(); i++) {
+			Player player = lvl.PlayerList.get(i);
 			if (message.playerID == player.playerID) {
 				// Test, ob das Feld benachbart zur vorherigen Position des
 				// Spielers
@@ -214,8 +204,8 @@ public class MessageProcessing {
 	// Nehmen eines Lebens-trankts
 	public void UsePotionMessageProcessing(UsePotionMessage message) {
 
-		for (int i = 0; i < PlayerList.size(); i++) {
-			Player player = PlayerList.get(i);
+		for (int i = 0; i < lvl.PlayerList.size(); i++) {
+			Player player = lvl.PlayerList.get(i);
 			if (message.playerID == player.playerID) {
 
 				switch (message.id) {
@@ -285,8 +275,8 @@ public class MessageProcessing {
 
 		if (message.attackID == 1) {
 
-			for (int i = 0; i < MonsterList.size(); i++) {
-				Monster monster = MonsterList.get(i);
+			for (int i = 0; i < lvl.MonsterList.size(); i++) {
+				Monster monster = lvl.MonsterList.get(i);
 				if (message.monsterID == monster.monsterID) {
 
 					// Monster pr�ft ob der Anngriff erfolgen darf und schickt
@@ -299,7 +289,7 @@ public class MessageProcessing {
 						// Falls das Monster auf <=0 Hp f�llt entferne es aus
 						// dem Spiel
 						if (monster.getHealth() <= 0) {
-							MonsterList.remove(monster);
+							lvl.MonsterList.remove(monster);
 							System.out.println("Monster gestorben");
 						}
 					}
@@ -308,8 +298,8 @@ public class MessageProcessing {
 
 		} else if (message.attackID == 0) {
 
-			for (int i = 0; i < PlayerList.size(); i++) {
-				Player player = PlayerList.get(i);
+			for (int i = 0; i < lvl.PlayerList.size(); i++) {
+				Player player = lvl.PlayerList.get(i);
 				if (message.playerID == player.playerID) {
 
 					if (moveAllowed == true) {
@@ -340,15 +330,15 @@ public class MessageProcessing {
 
 		if (message.id == 0) {
 
-			for (int i = 0; i < PlayerList.size(); i++) {
-				Player player = PlayerList.get(i);
+			for (int i = 0; i < lvl.PlayerList.size(); i++) {
+				Player player = lvl.PlayerList.get(i);
 
 				if (message.playerID == player.playerID) {
 					// entferne Spieler aus der Liste
-					PlayerList.remove(player);
+					lvl.PlayerList.remove(player);
 					// Benutze Methode aus Levelmanagement um den Spieler an das
 					// Anfangsfeld zu stellen
-					Levelmanagement l = new Levelmanagement();
+					Levelmanagement l = new Levelmanagement(player);
 					l.placePlayer(player.playerID);
 					// regeneriere die stats des spielers
 					player.setHealth(100);
@@ -356,10 +346,10 @@ public class MessageProcessing {
 				}
 			}
 		} else if (message.id == 1) {
-			for (int i = 0; i < MonsterList.size(); i++) {
-				Monster monster = MonsterList.get(i);
+			for (int i = 0; i < lvl.MonsterList.size(); i++) {
+				Monster monster = lvl.MonsterList.get(i);
 				if (message.monsterID == monster.monsterID) {
-					MonsterList.remove(monster);
+					lvl.MonsterList.remove(monster);
 				}
 			}
 		}
@@ -379,7 +369,7 @@ public class MessageProcessing {
 				// Speichere den Text der Nachricht f�r das messagesystem
 				// z.B dem anderen Spielern anzeigen
 			} else {
-				ChatList.add(message.messageContent);
+				
 			}
 		} catch (Exception e) {
 			System.out.println("Unbkannter Befehl");
@@ -390,8 +380,8 @@ public class MessageProcessing {
 	// hinzu
 	public void ItemPickUpMessageProcessing(ItemPickUpMessage message) {
 
-		for (int i = 0; i < PlayerList.size(); i++) {
-			Player player = PlayerList.get(i);
+		for (int i = 0; i < lvl.PlayerList.size(); i++) {
+			Player player = lvl.PlayerList.get(i);
 
 			if (message.playerID == player.playerID) {
 
@@ -425,16 +415,16 @@ public class MessageProcessing {
 	}
 
 	public void NextLevelMessageProcessing(NextLevelMessage message) {
-		for (int i = 0; i < PlayerList.size(); i++) {
-			Player player = PlayerList.get(i);
+		for (int i = 0; i < lvl.PlayerList.size(); i++) {
+			Player player = lvl.PlayerList.get(i);
 
 			if (message.playerID == player.playerID) {
 
-				Levelmanagement level = new Levelmanagement(player);
+				
 				// Setzt den spieler in naechstes level
-				level.newLevel(player.playerLvl + 1);
+				lvl.newLevel(player.playerLvl + 1,19);
 				// Setze den Spieler an den Eingang
-				level.placePlayer(player.playerID);
+				lvl.placePlayer(player.playerID);
 			}
 		}
 	}
