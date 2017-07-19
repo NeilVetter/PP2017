@@ -9,6 +9,8 @@ public class Loginengine {
 	public static boolean logIn( String username , String password)  {
 		boolean succses = false;
 		Connection connection = null;
+		//Setzt die "Connection"
+				connection=SqliteConnection.dbConnector();
 		try { 
 		String query="select * from User where username=? and userpw=?";
 		 PreparedStatement pst= connection.prepareStatement(query);
