@@ -377,7 +377,7 @@ public class ClientEngine {
 
 	public void receiveLogInMessage(LogInMessage message) {
 		// Wenn die Enlogdaten korrekt sind, dann wird das Level geladen
-		if (message.isSuccess()) {
+		if (message.getSuccess()) {
 //			window.success = true;
 			// Laedt das Level
 			window.level = message.getLevel();
@@ -398,14 +398,15 @@ public class ClientEngine {
 			// Anzeigen der Spielwelt
 			window.showGamingWorld();
 			window.setVisible(true);
+			window.startNewGame();
 
 			// Wenn man sich nicht zum ersten Mal einloggt, muss kein komplett
 			// neues Spiel gestartet werden
-			if (window.firstLogIn = true) {
-				window.firstLogIn = false;
-			} else {
-				window.startNewGame();
-			}
+//			if (window.firstLogIn = true) {
+//				window.firstLogIn = false;
+//			} else {
+//				window.startNewGame();
+//			}
 		}
 		// Waren die eingegebenen Daten nicht korrekt, wird eine Fehlermeldung
 		// angezeigt

@@ -129,17 +129,21 @@ public class MessageProcessing {
 
 	public void LogInMessageProcessing(LogInMessage message) {
 
-		if((Registration(message.username,message.password)==true){
-			message.setSuccess(true);
-			this.lvl = new Levelmanagement();
-			Level level = new Level(lvl.getLvlMaze());
-			LogInMessage login = new LogInMessage(1,message.username,message.password,level);
-			comm.sendeNachricht(login);
-			
-		}else{
-			message.setSuccess(false);
-			LogInMessage login = new LogInMessage(1,message.username,message.password,message.getLvlMaze());
-			comm.sendeNachricht(login);
+		try {
+			if((Loginengine.logIn(message.username,message.password)==true)){
+				message.setSuccess(true);
+				this.lvl = new Levelmanagement();
+				Level level = new Level(lvl.getLvlMaze());
+				LogInMessage login = new LogInMessage(1,message.username,message.password,level);
+				comm.sendeNachricht(login);
+				
+			}else{
+				message.setSuccess(false);
+				LogInMessage login = new LogInMessage(1,message.username,message.password,message.getLevel());
+				comm.sendeNachricht(login);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 		
