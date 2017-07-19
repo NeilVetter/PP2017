@@ -93,11 +93,11 @@ public class ClientEngine {
 	 * 
 	 */
 
-	public void sendLogInMessage(int clientID, String user, byte[] password, SecretKey keylog) {
-		if (password.equals(keylog)) {
-			LogInMessage message = new LogInMessage(clientID, user, password, keylog);
+	public void sendLogInMessage(int clientID, String username, String password) {
+//		if (password.equals(keylog)) {
+			LogInMessage message = new LogInMessage(clientID, username, password);
 			communication.sendeNachricht(message);
-		}
+//		}
 	}
 
 	/**
