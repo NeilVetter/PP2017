@@ -34,7 +34,7 @@ public class Level  {
 	
 	public Level(int id, int[][] level){
 		LevelID= id;
-		Player.playerMap = level;
+		lvlMaze = level;
 	}
 	
 	public int getLevelID(){
@@ -42,10 +42,10 @@ public class Level  {
 	}
 	
 	public void setLvlMaze(int i,int j, int maze ){
-		Player.playerMap[i][j]=maze;
+		lvlMaze[i][j]=maze;
 	}
 	public int[][] getfulllvl(){
-		return Player.playerMap;
+		return lvlMaze;
 	}
 	
 
@@ -70,6 +70,6 @@ public class Level  {
 
 	public int getlvlMaze(int xPos, int yPos) {
 		
-		return Player.playerMap[xPos][yPos];
+		return lvlMaze[xPos][yPos];
 	}
 }

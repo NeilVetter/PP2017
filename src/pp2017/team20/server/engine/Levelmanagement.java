@@ -18,30 +18,55 @@ public class Levelmanagement {
 	Player[] playerList;
 	Monster[] monsterList;
 	Healthpot[] healpotList;
+	public int[][] lvlMaze;
 	public int[][] test;
 	public int LevelID = -1;
 	public static int size;
-	public int lvlcount;
+	public int lvlcounter;
 	static int keyx;
 	static int keyy;
 	static int doorx;
 	static int doory;
 	public Maze maze;
 	public int playerlvl;
+	public int[][][] lvlsafeall;
+	
+	
 //abstest
 	public Levelmanagement(GamingArea window) {
-		newLevel(1,window);
+		newLevel(1,window,19,1);
 	}
 
 	// Diese Methode erzeugt ein Map nach Vorgaben vom Levelgenerator
-	public void newLevel(int LevelID, GamingArea window) {
-
+	public void newLevel(int LevelID, GamingArea window , int size , int lvlcount) {
+		this.lvlcounter = lvlcount;
+		
 		int type =0;
+		Levelmanagement.size =size;
+		lvlsafeall = new int [lvlcounter][size][size];
+		lvlMaze = new int[size][size];
+		
 		// erstelle neues "Maze" mit Hilfe des Konstruktors der Klasse Maze
-		maze = new Maze(LevelID);
-
+		int counter = 1;
+	while(counter < lvlcounter +1){
+		 maze = new Maze(LevelID);
+		 for (int i=0 ; i <size -1; i++){
+			for (int j= 0; j<size -1; j++){
+				lvlMaze[i][j]=maze.Map[i][j];
+				lvlsafeall[counter -1][i][j]= maze.Map[i][j];
+				//System.out.println(lvlMaze[i][j]); funktioniert 
+			}
+		 }
+		counter++;
+	}
+	/*for (int i=0; i< size; i++){
+		for (int j= 0; j< size; j++){
+			lvlMaze[i][j]= lvlsafeall[LevelID][i][j];
+		}
+	}*/
+		
 		// F�gt das Spiel zur Levelliste des eingeloggten Spielers hinzu
-		Player.LevelList.add(maze);
+		//Player.LevelList.add(maze);
 
 		// Speicher im Spieler welches Level er zuletzt gespielt hat
 		// Lvlindex geht von 0,1,...
@@ -165,7 +190,7 @@ public class Levelmanagement {
 	 * 
 	 *  @author Hamid  Kirli  6041663 */
 		public void setLvlMaze (int levelID, int x, int y,int substance, Levelmanagement game1 ){
-			Player.playerMap[x][y] = substance;
+			lvlMaze[x][y] = substance;
 			if(substance == 2){
 				int playerID = 0;
 				game1.playerList[playerID].setXPos(x);
@@ -174,11 +199,11 @@ public class Levelmanagement {
 				boolean monsterbaby = false;
 				int monsterID = 0;
 				while(!monsterbaby){
-					if(Player.playerMap[x][y] != 0 &&
+					if(lvlMaze[x][y] != 0 &&
 							monsterList[monsterID].getXPos()== x &&
 							monsterList[monsterID].getYPos() == y){
 						monsterbaby = true;
-						Player.playerMap[monsterList[monsterID].getXPos()][monsterList[monsterID].getYPos()] = 1;
+						lvlMaze[monsterList[monsterID].getXPos()][monsterList[monsterID].getYPos()] = 1;
 						game1.monsterList[monsterID].setXPos(x);
 						game1.monsterList[monsterID].setYPos(y);	
 					} else {
