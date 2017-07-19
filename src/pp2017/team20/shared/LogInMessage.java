@@ -52,4 +52,7 @@ public class LogInMessage extends Message {
 	public void setSuccess(boolean success) {
 		this.success = success;
 	}
+	public int[][] getLvlMaze() {
+		return lvlMaze;
+	}
 }

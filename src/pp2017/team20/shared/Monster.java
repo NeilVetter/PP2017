@@ -674,7 +674,7 @@ public class Monster extends Figure {
 		if(dir == -1) return true;
 		
 		if(dir == 0 && getYPos()-1 > 0){
-			return	! ((Levelmanagement.getLvlMaze(getXPos(),getYPos()-1) == 0) &&
+			return	! ((new Levelmanagement().getLvlMaze(getXPos(),getYPos()-1) == 0) &&
 					!((window.level.getlvlMaze(getXPos(),getYPos()-1) == 3) &&
 					!((window.level.getlvlMaze(getXPos(),getYPos()-1) == 5))));
 		}else if(dir == 1 && getXPos()+1 < window.WIDTH){
