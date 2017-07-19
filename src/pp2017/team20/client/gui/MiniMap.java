@@ -142,6 +142,6 @@ public class MiniMap extends JPanel {
 		g.fillRect(window.player.getXPos() * ((window.BOX * window.WIDTH) / 4) / window.WIDTH,
 				window.player.getYPos() * ((window.BOX * window.HEIGHT) / 4) / window.HEIGHT,
 				((window.BOX * window.WIDTH) / 4) / window.WIDTH, ((window.BOX * window.HEIGHT) / 4) / window.HEIGHT);
-//		repaint();
+		repaint();
 		}}
 }
