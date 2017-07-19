@@ -53,8 +53,7 @@ public class Levelmanagement {
 		 for (int i=0 ; i <size -1; i++){
 			for (int j= 0; j<size -1; j++){
 				lvlMaze[i][j]=maze.Map[i][j];
-				lvlsafeall[counter -1][i][j]= maze.Map[i][j];
-				window.lvlsafeall[counter-1][i][j]=maze.Map[i][j];
+				this.lvlsafeall[counter -1][i][j]= maze.Map[i][j];
 				//System.out.println(lvlMaze[i][j]); funktioniert 
 			}
 		 }
@@ -259,7 +258,7 @@ public class Levelmanagement {
 			}
 		}
 	}
-	public int getMaze(int i,int j){
-		return maze.Map[i][j];
+	public int getLvlSafeAll(int i,int j,int counter){
+		return lvlsafeall[counter-1][i][j];
 	}
 }

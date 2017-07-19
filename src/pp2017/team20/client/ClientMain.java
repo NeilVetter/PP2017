@@ -14,7 +14,7 @@ public class ClientMain {
 
 	/**
 	 * Team 20: TeamLos
-	 * 
+ 	 * 
 	 * Teammitglieder: 	Heck, Liz, 5991099
 	 * 					Kirli, Hamid, 6041663
 	 * 					Kong, Yuxuan, 6019218
