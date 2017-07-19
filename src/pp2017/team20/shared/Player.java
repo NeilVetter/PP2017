@@ -40,9 +40,6 @@ public class Player extends Figure{
 	
 	private GamingArea window;
 	
-	public Player() {
-		setPos(3, 5);
-	}
 		
 	public Player(String imgFile, GamingArea window){
 		this.window = window;
@@ -73,11 +70,7 @@ public class Player extends Figure{
 //	}
 	//Konstruktor um einen neuen Spieler zu erstellen
 	//Nach zusammensetzen ohne PosX/PosY
-	public Player (int PlayerID,int xPos,int yPos){//,String playername){ // um im Lvlmanager zupassen.
-		this.playerID=PlayerID;
-		this.xPos=xPos;
-		this.yPos=yPos;
-		this.playername=playername;
+	public Player (){
 		setHealth(100);
 		setMana(100);
 		setMaxHealth(getHealth());
@@ -87,8 +80,6 @@ public class Player extends Figure{
 		ownsKey=false;
 		door=false;
 		loggedIN=false;
-		playerMap= new int [15][15];
-		
 	}
 	
 	// Methode, um den Schluessel zu entfernen

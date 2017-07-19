@@ -32,10 +32,12 @@ public class Levelmanagement {
 	public Maze maze;
 	public int playerlvl;
 	public int[][][] lvlsafeall;
+	public Player player;
 	
 	
 //abstest
-	public Levelmanagement() {
+	public Levelmanagement(Player player) {
+		this.player=player;
 		newLevel(1,19);
 	}
 
@@ -70,7 +72,7 @@ public class Levelmanagement {
 		// Speicher im Spieler welches Level er zuletzt gespielt hat
 		// Lvlindex geht von 0,1,...
 		
-		window.player.setPlayerLvl(LevelID);
+		player.setPlayerLvl(LevelID);
 		
 
 		// Speichert die Map beim Spieler, sodass Elemente darauf abgelesen
@@ -99,7 +101,7 @@ public class Levelmanagement {
 		for (int i=0; i<maze.Map.length; i++){
 			for (int j=0;j<maze.Map.length;j++){
 				if (maze.Map[i][j]==2){
-					Player player = new Player(playerID ,i, j);
+					Player player = new Player();
 					// wieso passt es nicht mit deinem Konstrucktor @neil
 					player.setPos(i,j);
 					playerList[playerID]= player;
@@ -107,7 +109,7 @@ public class Levelmanagement {
 				}
 				else if (maze.Map[i][j]== 6){
 					
-					Monster monster = new Monster(monsterID, i , j, e ,  type );
+					Monster monster = new Monster(monsterID, i , j, LevelID,  type );
 					// Robin muss den Construktor ändern // also einfach eine monsterID einfügen
 					MonsterList.add(monster);
 					monsterID++;	
@@ -120,7 +122,7 @@ public class Levelmanagement {
 				}
 				else if(maze.Map[i][j] == 5){
 					int k;
-					Monster monster = new Monster(monsterID, i, j, e , type);
+					Monster monster = new Monster(monsterID, i, j, LevelID , type);
 					MonsterList.add(monster);
 					monsterID++;
 			}

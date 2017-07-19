@@ -19,8 +19,7 @@ public class MessageProcessing {
 	public ArrayList<Player> PlayerList = new ArrayList<Player>();
 	public ArrayList<String> ChatList = new ArrayList<String>();
 
-	ServerKommunikation comm= new ServerKommunikation();
-	
+	public ServerKommunikation comm= new ServerKommunikation();
 	public Levelmanagement lvl;
 	
 //	 Message message=comm.getMessageFromClient();
@@ -132,7 +131,7 @@ public class MessageProcessing {
 		try {
 			if((Loginengine.logIn(message.username,message.password)==true)){
 				message.setSuccess(true);
-				this.lvl = new Levelmanagement();
+				this.lvl = new Levelmanagement(new Player());
 				Level level = new Level(lvl.getLvlMaze());
 				LogInMessage login = new LogInMessage(1,message.username,message.password,level);
 				comm.sendeNachricht(login);
