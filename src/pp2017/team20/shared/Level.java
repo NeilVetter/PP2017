@@ -26,11 +26,11 @@ public class Level  {
 	
 	public Level(int[][] lvlMaze){
 		this.lvlMaze=lvlMaze;
-//		for (int i= 0; i< monsterfield.length; i++){
-//			for( int j= 0; j<monsterfield.length;j++){
-//				monsterfield[i][j]=-1;
-//			}
-//		}
+		for (int i= 0; i< monsterfield.length; i++){
+			for( int j= 0; j<monsterfield.length;j++){
+				monsterfield[i][j]=-1;
+			}
+		}
 	}
 	
 	public Level(int id, int[][] level){
