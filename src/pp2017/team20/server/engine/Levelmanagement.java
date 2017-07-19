@@ -257,7 +257,10 @@ public class Levelmanagement {
 			}
 		}
 	}
-	public int getLvlMaze(int i,int j){
+	public int getLvlMazePosition(int i,int j){
 		return lvlMaze[i][j];
+	}
+	public int [][]getLvlMaze(){
+		return lvlMaze;
 	}
 }

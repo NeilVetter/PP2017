@@ -130,11 +130,13 @@ public class MessageProcessing {
 			message.setSuccess(true);
 			Levelmanagement lvl = new Levelmanagement();
 			
-			LogInMessage login = new LogInMessage(1,message.username,message.password,lvl.lvlMaze);
+			LogInMessage login = new LogInMessage(1,message.username,message.password,lvl.getLvlMaze());
 			comm.sendeNachricht(login);
 			
 		}else{
 			message.setSuccess(false);
+			LogInMessage login = new LogInMessage(1,message.username,message.password,message.getLvlMaze());
+			comm.sendeNachricht(login);
 		}
 	}
 		
