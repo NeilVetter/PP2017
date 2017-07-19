@@ -17,6 +17,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 
 import pp2017.team20.server.engine.SqliteConnection;
+import pp2017.team20.shared.LogInMessage;
 
 import java.sql.*;
 
@@ -33,6 +34,9 @@ public class Registration {
 	private JPasswordField passwordField;
 	private JButton btnButton;
 	private JLabel lblLabel;
+	boolean succses = false;
+	public String username;
+	public String password;
 
 	/**
 	 * Teste MainMethode
@@ -102,10 +106,18 @@ public class Registration {
 		JButton btnNewButton = new JButton("Login");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-			 /*Sobald der Benutzer auf den Knopf dr�ckt, 
+				if(arg0.getSource() == btnNewButton){
+					 username = textField.getText();
+					 password = passwordField.getText();
+					 regclient();
+				}
+					
+				
+				
+				/*Sobald der Benutzer auf den Knopf dr�ckt, 
 			  * wird hier der >Benutzername< und das >Passwort<
 			  * mit der Datenbank vergliechen. */
-				try{
+				/*try{
 					
 				 String query="select * from User where username=? and userpw=?";
 				 PreparedStatement pst= connection.prepareStatement(query);
@@ -123,6 +135,7 @@ public class Registration {
 					 JOptionPane.showMessageDialog(null, "Username and Password is correct");
 					 new GamingArea("Mario's Adventure");
 					 window.dispose();
+					 succses =true;
 				 }
 				 else{
 					 //Wenn Benutzername oder das Passwort falsch sind.
@@ -133,8 +146,23 @@ public class Registration {
 				 pst.close();
 			 }catch(Exception e){
 				 System.out.println( "Fehler" + e);
-			 }
+			 }*/
 			}
+
+			public void regclient(){
+				String nickname = textField.getText();
+				String pwt = passwordField.getText();
+				
+				try {
+					LogInMessage registra = new LogInMessage ( 1, nickname , pwt , null  );
+					} catch ( Exception e2){
+						e2.printStackTrace();
+					}
+					
+			}
+				
+			
+		
 		});
 		
 		btnNewButton.setFont(new Font("Vani", Font.PLAIN, 15));
