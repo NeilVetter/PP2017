@@ -202,7 +202,7 @@ public class Levelmanagement {
 				int monsterID = 0;
 				while(!monsterbaby){
 					if(lvlMaze[x][y] != 0 &&
-							monsterList[monsterID].getXPos()== x &&
+							MonsterList[monsterID].getXPos()== x &&
 							monsterList[monsterID].getYPos() == y){
 						monsterbaby = true;
 						lvlMaze[monsterList[monsterID].getXPos()][monsterList[monsterID].getYPos()] = 1;

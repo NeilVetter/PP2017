@@ -31,12 +31,12 @@ public class LogInMessage extends Message {
 	 * 
 	 * @author Wagner, Tobias, 5416213
 	 */
-	public LogInMessage(int clientID, String username, String  password, Level level) {
+	public LogInMessage(int clientID, String username, String  password) {
 		
 		super(clientID);
 		this.username = username;
 		this.password = password;
-		this.level=level;
+		
 	}
 
 	
@@ -47,6 +47,9 @@ public class LogInMessage extends Message {
 	}
 	public Level getLevel(){
 		return level;
+	}
+	public void setLevel(Level level){
+		this.level=level;
 	}
 
 	public void setSuccess(boolean success) {

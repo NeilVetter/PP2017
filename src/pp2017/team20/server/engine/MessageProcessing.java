@@ -127,12 +127,13 @@ public class MessageProcessing {
 				Level level = new Level(lvl.getLvlMaze());
 				lvl.PlayerList.add(lvl.player);
 				
-				LogInMessage login = new LogInMessage(1,message.username,message.password,level);
+				LogInMessage login = new LogInMessage(1,message.username,message.password);
+				login.setLevel(level);
 				comm.sendeNachricht(login);
 				
 			}else{
 				message.setSuccess(false);
-				LogInMessage login = new LogInMessage(1,message.username,message.password,message.getLevel());
+				LogInMessage login = new LogInMessage(1,message.username,message.password);
 				comm.sendeNachricht(login);
 			}
 		} catch (Exception e) {
