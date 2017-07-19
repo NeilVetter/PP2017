@@ -29,22 +29,35 @@ public class MessageProcessing {
 	public MessageProcessing() {
 
 	}
-	@
+	Thread t = new Thread(new Runnable() {
+		@Override
+		public void run(){
+			while(true){
+				try{
+					Thread.sleep(50);
+					for(Monster monster:MonsterList){
+						
+					}
+				}catch (InterruptedException e){
+					e.printStackTrace();
+				}
+			}
+		}	
+	});
+	
 	public void RecieveMessage() {
-
 		
-
 			// Empfange bis der Server beendet wird Nachrichten von der
 			// Kommunikation
 			while (true) {
 				try {
-				Message message = comm.erhalteNachricht();
-				WhatMessageType(message);
+					Thread.sleep(50);
+					Message message = comm.erhalteNachricht();
+					WhatMessageType(message);
 				} catch (Exception e) {
 					
 				}
 			}
-		
 	}
 	// Nimmt eine Message aus dem Queue und entscheidet welcher Unterklasse sie
 	// angeh�rt
