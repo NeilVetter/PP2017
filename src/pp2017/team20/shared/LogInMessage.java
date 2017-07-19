@@ -16,7 +16,7 @@ public class LogInMessage extends Message {
 	//Variable fuer den aktuellen Spieler
 	public String username;
 	//Variable fuer das Passwort
-	public byte [] password;
+	public String password;
 	//Vairable zum Ueberpruefen des Passworts
 	public SecretKey keylog;
 	private boolean success = false;
@@ -31,7 +31,7 @@ public class LogInMessage extends Message {
 	 * 
 	 * @author Wagner, Tobias, 5416213
 	 */
-	public LogInMessage(int clientID, String username, byte [] password, int[][] lvlMaze) {
+	public LogInMessage(int clientID, String username, String  password, int[][] lvlMaze) {
 		
 		super(clientID);
 		this.username = username;
