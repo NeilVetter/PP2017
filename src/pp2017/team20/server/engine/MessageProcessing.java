@@ -29,21 +29,21 @@ public class MessageProcessing {
 	public MessageProcessing() {
 
 	}
-	Thread t = new Thread(new Runnable() {
-		@Override
-		public void run(){
-			while(true){
-				try{
-					Thread.sleep(50);
-					for(Monster monster: lvl.MonsterList){
-						
-					}
-				}catch (InterruptedException e){
-					e.printStackTrace();
-				}
-			}
-		}	
-	});
+//	Thread t = new Thread(new Runnable() {
+//		@Override
+//		public void run(){
+//			while(true){
+//				try{
+//					Thread.sleep(50);
+//					for(Monster monster: lvl.MonsterList){
+//						
+//					}
+//				}catch (InterruptedException e){
+//					e.printStackTrace();
+//				}
+//			}
+//		}	
+//	});
 	
 	public void RecieveMessage() {
 		
