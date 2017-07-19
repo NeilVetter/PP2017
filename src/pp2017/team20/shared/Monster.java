@@ -36,6 +36,8 @@ public class Monster extends Figure {
 //	public ClientKommunikation kommunikation = new ClientKommunikation();
 	public ClientEngine engine;
 	
+	
+	//LevelID 
 	public Monster(int monsterID, int x, int y, ClientEngine e, int type){
 		/**
 		 * erstellt ein Monster an den Koordinaten (x,y) im Labyrinth und gibt ihm 
