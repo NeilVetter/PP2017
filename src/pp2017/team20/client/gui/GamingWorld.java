@@ -104,7 +104,18 @@ public class GamingWorld extends JPanel {
 
 				case 6:
 					g.drawImage(floor, i * window.BOX, j * window.BOX, null);
-					g.drawImage("monster.getget, i * window.BOX, j * window.BOX, null);
+					
+					//Strength aus der Monsterliste vom Client bekommen (wie Zugriff?)
+					
+					if (strenght == 1){
+						g.drawImage(monster1, i * window.BOX, j * window.BOX, null);
+					} else if (strength == 2){
+						g.drawImage(monster2, i * window.BOX, j * window.BOX, null);
+					} else if (strength == 3){
+						g.drawImage(monster3, i * window.BOX, j * window.BOX, null);
+					} else if (strength == 6){
+						g.drawImage(monster6, i * window.BOX, j * window.BOX, null);
+					}
 					break;
 
 				default:
