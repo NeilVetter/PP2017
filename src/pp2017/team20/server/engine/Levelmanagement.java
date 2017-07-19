@@ -34,31 +34,31 @@ public class Levelmanagement {
 	
 //abstest
 	public Levelmanagement(GamingArea window) {
-		newLevel(1,window,19,1);
+		newLevel(1,window,19);
 	}
 
 	// Diese Methode erzeugt ein Map nach Vorgaben vom Levelgenerator
-	public void newLevel(int LevelID, GamingArea window , int size , int lvlcount) {
-		this.lvlcounter = lvlcount;
+	public void newLevel(int LevelID, GamingArea window , int size ) {
+		//this.lvlcounter = lvlcount;
 		
 		int type =0;
 		Levelmanagement.size =size;
-		lvlsafeall = new int [lvlcounter][size][size];
+		//lvlsafeall = new int [lvlcounter][size][size];
 		lvlMaze = new int[size][size];
 		
 		// erstelle neues "Maze" mit Hilfe des Konstruktors der Klasse Maze
-		int counter = 1;
-	while(counter < lvlcounter +1){
+		//int counter = 1;
+	//while(counter < lvlcounter +1){
 		 maze = new Maze(LevelID);
 		 for (int i=0 ; i <size -1; i++){
 			for (int j= 0; j<size -1; j++){
-				lvlMaze[i][j]=maze.Map[i][j];
-				this.lvlsafeall[counter-1][i][j]= maze.Map[i][j];
+				this.lvlMaze[i][j]=maze.Map[i][j];
+				//this.lvlsafeall[counter-1][i][j]= maze.Map[i][j];
 				//System.out.println(lvlMaze[i][j]); funktioniert 
 			}
 		 }
-		counter++;
-	}
+	//	counter++;
+	//}
 	/*for (int i=0; i< size; i++){
 		for (int j= 0; j< size; j++){
 			lvlMaze[i][j]= lvlsafeall[LevelID][i][j];

@@ -155,7 +155,7 @@ public class GamingArea extends JFrame implements KeyListener {
 		this.add(menubar, BorderLayout.NORTH);
 		this.add(statusbar, BorderLayout.SOUTH);
 		this.add(chat, BorderLayout.EAST);
-		this.add(map, BorderLayout.WEST);
+		//this.add(map, BorderLayout.WEST);
 
 		// das fertige Spielfeld wird aktiviert
 		this.requestFocus();
