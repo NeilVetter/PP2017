@@ -1,4 +1,4 @@
-package pp2017.team20.shared;
+fpackage pp2017.team20.shared;
 
 import pp2017.team20.client.comm.ClientKommunikation;
 import pp2017.team20.client.engine.ClientEngine;
@@ -237,8 +237,8 @@ public class Monster extends Figure {
 		
 		if(getHealth() <= 0){
 			window.level.setLvlMaze(getXPos(), getYPos(), 6); // Monster hinterlaesst Heiltrank
-			// Random Verteilung von Heiltrank und Manatrank für Endversion hier
-			window.monsterList.remove(this); // lösche Monster
+			// Random Verteilung von Heiltrank und Manatrank fï¿½r Endversion hier
+			window.monsterList.remove(this); // lï¿½sche Monster
 //			state = 4;
 			return;   // Falls keine Lebensenergie mehr --> monsterDies	
 			}
