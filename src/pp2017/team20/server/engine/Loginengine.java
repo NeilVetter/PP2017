@@ -6,10 +6,11 @@ import javax.swing.*;
 
 public class Loginengine {
 	
-	public static boolean logIn( String username , String password) throws Exception {
+	public static boolean logIn( String username , String password)  {
 		boolean succses = false;
 		Connection connection = null;
-		 String query="select * from User where username=? and userpw=?";
+		try { 
+		String query="select * from User where username=? and userpw=?";
 		 PreparedStatement pst= connection.prepareStatement(query);
 		 //Textfeld wird mit Username verbunden
 		 pst.setString(1, username);
@@ -34,11 +35,16 @@ public class Loginengine {
 			 JOptionPane.showMessageDialog(null, "Wrong Username or Password");
 		succses= false;
 		 return succses;
-		 }
+		 } 
 		// rs.close();
 		// pst.close();
+		 }catch (Exception e){
+			 e.printStackTrace();
+		 }
+		
+		return succses;
 	
-//	return false;
+
 	}
 }
 
