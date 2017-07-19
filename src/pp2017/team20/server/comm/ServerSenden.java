@@ -11,7 +11,6 @@ import pp2017.team20.shared.Message;
 /**
  * Die Threads zum Senden von Nachrichten (vom Server an den Client)
  * 
- * @author Koruk, Samet, 5869110
  * 
  */
 
@@ -20,7 +19,6 @@ public class ServerSenden extends Thread {
 	/**
 	 * Attributblock
 	 * 
-	 * @author Koruk, Samet, 5869110
 	 */
 	public Socket clientSocket;
 	public ObjectOutputStream out;

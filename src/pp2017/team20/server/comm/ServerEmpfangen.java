@@ -11,7 +11,6 @@ import pp2017.team20.shared.Message;
 /**
  * Die Threads zum Erhalten von Nachrichten
  * 
- * @author Koruk, Samet, 5869110
  * 
  */
 
@@ -24,8 +23,7 @@ public class ServerEmpfangen extends Thread {
 
 	/**
 	 * Konstruktor
-	 * 
-	 * @author Koruk, Samet, 5869110
+	 *
 	 */
 	public ServerEmpfangen(Socket clientSocket, BlockingQueue<Message> blockQ, int count) {
 		this.blockQ = blockQ;
@@ -53,7 +51,7 @@ public class ServerEmpfangen extends Thread {
 	 * Methode die ueberprueft, wenn eine Nachricht im Stream ist, diese in die
 	 * Queue zu schicken
 	 * 
-	 * @author Koruk, Samet, 5869110
+	 * 
 	 */
 	public void checkMes() {
 		Message msg = null;

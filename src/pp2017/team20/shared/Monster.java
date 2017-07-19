@@ -1,4 +1,4 @@
-fpackage pp2017.team20.shared;
+package pp2017.team20.shared;
 
 import pp2017.team20.client.comm.ClientKommunikation;
 import pp2017.team20.client.engine.ClientEngine;

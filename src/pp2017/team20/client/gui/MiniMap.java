@@ -59,11 +59,11 @@ public class MiniMap extends JPanel {
 
 		// alle Eintraege des Testlevels (aus GamingArea) werden abgefragt, und
 		// mit unterschiedlich farblichen Rechtecken in der MiniMap dargestellt
-		
+		Levelmanagement level = new Levelmanagement(window);
 		for (int i = 0; i < window.WIDTH; i++) {
 			for (int j = 0; j < window.HEIGHT; j++) {
 
-				Levelmanagement level = new Levelmanagement(window);
+				
 				switch (level.getLvlMaze(i, j)){
 				case 0:
 					g.setColor(Color.BLACK);
