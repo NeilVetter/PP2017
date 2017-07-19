@@ -372,7 +372,7 @@ public class GamingArea extends JFrame implements KeyListener {
 		String passwordcheck = JOptionPane.showInputDialog("Enter password");
 	
 		//Verschluesselung
-				try {
+				/*try {
 					KeyGenerator keygenerator = KeyGenerator.getInstance("DES");
 		            SecretKey key = keygenerator.generateKey();
 		 
@@ -389,17 +389,17 @@ public class GamingArea extends JFrame implements KeyListener {
 
 		            // Passwort verschluesseln
 		            byte[] passwordEncoded = Encoding.doFinal(password);
-		        
+		        */
 
 		        //Verschluesseltes Passwort wird mit dem generierten Schluessel an den Client uebermittelt
-				engine.sendLogInMessage(clientID, username, password, keylog);
+				engine.sendLogInMessage(clientID, username, passwordcheck );
 				loginName = user;
 
 				}
-				catch (Exception e) {
-					System.out.println("Login konnte nicht gelesen werden");
-					}
-				}
+				//catch (Exception e) {
+					//System.out.println("Login konnte nicht gelesen werden");
+					//}}
 	}
-
+	
+	
 

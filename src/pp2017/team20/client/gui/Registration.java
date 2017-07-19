@@ -110,6 +110,7 @@ public class Registration {
 					 username = textField.getText();
 					 password = passwordField.getText();
 					 regclient();
+				
 				}
 					
 				
@@ -154,7 +155,7 @@ public class Registration {
 				String pwt = passwordField.getText();
 				
 				try {
-					LogInMessage registra = new LogInMessage ( 1, nickname , pwt , null  );
+					//engine.sendLogInMessage(1,nickname,pwt);
 					} catch ( Exception e2){
 						e2.printStackTrace();
 					}
