@@ -133,6 +133,10 @@ public class MessageProcessing {
 				message.setSuccess(true);
 				this.lvl = new Levelmanagement(new Player());
 				Level level = new Level(lvl.getLvlMaze());
+				
+				PlayerList.add(lvl.player);
+				
+				
 				LogInMessage login = new LogInMessage(1,message.username,message.password,level);
 				comm.sendeNachricht(login);
 				
@@ -145,37 +149,9 @@ public class MessageProcessing {
 			e.printStackTrace();
 		}
 	}
-		
-		
-		
-		
-		
-//		for (int i = 0; i < PlayerList.size(); i++) {
-//			Player player = PlayerList.get(i);
-//			if (player.playerID == player.playerID) {
-//				// wenn der Levelgenerator succsess==true angibt hat der login
-//				// bei ihm funktioniert
-//				if (message.isSuccess() == true) {
-//					// Aendert den Zustand des Spieler zu LoggedIN so dass dies
-//					// immer bekannt
-//					player.loggedIN = true;
-//					// F�gt den Spieler der Liste aktiver Spieler bei
-//					PlayerList.add(player);
-//
-//					System.out.println(player.playername
-//							+ "'s login war erfolgreich");
-//				} else {
-//					// meldet zur�ck, dass der login gescheitert ist
-//					player.loggedIN = false;
-//
-//					System.out.println(player.playername
-//							+ "'s login war nicht erfolgreich");
-//				}
-//			}
-//		}
 	
-
 	public void LogOutMessageProcessing(LogOutMessage message) {
+		
 		for (int i = 0; i < PlayerList.size(); i++) {
 			Player player = PlayerList.get(i);
 			if (message.playerID == player.playerID) {
