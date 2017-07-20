@@ -132,7 +132,7 @@ public class GamingArea extends JFrame implements KeyListener {
 					Registration windowTest = new Registration(this);
 					windowTest.window.setVisible(true);
 					
-			
+		
 			
 		
 		System.out.println("test1");

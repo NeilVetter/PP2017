@@ -378,8 +378,8 @@ public class ClientEngine {
 
 	public void receiveLogInMessage(LogInMessage message) {
 		// Wenn die Enlogdaten korrekt sind, dann wird das Level geladen
-//		if (message.getSuccess()) {
-			window.success = true;
+		if (message.getSuccess()) {
+			window.success = message.getSuccess();
 			// Laedt das Level
 //			System.out.println(message.getLevel().getlvlMaze(1, 1));
 			window.level = message.getLevel();
@@ -416,7 +416,7 @@ public class ClientEngine {
 //		else {
 //			JOptionPane.showMessageDialog(window, "Wrong user or wrong password");
 //			window.login();
-//		}
+	}
 		
 	}
 

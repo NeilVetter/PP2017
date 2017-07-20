@@ -122,13 +122,14 @@ public class MessageProcessing {
 
 		try {
 			if((Loginengine.logIn(message.username,message.password)==true)){
-				message.setSuccess(true);
+				
 				lvl = new Levelmanagement(new Player());
 				lvl.PlayerList.add(lvl.player);
 				Level level = new Level(lvl,lvl.getLvlMaze());
 				
 				
 				LogInMessage login = new LogInMessage(1,message.username,message.password);
+				login.setSuccess(true);
 				login.setLevel(level);
 				System.out.println();
 				comm.sendeNachricht(login);
