@@ -135,13 +135,13 @@ public class GamingArea extends JFrame implements KeyListener {
 		
 			
 		
-		System.out.println("test1");
+		
 		while (!success) {
-			System.out.println(success);
+			
 			engine.receiveMessage();
 			
 		}
-		System.out.println(success);
+		
 		// Standadeinstellungen (Groesse des Fensters nicht veraenderbar, Titel
 		// setzen, sichtbar machen, schliessbar machen
 		chat.send.addKeyListener(this);
@@ -150,7 +150,7 @@ public class GamingArea extends JFrame implements KeyListener {
 		this.setTitle(title);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-		System.out.println("GamingArea.initializeJFrame() - Ende");
+		
 //	showGamingWorld();
 //		// das Spielfenster wird auf dem Bildschirm zentriert
 //		final Dimension d = this.getToolkit().getScreenSize();
@@ -179,10 +179,11 @@ public class GamingArea extends JFrame implements KeyListener {
 		//this.add(map, BorderLayout.WEST);
 
 		// das fertige Spielfeld wird aktiviert
-		this.requestFocus();
+		
 		this.setVisible(true);
 		
 		this.pack();
+		this.requestFocus();
 	}
 
 	/**
@@ -359,8 +360,9 @@ public class GamingArea extends JFrame implements KeyListener {
 	}
 
 	public void startNewGame() {
+		System.out.println("blabla5"+success);
 		resetGame();
-		
+		System.out.println("blabla6"+success);
 		do {
 			if (!gameEnd){
 				try {
@@ -370,7 +372,6 @@ public class GamingArea extends JFrame implements KeyListener {
 				engine.receiveMessage();
 				getGamingWorld().repaint();
 				getStatusBar().repaint();
-				
 				if (player.getHealth() <= 0) {
 					gameEnd = true;
 					gameLost = true;
@@ -386,7 +387,8 @@ public class GamingArea extends JFrame implements KeyListener {
 					engine.receiveMessage();
 				}
 			}
-		} while (success);
+		}while(success);
+		
 	}
 	
 	public void login(String username, String password) {

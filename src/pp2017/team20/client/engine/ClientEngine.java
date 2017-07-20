@@ -380,7 +380,6 @@ public class ClientEngine {
 		// Wenn die Enlogdaten korrekt sind, dann wird das Level geladen
 		if (message.getSuccess()) {
 			window.setSuccess(true);
-			System.out.println("blabla"+window.success);
 			// Laedt das Level
 //			System.out.println(message.getLevel().getlvlMaze(1, 1));
 			window.level = message.getLevel();
@@ -400,9 +399,12 @@ public class ClientEngine {
 //				}
 //			}
 			// Anzeigen der Spielwelt
+			
 			window.showGamingWorld();
+			
 			window.setVisible(true);
-			window.startNewGame();
+		
+//			window.startNewGame();
 
 			// Wenn man sich nicht zum ersten Mal einloggt, muss kein komplett
 			// neues Spiel gestartet werden
