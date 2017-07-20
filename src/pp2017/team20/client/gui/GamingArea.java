@@ -127,6 +127,7 @@ public class GamingArea extends JFrame implements KeyListener {
 		login();
 		while (!success) {
 			engine.receiveMessage();
+		}
 
 		// Standadeinstellungen (Groesse des Fensters nicht veraenderbar, Titel
 		// setzen, sichtbar machen, schliessbar machen
@@ -136,10 +137,10 @@ public class GamingArea extends JFrame implements KeyListener {
 		this.setVisible(true);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-		showGamingWorld();
-		// das Spielfenster wird auf dem Bildschirm zentriert
-		final Dimension d = this.getToolkit().getScreenSize();
-		this.setLocation((int) ((d.getWidth() - this.getWidth()) / 2), (int) ((d.getHeight() - this.getHeight()) / 2));
+//		showGamingWorld();
+//		// das Spielfenster wird auf dem Bildschirm zentriert
+//		final Dimension d = this.getToolkit().getScreenSize();
+//		this.setLocation((int) ((d.getWidth() - this.getWidth()) / 2), (int) ((d.getHeight() - this.getHeight()) / 2));
 	}
 
 	/**
