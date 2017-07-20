@@ -38,13 +38,13 @@ public class Levelmanagement {
 	public ArrayList<Player> PlayerList = new ArrayList<Player>();
 
 //abstest
-	public Levelmanagement(Player player,Levelmanagement lvl) {
+	public Levelmanagement(Player player,int LevelID) {
 		this.player=player;
-		newLevel(lvl,19);
+		newLevel(LevelID,19);
 	}
 
 	// Diese Methode erzeugt ein Map nach Vorgaben vom Levelgenerator
-	public void newLevel(Levelmanagement lvl, int size) {
+	public void newLevel(int LevelID, int size) {
 		//this.lvlcounter = lvlcount;
 		
 		int type =0;
