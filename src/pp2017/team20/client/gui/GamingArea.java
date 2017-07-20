@@ -320,13 +320,13 @@ public class GamingArea extends JFrame implements KeyListener {
 		monsterList = new LinkedList<Monster>();
 //		level = new GameElement[WIDTH][HEIGHT];
 
-		if (buffermonsterList != null) {
-			for (int i = 0; i < buffermonsterList.size(); i++) {
-				Monster element = buffermonsterList.get(i);
-				element = new Monster(monsterID, element.getXPos(), element.getYPos(), 1, element.getType());
-				monsterList.add(element);
-			}
-		}
+//		if (buffermonsterList != null) {
+//			for (int i = 0; i < buffermonsterList.size(); i++) {
+//				Monster element = buffermonsterList.get(i);
+//				element = new Monster(monsterID, element.getXPos(), element.getYPos(), level, element.getType());
+//				monsterList.add(element);
+//			}
+//		}
 		currentLevel = 0;
 		gameEnd = false;
 		gameLost = false;

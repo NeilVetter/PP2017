@@ -32,18 +32,19 @@ public class Levelmanagement {
 	public int playerlvl;
 	public int[][][] lvlsafeall;
 	public Player player;
+	public Levelmanagement lvl;
 	
 	public ArrayList<Monster> MonsterList = new ArrayList<Monster>();
 	public ArrayList<Player> PlayerList = new ArrayList<Player>();
 
 //abstest
-	public Levelmanagement(Player player) {
+	public Levelmanagement(Player player,Levelmanagement lvl) {
 		this.player=player;
-		newLevel(1,19);
+		newLevel(lvl,19);
 	}
 
 	// Diese Methode erzeugt ein Map nach Vorgaben vom Levelgenerator
-	public void newLevel(int LevelID, int size) {
+	public void newLevel(Levelmanagement lvl, int size) {
 		//this.lvlcounter = lvlcount;
 		
 		int type =0;
@@ -105,12 +106,12 @@ public class Levelmanagement {
 					Player player = new Player();
 					// wieso passt es nicht mit deinem Konstrucktor @neil
 					player.setPos(i,j);
-					playerList[playerID]= player;
+					PlayerList.add(player);
 					playerID++;
 				}
 				else if (maze.Map[i][j]== 6){
 					
-					Monster monster = new Monster(monsterID, i , j, LevelID,  type );
+					Monster monster = new Monster(monsterID, i , j,lvl,  type );
 					// Robin muss den Construktor ändern // also einfach eine monsterID einfügen
 					MonsterList.add(monster);
 					monsterID++;	
@@ -123,7 +124,7 @@ public class Levelmanagement {
 				}
 				else if(maze.Map[i][j] == 5){
 					int k;
-					Monster monster = new Monster(monsterID, i, j, LevelID , type);
+					Monster monster = new Monster(monsterID, i, j, lvl , type);
 					MonsterList.add(monster);
 					monsterID++;
 			}
@@ -258,10 +259,19 @@ public class Levelmanagement {
 			}
 		}
 	}
+	public void setLvlMazePosition(int i,int j,int k){
+		 this.lvlMaze[i][j]=k;
+	}
+	
 	public int getLvlMazePosition(int i,int j){
 		return lvlMaze[i][j];
 	}
-	public int [][]getLvlMaze(){
+	public int[][] getLvlMaze(){
 		return lvlMaze;
+	}
+
+	public int getLevelID() {
+		
+		return LevelID;
 	}
 }

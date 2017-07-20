@@ -123,12 +123,13 @@ public class MessageProcessing {
 		try {
 			if((Loginengine.logIn(message.username,message.password)==true)){
 				message.setSuccess(true);
-				this.lvl = new Levelmanagement(new Player());
+				this.lvl = new Levelmanagement(new Player(),lvl);
 				Level level = new Level(lvl.getLvlMaze());
 				lvl.PlayerList.add(lvl.player);
 				
 				LogInMessage login = new LogInMessage(1,message.username,message.password);
 				login.setLevel(level);
+				System.out.println();
 				comm.sendeNachricht(login);
 				
 			}else{
@@ -314,7 +315,7 @@ public class MessageProcessing {
 							Player.LevelList.remove(player);
 							// Benutze Methode aus Levelmanagement um den
 							// Spieler an das anfangsfeld zu stellen
-							Levelmanagement l = new Levelmanagement(player);
+							Levelmanagement l = new Levelmanagement(player,lvl);
 							l.placePlayer(player.playerID);
 							// regeneriere die stats des spielers
 							player.setHealth(100);
@@ -339,7 +340,7 @@ public class MessageProcessing {
 					lvl.PlayerList.remove(player);
 					// Benutze Methode aus Levelmanagement um den Spieler an das
 					// Anfangsfeld zu stellen
-					Levelmanagement l = new Levelmanagement(player);
+					Levelmanagement l = new Levelmanagement(player,lvl);
 					l.placePlayer(player.playerID);
 					// regeneriere die stats des spielers
 					player.setHealth(100);
@@ -423,7 +424,7 @@ public class MessageProcessing {
 
 				
 				// Setzt den spieler in naechstes level
-				lvl.newLevel(player.playerLvl + 1,19);
+				lvl.newLevel(lvl,19);
 				// Setze den Spieler an den Eingang
 				lvl.placePlayer(player.playerID);
 			}

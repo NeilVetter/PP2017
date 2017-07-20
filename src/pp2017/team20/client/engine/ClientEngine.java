@@ -381,7 +381,9 @@ public class ClientEngine {
 		if (message.getSuccess()) {
 //			window.success = true;
 			// Laedt das Level
+			System.out.println(message.getLevel().getlvlMaze(1, 1));
 			window.level = message.getLevel();
+			System.out.println(window.level.getlvlMaze(1, 1));
 			// Laedt die Startposition des Spielers
 			window.xPos = message.getLevel().getxPos();
 			window.yPos = message.getLevel().getyPos();

@@ -32,7 +32,6 @@ public class Monster extends Figure {
 	private int strength; //Staerke: 1 schwach, 2 normal, 3 stark, 6 Hulk-Modus
 	private int state; //Zustand des Monsters: 0 Spazieren 1 Verfolgung 2 Attackieren 3 Fluechten 4 Sterben
 	private int LevelID;
-
 	
 	private Player player; 
 	public int monsterID;
@@ -40,7 +39,7 @@ public class Monster extends Figure {
 //	public ClientKommunikation kommunikation = new ClientKommunikation();
 	public ClientEngine engine;
 	
-	public Monster(int monsterID, int x, int y, int LevelID, int type){
+	public Monster(int monsterID, int x, int y, Levelmanagement lvl, int type){
 		// currentLevel mitgeben
 		/**
 		 * erstellt ein Monster an den Koordinaten (x,y) im Labyrinth und gibt ihm 
@@ -52,9 +51,9 @@ public class Monster extends Figure {
 		 */
 		this.monsterID = monsterID;
 		this.type = type;
-		this.LevelID = LevelID;
+		this.lvl = lvl;
 		setPos(x,y);
-		double variable = Math.random() * 5 + LevelID; //halb Zufall, halb Levelabhaengig
+		double variable = Math.random() * 5 + lvl.getLevelID(); //halb Zufall, halb Levelabhaengig
 		if (variable < 5)
 			strength = 1;
 		else if (variable >= 5 && variable < 7)
@@ -70,7 +69,7 @@ public class Monster extends Figure {
 		lastAttack = System.currentTimeMillis();
 		lastStep = System.currentTimeMillis();
 		cooldownAttack = 500 - 10 * strength; 
-		cooldownWalk = 1000 - 20*strength - 5* LevelID;
+		cooldownWalk = 1000 - 20*strength - 5* lvl.getLevelID();
 		setDamage(8+2*strength); 
 		state = 0;
 		
@@ -239,9 +238,9 @@ public class Monster extends Figure {
 		 */
 		
 		if(getHealth() <= 0){
-			window.level.setLvlMaze(getXPos(), getYPos(), 6); // Monster hinterlaesst Heiltrank
+			lvl.setLvlMazePosition(getXPos(), getYPos(), 6); // Monster hinterlaesst Heiltrank
 			// Random Verteilung von Heiltrank und Manatrank für Endversion hier
-			window.monsterList.remove(this); // lösche Monster
+			lvl.MonsterList.remove(this); // lösche Monster
 //			state = 4;
 			return;   // Falls keine Lebensenergie mehr --> monsterDies	
 			}
@@ -450,8 +449,8 @@ public class Monster extends Figure {
 			
 			// Hier wird jetzt in den sich dadrueber befindenen Nachbarknoten gegangen
 			if (!((current.getY() == 0) 
-					|| (window.level.getlvlMaze(current.getX(),current.getY() - 1 ) == 0
-					|| (window.level.getlvlMaze(current.getX(),current.getY() - 1 ) == 3)))) {
+					|| (lvl.getLvlMazePosition(current.getX(),current.getY() - 1 ) == 0
+					|| (lvl.getLvlMazePosition(current.getX(),current.getY() - 1 ) == 3)))) {
 
 				boolean neew = true; // AB HIER GILT: neew = new bzw neu
 				for (AStarNode node : openedList) {
@@ -480,9 +479,9 @@ public class Monster extends Figure {
 
 			
 			// Hier wird jetzt in den sich dadrunter befindenen Nachbarknoten gegangen
-			if (!((current.getY() == window.HEIGHT) 
-					|| (window.level.getlvlMaze(current.getX(),current.getY() + 1 ) == 0
-					|| (window.level.getlvlMaze(current.getX(),current.getY() + 1 ) == 3)))) {
+			if (!((current.getY() == lvl.size) 
+					|| (lvl.getLvlMazePosition(current.getX(),current.getY() + 1 ) == 0
+					|| (lvl.getLvlMazePosition(current.getX(),current.getY() + 1 ) == 3)))) {
 
 				boolean neew = true;
 				for (AStarNode node : openedList) {
@@ -513,8 +512,8 @@ public class Monster extends Figure {
 
 			// Hier wird jetzt in den sich links daneben befindenen Nachbarknoten gegangen
 			if (!((current.getX() == 0) 
-					|| (window.level.getlvlMaze(current.getX() -1 ,current.getY()) == 0
-					|| (window.level.getlvlMaze(current.getX() -1 ,current.getY()) == 3)))) {
+					|| (lvl.getLvlMazePosition(current.getX() -1 ,current.getY()) == 0
+					|| (lvl.getLvlMazePosition(current.getX() -1 ,current.getY()) == 3)))) {
 
 				boolean neew = true;
 				for (AStarNode node : openedList) {
@@ -543,9 +542,9 @@ public class Monster extends Figure {
 
 
 			// Hier wird jetzt in den sich rechts daneben befindenen Nachbarknoten gegangen
-			if (!((current.getX() == window.HEIGHT) 
-					|| (window.level.getlvlMaze(current.getX() +1 ,current.getY()) == 0
-					|| (window.level.getlvlMaze(current.getX() +1 ,current.getY()) == 3)))) {
+			if (!((current.getX() == lvl.size) 
+					|| (lvl.getLvlMazePosition(current.getX() +1 ,current.getY()) == 0
+					|| (lvl.getLvlMazePosition(current.getX() +1 ,current.getY()) == 3)))) {
 
 				boolean neew = true;
 				for (AStarNode node : openedList) {
@@ -675,21 +674,21 @@ public class Monster extends Figure {
 		if(dir == -1) return true;
 		
 		if(dir == 0 && getYPos()-1 > 0){
-			return	! ((MessageProcessing.getLvlMaze(getXPos(),getYPos()-1) == 0) &&
-					!((window.level.getlvlMaze(getXPos(),getYPos()-1) == 3) &&
-					!((window.level.getlvlMaze(getXPos(),getYPos()-1) == 5))));
-		}else if(dir == 1 && getXPos()+1 < window.WIDTH){
-			return  ! ((window.level.getlvlMaze(getXPos()+1,getYPos()) == 0) &&
-					!((window.level.getlvlMaze(getXPos()+1,getYPos()) == 3) &&
-					!((window.level.getlvlMaze(getXPos()+1,getYPos()) == 5))));
-		}else if(dir == 2 && getYPos()+1 < window.HEIGHT){
-			return 	! ((window.level.getlvlMaze(getXPos(),getYPos()+1) == 0) &&
-					!((window.level.getlvlMaze(getXPos(),getYPos()+1) == 3) &&
-					!((window.level.getlvlMaze(getXPos(),getYPos()+1) == 5))));
+			return	! ((lvl.getLvlMazePosition(getXPos(),getYPos()-1) == 0) &&
+					!((lvl.getLvlMazePosition(getXPos(),getYPos()-1) == 3) &&
+					!((lvl.getLvlMazePosition(getXPos(),getYPos()-1) == 5))));
+		}else if(dir == 1 && getXPos()+1 < lvl.size){
+			return  ! ((lvl.getLvlMazePosition(getXPos()+1,getYPos()) == 0) &&
+					!((lvl.getLvlMazePosition(getXPos()+1,getYPos()) == 3) &&
+					!((lvl.getLvlMazePosition(getXPos()+1,getYPos()) == 5))));
+		}else if(dir == 2 && getYPos()+1 < lvl.size){
+			return 	! ((lvl.getLvlMazePosition(getXPos(),getYPos()+1) == 0) &&
+					!((lvl.getLvlMazePosition(getXPos(),getYPos()+1) == 3) &&
+					!((lvl.getLvlMazePosition(getXPos(),getYPos()+1) == 5))));
 			}else if(dir == 3 && getXPos() > 0 ){
-			return! ((window.level.getlvlMaze(getXPos()-1,getYPos()) == 0) &&
-					!((window.level.getlvlMaze(getXPos()-1,getYPos()) == 3) &&
-					!((window.level.getlvlMaze(getXPos()-1,getYPos()) == 5))));
+			return! ((lvl.getLvlMazePosition(getXPos()-1,getYPos()) == 0) &&
+					!((lvl.getLvlMazePosition(getXPos()-1,getYPos()) == 3) &&
+					!((lvl.getLvlMazePosition(getXPos()-1,getYPos()) == 5))));
 		}
 		else return false;
 	}
