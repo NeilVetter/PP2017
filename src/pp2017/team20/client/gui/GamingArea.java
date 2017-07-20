@@ -123,6 +123,10 @@ public class GamingArea extends JFrame implements KeyListener {
 		control.setPreferredSize(new Dimension(WIDTH * BOX, HEIGHT * BOX));
 		chat.setPreferredSize(new Dimension(6 * BOX, HEIGHT));
 		map.setPreferredSize(new Dimension((BOX * WIDTH) / 4, BOX));
+		
+		login();
+		while (!success) {
+			engine.receiveMessage();
 
 		// Standadeinstellungen (Groesse des Fensters nicht veraenderbar, Titel
 		// setzen, sichtbar machen, schliessbar machen
