@@ -8,11 +8,11 @@ public class Loginengine {
 	
 	public static boolean logIn( String username , String password)  {
 		boolean succses = true;
-	//	Connection connection = null;
+		Connection connection = null;
 		//Setzt die "Connection"
-		//		connection=SqliteConnection.dbConnector();
-		//try { 
-		/*String query="select * from User where username=? and userpw=?";
+				connection=SqliteConnection.dbConnector();
+		try { 
+		String query="select * from User where username=? and userpw=?";
 		 PreparedStatement pst= connection.prepareStatement(query);
 		 //Textfeld wird mit Username verbunden
 		 pst.setString(1, username);
@@ -22,14 +22,14 @@ public class Loginengine {
 		 int i=0;
 		 while(rs.next()){
 			 i++;}
-			 */
-				return succses;
+			 
+			
 		 
-		 /*if(i==1){
+		 if(i==1){
 			 //Wenn Benutzername und Passwort korrekt und sich in der db. befinden
 			 JOptionPane.showMessageDialog(null, "Username and Password is correct");
 			 succses = true;
-			return succses;
+			
 			
 		 }
 		 else{
@@ -38,17 +38,17 @@ public class Loginengine {
 		
 			 JOptionPane.showMessageDialog(null, "Wrong Username or Password");
 		succses= false;
-		 return succses;
+		
 		 } 
-		// rs.close();
-		//pst.close();
+		 rs.close();
+		pst.close();
 		 }catch (Exception e){
 			 e.printStackTrace();
 		 }
 		
 		return succses;
 	
-*/
+
 		}
 }
 

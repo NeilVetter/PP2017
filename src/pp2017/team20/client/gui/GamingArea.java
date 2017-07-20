@@ -123,9 +123,22 @@ public class GamingArea extends JFrame implements KeyListener {
 		chat.setPreferredSize(new Dimension(6 * BOX, HEIGHT));
 		map.setPreferredSize(new Dimension((BOX * WIDTH) / 4, BOX));
 		
-		login();
-		while (!success) {
+		
+		/** 
+		 * Ruft das Registration Fenster auf
+		 * 
+		 *  @author Hamid, Kirli , 6041663 */
+				
+					Registration windowTest = new Registration(this);
+					windowTest.window.setVisible(true);
+					
+			
+			
+		
+		
+		if (!success) {
 			engine.receiveMessage();
+	
 		}
 
 		// Standadeinstellungen (Groesse des Fensters nicht veraenderbar, Titel
@@ -375,10 +388,9 @@ public class GamingArea extends JFrame implements KeyListener {
 		} while (success);
 	}
 	
-	public void login() {
+	public void login(String username, String password) {
 		
-		String username = JOptionPane.showInputDialog("Log In");
-		String passwordcheck = JOptionPane.showInputDialog("Enter password");
+		
 	
 //		//Verschluesselung
 //				try {
@@ -400,14 +412,10 @@ public class GamingArea extends JFrame implements KeyListener {
 //		            byte[] passwordEncoded = Encoding.doFinal(password);
 		        
 
-		        //Verschluesseltes Passwort wird mit dem generierten Schluessel an den Client uebermittelt
+		      //Verschluesseltes Passwort wird mit dem generierten Schluessel an den Client uebermittelt
 				engine.sendLogInMessage(clientID, username, password);
-				loginName = user;
-
-//				}
-//				catch (Exception e) {
-//					System.out.println("Login konnte nicht gelesen werden");
-//					}
+			
+			
 				}
 	}
 

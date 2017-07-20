@@ -29,7 +29,7 @@ public class Registration {
   *  @author Hamid, Kirli, 6041663 **/
 	
 	// Ben�tigte swing Elemente
-	private JFrame window;
+	public JFrame window;
 	private JTextField textField;
 	private JPasswordField passwordField;
 	private JButton btnButton;
@@ -37,12 +37,12 @@ public class Registration {
 	boolean succses = false;
 	public String username;
 	public String password;
-
+	GamingArea ga;
 	/**
 	 * Teste MainMethode
 	 * 
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -54,15 +54,16 @@ public class Registration {
 				}
 			}
 		});
-	}
+	}*/
 
 	//Ruft die Datenbank auf im SqliteConnection
-	Connection connection = null;
+//	Connection connection = null;
 	
-	public Registration() {
+	public Registration(GamingArea ga) {
+		this.ga = ga;
 		initialize();
 		//Setzt die "Connection"
-		connection=SqliteConnection.dbConnector();
+		//connection=SqliteConnection.dbConnector();
 		
 	}
 
@@ -105,12 +106,13 @@ public class Registration {
 		//erstellt einen Knopf f�rs "Login"
 		JButton btnNewButton = new JButton("Login");
 		btnNewButton.addActionListener(new ActionListener() {
+			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent arg0) {
 				if(arg0.getSource() == btnNewButton){
 					 username = textField.getText();
 					 password = passwordField.getText();
-					 regclient();
-				
+					 ga.login(username,password);
+					
 				}
 					
 				
