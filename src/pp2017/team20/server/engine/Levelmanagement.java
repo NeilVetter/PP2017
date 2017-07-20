@@ -59,9 +59,9 @@ public class Levelmanagement implements Serializable {
 		 for (int i=0 ; i <size -1; i++){
 			for (int j= 0; j<size -1; j++){
 				this.lvlMaze[i][j]=maze.Map[i][j];
-				System.out.print(lvlMaze[i][j]);// funktioniert 
+				//System.out.print(lvlMaze[i][j]);// funktioniert 
 			}
-			System.out.println();
+			//System.out.println();
 		 }
 	/*for (int i=0; i< size; i++){
 		for (int j= 0; j< size; j++){
