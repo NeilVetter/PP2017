@@ -1,6 +1,7 @@
 package pp2017.team20.shared;
 
 import pp2017.team20.server.engine.Levelmanagement;
+import java.io.Serializable;
 
 import java.io.File;
 import java.io.IOException;
@@ -9,7 +10,7 @@ import java.util.Random;
 
 
 
-public class Monster extends Figure {
+public class Monster extends Figure implements Serializable{
 	/**
 	 * Hier werden alle Monster erstellt und auch der Situation entsprechend gesteuert
 	 * @author Sell, Robin, 6071120
@@ -228,8 +229,8 @@ public class Monster extends Figure {
 		
 		if(getHealth() <= 0){
 			lvl.setLvlMazePosition(getXPos(), getYPos(), 6); // Monster hinterlaesst Heiltrank
-			// Random Verteilung von Heiltrank und Manatrank für Endversion hier
-			lvl.MonsterList.remove(this); // lösche Monster
+			// Random Verteilung von Heiltrank und Manatrank fï¿½r Endversion hier
+			lvl.MonsterList.remove(this); // lï¿½sche Monster
 //			state = 4;
 			return;   // Falls keine Lebensenergie mehr --> monsterDies	
 			}

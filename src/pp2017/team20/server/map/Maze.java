@@ -2,8 +2,9 @@ package pp2017.team20.server.map;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.io.Serializable;
 
-public class Maze {
+public class Maze implements Serializable{
 	
 /** Erstelle ein zuf�lliges Labyrinth mit den Spielelementen
  * 

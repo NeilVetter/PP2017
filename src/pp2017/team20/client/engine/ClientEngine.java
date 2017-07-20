@@ -378,7 +378,7 @@ public class ClientEngine {
 
 	public void receiveLogInMessage(LogInMessage message) {
 		// Wenn die Enlogdaten korrekt sind, dann wird das Level geladen
-		if (message.getSuccess()) {
+//		if (message.getSuccess()) {
 //			window.success = true;
 			// Laedt das Level
 //			System.out.println(message.getLevel().getlvlMaze(1, 1));
@@ -410,13 +410,13 @@ public class ClientEngine {
 //			} else {
 //				window.startNewGame();
 //			}
-		}
+//		}
 		// Waren die eingegebenen Daten nicht korrekt, wird eine Fehlermeldung
 		// angezeigt
-		else {
-			JOptionPane.showMessageDialog(window, "Wrong user or wrong password");
-			window.login();
-		}
+//		else {
+//			JOptionPane.showMessageDialog(window, "Wrong user or wrong password");
+//			window.login();
+//		}
 		
 	}
 

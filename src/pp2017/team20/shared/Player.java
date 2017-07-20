@@ -2,6 +2,7 @@ package pp2017.team20.shared;
 
 import pp2017.team20.client.gui.GamingArea;
 import pp2017.team20.server.map.*;
+import java.io.Serializable;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,7 +19,7 @@ import pp2017.team20.shared.Monster;
 //Neil Vetter 6021336
 
 // erbt von der Klasse "Figur", �bernommen aus HndiBones
-public class Player extends Figure{
+public class Player extends Figure implements Serializable {
 
 	public int yPos;
 	public int xPos;
