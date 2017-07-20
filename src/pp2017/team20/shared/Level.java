@@ -1,6 +1,7 @@
 package pp2017.team20.shared;
 
 import java.util.LinkedList;
+import java.io.Serializable;
 
 
 
@@ -10,7 +11,7 @@ import pp2017.team20.server.map.Maze;
 import java.io.Serializable;
 import java.util.LinkedList;
 
-public class Level  {
+public class Level implements Serializable {
 
 	public int LevelID;
 	public int[][] lvlMaze;
