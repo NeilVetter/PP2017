@@ -135,12 +135,13 @@ public class GamingArea extends JFrame implements KeyListener {
 			
 			
 		
-		
-		if (!success) {
+		System.out.println("test1");
+		while (!success) {
+			System.out.println("test2");
 			engine.receiveMessage();
-	
+			
 		}
-
+		System.out.println("test3");
 		// Standadeinstellungen (Groesse des Fensters nicht veraenderbar, Titel
 		// setzen, sichtbar machen, schliessbar machen
 		chat.send.addKeyListener(this);
