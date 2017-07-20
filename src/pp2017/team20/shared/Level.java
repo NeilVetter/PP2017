@@ -72,8 +72,12 @@ public class Level implements Serializable {
 
 
 
-	public int getlvlMaze(int xPos, int yPos) {
+	public int getlvlMazePostion(int xPos, int yPos) {
 		
 		return lvlMaze[xPos][yPos];
+	}
+	public int [][]getlvlMaze() {
+		
+		return lvlMaze;
 	}
 }

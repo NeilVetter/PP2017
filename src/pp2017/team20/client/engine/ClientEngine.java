@@ -391,13 +391,13 @@ public class ClientEngine {
 			window.buffermonsterList = message.getLevel().monsterList;
 			// Wen die Spielfeldkachel nicht vom Spieler belegt wird, also
 			// ungleich -1 ist, dann wird ein Monster platziert
-			for (int i = 0; i < message.getLevel().monsterfield.length; i++) {
-				for (int j = 0; j < message.getLevel().monsterfield.length; j++) {
-					if (message.getLevel().monsterfield[i][j] != -1) {
-						window.buffermonsterList.get(message.getLevel().monsterfield[i][j]).setPos(i, j);
-					}
-				}
-			}
+//			for (int i = 0; i < message.getLevel().getlvlMaze().length; i++) {
+//				for (int j = 0; j < message.getLevel().getlvlMaze().length; j++) {
+//					if (message.getLevel().getlvlMazePostion(i, j) != -1) {
+//						window.buffermonsterList.get(message.getLevel().monsterfield[i][j]).setPos(i, j);
+//					}
+//				}
+//			}
 			// Anzeigen der Spielwelt
 			window.showGamingWorld();
 			window.setVisible(true);
