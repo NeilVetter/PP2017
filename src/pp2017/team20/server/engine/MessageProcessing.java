@@ -125,7 +125,7 @@ public class MessageProcessing {
 				message.setSuccess(true);
 				lvl = new Levelmanagement(new Player());
 				lvl.PlayerList.add(lvl.player);
-				Level level = new Level(lvl);
+				Level level = new Level(lvl,lvl.getLvlMaze());
 				
 				
 				LogInMessage login = new LogInMessage(1,message.username,message.password);

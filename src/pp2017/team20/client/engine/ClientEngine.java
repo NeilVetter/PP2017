@@ -127,7 +127,7 @@ public class ClientEngine {
 	public void sendMoveMessage(int clientID, int xPos, int yPos, int id) {
 		
 		//instanceof wall ersetzt durch 0
-		if (!(window.level.getlvlMazePostion(window.player.getXPos(), window.player.getYPos() ) == 0)) {
+		if (!(window.level.getLvl().getLvlMazePosition(window.player.getXPos(), window.player.getYPos() ) == 0)) {
 			MoveMessage message = new MoveMessage(clientID, xPos, yPos, id);
 			communication.sendeNachricht(message);
 		}
@@ -173,7 +173,7 @@ public class ClientEngine {
 
 	public void sendCollectKeyMessage(int clientID) {
 		// instanceof Key
-		if (window.level.getlvlMazePostion(window.player.getXPos(), window.player.getYPos() ) == 5) {
+		if (window.level.getLvlMazePosition(window.player.getXPos(), window.player.getYPos() ) == 5) {
 			CollectKeyMessage message = new CollectKeyMessage(clientID);
 			communication.sendeNachricht(message);
 		}
@@ -517,7 +517,7 @@ public class ClientEngine {
 			// Steht der Spieler auf einem Trank, so wird dieser aufgenommen
 			//Potion hat Zahl 4
 			//instanceof Potion
-			if (window.level.getlvlMazePostion(window.player.getXPos(), window.player.getYPos() ) == 4) {
+			if (window.level.getLvlMazePosition(window.player.getXPos(), window.player.getYPos() ) == 4) {
 				window.player.collectPotion();
 				// An die Stelle des Trankes wird eine leere Spielkachel
 				// platziert
@@ -542,7 +542,7 @@ public class ClientEngine {
 			// Steht der Spieler auf einem Feld mit einem Schluessel, so wird
 			// dieser aufgenommen
 			//instanceof Key
-			if (window.level.getlvlMazePostion(window.player.getXPos(), window.player.getYPos() ) == 5) {
+			if (window.level.getLvlMazePosition(window.player.getXPos(), window.player.getYPos() ) == 5) {
 				//collectKey()
 				window.player.ownsKey();
 				// An der Stelle des Schluessels wird eine leere Spielkachel

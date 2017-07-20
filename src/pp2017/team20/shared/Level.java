@@ -28,8 +28,9 @@ public class Level implements Serializable {
 	public int[][] monsterfield = new int[Maze.size][Maze.size];
 	
 	
-	public Level(Levelmanagement lvl){
+	public Level(Levelmanagement lvl,int [][]lvlMaze){
 		this.lvl=lvl;
+		this.lvlMaze=lvlMaze;
 //		for (int i= 0; i< monsterfield.length; i++){
 //			for( int j= 0; j<monsterfield.length;j++){
 //				monsterfield[i][j]=-1;
@@ -52,7 +53,9 @@ public class Level implements Serializable {
 	public Levelmanagement getLvl(){
 		return lvl;
 	}
-
+	public int getLvlMazePosition(int i,int j){
+		return lvlMaze[i][j];
+	}
 	
 	
 	/**Setzen Startpositionen fest? wie wichtig f�r uns @Tobi */
@@ -70,12 +73,6 @@ public class Level implements Serializable {
 		this.yPos = yPos;
 	}
 
-
-
-	public int getlvlMazePostion(int xPos, int yPos) {
-		
-		return lvlMaze[xPos][yPos];
-	}
 	public int [][]getlvlMaze() {
 		
 		return lvlMaze;
