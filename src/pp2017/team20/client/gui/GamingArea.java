@@ -242,21 +242,21 @@ public class GamingArea extends JFrame implements KeyListener {
 			// dem aktuellen Feld des Spielers keine Wand ist, bewege den
 			// Spieler ein Feld nach oben
 			if (e.getKeyCode() == KeyEvent.VK_UP) {
-				if (yPos > 0 && !(level.getlvlMaze(xPos, yPos - 1) == 0))
+				if (yPos > 0 && !(level.getlvlMazePostion(xPos, yPos - 1) == 0))
 					engine.sendMoveMessage(clientID, xPos, yPos--, id);
 			}
 			// wenn die Pfeiltaste nach untenn gedrueckt wird und das Feld unter
 			// dem aktuellen Feld des Spielers keine Wand ist, bewege den
 			// Spieler ein Feld nach unten
 			else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-				if (yPos < HEIGHT - 1 && !(level.getlvlMaze(xPos, yPos + 1) == 0))
+				if (yPos < HEIGHT - 1 && !(level.getlvlMazePostion(xPos, yPos + 1) == 0))
 					engine.sendMoveMessage(clientID, xPos, yPos++, id);
 			}
 			// wenn die Pfeiltaste nach links gedrueckt wird und das Feld links
 			// neben dem aktuellen Feld des Spielers keine Wand ist, bewege den
 			// Spieler ein Feld nach links
 			else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-				if (xPos > 0 && !(level.getlvlMaze(xPos - 1, yPos) == 0))
+				if (xPos > 0 && !(level.getlvlMazePostion(xPos - 1, yPos) == 0))
 					engine.sendMoveMessage(clientID, xPos--, yPos, id);
 			}
 			// wenn die Pfeiltaste nach rechts gedrueckt wird und das Feld
@@ -264,7 +264,7 @@ public class GamingArea extends JFrame implements KeyListener {
 			// aktuellen Feld des Spielers keine Wand ist, bewege den Spieler
 			// ein Feld nach rechts
 			else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-				if (xPos < WIDTH - 1 && !(level.getlvlMaze(xPos + 1, yPos) == 0))
+				if (xPos < WIDTH - 1 && !(level.getlvlMazePostion(xPos + 1, yPos) == 0))
 					engine.sendMoveMessage(clientID, xPos++, yPos, id);
 			}
 			// wenn Taste Q gedrueckt wird und ein Monster in der Naehe des
@@ -294,16 +294,16 @@ public class GamingArea extends JFrame implements KeyListener {
 		// ein Trank liegt, nehme Stern/Trank auf und fuege Stern in
 		// Statusleiste hinzu bzw. erhoehe Trankanzahl um 1
 		if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-			if (level.getlvlMaze(xPos, yPos) == 5) {
+			if (level.getlvlMazePostion(xPos, yPos) == 5) {
 				engine.sendCollectKeyMessage(clientID);
 				System.out.println("Falls Spieler auf Schlüssel oder Heiltrank, nehme diesen auf");
-			} else if (level.getlvlMaze(xPos, yPos) == 4) {
+			} else if (level.getlvlMazePostion(xPos, yPos) == 4) {
 				engine.sendCollectPotionMessage(clientID);
 				// Anzeige Tränke erhöhen?
 				System.out.println("Falls Spieler auf Schlüssel oder Heiltrank, nehme diesen auf");
 			}
-			if (level.getlvlMaze(xPos, yPos + 1) == 3) {
-				if (level.getlvlMaze(xPos, yPos) == 3 && player.ownsKey()) {
+			if (level.getlvlMazePostion(xPos, yPos + 1) == 3) {
+				if (level.getlvlMazePostion(xPos, yPos) == 3 && player.ownsKey()) {
 					engine.sendNextLevelMessage(clientID);
 				}
 			}
