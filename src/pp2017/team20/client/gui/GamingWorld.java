@@ -71,7 +71,7 @@ public class GamingWorld extends JPanel {
 		
 		for (int i = 0; i < window.WIDTH; i++) {
 			for (int j = 0; j < window.HEIGHT; j++) {
-				System.out.println(window.level.getLvlMazePosition(i, j));
+				//System.out.println(window.level.getLvlMazePosition(i, j));
 				switch(window.level.getLvlMazePosition(i, j)){
 				case 0:
 					g.drawImage(wall, i * window.BOX, j * window.BOX, null);
