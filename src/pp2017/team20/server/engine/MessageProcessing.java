@@ -123,7 +123,7 @@ public class MessageProcessing {
 		try {
 			if((Loginengine.logIn(message.username,message.password)==true)){
 				message.setSuccess(true);
-				this.lvl = new Levelmanagement(new Player());
+				lvl = new Levelmanagement(new Player());
 				lvl.PlayerList.add(lvl.player);
 				Level level = new Level(lvl);
 				

@@ -46,7 +46,6 @@ public class Levelmanagement {
 	// Diese Methode erzeugt ein Map nach Vorgaben vom Levelgenerator
 	public void newLevel(int LevelID, int size) {
 		//this.lvlcounter = lvlcount;
-		
 		int type =0;
 		Levelmanagement.size =size;
 		//lvlsafeall = new int [lvlcounter][size][size];
@@ -111,20 +110,14 @@ public class Levelmanagement {
 				}
 				else if (maze.Map[i][j]== 6){
 					
-					Monster monster = new Monster(monsterID, i , j,lvl,  type );
+					Monster monster = new Monster(monsterID, i , j,this,  type );
 					// Robin muss den Construktor ändern // also einfach eine monsterID einfügen
 					MonsterList.add(monster);
 					monsterID++;	
 				}
-				else if (maze.Map[i][j]==4){
-					Healthpot healpot= new Healthpot(healpotID, i, j);
-					// muss ich in klasse healthpot ändern.
-					healpotList[healpotID] = healpot;
-					healpotID++;		
-				}
 				else if(maze.Map[i][j] == 5){
 					int k;
-					Monster monster = new Monster(monsterID, i, j, lvl , type);
+					Monster monster = new Monster(monsterID, i, j, this , type);
 					MonsterList.add(monster);
 					monsterID++;
 			}

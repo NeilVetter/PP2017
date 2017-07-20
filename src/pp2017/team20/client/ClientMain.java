@@ -35,6 +35,7 @@ public class ClientMain {
 //		Registration.main(null);
  window=new GamingArea("Marios World");
 		
+
 	}
 }
 
