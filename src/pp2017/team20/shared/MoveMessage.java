@@ -9,14 +9,12 @@ package pp2017.team20.shared;
  */
 
 public class MoveMessage extends Message {
-	//id gibt an, ob es sich um einen Spieler oder ein Monster handelt
-	public int id;
+	
 	//Geben die Position an
 	public int xPos;
 	public int yPos;
-	public boolean success = false;
 	public int playerID;
-	public boolean succsess;
+	public boolean success;
 	
 
 	/**
@@ -32,5 +30,11 @@ public class MoveMessage extends Message {
 		this.yPos = yPos;
 		this.playerID = playerID;
 	}
-
+	public void setSuccess(boolean success){
+		this.success=success;
+	}
+	public boolean getSuccess(){
+		return success;
+	}
+	
 }

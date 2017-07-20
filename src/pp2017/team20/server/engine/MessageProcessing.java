@@ -175,21 +175,23 @@ public class MessageProcessing {
 					if (neighbour == true) {
 
 						// ...Teste ob angesprochenes Feld begehbar ist
-						if (player.playerMap[message.xPos][message.yPos] != 0)
-							;
+						if (lvl.getLvlMazePosition(message.xPos,message.yPos) != 0);
 
 						// Setze die Position des Spielers auf die aus der
 						// Message
 						player.xPos = message.xPos;
 						player.yPos = message.yPos;
 						// Gebe zur�ck dass der Schritt erfolgreich
-						message.succsess = true;
+						message.success = true;
 						System.out.println(player.playername + " "
 								+ "Hat sich ein Feld bewegt");
-
+						MoveMessage move=new MoveMessage(1,player.xPos,player.yPos,player.getPlayerID());
+						move.setSuccess(true);
+						comm.sendeNachricht(move);
+						
 					} else {
 						// Gebe zur�ck das der Schritt gesscheitert
-						message.succsess = false;
+						message.success = false;
 						System.out.println(player.playername + " "
 								+ "Hat sich nicht bewegt");
 
