@@ -21,7 +21,7 @@ public class Maze implements Serializable{
 		// Lege fest wie viele Monster 
 		// und Heiltr�nke sich auf der Karte befinden sollen
 		int Elixier = 3;
-		int StageMonster = (int) ((Math.random()) * LvL + 1);
+		int StageMonster = (int)  2; //((Math.random()) * LvL + 1);
 		floor = new Coordinate [size*size];
 	
 	/*Erstellt mit hilfe des Floodfill-Algo
