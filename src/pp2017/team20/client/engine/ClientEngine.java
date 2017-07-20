@@ -124,11 +124,11 @@ public class ClientEngine {
 	 * 
 	 */
 
-	public void sendMoveMessage(int clientID, int xPos, int yPos, int id) {
+	public void sendMoveMessage(int clientID, int xPos, int yPos, int playerID) {
 		
 		//instanceof wall ersetzt durch 0
 		if (!(window.level.getLvl().getLvlMazePosition(window.player.getXPos(), window.player.getYPos() ) == 0)) {
-			MoveMessage message = new MoveMessage(clientID, xPos, yPos, id);
+			MoveMessage message = new MoveMessage(clientID, xPos, yPos, playerID);
 			communication.sendeNachricht(message);
 		}
 	}
@@ -448,14 +448,14 @@ public class ClientEngine {
 		if (message.success) {
 			// Hier fuehrt der Spieler eine Bewegung aus
 			// xPos und yPos geben die neue Position des Spielers an
-			if (message.id == 1) {
+//			if (message.id == 1) {
 				window.player.setPos(message.xPos, message.yPos);
-			}
+//			}
 			// Es findet eine Monsterbewegung statt. xPos und yPos bezeichnen
 			// die neue Position des Monsters
-			else {
-				window.monsterList.get(message.id).setPos(message.xPos, message.yPos);
-			}
+//			else {
+//				window.monsterList.get(message.id).setPos(message.xPos, message.yPos);
+//			}
 
 		}
 	}

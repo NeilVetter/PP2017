@@ -26,11 +26,11 @@ public class MoveMessage extends Message {
 	 * @author Wagner, Tobias, 5416213
 	 * 
 	 */
-	public MoveMessage(int clientID, int xPos, int yPos, int ID) {
+	public MoveMessage(int clientID, int xPos, int yPos, int playerID) {
 		super(clientID);
 		this.xPos = xPos;
 		this.yPos = yPos;
-		this.id = ID;
+		this.playerID = playerID;
 	}
 
 }
