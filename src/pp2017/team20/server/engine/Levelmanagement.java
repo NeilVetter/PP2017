@@ -38,9 +38,9 @@ public class Levelmanagement {
 	public ArrayList<Player> PlayerList = new ArrayList<Player>();
 
 //abstest
-	public Levelmanagement(Player player,int LevelID) {
+	public Levelmanagement(Player player) {
 		this.player=player;
-		newLevel(LevelID,19);
+		newLevel(1,19);
 	}
 
 	// Diese Methode erzeugt ein Map nach Vorgaben vom Levelgenerator
@@ -262,16 +262,13 @@ public class Levelmanagement {
 	public void setLvlMazePosition(int i,int j,int k){
 		 this.lvlMaze[i][j]=k;
 	}
-	
 	public int getLvlMazePosition(int i,int j){
 		return lvlMaze[i][j];
 	}
 	public int[][] getLvlMaze(){
 		return lvlMaze;
 	}
-
 	public int getLevelID() {
-		
 		return LevelID;
 	}
 }

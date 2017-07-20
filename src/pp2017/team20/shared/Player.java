@@ -145,5 +145,9 @@ public class Player extends Figure{
 			return 0;
 	}
 
+	public int getPlayerID() {
+		return playerID;
+	}
+
 	
 }
