@@ -10,7 +10,6 @@ import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.swing.JFrame;
-
 import javax.swing.JOptionPane;
 
 import pp2017.team20.client.gui.Highscore;
@@ -62,7 +61,7 @@ public class GamingArea extends JFrame implements KeyListener {
 	public String loginName;
 	public boolean success = false;
 	public boolean firstLogIn = true;
-	public byte [] password;
+	public String password;
 	public SecretKey keylog;
 
 	public int currentLevel = 0;
@@ -376,34 +375,34 @@ public class GamingArea extends JFrame implements KeyListener {
 		String username = JOptionPane.showInputDialog("Log In");
 		String passwordcheck = JOptionPane.showInputDialog("Enter password");
 	
-		//Verschluesselung
-				try {
-					KeyGenerator keygenerator = KeyGenerator.getInstance("DES");
-		            SecretKey key = keygenerator.generateKey();
-		 
-		            Cipher Encoding;
-		 
-		            // Schluessel erstellen 
-		            Encoding = Cipher.getInstance("DES/ECB/PKCS5Padding");
-		 
-		            // Schluessel initialisieren
-		            Encoding.init(Cipher.ENCRYPT_MODE, key);
-		 
-		            //Passwort vorbereiten fuer Verschluesselung
-		           byte[] password = passwordcheck.getBytes();
-
-		            // Passwort verschluesseln
-		            byte[] passwordEncoded = Encoding.doFinal(password);
+//		//Verschluesselung
+//				try {
+//					KeyGenerator keygenerator = KeyGenerator.getInstance("DES");
+//		            SecretKey key = keygenerator.generateKey();
+//		 
+//		            Cipher Encoding;
+//		 
+//		            // Schluessel erstellen 
+//		            Encoding = Cipher.getInstance("DES/ECB/PKCS5Padding");
+//		 
+//		            // Schluessel initialisieren
+//		            Encoding.init(Cipher.ENCRYPT_MODE, key);
+//		 
+//		            //Passwort vorbereiten fuer Verschluesselung
+//		           byte[] password = passwordcheck.getBytes();
+//
+//		            // Passwort verschluesseln
+//		            byte[] passwordEncoded = Encoding.doFinal(password);
 		        
 
 		        //Verschluesseltes Passwort wird mit dem generierten Schluessel an den Client uebermittelt
-				engine.sendLogInMessage(clientID, username, password, keylog);
+				engine.sendLogInMessage(clientID, username, password);
 				loginName = user;
 
-				}
-				catch (Exception e) {
-					System.out.println("Login konnte nicht gelesen werden");
-					}
+//				}
+//				catch (Exception e) {
+//					System.out.println("Login konnte nicht gelesen werden");
+//					}
 				}
 	}
 

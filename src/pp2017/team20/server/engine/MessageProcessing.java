@@ -135,8 +135,7 @@ public class MessageProcessing {
 				
 			}else{
 				message.setSuccess(false);
-				LogInMessage login = new LogInMessage(1,message.username,message.password);
-				comm.sendeNachricht(login);
+				comm.sendeNachricht(message);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
