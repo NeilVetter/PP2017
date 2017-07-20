@@ -379,7 +379,7 @@ public class ClientEngine {
 	public void receiveLogInMessage(LogInMessage message) {
 		// Wenn die Enlogdaten korrekt sind, dann wird das Level geladen
 //		if (message.getSuccess()) {
-//			window.success = true;
+			window.success = true;
 			// Laedt das Level
 //			System.out.println(message.getLevel().getlvlMaze(1, 1));
 			window.level = message.getLevel();

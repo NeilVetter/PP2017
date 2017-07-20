@@ -29,21 +29,21 @@ public class MessageProcessing {
 	public MessageProcessing() {
 
 	}
-//	Thread t = new Thread(new Runnable() {
-//		@Override
-//		public void run(){
-//			while(true){
-//				try{
-//					Thread.sleep(50);
-//					for(Monster monster: lvl.MonsterList){
-//						
-//					}
-//				}catch (InterruptedException e){
-//					e.printStackTrace();
-//				}
-//			}
-//		}	
-//	});
+	public Thread t = new Thread(new Runnable() {
+		@Override
+		public void run(){
+			while(true){
+				try{
+					Thread.sleep(50);
+					for(Monster monster: lvl.MonsterList){
+						//tacticmon
+					}
+				}catch (InterruptedException e){
+					e.printStackTrace();
+				}
+			}
+		}	
+	});
 	
 	public void RecieveMessage() {
 		
@@ -183,8 +183,7 @@ public class MessageProcessing {
 						player.yPos = message.yPos;
 						// Gebe zur�ck dass der Schritt erfolgreich
 						message.success = true;
-						System.out.println(player.playername + " "
-								+ "Hat sich ein Feld bewegt");
+						System.out.println(player.playername + " "+ "Hat sich ein Feld bewegt");
 						MoveMessage move=new MoveMessage(1,player.xPos,player.yPos,player.getPlayerID());
 						move.setSuccess(true);
 						comm.sendeNachricht(move);

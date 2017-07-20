@@ -130,13 +130,14 @@ public class GamingArea extends JFrame implements KeyListener {
 
 		// Standadeinstellungen (Groesse des Fensters nicht veraenderbar, Titel
 		// setzen, sichtbar machen, schliessbar machen
+		chat.send.addKeyListener(this);
 		this.addKeyListener(this);
 		this.setResizable(false);
 		this.setTitle(title);
-		this.setVisible(true);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-//		showGamingWorld();
+		System.out.println("GamingArea.initializeJFrame() - Ende");
+//	showGamingWorld();
 //		// das Spielfenster wird auf dem Bildschirm zentriert
 //		final Dimension d = this.getToolkit().getScreenSize();
 //		this.setLocation((int) ((d.getWidth() - this.getWidth()) / 2), (int) ((d.getHeight() - this.getHeight()) / 2));
@@ -148,6 +149,7 @@ public class GamingArea extends JFrame implements KeyListener {
 	 * @author Heck, Liz, 5991099
 	 */
 	public void showGamingWorld() {
+		System.out.println("GamingArea.showGamingWorld()");
 		// zuerst werden Highscore und Steuerungs Anzeige entfernt
 		highscoreShown = false;
 		controlShown = false;
@@ -164,6 +166,8 @@ public class GamingArea extends JFrame implements KeyListener {
 
 		// das fertige Spielfeld wird aktiviert
 		this.requestFocus();
+		this.setVisible(true);
+		
 		this.pack();
 	}
 
@@ -233,6 +237,7 @@ public class GamingArea extends JFrame implements KeyListener {
 	 */
 	public void keyPressed(KeyEvent e) {
 
+		System.out.println("Key: "+e.getKeyCode());
 		// aktuelle Position des Spielers wird übergeben
 		int xPos = player.getXPos();
 		int yPos = player.getYPos();

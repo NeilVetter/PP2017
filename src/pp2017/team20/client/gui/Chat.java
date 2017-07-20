@@ -30,7 +30,7 @@ public class Chat extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	private GamingArea window;
-	private JButton send;
+	public JButton send;
 	private JTextField chatInput;
 	public JTextArea chatOutput;
 
