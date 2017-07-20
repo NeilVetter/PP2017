@@ -27,7 +27,8 @@ public class Loginengine {
 		 
 		 if(i==1){
 			 //Wenn Benutzername und Passwort korrekt und sich in der db. befinden
-			 JOptionPane.showMessageDialog(null, "Username and Password is correct");
+			// JOptionPane.showMessageDialog(null, "Username and Password is correct");
+			 
 			 succses = true;
 			
 			
