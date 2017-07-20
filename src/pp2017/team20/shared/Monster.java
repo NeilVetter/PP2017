@@ -1,17 +1,12 @@
 package pp2017.team20.shared;
 
-import pp2017.team20.client.comm.ClientKommunikation;
-import pp2017.team20.client.engine.ClientEngine;
-import pp2017.team20.client.gui.GamingArea;
 import pp2017.team20.server.engine.Levelmanagement;
-import pp2017.team20.server.engine.MessageProcessing;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.Random;
 
-import javax.imageio.ImageIO;
 
 
 public class Monster extends Figure {
@@ -31,16 +26,13 @@ public class Monster extends Figure {
 	
 	private int strength; //Staerke: 1 schwach, 2 normal, 3 stark, 6 Hulk-Modus
 	private int state; //Zustand des Monsters: 0 Spazieren 1 Verfolgung 2 Attackieren 3 Fluechten 4 Sterben
-	private int LevelID;
 	
 	private Player player; 
 	public int monsterID;
 	public Levelmanagement lvl;
-//	public ClientKommunikation kommunikation = new ClientKommunikation();
-	public ClientEngine engine;
+
 	
 	public Monster(int monsterID, int x, int y, Levelmanagement lvl, int type){
-		// currentLevel mitgeben
 		/**
 		 * erstellt ein Monster an den Koordinaten (x,y) im Labyrinth und gibt ihm 
 		 * eine gewisse strength mit, die alle weiteren Werte beeinflusst
@@ -111,9 +103,6 @@ public class Monster extends Figure {
 		case 3: 
 			flee(); //-->flee, -->randomWalk, -->runBehind(attackPlayer)[Kamikaze-Modus], -->monsterDies
 			break;
-//		case 4:  
-//			monsterDies();
-//			break; //ENDE
 		}
 		
 	}
@@ -331,19 +320,7 @@ public class Monster extends Figure {
 				return; 
 				}
 	}
-//	public void monsterDies(){
-//		/**
-//		 * @author Sell, Robin, 6071120
-//		 * (Grundgeruest: HindiBones)
-//		 */
-//		
-//		window.level.setLvlMaze(getXPos(), getYPos(), 6); // Monster hinterlaesst Heiltrank
-//		// Random Verteilung von Heiltrank und Manatrank fuer Endversion hier
-//		window.monsterList.remove(this); // loesche Monster
-//	}
-	
-	
-	
+		
 	
 	/** Hier wird der AStern Algorithmus benutzt, der fuer runBehind
 	 * den kuerzesten Weg bzw die naechste zu nehmende Richtung
@@ -479,7 +456,7 @@ public class Monster extends Figure {
 
 			
 			// Hier wird jetzt in den sich dadrunter befindenen Nachbarknoten gegangen
-			if (!((current.getY() == lvl.size) 
+			if (!((current.getY() == 19) 
 					|| (lvl.getLvlMazePosition(current.getX(),current.getY() + 1 ) == 0
 					|| (lvl.getLvlMazePosition(current.getX(),current.getY() + 1 ) == 3)))) {
 
@@ -542,7 +519,7 @@ public class Monster extends Figure {
 
 
 			// Hier wird jetzt in den sich rechts daneben befindenen Nachbarknoten gegangen
-			if (!((current.getX() == lvl.size) 
+			if (!((current.getX() == 19) 
 					|| (lvl.getLvlMazePosition(current.getX() +1 ,current.getY()) == 0
 					|| (lvl.getLvlMazePosition(current.getX() +1 ,current.getY()) == 3)))) {
 
@@ -624,26 +601,15 @@ public class Monster extends Figure {
 					case 1 : right(); break;
 					case 2 : down(); break;
 					case 3 : left(); break;
-//				shared.MoveMessage(this.getXPos(),this.getYPos()-1);
-//				engine.sendMoveMessage(clientID, xPos, yPos++, id);
-//					Hier muss die MoveMessage hin
 				}
 				lastStep = System.currentTimeMillis();
 			}
 		}else{
-			changeDir();			
+			Random random = new Random();		
+			dir = random.nextInt(4);			
 		}
 	}
-//	public void changeHealth(int change){
-//		/**
-//		 * @author HindiBones
-//		 */
-//		super.changeHealth(change);
-//		if(getHealth()<=0){
-//			window.level.[getXPos()][getYPos()] = new HealthPot(30);
-//			window.monsterList.remove(this);
-//		}
-//	}
+
 	public double cooldownProzent(){
 		/**
 		 * @author: HindiBones 
@@ -657,16 +623,6 @@ public class Monster extends Figure {
 		return type;
 	}
 	
-	public void changeDir(){
-		/**
-		 * @author HindiBones
-		 */
-		Random random = new Random();		
-		dir = random.nextInt(4);
-	}
-	public void changeDir(int dir) {
-		this.dir = dir;
-	}
 	private boolean moveAllowed(){ // Pruefe, ob naechster Schritt zulaessig ist
 		/**
 		 * @author HindiBones
@@ -677,11 +633,11 @@ public class Monster extends Figure {
 			return	! ((lvl.getLvlMazePosition(getXPos(),getYPos()-1) == 0) &&
 					!((lvl.getLvlMazePosition(getXPos(),getYPos()-1) == 3) &&
 					!((lvl.getLvlMazePosition(getXPos(),getYPos()-1) == 5))));
-		}else if(dir == 1 && getXPos()+1 < lvl.size){
+		}else if(dir == 1 && getXPos()+1 < 19){
 			return  ! ((lvl.getLvlMazePosition(getXPos()+1,getYPos()) == 0) &&
 					!((lvl.getLvlMazePosition(getXPos()+1,getYPos()) == 3) &&
 					!((lvl.getLvlMazePosition(getXPos()+1,getYPos()) == 5))));
-		}else if(dir == 2 && getYPos()+1 < lvl.size){
+		}else if(dir == 2 && getYPos()+1 < 19){
 			return 	! ((lvl.getLvlMazePosition(getXPos(),getYPos()+1) == 0) &&
 					!((lvl.getLvlMazePosition(getXPos(),getYPos()+1) == 3) &&
 					!((lvl.getLvlMazePosition(getXPos(),getYPos()+1) == 5))));

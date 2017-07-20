@@ -97,7 +97,6 @@ public class GamingArea extends JFrame implements KeyListener {
 		
 		initializeJFrame(title);
 		startNewGame();
-		login();
 	}
 
 	/**
@@ -320,13 +319,13 @@ public class GamingArea extends JFrame implements KeyListener {
 		monsterList = new LinkedList<Monster>();
 //		level = new GameElement[WIDTH][HEIGHT];
 
-//		if (buffermonsterList != null) {
-//			for (int i = 0; i < buffermonsterList.size(); i++) {
-//				Monster element = buffermonsterList.get(i);
-//				element = new Monster(monsterID, element.getXPos(), element.getYPos(), level, element.getType());
-//				monsterList.add(element);
-//			}
-//		}
+		if (buffermonsterList != null) {
+			for (int i = 0; i < buffermonsterList.size(); i++) {
+				Monster element = buffermonsterList.get(i);
+				element = new Monster(monsterID, element.getXPos(), element.getYPos(), this.currentLevel, element.getType());
+				monsterList.add(element);
+			}
+		}
 		currentLevel = 0;
 		gameEnd = false;
 		gameLost = false;
@@ -373,7 +372,7 @@ public class GamingArea extends JFrame implements KeyListener {
 		String passwordcheck = JOptionPane.showInputDialog("Enter password");
 	
 		//Verschluesselung
-				/*try {
+				try {
 					KeyGenerator keygenerator = KeyGenerator.getInstance("DES");
 		            SecretKey key = keygenerator.generateKey();
 		 
@@ -390,17 +389,17 @@ public class GamingArea extends JFrame implements KeyListener {
 
 		            // Passwort verschluesseln
 		            byte[] passwordEncoded = Encoding.doFinal(password);
-		        */
+		        
 
 		        //Verschluesseltes Passwort wird mit dem generierten Schluessel an den Client uebermittelt
-				engine.sendLogInMessage(clientID, username, passwordcheck );
+				engine.sendLogInMessage(clientID, username, password, keylog);
 				loginName = user;
 
 				}
-				//catch (Exception e) {
-					//System.out.println("Login konnte nicht gelesen werden");
-					//}}
+				catch (Exception e) {
+					System.out.println("Login konnte nicht gelesen werden");
+					}
+				}
 	}
-	
-	
+
 
