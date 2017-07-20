@@ -112,7 +112,7 @@ public class Registration {
 					 username = textField.getText();
 					 password = passwordField.getText();
 					 ga.login(username,password);
-					
+					window.dispose();
 				}
 					
 				
