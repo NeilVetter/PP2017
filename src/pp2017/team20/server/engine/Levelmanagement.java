@@ -2,8 +2,10 @@ package pp2017.team20.server.engine;
 
 import pp2017.team20.shared.*;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.io.Serializable;
 
 import pp2017.team20.client.engine.ClientEngine;
 import pp2017.team20.client.gui.GamingArea;
@@ -12,7 +14,7 @@ import pp2017.team20.server.map.*;
 //Neil Vetter 6021336
 //Diese Klasse erzeugt erst, und speichert dann das Level in einem Array
 
-public class Levelmanagement {
+public class Levelmanagement implements Serializable {
 	
 	// Erstellt ein Objekt vom Typ "Player"
 	//public Player player;
@@ -88,7 +90,7 @@ public class Levelmanagement {
 		
 		
 		/** 
-		 * Gibt den Spielern, Monstern und den Heiltränken eine ID und speichert diese
+		 * Gibt den Spielern, Monstern und den Heiltrï¿½nken eine ID und speichert diese
 		 * 
 		 * @autor Hamid Kirli 6041663*/
 		int playerID = 0;
@@ -111,7 +113,7 @@ public class Levelmanagement {
 				else if (maze.Map[i][j]== 6){
 					
 					Monster monster = new Monster(monsterID, i , j,this,  type );
-					// Robin muss den Construktor ändern // also einfach eine monsterID einfügen
+					// Robin muss den Construktor ï¿½ndern // also einfach eine monsterID einfï¿½gen
 					MonsterList.add(monster);
 					monsterID++;	
 				}
@@ -128,7 +130,7 @@ public class Levelmanagement {
 		}
 	}
 		
-		/** Getter Methoden für SpielerListe, MonsterListe
+		/** Getter Methoden fï¿½r SpielerListe, MonsterListe
 		// und Heiltrank 
 		 * 
 		 * @author Hamid Kirli 6041663*/
@@ -145,7 +147,7 @@ public class Levelmanagement {
 		}
 		
 		/** 
-		 * überprüfen ob einer der Spieler einen Heiltrank nutzt.
+		 * ï¿½berprï¿½fen ob einer der Spieler einen Heiltrank nutzt.
 		 * 
 		 *   @author Hamid, Kirli 6041663 
 		 *   */
@@ -161,7 +163,7 @@ public class Levelmanagement {
 		}
 		
 		/** 
-		 *Methode zum Benutzen von Heiltränken  */
+		 *Methode zum Benutzen von Heiltrï¿½nken  */
 		public void useHealthpot(int playerID){
 			if(healpotuse(playerID)){
 				playerList[playerID].setHealthPotNumber(playerList[playerID].getHealthPotNumber()-1);
@@ -182,7 +184,7 @@ public class Levelmanagement {
 			System.out.println();
 		}
 	}*/
-	/** Setter-Um einzelne Level Elemente zu verändern
+	/** Setter-Um einzelne Level Elemente zu verï¿½ndern
 	 * 
 	 *  @author Hamid  Kirli  6041663 */
 		public void setLvlMaze (int levelID, int x, int y,int substance, Levelmanagement game1 ){
