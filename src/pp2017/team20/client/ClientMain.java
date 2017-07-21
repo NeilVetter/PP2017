@@ -32,8 +32,8 @@ public class ClientMain {
 	public static void main(String args[]) {
 		GamingArea window;
 		
-//		Registration.main(null);
- window=new GamingArea("Marios World");
+		//		Registration.main(null);
+		window=new GamingArea("Marios World");
 		
 
 	}

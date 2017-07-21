@@ -19,6 +19,7 @@ public class MessageProcessing {
 	
 	public ServerKommunikation comm= new ServerKommunikation();
 	public Levelmanagement lvl;
+	static boolean lvlLoaded = false;
 	
 //	 Message message=comm.getMessageFromClient();
 //	 MessageQueue.add(message);
@@ -32,10 +33,21 @@ public class MessageProcessing {
 	public Thread t = new Thread(new Runnable() {
 		@Override
 		public void run(){
+			System.out.println("Monsterspawn0");
+			while(!lvlLoaded){
+				try {
+					Thread.sleep(50);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			System.out.println("Monsterspawn1");
 			while(true){
 				try{
 					Thread.sleep(50);
 					for(Monster monster: lvl.MonsterList){
+						monster.tacticMonster();
 						//tacticmon
 					}
 				}catch (InterruptedException e){
@@ -47,6 +59,7 @@ public class MessageProcessing {
 	
 	public void RecieveMessage() {
 		
+		t.start();
 			// Empfange bis der Server beendet wird Nachrichten von der
 			// Kommunikation
 			while (true) {
@@ -124,6 +137,8 @@ public class MessageProcessing {
 			if((Loginengine.logIn(message.username,message.password)==true)){
 				
 				lvl = new Levelmanagement(new Player());
+				lvlLoaded = true;
+				System.out.println("lvl erstellt");
 				lvl.PlayerList.add(lvl.player);
 				Level level = new Level(lvl,lvl.getLvlMaze());
 				

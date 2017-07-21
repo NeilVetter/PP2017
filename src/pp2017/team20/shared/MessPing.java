@@ -24,5 +24,5 @@ public class MessPing extends Message implements Serializable {
 //		super(clientID);
 //		this.subType=subType;
 //		this.type=type;
-	}
+//	}
 }
