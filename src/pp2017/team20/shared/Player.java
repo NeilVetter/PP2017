@@ -146,6 +146,9 @@ public class Player extends Figure implements Serializable {
 	public int getPlayerID() {
 		return playerID;
 	}
+	public void setPlayerID(int playerID){
+		this.playerID=playerID;
+	}
 
 	
 }

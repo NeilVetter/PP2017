@@ -132,6 +132,7 @@ public class MessageProcessing {
 				login.setPlayer(lvl.getPlayer());
 				login.setSuccess(true);
 				login.setLevel(level);
+				login.setPlayerID(lvl.player.getPlayerID());
 				System.out.println();
 				comm.sendeNachricht(login);
 				
@@ -165,6 +166,7 @@ public class MessageProcessing {
 		for (int i = 0; i < lvl.PlayerList.size(); i++) {
 			Player player = lvl.PlayerList.get(i);
 			if (message.playerID == player.playerID) {
+				
 				// Test, ob das Feld benachbart zur vorherigen Position des
 				// Spielers
 

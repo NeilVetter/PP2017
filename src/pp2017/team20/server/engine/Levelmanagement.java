@@ -104,11 +104,11 @@ public class Levelmanagement implements Serializable {
 		for (int i=0; i<maze.Map.length; i++){
 			for (int j=0;j<maze.Map.length;j++){
 				if (maze.Map[i][j]==2){
-//					Player player = new Player();
-//					// wieso passt es nicht mit deinem Konstrucktor @neil
-//					player.setPos(i,j);
-//					PlayerList.add(player);
-//					playerID++;
+					// wieso passt es nicht mit deinem Konstrucktor @neil
+					player.setPos(i,j);
+					player.setPlayerID(playerID);
+					PlayerList.add(player);
+					//playerID++;
 				}
 				else if (maze.Map[i][j]== 6){
 					
@@ -246,8 +246,8 @@ public class Levelmanagement implements Serializable {
 				for (int j = 0; j < size; j++) {
 					for (int k = 0; k < size; k++) {
 						if (player.playerMap[j][k] == 2) {
-							player.xPos = j;
-							player.yPos = k;
+							player.setXPos(j);
+							player.setYPos(k);
 						}
 					}
 				}

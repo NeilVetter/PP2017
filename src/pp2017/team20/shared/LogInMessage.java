@@ -22,7 +22,7 @@ public class LogInMessage extends Message {
 	public boolean success = false;
 	public Level level;
 	public Player player;
-	
+	public int playerID;
 //	public boolean succsess;
 	
 
@@ -62,6 +62,12 @@ public class LogInMessage extends Message {
 	public void setPlayer(Player player){
 		this.player=player;
 	}
-	
+
+
+	public void setPlayerID(int playerID) {
+		this.playerID=playerID;
+		
+	}
+
 	
 }

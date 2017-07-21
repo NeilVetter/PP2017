@@ -262,21 +262,21 @@ public class GamingArea extends JFrame implements KeyListener {
 			if (e.getKeyCode() == KeyEvent.VK_UP) {
 				if (yPos > 0 && !(level.getLvlMazePosition(xPos, yPos - 1) == 0))
 					System.out.println("Bewegung");
-					engine.sendMoveMessage(clientID, xPos, yPos--, playerID);
+					engine.sendMoveMessage(clientID, xPos, yPos--, player.playerID);
 			}
 			// wenn die Pfeiltaste nach untenn gedrueckt wird und das Feld unter
 			// dem aktuellen Feld des Spielers keine Wand ist, bewege den
 			// Spieler ein Feld nach unten
 			else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
 				if (yPos < HEIGHT - 1 && !(level.getLvlMazePosition(player.getXPos(), player.getYPos() + 1) == 0))
-					engine.sendMoveMessage(clientID, xPos, yPos++, playerID);
+					engine.sendMoveMessage(clientID, xPos, yPos++, player.playerID);
 			}
 			// wenn die Pfeiltaste nach links gedrueckt wird und das Feld links
 			// neben dem aktuellen Feld des Spielers keine Wand ist, bewege den
 			// Spieler ein Feld nach links
 			else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
 				if (xPos > 0 && !(level.getLvlMazePosition(xPos - 1, yPos) == 0))
-					engine.sendMoveMessage(clientID, xPos--, yPos, playerID);
+					engine.sendMoveMessage(clientID, xPos--, yPos, player.playerID);
 			}
 			// wenn die Pfeiltaste nach rechts gedrueckt wird und das Feld
 			// rechts neben dem
@@ -284,14 +284,14 @@ public class GamingArea extends JFrame implements KeyListener {
 			// ein Feld nach rechts
 			else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
 				if (xPos < WIDTH - 1 && !(level.getLvlMazePosition(xPos + 1, yPos) == 0))
-					engine.sendMoveMessage(clientID, xPos++, yPos, playerID);
+					engine.sendMoveMessage(clientID, xPos++, yPos, player.playerID);
 			}
 			// wenn Taste Q gedrueckt wird und ein Monster in der Naehe des
 			// Spielers ist, wird dieses angegriffen und in seinen Lebenspunkten
 			// geschwaecht
 			else if (e.getKeyCode() == KeyEvent.VK_Q) {
 //				Monster m = player.attackMonster();
-				engine.sendAttackMessage(clientID, attackID, playerID, monsterID);
+				engine.sendAttackMessage(clientID, attackID, player.playerID, monsterID);
 				System.out.println("Wenn Monster in der Nähe, attackieren");
 			}
 			// wenn Taste B gedrueckt wird und der Spieler einen oder mehrere
@@ -299,7 +299,7 @@ public class GamingArea extends JFrame implements KeyListener {
 			// hat, reduziere Trankanzahl in der Statusleiste um 1 und setze
 			// Lebensanzeige wieder voll
 			else if (e.getKeyCode() == KeyEvent.VK_B) {
-				engine.sendUsePotionMessage(clientID, id, playerID);
+				engine.sendUsePotionMessage(clientID, id, player.playerID);
 				System.out.println("Wenn Heiltrank vorhanden, benutzen");
 				// Anzeige der Heiltränke?
 			}

@@ -128,6 +128,9 @@ public class ClientEngine {
 		
 		//instanceof wall ersetzt durch 0
 		if (!(window.level.getLvl().getLvlMazePosition(window.player.getXPos(), window.player.getYPos() ) == 0)) {
+			System.out.println(window.player.getXPos());
+			System.out.println(window.player.getYPos());
+			System.out.println("zuvor");
 			MoveMessage message = new MoveMessage(clientID, xPos, yPos, playerID);
 			communication.sendeNachricht(message);
 		}
@@ -393,6 +396,7 @@ public class ClientEngine {
 						player.setXPos(i);
 						player.setYPos(j);
 						window.player = player;
+						window.player.setPlayerID(message.playerID);
 					}
 				}
 			}
@@ -464,6 +468,7 @@ public class ClientEngine {
 //			if (message.id == 1) {
 				window.player.setPos(message.xPos, message.yPos);
 				System.out.println(window.player.getXPos());
+				System.out.println(window.player.getYPos());
 //			}
 			// Es findet eine Monsterbewegung statt. xPos und yPos bezeichnen
 			// die neue Position des Monsters
