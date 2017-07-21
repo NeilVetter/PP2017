@@ -162,10 +162,10 @@ public class MessageProcessing {
 	}
 
 	public void MoveMessageProcessing(MoveMessage message) {
-//
-//		for (int i = 0; i < lvl.PlayerList.size(); i++) {
-//			Player player = lvl.PlayerList.get(i);
-//			if (message.playerID == player.playerID) {
+
+		for (int i = 0; i < lvl.PlayerList.size(); i++) {
+			Player player = lvl.PlayerList.get(i);
+			if (message.playerID == player.playerID) {
 				
 				// Test, ob das Feld benachbart zur vorherigen Position des
 				// Spielers
@@ -205,8 +205,8 @@ public class MessageProcessing {
 				// fehlgeschlagen
 				System.out.println(lvl.player.getXPos());
 				System.out.println(lvl.player.getYPos());
-//			}
-//		}
+			}
+		}
 	}
 
 	// Nehmen eines Lebens-trankts
