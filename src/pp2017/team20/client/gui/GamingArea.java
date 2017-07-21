@@ -261,12 +261,10 @@ public class GamingArea extends JFrame implements KeyListener {
 			// dem aktuellen Feld des Spielers keine Wand ist, bewege den
 			// Spieler ein Feld nach oben
 			if (e.getKeyCode() == KeyEvent.VK_UP) {
-				if (yPos > 0 && !(level.getLvlMazePosition(xPos, yPos - 1) == 18))
-					System.out.println("Bewegung");
+				if (yPos > 0 && !(level.getLvlMazePosition(xPos, yPos - 1) == 0)){
 					yPos=yPos-1;
-					System.out.println(player.getXPos()+"XX");
-					System.out.println(player.getYPos()+"YY");
 					engine.sendMoveMessage(clientID, xPos, yPos, player.playerID);
+				}
 			}
 			// wenn die Pfeiltaste nach untenn gedrueckt wird und das Feld unter
 			// dem aktuellen Feld des Spielers keine Wand ist, bewege den
@@ -291,7 +289,7 @@ public class GamingArea extends JFrame implements KeyListener {
 			// aktuellen Feld des Spielers keine Wand ist, bewege den Spieler
 			// ein Feld nach rechts
 			else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-				if (xPos < WIDTH - 1 && !(level.getLvlMazePosition(xPos + 1, yPos) == 18)){
+				if (xPos < WIDTH - 1 && !(level.getLvlMazePosition(xPos + 1, yPos) == 0)){
 					xPos=xPos+1;
 					engine.sendMoveMessage(clientID, xPos, yPos, player.playerID);
 				}
