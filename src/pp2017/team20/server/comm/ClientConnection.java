@@ -10,7 +10,7 @@ import pp2017.team20.shared.*;
  * Klasse fuer die einzelnen Clients, die in einzelnen Threads gehandelt werden
  * und es werden ID`s gesetzt
  * 
- * @author Koruk, Samet, 5869110
+ * @author Yuxuan Kong, 6019218
  * 
  */
 
@@ -19,35 +19,34 @@ public class ClientConnection extends Thread {
 	/**
 	 * Attributblock
 	 * 
-	 * @author Koruk, Samet, 5869110
+	 * @author Yuxuan Kong, 6019218
 	 */
 	public int ClientID;
-	private ServerSenden sendThread;
-	private ServerEmpfangen receiveThread;
 	public Socket clientSocket;
+	private ServerSend sendThread;
+	private ServerReceive receiveThread;
 
 	/**
 	 * Konstruktor fuer die Klasse, wo die inputqueue uebergeben wird ausserdem
 	 * werden die Send- und Receive Threads gestartet
 	 * 
-	 * @author Koruk, Samet, 5869110
+	 * @author Yuxuan Kong, 6019218
 	 */
 	public ClientConnection(Socket clientSocket, LinkedBlockingQueue<Message> blockQ, int count, LinkedBlockingQueue<Message> blockQout) {
 
 		this.ClientID = count;
 		this.clientSocket = clientSocket;
-		sendThread = new ServerSenden(clientSocket, count, blockQout);
-		sendThread.start();
-		receiveThread = new ServerEmpfangen(clientSocket, blockQ, count);
+		receiveThread = new ServerReceive(clientSocket, blockQ, count);
 		receiveThread.start();
-
+		sendThread = new ServerSend(clientSocket, count, blockQout);
+		sendThread.start();
 	}
 
 	/**
 	 * Methode, die aufgerufen wird, wenn man eine Nachricht versenden will (auf
 	 * Server Seite)
 	 * 
-	 * @author Koruk, Samet, 5869110
+	 * @author Yuxuan Kong, 6019218
 	 */
 	public void sendMessagetoClient(Message neueNachricht) {
 		try {
@@ -64,7 +63,7 @@ public class ClientConnection extends Thread {
 	/**
 	 * Methode, um Nachricht nicht mehr an den Client zu senden
 	 * 
-	 * @author Koruk, Samet, 5869110
+	 * @author Yuxuan Kong 6019218
 	 */
 	public void stopSendThread() {
 		sendThread.truth = false;

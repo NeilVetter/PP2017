@@ -73,11 +73,11 @@ public class MessageProcessing {
 			}
 	}
 	// Nimmt eine Message aus dem Queue und entscheidet welcher Unterklasse sie
-	// angeh�rt
+	// angehoert
 	public void MessageProcess(Queue<Message> queue) {
 
 		try {
-			// Pr�ft solange eine Message im Queue ist welchen Typ die
+			// Prueft solange eine Message im Queue ist welchen Typ die
 			// Nachricht hat
 			while (!queue.isEmpty()) {
 
@@ -177,16 +177,16 @@ public class MessageProcessing {
 	}
 
 	public void MoveMessageProcessing(MoveMessage message) {
-//
-//		for (int i = 0; i < lvl.PlayerList.size(); i++) {
-//			Player player = lvl.PlayerList.get(i);
-//			if (message.playerID == player.playerID) {
+
+		for (int i = 0; i < lvl.PlayerList.size(); i++) {
+			Player player = lvl.PlayerList.get(i);
+			if (message.playerID == player.playerID) {
 				
 				// Test, ob das Feld benachbart zur vorherigen Position des
 				// Spielers
 
-				if (Math.abs(message.xPos - lvl.player.getXPos())
-						+ Math.abs(message.yPos - lvl.player.getYPos()) <= 1) {
+				if (Math.abs(message.xPos - player.getXPos())
+						+ Math.abs(message.yPos - player.getYPos()) <= 1) {
 
 					neighbour = true;
 
@@ -198,30 +198,30 @@ public class MessageProcessing {
 
 						// Setze die Position des Spielers auf die aus der
 						// Message
-						lvl.player.setXPos(message.xPos);
-						lvl.player.setYPos(message.yPos);
-						// Gebe zur�ck dass der Schritt erfolgreich
+						player.setXPos(message.xPos);
+						player.setYPos(message.yPos);
+						// Gebe zurueck dass der Schritt erfolgreich
 						
-						System.out.println(lvl.player.playername + " "+ "Hat sich ein Feld bewegt");
-						MoveMessage move=new MoveMessage(1,lvl.player.getXPos(),lvl.player.getYPos(),lvl.player.getPlayerID());
+						System.out.println(player.playername + " "+ "Hat sich ein Feld bewegt");
+						MoveMessage move=new MoveMessage(1,player.getXPos(),player.getYPos(),player.getPlayerID());
 						
 						move.setSuccess(true);
 						comm.sendeNachricht(move);
 						
 					} else {
-						// Gebe zur�ck das der Schritt gesscheitert
+						// Gebe zurueck das der Schritt gesscheitert
 						message.success = false;
-						System.out.println(lvl.player.playername + " "
+						System.out.println(player.playername + " "
 								+ "Hat sich nicht bewegt");
 
 					}
 				}
-				// Position des Spielers nach dem Schritt(unver�ndert falls
+				// Position des Spielers nach dem Schritt(unveraendert falls
 				// fehlgeschlagen
-				System.out.println(lvl.player.getXPos());
-				System.out.println(lvl.player.getYPos());
-//			}
-//		}
+				System.out.println(player.getXPos());
+				System.out.println(player.getYPos());
+			}
+		}
 	}
 
 	// Nehmen eines Lebens-trankts
@@ -253,8 +253,8 @@ public class MessageProcessing {
 							player.setHealth(100);
 						}
 						// Nach erfolgreicher benutzung des Tranks reduziere die
-						// anzahl der tr�nke um 1
-						// Soll noch ge�ndert werden um mit der Itemliste zu
+						// anzahl der traenke um 1
+						// Soll noch geaendert werden um mit der Itemliste zu
 						// funktionieren
 						player.healthPotNumber--;
 					}
@@ -275,15 +275,15 @@ public class MessageProcessing {
 
 						// Erhoeht das Mana des Spielers
 						player.setMana(player.getMana() + 30);
-						// Testet ob Mana das Maxmana �bersteigt undd falls
+						// Testet ob Mana das Maxmana uebersteigt undd falls
 						// dem so ist
 						// setzte Mana gleich Maxmana
 						if (player.getMana() >= 100) {
 							player.setMana(100);
 						}
 						// Nach erfolgreicher benutzung des Tranks reduziere die
-						// anzahl der tr�nke um 1
-						// Soll noch ge�ndert werden um mit der Itemliste zu
+						// anzahl der traenke um 1
+						// Soll noch geaendert werden um mit der Itemliste zu
 						// funktionieren
 						player.manaPotNumber--;
 					}
@@ -302,14 +302,14 @@ public class MessageProcessing {
 				Monster monster = lvl.MonsterList.get(i);
 				if (message.monsterID == monster.monsterID) {
 
-					// Monster pr�ft ob der Anngriff erfolgen darf und schickt
+					// Monster prueft ob der Anngriff erfolgen darf und schickt
 					// dann die Nachricht
 					if (moveAllowed == true) {
 
-						// f�ge dem Monster schaden zu
+						// fuege dem Monster schaden zu
 						monster.setDamage(10);
 
-						// Falls das Monster auf <=0 Hp f�llt entferne es aus
+						// Falls das Monster auf <=0 Hp faellt entferne es aus
 						// dem Spiel
 						if (monster.getHealth() <= 0) {
 							lvl.MonsterList.remove(monster);
@@ -327,10 +327,10 @@ public class MessageProcessing {
 
 					if (moveAllowed == true) {
 
-						// f�ge dem Player Schaden zu
+						// fuege dem Player Schaden zu
 						player.setDamage(10);
 
-						// Falls der Player <=0 Hp f�llt entferne Ihn aus der
+						// Falls der Player <=0 Hp faellt entferne Ihn aus der
 						// Liste
 						if (player.getHealth() <= 0) {
 							Player.LevelList.remove(player);
@@ -399,7 +399,7 @@ public class MessageProcessing {
 		}
 	}
 
-	// Unterscheidet unter den verf�gbaren Items und f�gt sie dem inventar
+	// Unterscheidet unter den verfuegbaren Items und fuegt sie dem inventar
 	// hinzu
 	public void ItemPickUpMessageProcessing(ItemPickUpMessage message) {
 
