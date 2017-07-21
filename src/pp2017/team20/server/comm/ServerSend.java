@@ -11,23 +11,23 @@ import pp2017.team20.shared.Message;
 /**
  * Die Threads zum Senden von Nachrichten (vom Server an den Client)
  * 
- * @author Koruk, Samet, 5869110
+ * @author Yuxuan Kong, 6019218
  * 
  */
 
-public class ServerSenden extends Thread {
+public class ServerSend extends Thread {
 
 	/**
 	 * Attributblock
 	 * 
-	 * @author Koruk, Samet, 5869110
+	 * @author Yuxuan Kong, 6019218
 	 */
 	public Socket clientSocket;
 	public ObjectOutputStream out;
 	private LinkedBlockingQueue<Message> outputqueue = new LinkedBlockingQueue<Message>();
 	public boolean truth = true;
 
-	public ServerSenden(Socket clientSocket, int count, LinkedBlockingQueue<Message> blockQ) {
+	public ServerSend(Socket clientSocket, int count, LinkedBlockingQueue<Message> blockQ) {
 
 		this.outputqueue = blockQ;
 
@@ -46,11 +46,6 @@ public class ServerSenden extends Thread {
 	public void run() {
 		while (truth) {
 			checkMes();
-			try {
-				Thread.sleep(100);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
 		}
 	}
 
@@ -58,7 +53,7 @@ public class ServerSenden extends Thread {
 	 * Methode, die ueberprueft, ob Queue leer ist und wenn nicht dann senden
 	 * der Nachricht
 	 * 
-	 * @author Koruk, Samet, 5869110
+	 * @author Yuxuan Kong, 6019218
 	 */
 	public void checkMes() {
 		if (outputqueue.isEmpty() != true)
@@ -68,7 +63,7 @@ public class ServerSenden extends Thread {
 	/**
 	 * Methode, die Nachrichten aus der Queue in Stream schreibt
 	 * 
-	 * @author Koruk, Samet, 5869110
+	 * @author Yuxuan Kong, 6019218
 	 */
 	public void sendMes() {
 

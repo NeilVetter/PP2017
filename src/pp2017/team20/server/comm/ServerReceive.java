@@ -9,13 +9,13 @@ import java.util.concurrent.BlockingQueue;
 import pp2017.team20.shared.Message;
 
 /**
- * Die Threads zum Erhalten von Nachrichten
+ * Threads um Nachrichten vom Clienten zu erhalten
  * 
- * @author Koruk, Samet, 5869110
+ * @author Yuxuan Kong, 6019218
  * 
  */
 
-public class ServerEmpfangen extends Thread {
+public class ServerReceive extends Thread {
 
 	public ObjectInputStream in;
 	private BlockingQueue<Message> blockQ;
@@ -25,9 +25,9 @@ public class ServerEmpfangen extends Thread {
 	/**
 	 * Konstruktor
 	 * 
-	 * @author Koruk, Samet, 5869110
+	 * @author Yuxuan Kong, 6019218
 	 */
-	public ServerEmpfangen(Socket clientSocket, BlockingQueue<Message> blockQ, int count) {
+	public ServerReceive(Socket clientSocket, BlockingQueue<Message> blockQ, int count) {
 		this.blockQ = blockQ;
 		this.count = count;
 		try {
@@ -45,12 +45,7 @@ public class ServerEmpfangen extends Thread {
 	public void run() {
 
 		while (clientisok) {
-			checkMes();
-			try {
-				Thread.sleep(100);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+			checkMessage();
 		}
 	}
 
@@ -58,14 +53,14 @@ public class ServerEmpfangen extends Thread {
 	 * Methode die ueberprueft, wenn eine Nachricht im Stream ist, diese in die
 	 * Queue zu schicken
 	 * 
-	 * @author Koruk, Samet, 5869110
+	 * @author Yuxuan Kong, 6019218
 	 */
-	public void checkMes() {
-		Message msg = null;
+	public void checkMessage() {
+		Message message = null;
 		try {
 
-			while ((msg = (Message) in.readObject()) != null) {
-				blockQ.add(msg);
+			while ((message = (Message) in.readObject()) != null) {
+				blockQ.add(message);
 
 			}
 

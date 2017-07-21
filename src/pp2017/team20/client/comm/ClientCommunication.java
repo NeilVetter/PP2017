@@ -1,6 +1,6 @@
 package pp2017.team20.client.comm;
 
-import java.io.IOException; 
+import java.io.IOException;  
 import java.net.InetAddress;
 import java.net.Socket;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -9,43 +9,45 @@ import pp2017.team20.shared.Herzschlagnachricht;
 import pp2017.team20.shared.Message;
 
 /**
- * Klasse fuer den Client, die in einzelnen Threads gehandelt wird
+ * Eine Klasse mit der der Client mit dem Server kommunizieren kann. Hier werden die einzelnen
+ * Threads abgehandelt
  * 
- * @author Koruk, Samet, 5869110
+ * @author Yuxuan Kong, 6019218
  * 
  */
-public class ClientKommunikation extends Thread {
+public class ClientCommunication extends Thread {
 	/**
 	 * Attributblock
 	 */
-	public static LinkedBlockingQueue<Message> outputqueue = new LinkedBlockingQueue<Message>();
-	public static LinkedBlockingQueue<Message> inputqueue = new LinkedBlockingQueue<Message>();
+	public static LinkedBlockingQueue<Message> outputQueue = new LinkedBlockingQueue<Message>();
+	public static LinkedBlockingQueue<Message> inputQueue = new LinkedBlockingQueue<Message>();
 	public Socket clientSocket;
 
 	public boolean connectToServer() {
 		boolean successful = false;
 		try {
 			// Socket wird erstellt
-			InetAddress ServerIp = InetAddress.getByName("localhost");
-			clientSocket = new Socket(ServerIp, 2000);
-			System.out.println("Client gestartet!");
+			InetAddress ServerAddress = InetAddress.getByName("localhost");
+			clientSocket = new Socket(ServerAddress, 2000);
+			System.out.println("Client wurde gestartet!");
 
 			// Threads werden erstellt und gestartet
-			ClientSenden sendThread = new ClientSenden(clientSocket, outputqueue);
-			sendThread.start();
-			ClientEmpfangen receiveThread = new ClientEmpfangen(clientSocket, inputqueue);
+
+			ClientReceive receiveThread = new ClientReceive(clientSocket, inputQueue);
 			receiveThread.start();
-			Thread.sleep(50);
+			ClientSend sendThread = new ClientSend(clientSocket, outputQueue);
+			sendThread.start();
+			Thread.sleep(100);
 
 			successful = true;
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			System.out.println("Bitte geben Sie die Serveradresse richtig an.");
+			System.out.println("Bitte richtige Serveradresse eingeben.");
 			successful = false;
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
-			System.out.println("Bitte verbinden Sie sich erneut.");
+			System.out.println("Bitte Versuchen Sie sich erneut mit dem Server zu verbinden.");
 			successful = false;
 		}
 
@@ -71,13 +73,12 @@ public class ClientKommunikation extends Thread {
 	/**
 	 * Methode, um eine Nachricht vom Client zum Server zu senden
 	 * 
-	 * @author Samet, Koruk, 5869110
-	 * @param neueNachricht
+	 * @author Yuxuan Kong, 6019218
 	 */
-	public void sendeNachricht(Message neueNachricht) {
+	public void sendMessage(Message message) {
 
 		try {
-			outputqueue.put(neueNachricht);
+			outputQueue.put(message);
 		} catch (InterruptedException e) {
 			System.out.println("Nachricht konnte nicht gesendet werden" + e);
 		}
@@ -87,19 +88,19 @@ public class ClientKommunikation extends Thread {
 	 * Methode, um Nachrichten vom Server zu empfangen eher sie von der Queue zu
 	 * holen, wo Sie gespeichert sind
 	 * 
-	 * @author Samet, Koruk, 5869110
+	 * @author  Yuxuan Kong, 6019218
 	 */
-	public Message erhalteNachricht() {
+	public Message receiveMessage() {
 
-		Message neueNachricht = null;
+		Message message = null;
 		try {
-			while (!inputqueue.isEmpty()) {
-				neueNachricht = inputqueue.take();
+			while (!inputQueue.isEmpty()) {
+				message = inputQueue.take();
 			}
 		} catch (InterruptedException e) {
 			System.out.println("Nachricht konnte nicht gelesen werden " + e);
 		}
-		return neueNachricht;
+		return message;
 
 	}
 
