@@ -42,14 +42,12 @@ public class GamingArea extends JFrame implements KeyListener {
 //	private String adresse = "55555";
 
 	public ClientKommunikation kommunikation = new ClientKommunikation();
-	public ClientEngine engine = new ClientEngine(kommunikation, this);
+	public ClientEngine engine;
 
 	public Player player;
 	public LinkedList<Monster> monsterList;
 	public LinkedList<Monster> buffermonsterList;
 	public Level level;
-	public int xPos;
-	public int yPos;
 	public int clientID;
 	public int id;
 	public int attackID;
@@ -89,11 +87,11 @@ public class GamingArea extends JFrame implements KeyListener {
 	 * @author Heck, Liz, 5991099
 	 */
 	public GamingArea(String title) {
-		this.player=new Player ("img//player.png", this);
+		this.player=new Player ();
 		
 		kommunikation.connectToServer();
 		kommunikation.start();
-		
+		engine = new ClientEngine(kommunikation, this);
 		initializeJFrame(title);
 		startNewGame();
 	}
@@ -263,13 +261,14 @@ public class GamingArea extends JFrame implements KeyListener {
 			// Spieler ein Feld nach oben
 			if (e.getKeyCode() == KeyEvent.VK_UP) {
 				if (yPos > 0 && !(level.getLvlMazePosition(xPos, yPos - 1) == 0))
+					System.out.println("Bewegung");
 					engine.sendMoveMessage(clientID, xPos, yPos--, playerID);
 			}
 			// wenn die Pfeiltaste nach untenn gedrueckt wird und das Feld unter
 			// dem aktuellen Feld des Spielers keine Wand ist, bewege den
 			// Spieler ein Feld nach unten
 			else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-				if (yPos < HEIGHT - 1 && !(level.getLvlMazePosition(xPos, yPos + 1) == 0))
+				if (yPos < HEIGHT - 1 && !(level.getLvlMazePosition(player.getXPos(), player.getYPos() + 1) == 0))
 					engine.sendMoveMessage(clientID, xPos, yPos++, playerID);
 			}
 			// wenn die Pfeiltaste nach links gedrueckt wird und das Feld links
@@ -339,7 +338,7 @@ public class GamingArea extends JFrame implements KeyListener {
 	public void resetGame() {
 
 		//player = new Player("img//player.png", this);
-		player.setPos(xPos, yPos);
+		//player.setPos(xPos, yPos);
 		monsterList = new LinkedList<Monster>();
 //		level = new GameElement[WIDTH][HEIGHT];
 
@@ -422,6 +421,16 @@ public class GamingArea extends JFrame implements KeyListener {
 				}
 	public void setSuccess(boolean success){
 		this.success=success;
+	}
+
+	public void setPlayer(Player player) {
+		this.player=player;
+		
+	}
+
+	public Player getPlayer() {
+
+		return player;
 	}
 	}
 

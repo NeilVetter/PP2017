@@ -381,12 +381,21 @@ public class ClientEngine {
 		if (message.getSuccess()) {
 			window.setSuccess(true);
 			// Laedt das Level
-//			System.out.println(message.getLevel().getlvlMaze(1, 1));
+			//window.setPlayer(message.getPlayer());
 			window.level = message.getLevel();
 //			System.out.println(window.level.getlvlMaze(1, 1));
 			// Laedt die Startposition des Spielers
-			window.xPos = message.getLevel().getxPos();
-			window.yPos = message.getLevel().getyPos();
+			
+			for(int i=0;i<message.getLevel().getlvlMaze().length;i++){
+				for(int j=0;j<message.getLevel().getlvlMaze().length;j++){
+					if(message.getLevel().getLvlMazePosition(i, j)==2){
+						Player player = new Player();
+						player.setXPos(i);
+						player.setYPos(j);
+						window.player = player;
+					}
+				}
+			}
 			// Laedt die Monster des Levels
 			window.buffermonsterList = message.getLevel().monsterList;
 			// Wen die Spielfeldkachel nicht vom Spieler belegt wird, also
@@ -448,11 +457,13 @@ public class ClientEngine {
 	 */
 
 	public void receiveMoveMessage(MoveMessage message) {
+		System.out.println("test");
 		if (message.success) {
 			// Hier fuehrt der Spieler eine Bewegung aus
 			// xPos und yPos geben die neue Position des Spielers an
 //			if (message.id == 1) {
 				window.player.setPos(message.xPos, message.yPos);
+				System.out.println(window.player.getXPos());
 //			}
 			// Es findet eine Monsterbewegung statt. xPos und yPos bezeichnen
 			// die neue Position des Monsters

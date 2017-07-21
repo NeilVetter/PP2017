@@ -20,9 +20,6 @@ import pp2017.team20.shared.Monster;
 
 // erbt von der Klasse "Figur", �bernommen aus HndiBones
 public class Player extends Figure implements Serializable {
-
-	public int yPos;
-	public int xPos;
 	public int playerLvl;
 	public int [][] playerMap;
 	public static ArrayList<Maze> LevelList=new ArrayList<Maze>();

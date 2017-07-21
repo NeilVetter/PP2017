@@ -21,6 +21,7 @@ public class LogInMessage extends Message {
 	public SecretKey keylog;
 	public boolean success = false;
 	public Level level;
+	public Player player;
 	
 //	public boolean succsess;
 	
@@ -55,5 +56,12 @@ public class LogInMessage extends Message {
 	public void setSuccess(boolean success) {
 		this.success = success;
 	}
+	public Player getPlayer(){
+		return player;
+	}
+	public void setPlayer(Player player){
+		this.player=player;
+	}
+	
 	
 }

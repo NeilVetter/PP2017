@@ -129,6 +129,7 @@ public class MessageProcessing {
 				
 				
 				LogInMessage login = new LogInMessage(1,message.username,message.password);
+				login.setPlayer(lvl.getPlayer());
 				login.setSuccess(true);
 				login.setLevel(level);
 				System.out.println();
@@ -167,8 +168,8 @@ public class MessageProcessing {
 				// Test, ob das Feld benachbart zur vorherigen Position des
 				// Spielers
 
-				if (Math.abs(message.xPos - player.xPos)
-						+ Math.abs(message.yPos - player.yPos) <= 1) {
+				if (Math.abs(message.xPos - player.getXPos())
+						+ Math.abs(message.yPos - player.getYPos()) <= 1) {
 
 					neighbour = true;
 
@@ -180,12 +181,12 @@ public class MessageProcessing {
 
 						// Setze die Position des Spielers auf die aus der
 						// Message
-						player.xPos = message.xPos;
-						player.yPos = message.yPos;
+						player.setXPos(message.xPos);
+						player.setYPos(message.yPos);
 						// Gebe zur�ck dass der Schritt erfolgreich
 						
 						System.out.println(player.playername + " "+ "Hat sich ein Feld bewegt");
-						MoveMessage move=new MoveMessage(1,player.xPos,player.yPos,player.getPlayerID());
+						MoveMessage move=new MoveMessage(1,player.getXPos(),player.getYPos(),player.getPlayerID());
 						
 						move.setSuccess(true);
 						comm.sendeNachricht(move);
@@ -200,8 +201,8 @@ public class MessageProcessing {
 				}
 				// Position des Spielers nach dem Schritt(unver�ndert falls
 				// fehlgeschlagen
-				System.out.println(player.xPos);
-				System.out.println(player.yPos);
+				System.out.println(player.getXPos());
+				System.out.println(player.getYPos());
 			}
 		}
 	}
