@@ -124,8 +124,8 @@ public class GamingWorld extends JPanel {
 
 //				// hier wird der Spieler an die Position gezeichnet die in
 //				// der Klasse Player uebergeben wird
-//				g.drawImage(player, window.player.getXPos() * window.BOX, window.player.getYPos() * window.BOX, null);
-//				repaint();
+				g.drawImage(player, window.player.getXPos() * window.BOX, window.player.getYPos() * window.BOX, null);
+				repaint();
 
 			}
 		}

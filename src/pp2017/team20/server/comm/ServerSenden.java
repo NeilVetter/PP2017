@@ -46,6 +46,11 @@ public class ServerSenden extends Thread {
 	public void run() {
 		while (truth) {
 			checkMes();
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
