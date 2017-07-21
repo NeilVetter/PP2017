@@ -13,8 +13,8 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import pp2017.team20.client.gui.Highscore;
-import pp2017.team20.client.comm.ClientCommunication;
-//import pp2017.team20.client.comm.ClientKommunikation;
+//import pp2017.team20.client.comm.ClientCommunication;
+import pp2017.team20.client.comm.ClientKommunikation;
 import pp2017.team20.client.engine.ClientEngine;
 import pp2017.team20.client.gui.GamingWorld;
 import pp2017.team20.client.gui.StatusBar;
@@ -42,7 +42,7 @@ public class GamingArea extends JFrame implements KeyListener {
 	private MiniMap map;
 //	private String adresse = "55555";
 
-	public ClientCommunication kommunikation = new ClientCommunication();
+	public ClientKommunikation kommunikation = new ClientKommunikation();
 	public ClientEngine engine;
 
 	public Player player;
