@@ -9,13 +9,13 @@ import java.util.concurrent.BlockingQueue;
 import pp2017.team20.shared.Message;
 
 /**
- * Threads um Nachrichten vom Clienten zu erhalten
+ * Die Threads zum Erhalten von Nachrichten
  * 
- * @author Yuxuan Kong, 6019218
+ * @author Koruk, Samet, 5869110
  * 
  */
 
-public class ServerReceive extends Thread {
+public class ServerEmpfangen extends Thread {
 
 	public ObjectInputStream in;
 	private BlockingQueue<Message> blockQ;
@@ -25,9 +25,9 @@ public class ServerReceive extends Thread {
 	/**
 	 * Konstruktor
 	 * 
-	 * @author Yuxuan Kong, 6019218
+	 * @author Koruk, Samet, 5869110
 	 */
-	public ServerReceive(Socket clientSocket, BlockingQueue<Message> blockQ, int count) {
+	public ServerEmpfangen(Socket clientSocket, BlockingQueue<Message> blockQ, int count) {
 		this.blockQ = blockQ;
 		this.count = count;
 		try {
@@ -45,7 +45,7 @@ public class ServerReceive extends Thread {
 	public void run() {
 
 		while (clientisok) {
-			checkMessage();
+			checkMes();
 		}
 	}
 
@@ -53,14 +53,14 @@ public class ServerReceive extends Thread {
 	 * Methode die ueberprueft, wenn eine Nachricht im Stream ist, diese in die
 	 * Queue zu schicken
 	 * 
-	 * @author Yuxuan Kong, 6019218
+	 * @author Koruk, Samet, 5869110
 	 */
-	public void checkMessage() {
-		Message message = null;
+	public void checkMes() {
+		Message msg = null;
 		try {
 
-			while ((message = (Message) in.readObject()) != null) {
-				blockQ.add(message);
+			while ((msg = (Message) in.readObject()) != null) {
+				blockQ.add(msg);
 
 			}
 

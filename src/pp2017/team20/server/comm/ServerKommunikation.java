@@ -15,14 +15,14 @@ import pp2017.team20.shared.Message;
 /**
  * Klasse, um den Austausch mit den Server zu gestalten
  * 
- * @author Yuxuan Kong, 6019218
+ * @author Koruk, Samet, 5869110
  * 
  */
-public class ServerCommunication extends Thread {
+public class ServerKommunikation extends Thread {
 	/**
 	 * Attributblock
 	 * 
-	 * @author Yuxuan Kong, 6019218
+	 * @author Koruk, Samet, 5869110
 	 */
 	public static LinkedBlockingQueue<Message> inputqueue = new LinkedBlockingQueue<Message>();
 	public static LinkedBlockingQueue<Message> outputqueue = new LinkedBlockingQueue<Message>();
@@ -34,10 +34,10 @@ public class ServerCommunication extends Thread {
 	/**
 	 * Konstruktor fuer die Klasse
 	 * 
-	 * @author Yuxuan Kong, 6019218
+	 * @author Koruk, Samet, 5869110
 	 * 
 	 */
-	public ServerCommunication() {
+	public ServerKommunikation() {
 
 		try {
 
@@ -83,7 +83,7 @@ public class ServerCommunication extends Thread {
 	/**
 	 * Methode fuer das Senden von Nachrichten an die Clients
 	 * 
-	 * @author Yuxuan Kong, 6019218
+	 * @author Koruk, Samet, 5869110
 	 */
 	public void sendeNachricht(Message neueNachricht) {
 		try {
@@ -96,7 +96,7 @@ public class ServerCommunication extends Thread {
 	/**
 	 * Methode, um Nachrichten aus der Queue von den Clients an Server zu senden
 	 * 
-	 * @author Yuxuan Kong, 6019218
+	 * @author Koruk, Samet, 5869110
 	 */
 	public Message erhalteNachricht() {
 
