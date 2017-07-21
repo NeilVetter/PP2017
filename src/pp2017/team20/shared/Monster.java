@@ -661,7 +661,6 @@ public class Monster extends Figure implements Serializable{
 		return (Math.sqrt(Math.pow(player.getXPos() - this.getXPos(), 2) 
 				+ Math.pow(player.getYPos() - this.getYPos(), 2)) < 4);
 	}
-	
 	public boolean playerInFreedomVisibilityRange() { //ab hier ist das Monster weit genug gefluechtet, ob restForHealth zu machen
 		return (Math.sqrt(Math.pow(player.getXPos() - this.getXPos(), 2) 
 				+ Math.pow(player.getYPos() - this.getYPos(), 2)) < 6);
@@ -670,5 +669,4 @@ public class Monster extends Figure implements Serializable{
 		return (Math.abs(player.getXPos() - this.getXPos()) 
 				+ Math.abs(player.getYPos() - this.getYPos()) < 2);
 	}
-	
 }

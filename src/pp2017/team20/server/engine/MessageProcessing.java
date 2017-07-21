@@ -162,16 +162,16 @@ public class MessageProcessing {
 	}
 
 	public void MoveMessageProcessing(MoveMessage message) {
-
-		for (int i = 0; i < lvl.PlayerList.size(); i++) {
-			Player player = lvl.PlayerList.get(i);
-			if (message.playerID == player.playerID) {
+//
+//		for (int i = 0; i < lvl.PlayerList.size(); i++) {
+//			Player player = lvl.PlayerList.get(i);
+//			if (message.playerID == player.playerID) {
 				
 				// Test, ob das Feld benachbart zur vorherigen Position des
 				// Spielers
 
-				if (Math.abs(message.xPos - player.getXPos())
-						+ Math.abs(message.yPos - player.getYPos()) <= 1) {
+				if (Math.abs(message.xPos - lvl.player.getXPos())
+						+ Math.abs(message.yPos - lvl.player.getYPos()) <= 1) {
 
 					neighbour = true;
 
@@ -183,12 +183,12 @@ public class MessageProcessing {
 
 						// Setze die Position des Spielers auf die aus der
 						// Message
-						player.setXPos(message.xPos);
-						player.setYPos(message.yPos);
+						lvl.player.setXPos(message.xPos);
+						lvl.player.setYPos(message.yPos);
 						// Gebe zur�ck dass der Schritt erfolgreich
 						
-						System.out.println(player.playername + " "+ "Hat sich ein Feld bewegt");
-						MoveMessage move=new MoveMessage(1,player.getXPos(),player.getYPos(),player.getPlayerID());
+						System.out.println(lvl.player.playername + " "+ "Hat sich ein Feld bewegt");
+						MoveMessage move=new MoveMessage(1,lvl.player.getXPos(),lvl.player.getYPos(),lvl.player.getPlayerID());
 						
 						move.setSuccess(true);
 						comm.sendeNachricht(move);
@@ -196,17 +196,17 @@ public class MessageProcessing {
 					} else {
 						// Gebe zur�ck das der Schritt gesscheitert
 						message.success = false;
-						System.out.println(player.playername + " "
+						System.out.println(lvl.player.playername + " "
 								+ "Hat sich nicht bewegt");
 
 					}
 				}
 				// Position des Spielers nach dem Schritt(unver�ndert falls
 				// fehlgeschlagen
-				System.out.println(player.getXPos());
-				System.out.println(player.getYPos());
-			}
-		}
+				System.out.println(lvl.player.getXPos());
+				System.out.println(lvl.player.getYPos());
+//			}
+//		}
 	}
 
 	// Nehmen eines Lebens-trankts

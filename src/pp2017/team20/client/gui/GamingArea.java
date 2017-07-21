@@ -254,37 +254,47 @@ public class GamingArea extends JFrame implements KeyListener {
 		// aktuelle Position des Spielers wird übergeben
 		int xPos = player.getXPos();
 		int yPos = player.getYPos();
-
+		System.out.println(player.getXPos()+"xx");
+		System.out.println(player.getYPos()+"yy");
 		if (!gameEnd) {
 			// wenn die Pfeiltaste nach oben gedrueckt wird und das Feld ueber
 			// dem aktuellen Feld des Spielers keine Wand ist, bewege den
 			// Spieler ein Feld nach oben
 			if (e.getKeyCode() == KeyEvent.VK_UP) {
-				if (yPos > 0 && !(level.getLvlMazePosition(xPos, yPos - 1) == 0))
+				if (yPos > 0 && !(level.getLvlMazePosition(xPos, yPos - 1) == 18))
 					System.out.println("Bewegung");
-					engine.sendMoveMessage(clientID, xPos, yPos--, player.playerID);
+					yPos=yPos-1;
+					System.out.println(player.getXPos()+"XX");
+					System.out.println(player.getYPos()+"YY");
+					engine.sendMoveMessage(clientID, xPos, yPos, player.playerID);
 			}
 			// wenn die Pfeiltaste nach untenn gedrueckt wird und das Feld unter
 			// dem aktuellen Feld des Spielers keine Wand ist, bewege den
 			// Spieler ein Feld nach unten
 			else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-				if (yPos < HEIGHT - 1 && !(level.getLvlMazePosition(player.getXPos(), player.getYPos() + 1) == 0))
-					engine.sendMoveMessage(clientID, xPos, yPos++, player.playerID);
+				if (yPos < HEIGHT - 1 && !(level.getLvlMazePosition(xPos, yPos+1) == 0)){
+					yPos=yPos+1;
+					engine.sendMoveMessage(clientID, xPos, yPos, player.playerID);
+				}
 			}
 			// wenn die Pfeiltaste nach links gedrueckt wird und das Feld links
 			// neben dem aktuellen Feld des Spielers keine Wand ist, bewege den
 			// Spieler ein Feld nach links
 			else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-				if (xPos > 0 && !(level.getLvlMazePosition(xPos - 1, yPos) == 0))
-					engine.sendMoveMessage(clientID, xPos--, yPos, player.playerID);
+				if (xPos > 0 && !(level.getLvlMazePosition(xPos - 1, yPos) == 0)){
+					xPos=xPos-1;
+					engine.sendMoveMessage(clientID, xPos, yPos, player.playerID);
+				}
 			}
 			// wenn die Pfeiltaste nach rechts gedrueckt wird und das Feld
 			// rechts neben dem
 			// aktuellen Feld des Spielers keine Wand ist, bewege den Spieler
 			// ein Feld nach rechts
 			else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-				if (xPos < WIDTH - 1 && !(level.getLvlMazePosition(xPos + 1, yPos) == 0))
-					engine.sendMoveMessage(clientID, xPos++, yPos, player.playerID);
+				if (xPos < WIDTH - 1 && !(level.getLvlMazePosition(xPos + 1, yPos) == 18)){
+					xPos=xPos+1;
+					engine.sendMoveMessage(clientID, xPos, yPos, player.playerID);
+				}
 			}
 			// wenn Taste Q gedrueckt wird und ein Monster in der Naehe des
 			// Spielers ist, wird dieses angegriffen und in seinen Lebenspunkten
