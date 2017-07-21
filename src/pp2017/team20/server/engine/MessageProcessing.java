@@ -183,9 +183,10 @@ public class MessageProcessing {
 						player.xPos = message.xPos;
 						player.yPos = message.yPos;
 						// Gebe zur�ck dass der Schritt erfolgreich
-						message.success = true;
+						
 						System.out.println(player.playername + " "+ "Hat sich ein Feld bewegt");
 						MoveMessage move=new MoveMessage(1,player.xPos,player.yPos,player.getPlayerID());
+						
 						move.setSuccess(true);
 						comm.sendeNachricht(move);
 						
