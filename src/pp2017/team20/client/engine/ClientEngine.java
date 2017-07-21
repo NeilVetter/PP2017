@@ -434,7 +434,7 @@ public class ClientEngine {
 	public void receiveLogOutMessage(LogOutMessage message) {
 		if (message.success) {
 			// Zeigt nach dem Ausloggen wieder das Anmeldefenster an
-			window.login();
+			window.login(null, null);
 		}
 	}
 
