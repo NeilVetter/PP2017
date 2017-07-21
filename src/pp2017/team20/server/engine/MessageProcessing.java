@@ -17,7 +17,7 @@ public class MessageProcessing {
 	Queue<Message> MessageQueue = new LinkedList<Message>();
 	
 	
-	public ServerKommunikation comm= new ServerKommunikation();
+	public ServerCommunication comm= new ServerCommunication();
 	public Levelmanagement lvl;
 	static boolean lvlLoaded = false;
 	

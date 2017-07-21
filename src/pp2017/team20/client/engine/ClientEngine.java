@@ -24,7 +24,7 @@ import pp2017.team20.server.map.*;
 public class ClientEngine {
 
 	// Aufbau der Kommunikation zwischen CLient und Server
-	ClientKommunikation communication;
+	ClientCommunication communication;
 	// Spielfenster erstellen
 	public GamingArea window;
 	public Level level;
@@ -41,7 +41,7 @@ public class ClientEngine {
 	 * 
 	 */
 
-	public ClientEngine(ClientKommunikation communication, GamingArea window) {
+	public ClientEngine(ClientCommunication communication, GamingArea window) {
 		this.communication = communication;
 		this.window = window;
 	}
@@ -77,7 +77,7 @@ public class ClientEngine {
 	 * @author Wagner, Tobias, 5416213
 	 */
 	public void receiveMessage() {
-		Message msg = communication.erhalteNachricht();
+		Message msg = communication.receiveMessage();
 		receiveRequest(msg);
 	}
 
@@ -97,7 +97,7 @@ public class ClientEngine {
 	public void sendLogInMessage(int clientID, String username, String password) {
 //		if (password.equals(keylog)) {
 			LogInMessage message = new LogInMessage(clientID, username, password);
-			communication.sendeNachricht(message);
+			communication.sendMessage(message);
 //		}
 	}
 
@@ -111,7 +111,7 @@ public class ClientEngine {
 
 	public void sendLogOutMessage(int clientID) {
 		LogOutMessage message = new LogOutMessage(clientID);
-		communication.sendeNachricht(message);
+		communication.sendMessage(message);
 	}
 
 	/**
@@ -132,7 +132,7 @@ public class ClientEngine {
 			System.out.println(window.player.getYPos());
 			System.out.println("zuvor");
 			MoveMessage message = new MoveMessage(clientID, xPos, yPos, playerID);
-			communication.sendeNachricht(message);
+			communication.sendMessage(message);
 		}
 	}
 
@@ -147,7 +147,7 @@ public class ClientEngine {
 
 	public void sendAttackMessage(int clientID, int attackID, int playerID, int monsterID) {
 		AttackMessage message = new AttackMessage(clientID, attackID, playerID, monsterID);
-		communication.sendeNachricht(message);
+		communication.sendMessage(message);
 	}
 
 	/**
@@ -161,7 +161,7 @@ public class ClientEngine {
 
 	public void sendCollectPotionMessage(int clientID) {
 		CollectPotionMessage message = new CollectPotionMessage(clientID);
-		communication.sendeNachricht(message);
+		communication.sendMessage(message);
 	}
 
 	/**
@@ -178,7 +178,7 @@ public class ClientEngine {
 		// instanceof Key
 		if (window.level.getLvlMazePosition(window.player.getXPos(), window.player.getYPos() ) == 5) {
 			CollectKeyMessage message = new CollectKeyMessage(clientID);
-			communication.sendeNachricht(message);
+			communication.sendMessage(message);
 		}
 	}
 
@@ -217,10 +217,10 @@ public class ClientEngine {
 		if (id == -1) {
 			if (window.player.getHealthPotNumber() > 0) {
 				UsePotionMessage message = new UsePotionMessage(clientID, -1, playerID);
-				communication.sendeNachricht(message);
+				communication.sendMessage(message);
 			} else {
 				UsePotionMessage message = new UsePotionMessage(clientID, id, playerID);
-				communication.sendeNachricht(message);
+				communication.sendMessage(message);
 			}
 		}
 	}
@@ -236,7 +236,7 @@ public class ClientEngine {
 
 	public void sendNextLevelMessage(int clientID) {
 		NextLevelMessage message = new NextLevelMessage(clientID);
-		communication.sendeNachricht(message);
+		communication.sendMessage(message);
 	}
 
 	/**
@@ -250,7 +250,7 @@ public class ClientEngine {
 
 	public void sendHighscoreMessage(int clientID, String user, int time) {
 		HighScoreMessage message = new HighScoreMessage(clientID, user, time);
-		communication.sendeNachricht(message);
+		communication.sendMessage(message);
 	}
 
 	/**
@@ -263,7 +263,7 @@ public class ClientEngine {
 
 	public void sendChatMessage(int clientID, String content) {
 		ChatMessage message = new ChatMessage(clientID, content);
-		communication.sendeNachricht(message);
+		communication.sendMessage(message);
 	}
 
 	/**
@@ -276,7 +276,7 @@ public class ClientEngine {
 
 	public void sendNewGameMessage(int clientID) {
 		NewGameMessage message = new NewGameMessage(clientID);
-		communication.sendeNachricht(message);
+		communication.sendMessage(message);
 	}
 
 	/**
