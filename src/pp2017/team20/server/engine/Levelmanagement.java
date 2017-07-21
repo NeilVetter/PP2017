@@ -123,7 +123,7 @@ public class Levelmanagement implements Serializable {
 					MonsterList.add(monster);
 					monsterID++;
 			}
-				else if (maze.Map[i][j]== 6){
+				else if (maze.Map[i][j]== 3){
 					doorx =j;
 					doory =i;
 				}}
