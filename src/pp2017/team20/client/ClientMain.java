@@ -23,16 +23,10 @@ public class ClientMain {
 	 * 					Wagner, Tobias, 5416213
 	 * 
 	 */
-
-	//Variablen, die die Groesse des Spielfensters angeben bzw. bestimmen
-//	public static final int BOX = 38;
-//	public static final int WIDTH = 19, HEIGHT = 19;
 	
 	//startet das Spiel
 	public static void main(String args[]) {
 		GamingArea window;
-		
-		//		Registration.main(null);
 		window=new GamingArea("Mario's Adventure");
 		
 
