@@ -26,13 +26,14 @@ public class ClientEngine {
 
 	// Aufbau der Kommunikation zwischen CLient und Server
 	ClientKommunikation communication;
-	// Spielfenster erstellen
+	// Spielfenster erstellen und Level laden
 	public GamingArea window;
 	public Level level;
-	public GamingArea getWindow(){
+
+	//Spielfenster anzeigen
+	public GamingArea getWindow() {
 		return window;
 	}
-	Queue <Message> MessageQueue = new LinkedList<Message>();
 
 	/**
 	 * 
@@ -46,30 +47,8 @@ public class ClientEngine {
 		this.communication = communication;
 		this.window = window;
 	}
-	
-//	ClientHandler comm;
-//	Message msg = comm.getMessageFromServer();
-//	MessageQueue.add(msg);
-//	MessageProcess(MessageQueue);
-//	
-//	// Nimmt eine Message aus dem Queue und entscheidet welcher Unterklasse sie
-//		// angeh�rt
-//		public void MessageProcess(Queue<Message> queue) {
-//
-//			try {
-//				// Pr�ft solange eine Message im Queue ist welchen Typ die
-//				// Nachricht hat
-//				while (!queue.isEmpty()) {
-//
-//					Message msg = queue.poll();
-//					receiveRequest(msg);
-//				}
-//			} catch (Exception e) {
-//
-//			}
-//		}
-	
-	
+
+
 	/**
 	 * 
 	 * Methode um Nachricht zu empfangen
@@ -79,28 +58,23 @@ public class ClientEngine {
 	 */
 	public void receiveMessage() {
 		Message msg = communication.erhalteNachricht();
-		//MessageQueue.add(msg);
 		receiveRequest(msg);
 	}
-
 	
 
 	// Erstellung der Nachrichten, die an den Server geschickt werden
 
 	/**
 	 * 
-	 * Erstellung einer Einlognachricht, die das eingegebene Passwort
-	 * ueberprueft
+	 * Erstellung einer Einlognachricht
 	 * 
 	 * @author Wagner, Tobias, 5416213
 	 * 
 	 */
 
 	public void sendLogInMessage(int clientID, String username, String password) {
-//		if (password.equals(keylog)) {
-			LogInMessage message = new LogInMessage(clientID, username, password);
-			communication.sendeNachricht(message);
-//		}
+		LogInMessage message = new LogInMessage(clientID, username, password);
+		communication.sendeNachricht(message);
 	}
 
 	/**
@@ -127,9 +101,9 @@ public class ClientEngine {
 	 */
 
 	public void sendMoveMessage(int clientID, int xPos, int yPos, int playerID) {
-		
-		//instanceof wall ersetzt durch 0
-		if (!(window.level.getLvl().getLvlMazePosition(window.player.getXPos(), window.player.getYPos() ) == 0)) {
+
+		//Ueberpruefen, ob man sich auf eine gueltige Position bewegt, also keine Wand.
+		if (!(window.level.getLvl().getLvlMazePosition(window.player.getXPos(), window.player.getYPos()) == 0)) {
 			System.out.println(window.player.getXPos());
 			System.out.println(window.player.getYPos());
 			System.out.println("zuvor");
@@ -150,9 +124,6 @@ public class ClientEngine {
 	public void sendAttackMessage(int clientID, int attackID, int defendID, int hpDefender) {
 		AttackMessage msg = new AttackMessage(clientID, 1, attackID, defendID, hpDefender);
 		communication.sendeNachricht(msg);
-		//TODO
-		//AttackMessage message = new AttackMessage(clientID, attackID, playerID, monsterID);
-		//communication.sendeNachricht(message);
 	}
 
 	/**
@@ -165,7 +136,7 @@ public class ClientEngine {
 	 */
 
 	public void sendCollectPotionMessage(int clientID, int x, int y) {
-		CollectPotionMessage message = new CollectPotionMessage(clientID,x, y, window.player.getPlayerID());
+		CollectPotionMessage message = new CollectPotionMessage(clientID, x, y, window.player.getPlayerID());
 		communication.sendeNachricht(message);
 	}
 
@@ -180,39 +151,16 @@ public class ClientEngine {
 	 */
 
 	public void sendCollectKeyMessage(int clientID) {
-		// instanceof Key
-		if (window.level.getLvlMazePosition(window.player.getXPos(), window.player.getYPos() ) == 5) {
+		if (window.level.getLvlMazePosition(window.player.getXPos(), window.player.getYPos()) == 5) {
 			CollectKeyMessage message = new CollectKeyMessage(clientID, window.player.getPlayerID());
 			communication.sendeNachricht(message);
 		}
 	}
 
-	/**
-	 * 
-	 * Erstellung einer Nachricht, in der geprueft wird, ob sich der Spieler auf einem Feld mit einer Tuer befindet. 
-	 * Hat der Spieler zudem noch einen Schluessel, so wird die Tuere geoeffnet
-	 * 
-	 * @author Wagner, Tobias, 5416213
-	 * 
-	 */
-	
-//	public void sendOpenDoorMessage(int clientID) {
-//		//instanceof door
-//		if (window.level[window.player.getXPos()][window.player.getXPos()] instanceof Door && 
-//				//door
-//				//((ddor) window...
-//				(window.level[window.player.getXPos()][window.player.getYPos()]).key) {
-//					OpenDoorMessage message = new OpenDoorMessage(clientID);
-//					communication.sendMessageToServer(message);
-//		}
-//	}
 
 	/**
 	 * 
-	 * Erstellung einer Nachricht, in der zunaechst geprueft wird, ob der
-	 * Spieler mindestens einen Trank zur Verfuegung hat. Falls ja, wird ein
-	 * Trank genutzt. Die Variable id gibt hierbei den aktuellen Spieler an, -1
-	 * fuer den ersten Spieler, id bezeichnet den anderen Spieler
+	 * Erstellung einer Nachricht,um einen Trank benutzen bzw aufnehmen zu koennen
 	 * 
 	 * @author Wagner, Tobias, 5416213
 	 * 
@@ -264,18 +212,6 @@ public class ClientEngine {
 		communication.sendeNachricht(message);
 	}
 
-	/**
-	 * 
-	 * Erstellung einer Nachricht, in der ein neues Spiel erzeugt wird.
-	 * 
-	 * @author Wagner, Tobias, 5416213
-	 * 
-	 */
-
-	public void sendNewGameMessage(int clientID) {
-		NewGameMessage message = new NewGameMessage(clientID);
-		communication.sendeNachricht(message);
-	}
 
 	/**
 	 * Methode zum Empfangen von Nachrichten, die vom Server geschickt werden.
@@ -290,8 +226,6 @@ public class ClientEngine {
 		// Unterscheidung der eingehenden Nachrichten und casten in das Objekt
 		// message
 
-
-		
 		// EinlogNachricht empfangen
 		if (msg instanceof LogInMessage) {
 			LogInMessage message = (LogInMessage) msg;
@@ -328,12 +262,6 @@ public class ClientEngine {
 			receiveCollectKeyMessage(message);
 		}
 
-		// Tuer Nachricht empfangen
-//		else if (msg instanceof OpenDoorMessage) {
-//			OpenDoorMessage message = (OpenDoorMessage) msg;
-//			receiveOpenDoorMessage(message);
-//		}
-
 		// Benutze Trank empfangen
 		else if (msg instanceof UsePotionMessage) {
 			UsePotionMessage message = (UsePotionMessage) msg;
@@ -358,73 +286,76 @@ public class ClientEngine {
 			receiveChatMessage(message);
 		}
 
-		// Neues Spiel Nachricht empfangen
-		else if (msg instanceof NewGameMessage) {
-			NewGameMessage message = (NewGameMessage) msg;
-			receiveNewGameMessage(message);
-		}
-		
-		else if (msg instanceof UpdateMonsterMessage){
+		//Monster fuer das Level empfangen
+		else if (msg instanceof UpdateMonsterMessage) {
 			UpdateMonsterMessage message = (UpdateMonsterMessage) msg;
-			if(((UpdateMonsterMessage) msg).get().type == 0);
-				recieveMonsterUpdateMessage(message);
+			if (((UpdateMonsterMessage) msg).get().type == 0)
+				;
+			recieveMonsterUpdateMessage(message);
 		}
 		
-		else if (msg instanceof DeathMessage){
+		//Nachricht empfangen, dass ein Monster besiegt wurde
+		else if (msg instanceof DeathMessage) {
 			DeathMessage message = (DeathMessage) msg;
 			recieveDeatheMessage(message);
 		}
 
 	}
+	
+
+	// Ab hier werden die Nachrichten behandelt, die vom Server empfangen werden
+
+	/**
+	 * 
+	 * Erstellung einer Nachricht, in der mittgeteilt wird, dass ein Monster
+	 * besiegt wurde. Ist es besiegt, wird das Monster aus der Liste und der Map
+	 * entfernt
+	 * 
+	 * @author Wagner, Tobias, 5416213
+	 * @author Sell, Robin, 6071120
+	 */
 
 	private void recieveDeatheMessage(DeathMessage message) {
-		if(message.type == 0){
+		if (message.type == 0) {
 			sendObject tmp = null;
-			for (sendObject m : window.monster){
-				if(m.ID == message.id){
+			for (sendObject m : window.monster) {
+				if (m.ID == message.id) {
 					tmp = m;
 				}
 			}
-			if(tmp != null){
+			if (tmp != null) {
 				window.monster.remove(tmp);
 			}
 		}
 	}
 
-	// Ab hier werden die Nachrichten behandlet, die vom Server empfangen werden
+	/**
+	 * 
+	 * In dieser Nachricht werden die Monster fuer das Level geladen und auf die
+	 * Positionen im Level platziert
+	 * 
+	 * @author Wagner, Tobias, 5416213
+	 * @author Sell, Robin, 6071120
+	 */
 
 	private void recieveMonsterUpdateMessage(UpdateMonsterMessage message) {
-		//System.out.println("Monster recieved at postition: " + message.get().posX + " " + message.get().posY + " strength: " + message.get().strength + "id" + message.get().id) ;
-		
-		
-		//TODO welche liste ist für was?
+
 		boolean changed = false;
-		for(sendObject m : window.monster){
-			if (m.ID == message.get().ID){
+		for (sendObject m : window.monster) {
+			if (m.ID == message.get().ID) {
 				m.posX = message.get().posX;
 				m.posY = message.get().posY;
 				changed = true;
 			}
 		}
-		if(!changed){
+		if (!changed) {
 			window.monster.add(message.get());
 		}
 
-		for(sendObject m : window.monster){
+		for (sendObject m : window.monster) {
 			System.out.println("monsterID: " + m.ID + " pos: " + m.posX + " " + m.posY);
 		}
-		
-		/*
-		for(Monster monster : window.buffermonsterList){
-			if (monster.monsterID == message.get().getId()){
-				monster = message.get();
-				changed = true;
-			}
-		}
-		*/
-		//window.buffermonsterList = message.get();
-		//window.monsterList = message.get();
-		
+
 	}
 
 	/**
@@ -444,57 +375,31 @@ public class ClientEngine {
 		if (message.getSuccess()) {
 			window.setSuccess(true);
 			// Laedt das Level
-			//window.setPlayer(message.getPlayer());
 			window.level = message.getLevel();
-//			System.out.println(window.level.getlvlMaze(1, 1));
 			// Laedt die Startposition des Spielers
-			
-			for(int i=0;i<message.getLevel().getlvlMaze().length;i++){
-				for(int j=0;j<message.getLevel().getlvlMaze().length;j++){
-					if(message.getLevel().getLvlMazePosition(i, j)==2){
+
+			for (int i = 0; i < message.getLevel().getlvlMaze().length; i++) {
+				for (int j = 0; j < message.getLevel().getlvlMaze().length; j++) {
+					if (message.getLevel().getLvlMazePosition(i, j) == 2) {
+						//Erzeugen bzw laden des Spielers
 						Player player = new Player();
+						//Position des Spielers im Level zu beginn
 						player.setXPos(i);
 						player.setYPos(j);
+						//Player uebergeben an GUI
 						window.player = player;
 						window.player.setPlayerID(message.playerID);
 						System.out.println("NEUES LEVEL BAUEN");
 					}
 				}
 			}
-			// Laedt die Monster des Levels
-			//window.buffermonsterList = message.getLevel().monsterList;
-			// Wen die Spielfeldkachel nicht vom Spieler belegt wird, also
-			// ungleich -1 ist, dann wird ein Monster platziert
-//			for (int i = 0; i < message.getLevel().getlvlMaze().length; i++) {
-//				for (int j = 0; j < message.getLevel().getlvlMaze().length; j++) {
-//					if (message.getLevel().getlvlMazePostion(i, j) != -1) {
-//						window.buffermonsterList.get(message.getLevel().monsterfield[i][j]).setPos(i, j);
-//					}
-//				}
-//			}
-			// Anzeigen der Spielwelt
-			
-			window.showGamingWorld();
-			
-			window.setVisible(true);
-		
-//			window.startNewGame();
 
-			// Wenn man sich nicht zum ersten Mal einloggt, muss kein komplett
-			// neues Spiel gestartet werden
-//			if (window.firstLogIn = true) {
-//				window.firstLogIn = false;
-//			} else {
-//				window.startNewGame();
-//			}
-//		}
-		// Waren die eingegebenen Daten nicht korrekt, wird eine Fehlermeldung
-		// angezeigt
-//		else {
-//			JOptionPane.showMessageDialog(window, "Wrong user or wrong password");
-//			window.login();
-	}
-		
+			// Anzeigen der Spielwelt
+			window.showGamingWorld();
+			window.setVisible(true);
+
+		}
+
 	}
 
 	/**
@@ -514,8 +419,7 @@ public class ClientEngine {
 
 	/**
 	 * 
-	 * Empfangen einer Bewegungsnachricht. Hierbei muss unterschieden werden, ob
-	 * sich der Spieler oder ein Monster bewegt.
+	 * Empfangen einer Bewegungsnachricht.
 	 * 
 	 * @author Wagner, Tobias, 5416213
 	 * 
@@ -524,19 +428,10 @@ public class ClientEngine {
 	public void receiveMoveMessage(MoveMessage message) {
 		System.out.println("test");
 		if (message.success) {
-			// Hier fuehrt der Spieler eine Bewegung aus
-			// xPos und yPos geben die neue Position des Spielers an
-//			if (message.id == 1) {
-				window.player.setPos(message.xPos, message.yPos);
-				System.out.println(window.player.getXPos());
-				System.out.println(window.player.getYPos());
-//			}
-			// Es findet eine Monsterbewegung statt. xPos und yPos bezeichnen
-			// die neue Position des Monsters
-//			else {
-//				window.monsterList.get(message.id).setPos(message.xPos, message.yPos);
-//			}
-
+			//Umsetzen der Bewegung und uebermitteln der neuen Position
+			window.player.setPos(message.xPos, message.yPos);
+			System.out.println(window.player.getXPos());
+			System.out.println(window.player.getYPos());
 		}
 	}
 
@@ -546,17 +441,18 @@ public class ClientEngine {
 	 * Spieler oder ein Monster angreift
 	 * 
 	 * @author Wagner, Tobias, 5416213
+	 * @author Sell, Robin, 6071120
 	 * 
 	 */
 
 	public void receiveAttackMessage(AttackMessage message) {
-		if(message.attackType == 0){ //Monster greif Spieler an
+		if (message.attackType == 0) { // Monster greift Spieler an
 			System.out.println("recieved attack message a: " + message.attackID + " d: " + message.defendID + " ");
-			if(window.player.getPlayerID() == message.defendID){
+			if (window.player.getPlayerID() == message.defendID) {
 				window.player.setHealth(message.hpDefender);
 			}
 		}
-		
+
 	}
 
 	/**
@@ -573,13 +469,11 @@ public class ClientEngine {
 			int xPos = window.player.getXPos();
 			int yPos = window.player.getYPos();
 			// Steht der Spieler auf einem Trank, so wird dieser aufgenommen
-			//Potion hat Zahl 4
-			//instanceof Potion
-			if (window.level.getLvlMazePosition(window.player.getXPos(), window.player.getYPos() ) == 4) {
+			if (window.level.getLvlMazePosition(window.player.getXPos(), window.player.getYPos()) == 4) {
 				window.player.collectPotion();
 				// An die Stelle des Trankes wird eine leere Spielkachel
 				// platziert
-				window.level.setLvlMaze(xPos, yPos,4); //new Ground(); // @tobi so sollte es jetzt gehen. 
+				window.level.setLvlMaze(xPos, yPos, 4);
 			}
 		}
 	}
@@ -593,26 +487,11 @@ public class ClientEngine {
 	 */
 
 	public void receiveCollectKeyMessage(CollectKeyMessage message) {
-		if(window.player.getPlayerID() == message.playerId){
+		if (window.player.getPlayerID() == message.playerId) {
 			window.player.ownsKey = true;
 		}
 	}
 
-	/**
-	 * 
-	 * Empfangen einer Nachricht, um eine Tuere zu oeffnen
-	 * 
-	 * @author Wagner, Tobias, 5416213
-	 * 
-	 */
-
-//	public void receiveOpenDoorMessage(OpenDoorMessage message) {
-//		if (message.success) {
-//			// Nach dem Oeffnen der Tuere wird ein neues Level geladen
-//			window.player.openDoor();
-//			window.NextLevel();
-//		}
-//	}
 
 	/**
 	 * 
@@ -623,9 +502,11 @@ public class ClientEngine {
 	 */
 
 	public void receiveUsePotionMessage(UsePotionMessage message) {
-		if (window.player.getPlayerID() == message.playerID){
+		if (window.player.getPlayerID() == message.playerID) {
+			//Ueberpruefen,b der Spieler genuegend Traenke hat
 			window.player.healthPotNumber += message.type;
-			if (message.type < 0){
+			if (message.type < 0) {
+				//Anpassen der Lebensenergie des Spielers
 				window.player.changeHealth(30);
 			}
 		}
@@ -720,36 +601,6 @@ public class ClientEngine {
 			window.chat.chatOutput.append(messageContent);
 			break;
 		}
-	}
-
-	/**
-	 * 
-	 * Empfangen einer Nachricht, dass ein neues Spiel erstellt werden soll.
-	 * Dazu werden das Spielfeld sowie die Monster vom Server empfangen
-	 * 
-	 * @author Wagner, Tobias, 5416213
-	 * 
-	 */
-
-	public void receiveNewGameMessage(NewGameMessage message) {
-		if (message.success) {
-			window.level = message.getLevel();
-			window.xPos = message.getLevel().getxPos();
-			window.yPos = message.getLevel().getyPos();
-			window.buffermonsterList = message.getLevel().monsterList;
-			// Wen die Spielfeldkachel nicht vom Spieler belegt wird, also
-			// ungleich -1 ist, dann wird ein Monster platziert
-			for (int i = 0; i < message.getLevel().monsterfield.length; i++) {
-				for (int j = 0; j < message.getLevel().monsterfield.length; j++) {
-					if (message.getLevel().monsterfield[i][j] != -1) {
-						window.buffermonsterList.get(message.getLevel().monsterfield[i][j]).setPos(i, j);
-					}
-				}
-			}
-		}
-
-		window.resetGame();
-		window.showGamingWorld();
 	}
 
 }
