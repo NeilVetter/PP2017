@@ -111,58 +111,18 @@ public class Registration {
 				if(arg0.getSource() == btnNewButton){
 					 username = textField.getText();
 					 password = passwordField.getText();
+					 //speichert den eingegebenen Username und Password.
+					 //startet die Client Methode "Login"
 					 ga.login(username,password);
 					
 				}
 					
 				
-				
-				/*Sobald der Benutzer auf den Knopf dr�ckt, 
-			  * wird hier der >Benutzername< und das >Passwort<
-			  * mit der Datenbank vergliechen. */
-				/*try{
-					
-				 String query="select * from User where username=? and userpw=?";
-				 PreparedStatement pst= connection.prepareStatement(query);
-				 //Textfeld wird mit Username verbunden
-				 pst.setString(1, textField.getText());
-				 //Passwortfeld mit Userpw
-				 pst.setString(2, passwordField.getText()); 
-				 ResultSet rs=pst.executeQuery();
-				 int i=0;
-				 while(rs.next()){
-					 i++;
-				 }
-				 if(i==1){
-					 //Wenn Benutzername und Passwort korrekt und sich in der db. befinden
-					 JOptionPane.showMessageDialog(null, "Username and Password is correct");
-					 new GamingArea("Mario's Adventure");
-					 window.dispose();
-					 succses =true;
-				 }
-				 else{
-					 //Wenn Benutzername oder das Passwort falsch sind.
-					 // oder Spieler nicht registriert
-					 JOptionPane.showMessageDialog(null, "Wrong Username or Password");
-				 }
-				 rs.close();
-				 pst.close();
-			 }catch(Exception e){
-				 System.out.println( "Fehler" + e);
-			 }*/
 			}
 
-			public void regclient(){
-				String nickname = textField.getText();
-				String pwt = passwordField.getText();
-				
-				try {
-					//engine.sendLogInMessage(1,nickname,pwt);
-					} catch ( Exception e2){
-						e2.printStackTrace();
-					}
+			
 					
-			}
+			
 				
 			
 		

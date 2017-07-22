@@ -6,7 +6,13 @@ import javax.swing.*;
 
 import pp2017.team20.client.gui.Registration;
 
+/** 
+ * Diese Klasse überprüft mithilfe der SqLite Datenbank, den Benutzernamen und das Passwort und gibt
+ * bei einer korrekten Eingabe einen Boolean zurück.
+ * 
+ *  @author Hamid, Kirli 6041663*/
 public class Loginengine {
+	
 	
 	public static boolean logIn( String username , String password)  {
 		boolean succses = true;
@@ -29,15 +35,16 @@ public class Loginengine {
 		 
 		 if(i==1){
 			 //Wenn Benutzername und Passwort korrekt und sich in der db. befinden
-			// JOptionPane.showMessageDialog(null, "Username and Password is correct");
+			
 			 
 			 succses = true;
-			Registration.window.dispose();
+			//Schliesst das Registrationsfenster
+			 Registration.window.dispose();
 			
 		 }
 		 else{
-			 //Wenn Benutzername oder das Passwort falsch sind.
-			 // oder Spieler nicht registriert
+			 //Wenn Benutzername oder das Passwort falsch sind
+			 // oder Spieler nicht registriert ist
 		
 			 JOptionPane.showMessageDialog(null, "Wrong Username or Password");
 		succses= false;
