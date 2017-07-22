@@ -38,7 +38,7 @@ public class Control extends JPanel {
 		// Hintergrund wird gezeichnet
 		for (int i = 0; i < 19; i++) {
 			for (int j = 0; j < 19; j++) {
-				g.drawImage(floor, 40 * i, 40 * j, null);
+				g.drawImage(floor, 32 * i, 32 * j, null);
 			}
 		}
 		// Bild mit Tastaturbefehlen wird gezeichnet

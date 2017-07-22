@@ -36,15 +36,15 @@ public class MenuBar extends JMenuBar implements ActionListener {
 	public MenuBar(GamingArea window) {
 		this.window = window;
 
-		game = new JMenu("Game");
-		display = new JMenu("Display");
-		help = new JMenu("Help");
+		game = new JMenu("Spiel");
+		display = new JMenu("Anzeigen");
+		help = new JMenu("Hilfe");
 
-		newGame = new JMenuItem("New Game");
-		exitGame = new JMenuItem("Exit Game");
-		logOut = new JMenuItem("Log Out");
-		highscore = new JMenuItem("Show Highscore");
-		control = new JMenuItem("Control");
+		newGame = new JMenuItem("Neues Spiel");
+		exitGame = new JMenuItem("Spiel Beenden");
+		logOut = new JMenuItem("Ausloggen");
+		highscore = new JMenuItem("Highscore anzeigen");
+		control = new JMenuItem("Steuerung");
 
 		newGame.addActionListener(this);
 		exitGame.addActionListener(this);
@@ -82,6 +82,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
 		} else if (e.getSource() == exitGame) {
 			System.exit(0);
 		} else if (e.getSource() == logOut) {
+			window.engine.sendLogOutMessage(window.playerID);
 			System.out.println("Spieler hat sich ausgeloggt.");
 			System.exit(0);
 		} else if (e.getSource() == control) {
@@ -92,6 +93,8 @@ public class MenuBar extends JMenuBar implements ActionListener {
 				window.showControl();
 				control.setText("Show Gaming World");
 			}
+		} else if (e.getSource() == control){
+			
 		}
 	}
 }

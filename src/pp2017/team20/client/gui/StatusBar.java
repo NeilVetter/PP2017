@@ -61,7 +61,7 @@ public class StatusBar extends JPanel {
 		// gezeichnet
 		g.drawImage(player, 190, 0, window.BOX, window.BOX, null);
 		g.setColor(Color.WHITE);
-		g.drawString("" + window.player.getPlayername(), window.BOX * (window.WIDTH - 13), 25);
+		//g.drawString("" + window.player.getPlayername(), window.BOX * (window.WIDTH - 13), 25);
 
 		// das Symbol fuer die Lebenstraenke und die Anzahl werden in die Mitte
 		// unter das Spielfeld gezeichnet
