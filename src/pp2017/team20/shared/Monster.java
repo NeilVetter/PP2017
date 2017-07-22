@@ -1,6 +1,8 @@
 package pp2017.team20.shared;
 
 import pp2017.team20.server.engine.Levelmanagement;
+import pp2017.team20.server.engine.MessageProcessing;
+
 import java.io.Serializable;
 
 import java.io.File;
@@ -32,7 +34,7 @@ public class Monster extends Figure implements Serializable {
 	private Player player;
 	public int monsterID;
 	public Levelmanagement lvl;
-	
+	public AttackMessage am;
 
 	public Monster(int monsterID, int x, int y, Levelmanagement lvl, int type) {
 		/**
@@ -214,6 +216,7 @@ public class Monster extends Figure implements Serializable {
 			lastAttack = System.currentTimeMillis();
 			player.changeHealth(-getDamage());
 			state = 2; // koennte auch weggelassen werden, aber zur Uebersicht
+			am = new AttackMessage(1, 0, this.getId(), player.getPlayerID(), player.getHealth());
 			return playerINRadius;
 		}
 

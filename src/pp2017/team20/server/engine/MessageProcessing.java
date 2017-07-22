@@ -45,13 +45,40 @@ public class MessageProcessing {
 			System.out.println("Monsterspawn1");
 			
 			ArrayList<sendObject> monsterOld= new ArrayList<sendObject>();
-			
+			ArrayList<AttackMessage> attacks = new ArrayList<AttackMessage>();
 			while(true){
 				boolean change = false;
 				
 				try{
 					Thread.sleep(50);
+					boolean sendAttack = false;
+					boolean noMatch = true;
+					AttackMessage tmp = null;
 					for(Monster monster: lvl.MonsterList){
+						if (monster.am != null) {
+							for (AttackMessage attack : attacks) {
+								if(attack.attackID == monster.monsterID){
+									if (attack != monster.am){
+										sendAttack = true;
+										tmp = attack;
+									}
+									noMatch = false;
+								}
+							}
+							if(sendAttack){
+								sendAttackMessage(monster.am);
+								attacks.remove(tmp);
+								attacks.add(monster.am);
+							}
+							if(noMatch){
+								sendAttackMessage(monster.am);
+								attacks.add(monster.am);
+							}
+							
+						}
+						
+						
+						
 						monster.tacticMonster();
 						boolean inList = false;
 						for(sendObject m :monsterOld ){
@@ -332,56 +359,56 @@ public class MessageProcessing {
 	// Funktioniert noch nicht, da Monster Klasse nicht eingebungden
 	public void AttackMessageProcessing(AttackMessage message) {
 
-		if (message.attackID == 1) {
-
-			for (int i = 0; i < lvl.MonsterList.size(); i++) {
-				Monster monster = lvl.MonsterList.get(i);
-				if (message.monsterID == monster.monsterID) {
-
-					// Monster prueft ob der Anngriff erfolgen darf und schickt
-					// dann die Nachricht
-					if (moveAllowed == true) {
-
-						// fuege dem Monster schaden zu
-						monster.setDamage(10);
-
-						// Falls das Monster auf <=0 Hp faellt entferne es aus
-						// dem Spiel
-						if (monster.getHealth() <= 0) {
-							lvl.MonsterList.remove(monster);
-							System.out.println("Monster gestorben");
-						}
-					}
-				}
-			}
-
-		} else if (message.attackID == 0) {
-
-			for (int i = 0; i < lvl.PlayerList.size(); i++) {
-				Player player = lvl.PlayerList.get(i);
-				if (message.playerID == player.playerID) {
-
-					if (moveAllowed == true) {
-
-						// fuege dem Player Schaden zu
-						player.setDamage(10);
-
-						// Falls der Player <=0 Hp faellt entferne Ihn aus der
-						// Liste
-						if (player.getHealth() <= 0) {
-							Player.LevelList.remove(player);
-							// Benutze Methode aus Levelmanagement um den
-							// Spieler an das anfangsfeld zu stellen
-							Levelmanagement l = new Levelmanagement(player);
-							l.placePlayer(player.playerID);
-							// regeneriere die stats des spielers
-							player.setHealth(100);
-							player.setMana(100);
-						}
-					}
-				}
-			}
-		}
+//		if (message.attackID == 1) {
+//
+//			for (int i = 0; i < lvl.MonsterList.size(); i++) {
+//				Monster monster = lvl.MonsterList.get(i);
+//				if (message.monsterID == monster.monsterID) {
+//
+//					// Monster prueft ob der Anngriff erfolgen darf und schickt
+//					// dann die Nachricht
+//					if (moveAllowed == true) {
+//
+//						// fuege dem Monster schaden zu
+//						monster.setDamage(10);
+//
+//						// Falls das Monster auf <=0 Hp faellt entferne es aus
+//						// dem Spiel
+//						if (monster.getHealth() <= 0) {
+//							lvl.MonsterList.remove(monster);
+//							System.out.println("Monster gestorben");
+//						}
+//					}
+//				}
+//			}
+//
+//		} else if (message.attackID == 0) {
+//
+//			for (int i = 0; i < lvl.PlayerList.size(); i++) {
+//				Player player = lvl.PlayerList.get(i);
+//				if (message.playerID == player.playerID) {
+//
+//					if (moveAllowed == true) {
+//
+//						// fuege dem Player Schaden zu
+//						player.setDamage(10);
+//
+//						// Falls der Player <=0 Hp faellt entferne Ihn aus der
+//						// Liste
+//						if (player.getHealth() <= 0) {
+//							Player.LevelList.remove(player);
+//							// Benutze Methode aus Levelmanagement um den
+//							// Spieler an das anfangsfeld zu stellen
+//							Levelmanagement l = new Levelmanagement(player);
+//							l.placePlayer(player.playerID);
+//							// regeneriere die stats des spielers
+//							player.setHealth(100);
+//							player.setMana(100);
+//						}
+//					}
+//				}
+//			}
+//		}
 	}
 
 	// Methode falls der Spieler noch durch andere Einwirkung sterben kann
@@ -493,6 +520,16 @@ public class MessageProcessing {
 		System.out.println("Eine Kopie des Levels wurde dem Client geschickt");
 
 	}
+	
+	public void sendAttackMessage(int type, int attackID, int defendID, int hpDefender){
+		AttackMessage msg = new AttackMessage(1, type, attackID, defendID, hpDefender);
+		comm.sendeNachricht(msg);
+	}
+	
+	public void sendAttackMessage(AttackMessage msg){
+		comm.sendeNachricht(msg);
+	}
+	
 	public Levelmanagement getLvl(){
 		return lvl;
 	}

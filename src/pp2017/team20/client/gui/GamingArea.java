@@ -388,10 +388,10 @@ public class GamingArea extends JFrame implements KeyListener {
 				engine.receiveMessage();
 				getGamingWorld().repaint();
 				getStatusBar().repaint();
-//				if (player.getHealth() <= 0) {
-//					gameEnd = true;
-//					gameLost = true;
-	//			}
+				if (player.getHealth() <= 0) {
+					gameEnd = true;
+					gameLost = true;
+				}
 			} else {
 				neededTime = (int) ((System.currentTimeMillis() - startTime) / 1000); 
 				

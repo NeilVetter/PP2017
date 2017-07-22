@@ -44,9 +44,11 @@ public class Levelmanagement implements Serializable {
 
 //abstest
 	public Levelmanagement(Player player) {
+		//this.mp = mp;
 		this.player=player;
 		newLevel(1,19);
 	}
+	
 
 	// Diese Methode erzeugt ein Map nach Vorgaben vom Levelgenerator
 	public void newLevel(int LevelID, int size) {

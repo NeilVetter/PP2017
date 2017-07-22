@@ -148,8 +148,9 @@ public class ClientEngine {
 	 */
 
 	public void sendAttackMessage(int clientID, int attackID, int playerID, int monsterID) {
-		AttackMessage message = new AttackMessage(clientID, attackID, playerID, monsterID);
-		communication.sendeNachricht(message);
+		//TODO
+		//AttackMessage message = new AttackMessage(clientID, attackID, playerID, monsterID);
+		//communication.sendeNachricht(message);
 	}
 
 	/**
@@ -533,35 +534,12 @@ public class ClientEngine {
 	 */
 
 	public void receiveAttackMessage(AttackMessage message) {
-		if (message.success) {
-			// Das ist der Fall, wenn der Spieler der ANgreifer und ein Monster
-			// der Verteidiger ist
-			if (message.attackID == -1 && message.defendID != -1) {
-				// Ist das Monster besiegt, also hat kein Leben mehr, so
-				// hinterlaesst es einen Trank
-//				if (message.hpDefender == 0) {
-//					window.maze[message.xPos][message.yPos] = new Potion();
-//				}
-//				// Andernfalls werden die Lebenspunkte des Monsters angepasst
-//				else {
-//					window.monsterListe.get(message.defendID).setHealth(message.hpDefender);
-//				}
-			if (message.hpDefender != 0) {
-				window.monsterList.get(message.defendID).setHealth(message.hpDefender);
-			}
-			}
-			// Hier ist das Monster der Angreifer und der Spieler der
-			// Verteidiger
-			else if (message.attackID != -1 && message.defendID == -1) {
-				// Lebenspunkte des Spielers werden angepasst
+		if(message.attackType == 0){ //Monster greif Spieler an
+			if(window.player.getPlayerID() == message.defendID){
 				window.player.setHealth(message.hpDefender);
-				// Fallen die Lebenspunkte des Spielers auf Null, so endet das
-				// Spiel
-				if (message.hpDefender == 0) {
-					window.gameEnd = true;
-				}
 			}
 		}
+		
 	}
 
 	/**
