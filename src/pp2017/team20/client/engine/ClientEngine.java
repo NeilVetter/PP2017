@@ -32,7 +32,7 @@ public class ClientEngine {
 	public GamingArea getWindow(){
 		return window;
 	}
-//	Queue <Message> MessageQueue = new LinkedList<Message>();
+	Queue <Message> MessageQueue = new LinkedList<Message>();
 
 	/**
 	 * 
@@ -79,6 +79,7 @@ public class ClientEngine {
 	 */
 	public void receiveMessage() {
 		Message msg = communication.erhalteNachricht();
+		//MessageQueue.add(msg);
 		receiveRequest(msg);
 	}
 
@@ -293,6 +294,8 @@ public class ClientEngine {
 		// Unterscheidung der eingehenden Nachrichten und casten in das Objekt
 		// message
 
+
+		
 		// EinlogNachricht empfangen
 		if (msg instanceof LogInMessage) {
 			LogInMessage message = (LogInMessage) msg;
@@ -364,10 +367,50 @@ public class ClientEngine {
 			NewGameMessage message = (NewGameMessage) msg;
 			receiveNewGameMessage(message);
 		}
+		
+		else if (msg instanceof UpdateMonsterMessage){
+			UpdateMonsterMessage message = (UpdateMonsterMessage) msg;
+			if(((UpdateMonsterMessage) msg).get().type == 0);
+				recieveMonsterUpdateMessage(message);
+		}
 
 	}
 
 	// Ab hier werden die Nachrichten behandlet, die vom Server empfangen werden
+
+	private void recieveMonsterUpdateMessage(UpdateMonsterMessage message) {
+		//System.out.println("Monster recieved at postition: " + message.get().posX + " " + message.get().posY + " strength: " + message.get().strength + "id" + message.get().id) ;
+		
+		
+		//TODO welche liste ist für was?
+		boolean changed = false;
+		for(sendObject m : window.monster){
+			if (m.ID == message.get().ID){
+				m.posX = message.get().posX;
+				m.posY = message.get().posY;
+				changed = true;
+			}
+		}
+		if(!changed){
+			window.monster.add(message.get());
+		}
+
+		for(sendObject m : window.monster){
+			System.out.println("monsterID: " + m.ID + " pos: " + m.posX + " " + m.posY);
+		}
+		
+		/*
+		for(Monster monster : window.buffermonsterList){
+			if (monster.monsterID == message.get().getId()){
+				monster = message.get();
+				changed = true;
+			}
+		}
+		*/
+		//window.buffermonsterList = message.get();
+		//window.monsterList = message.get();
+		
+	}
 
 	/**
 	 * 
@@ -402,7 +445,7 @@ public class ClientEngine {
 				}
 			}
 			// Laedt die Monster des Levels
-			window.buffermonsterList = message.getLevel().monsterList;
+			//window.buffermonsterList = message.getLevel().monsterList;
 			// Wen die Spielfeldkachel nicht vom Spieler belegt wird, also
 			// ungleich -1 ist, dann wird ein Monster platziert
 //			for (int i = 0; i < message.getLevel().getlvlMaze().length; i++) {

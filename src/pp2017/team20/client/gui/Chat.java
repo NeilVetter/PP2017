@@ -3,6 +3,7 @@ package pp2017.team20.client.gui;
 import java.awt.BorderLayout;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -58,11 +59,14 @@ public class Chat extends JPanel {
 		chatInput.requestFocusInWindow();
 
 		// 'Sende Nachricht' Button wird erstellt
-		send = new JButton("Send Message");
+		send = new JButton("Send");
 		send.setBackground(Color.WHITE);
 		send.setForeground(Color.BLACK);
 		send.addActionListener(new sendMessageListener());
+		Dimension d = new Dimension(10, 10);
+		send.setSize(d);
 
+		
 		// Ausgabefenster wird erstellt
 		chatOutput = new JTextArea();
 		chatOutput.setEditable(false);

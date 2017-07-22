@@ -33,7 +33,7 @@ public class ClientMain {
 		GamingArea window;
 		
 		//		Registration.main(null);
-		window=new GamingArea("Marios World");
+		window=new GamingArea("Mario's Adventure");
 		
 
 	}

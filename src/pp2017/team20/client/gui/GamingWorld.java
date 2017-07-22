@@ -10,7 +10,9 @@ import javax.swing.JPanel;
 
 import pp2017.team20.client.engine.ClientEngine;
 import pp2017.team20.server.engine.Levelmanagement;
+import pp2017.team20.shared.Monster;
 import pp2017.team20.shared.Player;
+import pp2017.team20.shared.sendObject;
 
 /**
  * Klasse in der die Spielflaeche erstellt wird
@@ -103,19 +105,6 @@ public class GamingWorld extends JPanel {
 
 				case 6:
 					g.drawImage(floor, i * window.BOX, j * window.BOX, null);
-					
-					int strength = 1;
-					//Strength aus der Monsterliste vom Client bekommen (wie Zugriff?)
-					
-					if (strength == 1){
-						g.drawImage(monster1, i * window.BOX, j * window.BOX, null);
-					} else if (strength == 2){
-						g.drawImage(monster2, i * window.BOX, j * window.BOX, null);
-					} else if (strength == 3){
-						g.drawImage(monster3, i * window.BOX, j * window.BOX, null);
-					} else if (strength == 6){
-						g.drawImage(monster6, i * window.BOX, j * window.BOX, null);
-					}
 					break;
 
 				default:
@@ -124,7 +113,24 @@ public class GamingWorld extends JPanel {
 
 //				// hier wird der Spieler an die Position gezeichnet die in
 //				// der Klasse Player uebergeben wird
+				//TODO mehrspieler
 				g.drawImage(player, window.player.getXPos() * window.BOX, window.player.getYPos() * window.BOX, null);
+				//System.out.println("monsterDraw");
+				
+				if (window.monster != null) {
+					for (sendObject m : window.monster) {
+						int strength = m.strength;
+						if (strength == 1) {
+							g.drawImage(monster1, m.posX * window.BOX, m.posY * window.BOX, null);
+						} else if (strength == 2) {
+							g.drawImage(monster2, m.posX * window.BOX, m.posY * window.BOX, null);
+						} else if (strength == 3) {
+							g.drawImage(monster3, m.posX * window.BOX, m.posY * window.BOX, null);
+						} else if (strength == 6) {
+							g.drawImage(monster6, m.posX * window.BOX, m.posY * window.BOX, null);
+						}
+					} 
+				}
 				repaint();
 
 			}

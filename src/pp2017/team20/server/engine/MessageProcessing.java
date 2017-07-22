@@ -43,13 +43,49 @@ public class MessageProcessing {
 				}
 			}
 			System.out.println("Monsterspawn1");
+			
+			ArrayList<sendObject> monsterOld= new ArrayList<sendObject>();
+			
 			while(true){
+				boolean change = false;
+				
 				try{
 					Thread.sleep(50);
 					for(Monster monster: lvl.MonsterList){
 						monster.tacticMonster();
+						boolean inList = false;
+						for(sendObject m :monsterOld ){
+							if(m.ID == monster.getId()){
+								if ((m.posX != monster.getXPos()) || (m.posY != monster.getYPos())){
+									//System.out.println("asdf");
+									m.posX = monster.getXPos();
+									m.posY = monster.getYPos();
+									change = true;
+								}
+								
+								inList = true;
+							}
+						}
+						if(!inList){
+							monsterOld.add(new sendObject(0, monster.getXPos(), monster.getYPos(), monster.getStrength(), monster.getId()));
+							change = true;
+						}
+						//monster.setX(monster.getXPos());
+						//monster.setY(monster.getYPos());
+						//System.out.println("monsterPos: " + monster.getXPos() + " " + monster.getYPos());
 						//tacticmon
+						//System.out.println(monster.getId());
+						if(change){
+							System.out.println("move " + monster.getId());
+							UpdateMonsterMessage msg = new UpdateMonsterMessage(1);
+							msg.set(monster);
+							comm.sendeNachricht(msg);
+							Thread.sleep(100);
+						}
+						
 					}
+					
+					
 				}catch (InterruptedException e){
 					e.printStackTrace();
 				}

@@ -28,9 +28,11 @@ public class Monster extends Figure implements Serializable {
 	private int state; // Zustand des Monsters: 0 Spazieren 1 Verfolgung 2
 						// Attackieren 3 Fluechten 4 Sterben
 
+	private int x ,y;
 	private Player player;
 	public int monsterID;
 	public Levelmanagement lvl;
+	
 
 	public Monster(int monsterID, int x, int y, Levelmanagement lvl, int type) {
 		/**
@@ -44,6 +46,7 @@ public class Monster extends Figure implements Serializable {
 		this.type = type;
 		this.lvl = lvl;
 		setPos(x, y);
+		//setPos(5, 5);
 		double variable = Math.random() * 5 + lvl.getLevelID(); // halb Zufall,
 																// halb
 																// Levelabhaengig
@@ -88,28 +91,28 @@ public class Monster extends Figure implements Serializable {
 		 * 
 		 * @ author: Sell, Robin, 607112
 		 */
-
-		switch (state) {
-		case 0:
-			randomWalk(); // -->randomWalk, -->runBehind
-			//System.out.println("Monster randomWalk");
-			break;
-		case 1:
-			runBehind(); // -->runBehind, -->attackPlayer, -->randomWalk
-			System.out.println("Monster runbehind");
-			break;
-		case 2:
-			attackiereSpieler(false); // -->attackPlayer, -->runBehind, -->flee,
-										// -->monsterDies
-			System.out.println("Monster atkSpieler");
-			break;
-		case 3:
-			flee(); // -->flee, -->randomWalk,
-					// -->runBehind(attackPlayer)[Kamikaze-Modus],
-					// -->monsterDies
-			System.out.println("Monster flee");
-			break;
-		}
+			switch (state) {
+			case 0:
+				randomWalk(); // -->randomWalk, -->runBehind
+				//System.out.println("Monster randomWalk");
+				break;
+			case 1:
+				runBehind(); // -->runBehind, -->attackPlayer, -->randomWalk
+				System.out.println("Monster runbehind");
+				break;
+			case 2:
+				attackiereSpieler(false); // -->attackPlayer, -->runBehind, -->flee,
+											// -->monsterDies
+				System.out.println("Monster atkSpieler");
+				break;
+			case 3:
+				flee(); // -->flee, -->randomWalk,
+						// -->runBehind(attackPlayer)[Kamikaze-Modus],
+						// -->monsterDies
+				System.out.println("Monster flee");
+				break;
+				
+			}
 
 	}
 
@@ -760,5 +763,27 @@ public class Monster extends Figure implements Serializable {
 		
 		//return (Math.abs(player.getXPos() - this.getXPos()) + Math.abs(player.getYPos() - this.getYPos()) < 2);
 	}
+	
+	public int getStrength(){
+		return this.strength;
+	}
 
+	public int getId(){
+		return this.monsterID;
+	}
+	
+	public int getX(){
+		return x;
+	}
+	public int getY(){
+		return y;
+	}
+	public void setX(int x){
+		this.x = x;
+	}
+	public void setY(int x){
+		this.y = x;
+	}
+	
+	
 }

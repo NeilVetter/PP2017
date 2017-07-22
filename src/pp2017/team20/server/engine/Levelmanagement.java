@@ -36,6 +36,9 @@ public class Levelmanagement implements Serializable {
 	public Player player;
 	public Levelmanagement lvl;
 	
+	private int playerID = 0;
+	private int monsterID = 0;
+	
 	public ArrayList<Monster> MonsterList = new ArrayList<Monster>();
 	public ArrayList<Player> PlayerList = new ArrayList<Player>();
 
@@ -93,9 +96,9 @@ public class Levelmanagement implements Serializable {
 		 * Gibt den Spielern, Monstern und den Heiltr�nken eine ID und speichert diese
 		 * 
 		 * @autor Hamid Kirli 6041663*/
-		int playerID = 0;
-		int monsterID = 0;
-		int healpotID =0;
+		//int playerID = 0;
+		//int monsterID = 0;
+		//int healpotID =0;
 		//Arrays definieren 
 //		playerList = new Player[LevelID];
 //		monsterList = new Monster[LevelID*3];
@@ -108,7 +111,7 @@ public class Levelmanagement implements Serializable {
 					player.setPos(i,j);
 					player.setPlayerID(playerID);
 					PlayerList.add(player);
-					//playerID++;
+					playerID++;
 				}
 				else if (maze.Map[i][j]== 6){
 					

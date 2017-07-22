@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 import javax.crypto.Cipher;
@@ -21,6 +22,7 @@ import pp2017.team20.client.gui.StatusBar;
 import pp2017.team20.shared.Level;
 import pp2017.team20.shared.Monster;
 import pp2017.team20.shared.Player;
+import pp2017.team20.shared.sendObject;
 
 /**
  * Klasse in der das Spielfenster erstellt wird
@@ -46,8 +48,10 @@ public class GamingArea extends JFrame implements KeyListener {
 	public ClientEngine engine;
 
 	public Player player;
-	public LinkedList<Monster> monsterList;
-	public LinkedList<Monster> buffermonsterList;
+	public ArrayList<Monster> monsterList;
+	public ArrayList<Monster> buffermonsterList;
+	public ArrayList<sendObject> monster = new ArrayList<sendObject>();
+	
 	public Level level;
 	public int clientID;
 	public int id;
@@ -89,12 +93,16 @@ public class GamingArea extends JFrame implements KeyListener {
 	 */
 	public GamingArea(String title) {
 		this.player=new Player ();
-		
+		monsterList = new ArrayList<Monster>();
+		buffermonsterList = new ArrayList<Monster>();
+
 		kommunikation.connectToServer();
 		kommunikation.start();
 		engine = new ClientEngine(kommunikation, this);
 		initializeJFrame(title);
+		
 		startNewGame();
+
 	}
 
 	/**
@@ -150,10 +158,10 @@ public class GamingArea extends JFrame implements KeyListener {
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 		
-//	showGamingWorld();
+		showGamingWorld();
 //		// das Spielfenster wird auf dem Bildschirm zentriert
-//		final Dimension d = this.getToolkit().getScreenSize();
-//		this.setLocation((int) ((d.getWidth() - this.getWidth()) / 2), (int) ((d.getHeight() - this.getHeight()) / 2));
+		final Dimension d = this.getToolkit().getScreenSize();
+		this.setLocation((int) ((d.getWidth() - this.getWidth()) / 2), (int) ((d.getHeight() - this.getHeight()) / 2));
 	}
 
 	/**
@@ -175,7 +183,7 @@ public class GamingArea extends JFrame implements KeyListener {
 		this.add(menubar, BorderLayout.NORTH);
 		this.add(statusbar, BorderLayout.SOUTH);
 		this.add(chat, BorderLayout.EAST);
-		//this.add(map, BorderLayout.WEST);
+		this.add(map, BorderLayout.WEST);
 
 		// das fertige Spielfeld wird aktiviert
 		
@@ -348,7 +356,7 @@ public class GamingArea extends JFrame implements KeyListener {
 
 		//player = new Player("img//player.png", this);
 		//player.setPos(xPos, yPos);
-		monsterList = new LinkedList<Monster>();
+		monsterList = new ArrayList<Monster>();
 //		level = new GameElement[WIDTH][HEIGHT];
 
 		if (buffermonsterList != null) {
