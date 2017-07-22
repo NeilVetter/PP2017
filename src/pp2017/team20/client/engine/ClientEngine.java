@@ -25,7 +25,7 @@ import pp2017.team20.server.map.*;
 public class ClientEngine {
 
 	// Aufbau der Kommunikation zwischen CLient und Server
-	ClientKommunikation communication;
+	ClientCommunication communication;
 	// Spielfenster erstellen und Level laden
 	public GamingArea window;
 	public Level level;
@@ -43,7 +43,7 @@ public class ClientEngine {
 	 * 
 	 */
 
-	public ClientEngine(ClientKommunikation communication, GamingArea window) {
+	public ClientEngine(ClientCommunication communication, GamingArea window) {
 		this.communication = communication;
 		this.window = window;
 	}
@@ -57,7 +57,7 @@ public class ClientEngine {
 	 * @author Wagner, Tobias, 5416213
 	 */
 	public void receiveMessage() {
-		Message msg = communication.erhalteNachricht();
+		Message msg = communication.receiveMessage();
 		receiveRequest(msg);
 	}
 	
@@ -74,7 +74,7 @@ public class ClientEngine {
 
 	public void sendLogInMessage(int clientID, String username, String password) {
 		LogInMessage message = new LogInMessage(clientID, username, password);
-		communication.sendeNachricht(message);
+		communication.sendMessage(message);
 	}
 
 	/**
@@ -87,7 +87,7 @@ public class ClientEngine {
 
 	public void sendLogOutMessage(int clientID) {
 		LogOutMessage message = new LogOutMessage(clientID);
-		communication.sendeNachricht(message);
+		communication.sendMessage(message);
 	}
 
 	/**
@@ -108,7 +108,7 @@ public class ClientEngine {
 			System.out.println(window.player.getYPos());
 			System.out.println("zuvor");
 			MoveMessage message = new MoveMessage(clientID, xPos, yPos, playerID);
-			communication.sendeNachricht(message);
+			communication.sendMessage(message);
 		}
 	}
 
@@ -123,7 +123,7 @@ public class ClientEngine {
 
 	public void sendAttackMessage(int clientID, int attackID, int defendID, int hpDefender) {
 		AttackMessage msg = new AttackMessage(clientID, 1, attackID, defendID, hpDefender);
-		communication.sendeNachricht(msg);
+		communication.sendMessage(msg);
 	}
 
 	/**
@@ -137,7 +137,7 @@ public class ClientEngine {
 
 	public void sendCollectPotionMessage(int clientID, int x, int y) {
 		CollectPotionMessage message = new CollectPotionMessage(clientID, x, y, window.player.getPlayerID());
-		communication.sendeNachricht(message);
+		communication.sendMessage(message);
 	}
 
 	/**
@@ -153,7 +153,7 @@ public class ClientEngine {
 	public void sendCollectKeyMessage(int clientID) {
 		if (window.level.getLvlMazePosition(window.player.getXPos(), window.player.getYPos()) == 5) {
 			CollectKeyMessage message = new CollectKeyMessage(clientID, window.player.getPlayerID());
-			communication.sendeNachricht(message);
+			communication.sendMessage(message);
 		}
 	}
 
@@ -168,7 +168,7 @@ public class ClientEngine {
 
 	public void sendUsePotionMessage(int clientID, int id, int playerID) {
 		UsePotionMessage message = new UsePotionMessage(clientID, -1, playerID);
-		communication.sendeNachricht(message);
+		communication.sendMessage(message);
 	}
 
 	/**
@@ -182,7 +182,7 @@ public class ClientEngine {
 
 	public void sendNextLevelMessage(int clientID) {
 		NextLevelMessage message = new NextLevelMessage(clientID);
-		communication.sendeNachricht(message);
+		communication.sendMessage(message);
 	}
 
 	/**
@@ -196,7 +196,7 @@ public class ClientEngine {
 
 	public void sendHighscoreMessage(int clientID, String user, int time) {
 		HighScoreMessage message = new HighScoreMessage(clientID, user, time);
-		communication.sendeNachricht(message);
+		communication.sendMessage(message);
 	}
 
 	/**
@@ -209,7 +209,7 @@ public class ClientEngine {
 
 	public void sendChatMessage(int clientID, String content) {
 		ChatMessage message = new ChatMessage(clientID, content);
-		communication.sendeNachricht(message);
+		communication.sendMessage(message);
 	}
 
 

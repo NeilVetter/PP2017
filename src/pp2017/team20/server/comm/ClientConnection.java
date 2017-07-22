@@ -1,16 +1,15 @@
 package pp2017.team20.server.comm;
 
-import java.io.IOException; 
-import java.net.Socket;
-import java.util.concurrent.LinkedBlockingQueue;
 
+import java.io.IOException;   
+import java.util.concurrent.LinkedBlockingQueue;
+import java.net.Socket;
 import pp2017.team20.shared.*;
 
 /**
- * Klasse fuer die einzelnen Clients, die in einzelnen Threads gehandelt werden
- * und es werden ID`s gesetzt
+ * Die Klasse ClientConnection handelt die einzelnen Threads ab und setzt die IDs
  * 
- * @author Koruk, Samet, 5869110
+ * @author Kong, Yuxuan, 6019218
  * 
  */
 
@@ -19,64 +18,65 @@ public class ClientConnection extends Thread {
 	/**
 	 * Attributblock
 	 * 
-	 * @author Koruk, Samet, 5869110
+	 * @author Kong, Yuxuan, 6019218
+	 * 
 	 */
 	public int ClientID;
-	private ServerSenden sendThread;
-	private ServerEmpfangen receiveThread;
+	private ServerSend sendThread;
+	private ServerReceive receiveThread;
 	public Socket clientSocket;
 
 	/**
-	 * Konstruktor fuer die Klasse, wo die inputqueue uebergeben wird ausserdem
-	 * werden die Send- und Receive Threads gestartet
+	 * Der Konstruktor der Klasse ClientConnection übergibt den InputQueue und SendThread und ReceiveThread
+	 * werden gestartet
 	 * 
-	 * @author Koruk, Samet, 5869110
+	 * @author Kong, Yuxuan, 6019218
 	 */
-	public ClientConnection(Socket clientSocket, LinkedBlockingQueue<Message> blockQ, int count, LinkedBlockingQueue<Message> blockQout) {
+	public ClientConnection(Socket clientSocket, LinkedBlockingQueue<Message> messageQueue, int count, LinkedBlockingQueue<Message> messageOutQueue) {
 
 		this.ClientID = count;
 		this.clientSocket = clientSocket;
-		sendThread = new ServerSenden(clientSocket, count, blockQout);
-		sendThread.start();
-		receiveThread = new ServerEmpfangen(clientSocket, blockQ, count);
+		receiveThread = new ServerReceive(clientSocket, messageQueue, count);
 		receiveThread.start();
-
+		sendThread = new ServerSend(clientSocket, count, messageOutQueue);
+		sendThread.start();
 	}
 
 	/**
-	 * Methode, die aufgerufen wird, wenn man eine Nachricht versenden will (auf
-	 * Server Seite)
+	 * Stoppt das Senden der Nachrichten an den Clienten
 	 * 
-	 * @author Koruk, Samet, 5869110
-	 */
-	public void sendMessagetoClient(Message neueNachricht) {
-		try {
-			/**
-			 * entsprechender Thread des Clients wird aufgerufen und Nachricht
-			 * in Queue eingefuegt
-			 */
-			sendThread.outputqueue().put(neueNachricht);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			System.out.println("<ServerKomm> Nachricht konnte nicht in Queue eingefuegt werden.");
-		}
-	}
-	/**
-	 * Methode, um Nachricht nicht mehr an den Client zu senden
-	 * 
-	 * @author Koruk, Samet, 5869110
+	 * @author Kong, Yuxuan, 6019218
 	 */
 	public void stopSendThread() {
+		receiveThread.clientCheck = false;
 		sendThread.truth = false;
-		receiveThread.clientisok = false;
 		try {
-			sendThread.out.close();
-			receiveThread.in.close();
+			receiveThread.input.close();
+			sendThread.output.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			System.out.println("Closen fehlgehschlagen");
+			System.out.println("Schließen fehlgehschlagen");
 
 		}
 
+	}
+
+
+	/**
+	 * 
+	 * Eine Methode, die beim Senden einer Nachricht zum Clienten aufgerufen wird
+	 *
+	 * 
+	 * @author Kong, Yuxuan, 6019218
+	 */
+	public void sendMessagetoClient(Message message) {
+	try {
+		
+		 // Nachrichten werden in die Queue eingefuegt und Threads des Clienten 
+		 //werden aufgerufen
+		sendThread.outputqueue().put(message);
+	} catch (InterruptedException e) {
+		System.out.println("Nachricht konnte nicht in die Queue eingefuegt werden.");
+	}
 	}
 }

@@ -1,6 +1,6 @@
 package pp2017.team20.client.gui;
 
-import java.awt.BorderLayout;
+import java.awt.BorderLayout; 
 import java.awt.Dimension;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
 
 import pp2017.team20.client.gui.Highscore;
 //import pp2017.team20.client.comm.ClientCommunication;
-import pp2017.team20.client.comm.ClientKommunikation;
+import pp2017.team20.client.comm.ClientCommunication;
 import pp2017.team20.client.engine.ClientEngine;
 import pp2017.team20.client.gui.GamingWorld;
 import pp2017.team20.client.gui.StatusBar;
@@ -44,7 +44,7 @@ public class GamingArea extends JFrame implements KeyListener {
 	private MiniMap map;
 //	private String adresse = "55555";
 
-	public ClientKommunikation kommunikation = new ClientKommunikation();
+	public ClientCommunication kommunikation = new ClientCommunication();
 	public ClientEngine engine;
 
 	public Player player;
@@ -96,7 +96,7 @@ public class GamingArea extends JFrame implements KeyListener {
 		monsterList = new ArrayList<Monster>();
 		buffermonsterList = new ArrayList<Monster>();
 
-		kommunikation.connectToServer();
+		kommunikation.connectServer();
 		kommunikation.start();
 		engine = new ClientEngine(kommunikation, this);
 		initializeJFrame(title);

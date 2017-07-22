@@ -17,7 +17,7 @@ public class MessageProcessing {
 	Queue<Message> MessageQueue = new LinkedList<Message>();
 	
 	
-	public ServerKommunikation comm= new ServerKommunikation();
+	public ServerCommunication comm= new ServerCommunication();
 	public Levelmanagement lvl;
 	static boolean lvlLoaded = false;
 	
@@ -116,7 +116,7 @@ public class MessageProcessing {
 								System.out.println("move " + monster.getId());
 								UpdateMonsterMessage msg = new UpdateMonsterMessage(1);
 								msg.set(monster);
-								comm.sendeNachricht(msg);
+								comm.sendMessage(msg);
 								Thread.sleep(100);
 							}
 							if (monster.getHealth() <= 0) {
@@ -145,7 +145,7 @@ public class MessageProcessing {
 			while (true) {
 				try {
 					Thread.sleep(50);
-					Message message = comm.erhalteNachricht();
+					Message message = comm.receiveMessage();
 					WhatMessageType(message);
 				} catch (Exception e) {
 					
@@ -218,7 +218,7 @@ public class MessageProcessing {
 			if(p.getPlayerID() == message.playerId && lvl.lvlMaze[p.getXPos()][p.getYPos()] == 5){
 				p.ownsKey = true;
 				lvl.lvlMaze[p.getXPos()][p.getYPos()] = 1;
-				comm.sendeNachricht(message);
+				comm.sendMessage(message);
 			}
 		}
 	}
@@ -228,7 +228,7 @@ public class MessageProcessing {
 				p.healthPotNumber++;
 				lvl.lvlMaze[p.getXPos()][p.getYPos()] = 1;
 				UsePotionMessage msg = new UsePotionMessage(1, 1, p.getPlayerID());
-				comm.sendeNachricht(msg);
+				comm.sendMessage(msg);
 			}
 
 		}
@@ -259,11 +259,11 @@ public class MessageProcessing {
 				login.setLevel(level);
 				login.setPlayerID(lvl.player.getPlayerID());
 				System.out.println();
-				comm.sendeNachricht(login);
+				comm.sendMessage(login);
 				
 			}else{
 				message.setSuccess(false);
-				comm.sendeNachricht(message);
+				comm.sendMessage(message);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -316,7 +316,7 @@ public class MessageProcessing {
 						MoveMessage move=new MoveMessage(1,player.getXPos(),player.getYPos(),player.getPlayerID());
 						
 						move.setSuccess(true);
-						comm.sendeNachricht(move);
+						comm.sendMessage(move);
 						
 					} else {
 						// Gebe zurueck das der Schritt gesscheitert
@@ -341,7 +341,7 @@ public class MessageProcessing {
 				p.healthPotNumber--;
 				p.changeHealth(30);
 				UsePotionMessage msg = new UsePotionMessage(1, -1, p.getPlayerID());
-				comm.sendeNachricht(msg);
+				comm.sendMessage(msg);
 			}
 		}
 		
@@ -471,7 +471,7 @@ public class MessageProcessing {
 				login.setLevel(new Level(lvl,lvl.getLvlMaze()));
 				login.setPlayerID(lvl.player.getPlayerID());
 				System.out.println();
-				comm.sendeNachricht(login);
+				comm.sendMessage(login);
 			}
 		}
 	}
@@ -484,16 +484,16 @@ public class MessageProcessing {
 	
 	public void sendAttackMessage(int type, int attackID, int defendID, int hpDefender){
 		AttackMessage msg = new AttackMessage(1, type, attackID, defendID, hpDefender);
-		comm.sendeNachricht(msg);
+		comm.sendMessage(msg);
 	}
 	
 	public void sendAttackMessage(AttackMessage msg){
-		comm.sendeNachricht(msg);
+		comm.sendMessage(msg);
 	}
 	
 	public void sendDeathMessage(int type, int id){
 		DeathMessage msg = new DeathMessage(1, type, id);
-		comm.sendeNachricht(msg);
+		comm.sendMessage(msg);
 	}
 	
 	public Levelmanagement getLvl(){
