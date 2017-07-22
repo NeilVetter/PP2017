@@ -4,6 +4,8 @@ import java.sql.*;
 
 import javax.swing.*;
 
+import pp2017.team20.client.gui.Registration;
+
 public class Loginengine {
 	
 	public static boolean logIn( String username , String password)  {
@@ -30,7 +32,7 @@ public class Loginengine {
 			// JOptionPane.showMessageDialog(null, "Username and Password is correct");
 			 
 			 succses = true;
-			
+			Registration.window.dispose();
 			
 		 }
 		 else{

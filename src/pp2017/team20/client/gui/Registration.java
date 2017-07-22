@@ -29,7 +29,7 @@ public class Registration {
   *  @author Hamid, Kirli, 6041663 **/
 	
 	// Ben�tigte swing Elemente
-	public JFrame window;
+	public static JFrame window;
 	private JTextField textField;
 	private JPasswordField passwordField;
 	private JButton btnButton;
@@ -112,7 +112,7 @@ public class Registration {
 					 username = textField.getText();
 					 password = passwordField.getText();
 					 ga.login(username,password);
-					window.dispose();
+					
 				}
 					
 				
