@@ -51,12 +51,16 @@ public class MessageProcessing {
 				
 				try{
 					Thread.sleep(50);
-					boolean sendAttack = false;
-					boolean noMatch = true;
+					
 					AttackMessage tmp = null;
 					for(Monster monster: lvl.MonsterList){
+						boolean sendAttack = false;
+						boolean noMatch = true;
+						
 						if (monster.am != null) {
+							
 							for (AttackMessage attack : attacks) {
+								
 								if(attack.attackID == monster.monsterID){
 									if (attack != monster.am){
 										sendAttack = true;
@@ -65,12 +69,16 @@ public class MessageProcessing {
 									noMatch = false;
 								}
 							}
+							
+							
 							if(sendAttack){
+								System.out.println("sent attack message a: " + monster.am.attackID + " d: " + monster.am.defendID + " ");
 								sendAttackMessage(monster.am);
 								attacks.remove(tmp);
 								attacks.add(monster.am);
 							}
 							if(noMatch){
+								System.out.println("sent attack message a: " + monster.am.attackID + " d: " + monster.am.defendID + " ");
 								sendAttackMessage(monster.am);
 								attacks.add(monster.am);
 							}

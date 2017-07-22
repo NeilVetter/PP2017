@@ -535,6 +535,7 @@ public class ClientEngine {
 
 	public void receiveAttackMessage(AttackMessage message) {
 		if(message.attackType == 0){ //Monster greif Spieler an
+			System.out.println("recieved attack message a: " + message.attackID + " d: " + message.defendID + " ");
 			if(window.player.getPlayerID() == message.defendID){
 				window.player.setHealth(message.hpDefender);
 			}
