@@ -11,7 +11,7 @@ package pp2017.team20.shared;
 public class UsePotionMessage extends Message{
 	
 	//id zur Identifikation des aktuellen Spielers
-	public int id;
+	public int type; //-1 heißt benutzen, 1 heißt hinzufügen
 	public int playerID;
 	
 	/**
@@ -21,9 +21,9 @@ public class UsePotionMessage extends Message{
 	 * @author Wagner, Tobias, 5416213
 	 */
 	
-	public UsePotionMessage(int clientID, int id,int playerID){
+	public UsePotionMessage(int clientID, int type,int playerID){
 		super(clientID);
-		this.id = id;
+		this.type = type;
 		this.playerID=playerID;
 	}
 

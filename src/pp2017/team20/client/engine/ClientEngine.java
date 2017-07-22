@@ -147,7 +147,9 @@ public class ClientEngine {
 	 * 
 	 */
 
-	public void sendAttackMessage(int clientID, int attackID, int playerID, int monsterID) {
+	public void sendAttackMessage(int clientID, int attackID, int defendID, int hpDefender) {
+		AttackMessage msg = new AttackMessage(clientID, 1, attackID, defendID, hpDefender);
+		communication.sendeNachricht(msg);
 		//TODO
 		//AttackMessage message = new AttackMessage(clientID, attackID, playerID, monsterID);
 		//communication.sendeNachricht(message);
@@ -162,8 +164,8 @@ public class ClientEngine {
 	 * 
 	 */
 
-	public void sendCollectPotionMessage(int clientID) {
-		CollectPotionMessage message = new CollectPotionMessage(clientID);
+	public void sendCollectPotionMessage(int clientID, int x, int y) {
+		CollectPotionMessage message = new CollectPotionMessage(clientID,x, y, window.player.getPlayerID());
 		communication.sendeNachricht(message);
 	}
 
@@ -180,7 +182,7 @@ public class ClientEngine {
 	public void sendCollectKeyMessage(int clientID) {
 		// instanceof Key
 		if (window.level.getLvlMazePosition(window.player.getXPos(), window.player.getYPos() ) == 5) {
-			CollectKeyMessage message = new CollectKeyMessage(clientID);
+			CollectKeyMessage message = new CollectKeyMessage(clientID, window.player.getPlayerID());
 			communication.sendeNachricht(message);
 		}
 	}
@@ -217,15 +219,8 @@ public class ClientEngine {
 	 */
 
 	public void sendUsePotionMessage(int clientID, int id, int playerID) {
-		if (id == -1) {
-			if (window.player.getHealthPotNumber() > 0) {
-				UsePotionMessage message = new UsePotionMessage(clientID, -1, playerID);
-				communication.sendeNachricht(message);
-			} else {
-				UsePotionMessage message = new UsePotionMessage(clientID, id, playerID);
-				communication.sendeNachricht(message);
-			}
-		}
+		UsePotionMessage message = new UsePotionMessage(clientID, -1, playerID);
+		communication.sendeNachricht(message);
 	}
 
 	/**
@@ -374,7 +369,26 @@ public class ClientEngine {
 			if(((UpdateMonsterMessage) msg).get().type == 0);
 				recieveMonsterUpdateMessage(message);
 		}
+		
+		else if (msg instanceof DeathMessage){
+			DeathMessage message = (DeathMessage) msg;
+			recieveDeatheMessage(message);
+		}
 
+	}
+
+	private void recieveDeatheMessage(DeathMessage message) {
+		if(message.type == 0){
+			sendObject tmp = null;
+			for (sendObject m : window.monster){
+				if(m.ID == message.id){
+					tmp = m;
+				}
+			}
+			if(tmp != null){
+				window.monster.remove(tmp);
+			}
+		}
 	}
 
 	// Ab hier werden die Nachrichten behandlet, die vom Server empfangen werden
@@ -426,6 +440,7 @@ public class ClientEngine {
 
 	public void receiveLogInMessage(LogInMessage message) {
 		// Wenn die Enlogdaten korrekt sind, dann wird das Level geladen
+		System.out.println("NEUES LEVEL BAUEN");
 		if (message.getSuccess()) {
 			window.setSuccess(true);
 			// Laedt das Level
@@ -442,6 +457,7 @@ public class ClientEngine {
 						player.setYPos(j);
 						window.player = player;
 						window.player.setPlayerID(message.playerID);
+						System.out.println("NEUES LEVEL BAUEN");
 					}
 				}
 			}
@@ -577,21 +593,8 @@ public class ClientEngine {
 	 */
 
 	public void receiveCollectKeyMessage(CollectKeyMessage message) {
-		if (message.success) {
-			// Variablen, um die Position des Spielers zu bestimmen
-			int xPos = window.player.getXPos();
-			int yPos = window.player.getYPos();
-			// Steht der Spieler auf einem Feld mit einem Schluessel, so wird
-			// dieser aufgenommen
-			//instanceof Key
-			if (window.level.getLvlMazePosition(window.player.getXPos(), window.player.getYPos() ) == 5) {
-				//collectKey()
-				window.player.ownsKey();
-				// An der Stelle des Schluessels wird eine leere Spielkachel
-				// platziert
-				// new Ground()
-				window.level.setLvlMaze(xPos, yPos, 5); //Same gru� Hamid
-			}
+		if(window.player.getPlayerID() == message.playerId){
+			window.player.ownsKey = true;
 		}
 	}
 
@@ -620,10 +623,10 @@ public class ClientEngine {
 	 */
 
 	public void receiveUsePotionMessage(UsePotionMessage message) {
-		if (message.success) {
-			// Spieler nimmt den Trank
-			if (message.id == -1) {
-				window.player.usePotion();
+		if (window.player.getPlayerID() == message.playerID){
+			window.player.healthPotNumber += message.type;
+			if (message.type < 0){
+				window.player.changeHealth(30);
 			}
 		}
 	}

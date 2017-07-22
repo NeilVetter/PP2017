@@ -12,9 +12,11 @@ package pp2017.team20.shared;
 public class CollectKeyMessage extends Message {
 	
 	public boolean success;
+	public int playerId;
 	
-	public CollectKeyMessage(int clientID) {
+	public CollectKeyMessage(int clientID, int playerId) {
 		super(clientID);
+		this.playerId = playerId;
 	}
 
 }

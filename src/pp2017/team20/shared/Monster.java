@@ -253,15 +253,7 @@ public class Monster extends Figure implements Serializable {
 		 * @author Sell, Robin, 6071120
 		 */
 
-		if (getHealth() <= 0) {
-			lvl.setLvlMazePosition(getXPos(), getYPos(), 6); // Monster
-																// hinterlaesst
-																// Heiltrank
-			// Random Verteilung von Heiltrank und Manatrank f�r Endversion hier
-			lvl.MonsterList.remove(this); // l�sche Monster
-			// state = 4;
-			return; // Falls keine Lebensenergie mehr --> monsterDies
-		}
+		
 
 		if (player.ownsKey()) { // checkt, ob Spieler den Schluessel hat und
 								// wechselt den Modus

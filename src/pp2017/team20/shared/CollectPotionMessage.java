@@ -10,8 +10,14 @@ package pp2017.team20.shared;
 
 public class CollectPotionMessage extends Message {
 	
-	public CollectPotionMessage(int clientID) {
+	public int posX;
+	public int posY;
+	public int playerID;
+	public CollectPotionMessage(int clientID, int x, int y, int playerID) {
 		super(clientID);
+		this.posX = x;
+		this.posY = y;
+		this.playerID = playerID;
 	}
 
 }

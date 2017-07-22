@@ -54,6 +54,7 @@ public class Levelmanagement implements Serializable {
 	public void newLevel(int LevelID, int size) {
 		//this.lvlcounter = lvlcount;
 		int type =0;
+		this.LevelID = LevelID;
 		Levelmanagement.size =size;
 		//lvlsafeall = new int [lvlcounter][size][size];
 		lvlMaze = new int[size][size];
@@ -112,7 +113,7 @@ public class Levelmanagement implements Serializable {
 					// wieso passt es nicht mit deinem Konstrucktor @neil
 					player.setPos(i,j);
 					player.setPlayerID(playerID);
-					PlayerList.add(player);
+					//PlayerList.add(player);
 					playerID++;
 				}
 				else if (maze.Map[i][j]== 6){
@@ -133,6 +134,7 @@ public class Levelmanagement implements Serializable {
 					doory =i;
 				}}
 		}
+
 	}
 		
 		/** Getter Methoden f�r SpielerListe, MonsterListe

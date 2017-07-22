@@ -53,73 +53,82 @@ public class MessageProcessing {
 					Thread.sleep(50);
 					
 					AttackMessage tmp = null;
-					for(Monster monster: lvl.MonsterList){
-						boolean sendAttack = false;
-						boolean noMatch = true;
-						
-						if (monster.am != null) {
-							
-							for (AttackMessage attack : attacks) {
-								
-								if(attack.attackID == monster.monsterID){
-									if (attack != monster.am){
-										sendAttack = true;
-										tmp = attack;
+					Monster remMon = null;
+					if (lvl.MonsterList != null && !(lvl.MonsterList.isEmpty())) {
+						for (Monster monster : lvl.MonsterList) {
+							boolean sendAttack = false;
+							boolean noMatch = true;
+
+							if (monster.am != null) {
+
+								for (AttackMessage attack : attacks) {
+
+									if (attack.attackID == monster.monsterID) {
+										if (attack != monster.am) {
+											sendAttack = true;
+											tmp = attack;
+										}
+										noMatch = false;
 									}
-									noMatch = false;
+								}
+
+								if (sendAttack) {
+									System.out.println("sent attack message a: " + monster.am.attackID + " d: "
+											+ monster.am.defendID + " ");
+									sendAttackMessage(monster.am);
+									attacks.remove(tmp);
+									attacks.add(monster.am);
+								}
+								if (noMatch) {
+									System.out.println("sent attack message a: " + monster.am.attackID + " d: "
+											+ monster.am.defendID + " ");
+									sendAttackMessage(monster.am);
+									attacks.add(monster.am);
+								}
+
+							}
+
+							monster.tacticMonster();
+							boolean inList = false;
+							for (sendObject m : monsterOld) {
+								if (m.ID == monster.getId()) {
+									if ((m.posX != monster.getXPos()) || (m.posY != monster.getYPos())) {
+										//System.out.println("asdf");
+										m.posX = monster.getXPos();
+										m.posY = monster.getYPos();
+										change = true;
+									}
+
+									inList = true;
 								}
 							}
-							
-							
-							if(sendAttack){
-								System.out.println("sent attack message a: " + monster.am.attackID + " d: " + monster.am.defendID + " ");
-								sendAttackMessage(monster.am);
-								attacks.remove(tmp);
-								attacks.add(monster.am);
+							if (!inList) {
+								monsterOld.add(new sendObject(0, monster.getXPos(), monster.getYPos(),
+										monster.getStrength(), monster.getId()));
+								change = true;
 							}
-							if(noMatch){
-								System.out.println("sent attack message a: " + monster.am.attackID + " d: " + monster.am.defendID + " ");
-								sendAttackMessage(monster.am);
-								attacks.add(monster.am);
+							//monster.setX(monster.getXPos());
+							//monster.setY(monster.getYPos());
+							//System.out.println("monsterPos: " + monster.getXPos() + " " + monster.getYPos());
+							//tacticmon
+							//System.out.println(monster.getId());
+							if (change) {
+								System.out.println("move " + monster.getId());
+								UpdateMonsterMessage msg = new UpdateMonsterMessage(1);
+								msg.set(monster);
+								comm.sendeNachricht(msg);
+								Thread.sleep(100);
 							}
-							
-						}
-						
-						
-						
-						monster.tacticMonster();
-						boolean inList = false;
-						for(sendObject m :monsterOld ){
-							if(m.ID == monster.getId()){
-								if ((m.posX != monster.getXPos()) || (m.posY != monster.getYPos())){
-									//System.out.println("asdf");
-									m.posX = monster.getXPos();
-									m.posY = monster.getYPos();
-									change = true;
-								}
-								
-								inList = true;
+							if (monster.getHealth() <= 0) {
+								remMon = monster;
 							}
-						}
-						if(!inList){
-							monsterOld.add(new sendObject(0, monster.getXPos(), monster.getYPos(), monster.getStrength(), monster.getId()));
-							change = true;
-						}
-						//monster.setX(monster.getXPos());
-						//monster.setY(monster.getYPos());
-						//System.out.println("monsterPos: " + monster.getXPos() + " " + monster.getYPos());
-						//tacticmon
-						//System.out.println(monster.getId());
-						if(change){
-							System.out.println("move " + monster.getId());
-							UpdateMonsterMessage msg = new UpdateMonsterMessage(1);
-							msg.set(monster);
-							comm.sendeNachricht(msg);
-							Thread.sleep(100);
-						}
-						
+
+						} 
 					}
-					
+					if (remMon != null){
+						sendDeathMessage(0, remMon.getId());
+						lvl.MonsterList.remove(remMon);
+					}
 					
 				}catch (InterruptedException e){
 					e.printStackTrace();
@@ -188,16 +197,46 @@ public class MessageProcessing {
 			DeathMessageProcessing(dead);
 		}else if (message instanceof ItemPickUpMessage) {
 			ItemPickUpMessage itempick = (ItemPickUpMessage) message;
-			ItemPickUpMessageProcessing(itempick);
+			//ItemPickUpMessageProcessing(itempick);
 		}else if (message instanceof NextLevelMessage) {
 			NextLevelMessage next = (NextLevelMessage) message;
 			NextLevelMessageProcessing(next);
 		}else if (message instanceof SendLevelMessage) {
 			SendLevelMessage lvl = (SendLevelMessage) message;
 			SendLevelMessageProcessing(lvl);
+		} else if(message instanceof CollectPotionMessage){
+			CollectPotionMessage pot = (CollectPotionMessage) message;
+			CollectPotionMessageProcessing(pot);
+		} else if(message instanceof CollectKeyMessage){
+			CollectKeyMessage key = (CollectKeyMessage) message;
+			CollectKeyMessageProccessing(key);
 		}
 	}
 
+	private void CollectKeyMessageProccessing(CollectKeyMessage message) {
+		for(Player p : lvl.PlayerList){
+			if(p.getPlayerID() == message.playerId && lvl.lvlMaze[p.getXPos()][p.getYPos()] == 5){
+				p.ownsKey = true;
+				lvl.lvlMaze[p.getXPos()][p.getYPos()] = 1;
+				comm.sendeNachricht(message);
+			}
+		}
+	}
+	private void CollectPotionMessageProcessing(CollectPotionMessage message) {
+		for(Player p : lvl.PlayerList){
+			if(p.getPlayerID() == message.playerID && p.getXPos() == message.posX && p.getYPos() == message.posY){
+				p.healthPotNumber++;
+				lvl.lvlMaze[p.getXPos()][p.getYPos()] = 1;
+				UsePotionMessage msg = new UsePotionMessage(1, 1, p.getPlayerID());
+				comm.sendeNachricht(msg);
+			}
+
+		}
+
+		// TODO Auto-generated method stub
+		
+	}
+	
 	// Wird gesendet nachdem Levelgenerator in der Datenbank gepr�ft hat,
 	// ob der Nutzer schon existiert
 	// oder andernfalls neu eingetragen wurde
@@ -297,126 +336,33 @@ public class MessageProcessing {
 
 	// Nehmen eines Lebens-trankts
 	public void UsePotionMessageProcessing(UsePotionMessage message) {
-
-		for (int i = 0; i < lvl.PlayerList.size(); i++) {
-			Player player = lvl.PlayerList.get(i);
-			if (message.playerID == player.playerID) {
-
-				switch (message.id) {
-
-				case 0:
-
-					// falls der Spieler beim aktiviern des Tranks volles Leben
-					// hat
-					// passiert nichts, kein Trank wird verbraucht
-					if (player.getHealth() == 100) {
-						System.out.println("Leben ist schon voll");
-
-						// Testet ob der Spieler einen Trank besitzt
-					} else if (player.healthPotNumber > 0) {
-
-						// Erhoeht das Leben des Spielers
-						player.setHealth(player.getHealth() + 30);
-						// Testet ob leben das maxleben uebersteigt undd falls
-						// dem so ist
-						// setzte Leben gleich Maxeben
-						if (player.getHealth() >= 100) {
-							player.setHealth(100);
-						}
-						// Nach erfolgreicher benutzung des Tranks reduziere die
-						// anzahl der traenke um 1
-						// Soll noch geaendert werden um mit der Itemliste zu
-						// funktionieren
-						player.healthPotNumber--;
-					}
-					System.out.println(player.playername + " "
-							+ "wurde geheilt");
-					System.out.println(Health);
-
-					System.out.println(player.healthPotNumber);
-
-					break;
-
-				case 1:
-
-					if (player.getMana() == 100) {
-						System.out.println("Mana ist schon voll");
-						// Testet ob der Spieler einen Trank besitzt
-					} else if (player.manaPotNumber > 0) {
-
-						// Erhoeht das Mana des Spielers
-						player.setMana(player.getMana() + 30);
-						// Testet ob Mana das Maxmana uebersteigt undd falls
-						// dem so ist
-						// setzte Mana gleich Maxmana
-						if (player.getMana() >= 100) {
-							player.setMana(100);
-						}
-						// Nach erfolgreicher benutzung des Tranks reduziere die
-						// anzahl der traenke um 1
-						// Soll noch geaendert werden um mit der Itemliste zu
-						// funktionieren
-						player.manaPotNumber--;
-					}
-				}
+		for(Player p : lvl.PlayerList){
+			if(p.playerID == message.playerID && p.healthPotNumber > 0){
+				p.healthPotNumber--;
+				p.changeHealth(30);
+				UsePotionMessage msg = new UsePotionMessage(1, -1, p.getPlayerID());
+				comm.sendeNachricht(msg);
 			}
 		}
+		
 	}
 
 	// Methode zum angriff von einem Spielr auf ein Monster
 	// Funktioniert noch nicht, da Monster Klasse nicht eingebungden
 	public void AttackMessageProcessing(AttackMessage message) {
-
-//		if (message.attackID == 1) {
-//
-//			for (int i = 0; i < lvl.MonsterList.size(); i++) {
-//				Monster monster = lvl.MonsterList.get(i);
-//				if (message.monsterID == monster.monsterID) {
-//
-//					// Monster prueft ob der Anngriff erfolgen darf und schickt
-//					// dann die Nachricht
-//					if (moveAllowed == true) {
-//
-//						// fuege dem Monster schaden zu
-//						monster.setDamage(10);
-//
-//						// Falls das Monster auf <=0 Hp faellt entferne es aus
-//						// dem Spiel
-//						if (monster.getHealth() <= 0) {
-//							lvl.MonsterList.remove(monster);
-//							System.out.println("Monster gestorben");
-//						}
-//					}
-//				}
-//			}
-//
-//		} else if (message.attackID == 0) {
-//
-//			for (int i = 0; i < lvl.PlayerList.size(); i++) {
-//				Player player = lvl.PlayerList.get(i);
-//				if (message.playerID == player.playerID) {
-//
-//					if (moveAllowed == true) {
-//
-//						// fuege dem Player Schaden zu
-//						player.setDamage(10);
-//
-//						// Falls der Player <=0 Hp faellt entferne Ihn aus der
-//						// Liste
-//						if (player.getHealth() <= 0) {
-//							Player.LevelList.remove(player);
-//							// Benutze Methode aus Levelmanagement um den
-//							// Spieler an das anfangsfeld zu stellen
-//							Levelmanagement l = new Levelmanagement(player);
-//							l.placePlayer(player.playerID);
-//							// regeneriere die stats des spielers
-//							player.setHealth(100);
-//							player.setMana(100);
-//						}
-//					}
-//				}
-//			}
-//		}
+		System.out.println("SPIELER IN LISTE: " + lvl.PlayerList.size());
+		//System.out.println("ATTACK");
+		if (message.attackType == 1){ //wenn spieler monster angreift, anderer fall sollte hier nicht vorkommen
+			for(Player p :lvl.PlayerList){
+				for(Monster m : lvl.MonsterList){
+					if((Math.abs(p.getXPos() - m.getXPos()) + Math.abs(p.getYPos() - m.getYPos()) <= 1) &&(p.getPlayerID() == message.attackID) && (m.getId() == message.defendID)){
+						m.changeHealth((-1) * 12); //TODO wert aus spieler lesen
+						System.out.println("ATTACK " + m.getHealth() + " " + p.getDamage());
+					}
+				}
+			}
+		}
+		
 	}
 
 	// Methode falls der Spieler noch durch andere Einwirkung sterben kann
@@ -472,6 +418,8 @@ public class MessageProcessing {
 
 	// Unterscheidet unter den verfuegbaren Items und fuegt sie dem inventar
 	// hinzu
+	
+	/*
 	public void ItemPickUpMessageProcessing(ItemPickUpMessage message) {
 
 		for (int i = 0; i < lvl.PlayerList.size(); i++) {
@@ -507,18 +455,23 @@ public class MessageProcessing {
 			}
 		}
 	}
-
+*/
 	public void NextLevelMessageProcessing(NextLevelMessage message) {
-		for (int i = 0; i < lvl.PlayerList.size(); i++) {
-			Player player = lvl.PlayerList.get(i);
-
-			if (message.playerID == player.playerID) {
-
+		
+		
+		for(Player p : lvl.PlayerList){
+			System.out.println(lvl.lvlMaze[p.getXPos()][p.getYPos()]);
+			if(p.ownsKey && (lvl.lvlMaze[p.getXPos()][p.getYPos()] == 3)){
+				System.out.println("NEUES LEVEL");
+				lvl.newLevel(++(lvl.LevelID), 19);
 				
-				// Setzt den spieler in naechstes level
-				lvl.newLevel(player.getPlayerID()+1,19);
-				// Setze den Spieler an den Eingang
-				lvl.placePlayer(player.playerID);
+				LogInMessage login = new LogInMessage(1,"1","1");
+				login.setPlayer(lvl.getPlayer());
+				login.setSuccess(true);
+				login.setLevel(new Level(lvl,lvl.getLvlMaze()));
+				login.setPlayerID(lvl.player.getPlayerID());
+				System.out.println();
+				comm.sendeNachricht(login);
 			}
 		}
 	}
@@ -535,6 +488,11 @@ public class MessageProcessing {
 	}
 	
 	public void sendAttackMessage(AttackMessage msg){
+		comm.sendeNachricht(msg);
+	}
+	
+	public void sendDeathMessage(int type, int id){
+		DeathMessage msg = new DeathMessage(1, type, id);
 		comm.sendeNachricht(msg);
 	}
 	

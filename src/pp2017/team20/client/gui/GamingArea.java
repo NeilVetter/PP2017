@@ -308,17 +308,26 @@ public class GamingArea extends JFrame implements KeyListener {
 			// geschwaecht
 			else if (e.getKeyCode() == KeyEvent.VK_Q) {
 //				Monster m = player.attackMonster();
-				engine.sendAttackMessage(clientID, attackID, player.playerID, monsterID);
-				System.out.println("Wenn Monster in der Nähe, attackieren");
+				for (sendObject m : monster){
+					int distanceOffet = Math.abs((player.getXPos() - m.posX)) + Math.abs(player.getYPos() - m.posY);
+					if(distanceOffet <= 1){
+						engine.sendAttackMessage(clientID, player.playerID, m.ID, -1 * player.getDamage());
+						System.out.println("ATTACK");
+					}
+				}
+				//System.out.println("Wenn Monster in der Nähe, attackieren");
 			}
 			// wenn Taste B gedrueckt wird und der Spieler einen oder mehrere
 			// Traenke in seinem Inventar
 			// hat, reduziere Trankanzahl in der Statusleiste um 1 und setze
 			// Lebensanzeige wieder voll
 			else if (e.getKeyCode() == KeyEvent.VK_B) {
-				engine.sendUsePotionMessage(clientID, id, player.playerID);
-				System.out.println("Wenn Heiltrank vorhanden, benutzen");
-				// Anzeige der Heiltränke?
+				
+				if (player.healthPotNumber > 0) {
+					engine.sendUsePotionMessage(clientID, id, player.playerID);
+					System.out.println("Wenn Heiltrank vorhanden, benutzen");
+				}
+				
 			}
 			// wenn Escape gedrueckt wird, schliesse das Spielfenster
 			else if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
@@ -332,13 +341,14 @@ public class GamingArea extends JFrame implements KeyListener {
 		if (e.getKeyCode() == KeyEvent.VK_SPACE) {
 			if (level.getLvlMazePosition(xPos, yPos) == 5) {
 				engine.sendCollectKeyMessage(clientID);
+				level.lvlMaze[xPos][yPos] = 1;
 				System.out.println("Falls Spieler auf Schlüssel oder Heiltrank, nehme diesen auf");
 			} else if (level.getLvlMazePosition(xPos, yPos) == 4) {
-				engine.sendCollectPotionMessage(clientID);
+				level.lvlMaze[xPos][yPos] = 1;
+				engine.sendCollectPotionMessage(clientID, xPos, yPos);
 				// Anzeige Tränke erhöhen?
 				System.out.println("Falls Spieler auf Schlüssel oder Heiltrank, nehme diesen auf");
-			}
-			if (level.getLvlMazePosition(xPos, yPos + 1) == 3) {
+			} else if (level.getLvlMazePosition(xPos, yPos) == 3) {
 				if (level.getLvlMazePosition(xPos, yPos) == 3 && player.ownsKey()) {
 					engine.sendNextLevelMessage(clientID);
 				}

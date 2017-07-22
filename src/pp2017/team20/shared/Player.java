@@ -47,7 +47,7 @@ public class Player extends Figure implements Serializable {
 //		setLeben(100);
 //		setMaxLeben(getLeben());
 //		setName("Hindi Bones");
-//		setSchaden(8);
+		setDamage(12);
 		
 		// Bild fuer den Spieler laden
 		try {
