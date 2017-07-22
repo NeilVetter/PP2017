@@ -48,7 +48,6 @@ public class Monster extends Figure implements Serializable {
 		this.type = type;
 		this.lvl = lvl;
 		setPos(x, y);
-		//setPos(5, 5);
 		double variable = Math.random() * 5 + lvl.getLevelID(); // halb Zufall,
 																// halb
 																// Levelabhaengig
@@ -126,9 +125,7 @@ public class Monster extends Figure implements Serializable {
 		 * 
 		 * @author Sell, Robin, 6071120 (Grundgeruest: HindiBones)
 		 */
-
-		// verfasst bei Robin Sell, 6071120
-
+		
 		Random random = new Random();
 		dir = random.nextInt(4); // erzeugt zufaellige Zahl zwischen 0 und 3
 									// (Laufrichtung)
@@ -589,11 +586,9 @@ public class Monster extends Figure implements Serializable {
 				}
 				current = next;
 			}
-
 		}
-
 		int dir = -1;
-
+		
 		// Hier wird solange zurueckverfolgt bis man am ersten Knoten
 		// nach dem Startknoten landet, um die naechsten Knoten fuer die
 		// Methode zu erhalten
@@ -673,20 +668,20 @@ public class Monster extends Figure implements Serializable {
 
 		if (dir == 0 && getYPos() - 1 > 0) {
 			return !((lvl.getLvlMazePosition(getXPos(), getYPos() - 1) == 0)
-					&& !((lvl.getLvlMazePosition(getXPos(), getYPos() - 1) == 3)
-							&& !((lvl.getLvlMazePosition(getXPos(), getYPos() - 1) == 5))));
+				&& !((lvl.getLvlMazePosition(getXPos(), getYPos() - 1) == 3)
+				&& !((lvl.getLvlMazePosition(getXPos(), getYPos() - 1) == 5))));
 		} else if (dir == 1 && getXPos() + 1 < 19) {
 			return !((lvl.getLvlMazePosition(getXPos() + 1, getYPos()) == 0)
-					&& !((lvl.getLvlMazePosition(getXPos() + 1, getYPos()) == 3)
-							&& !((lvl.getLvlMazePosition(getXPos() + 1, getYPos()) == 5))));
+				&& !((lvl.getLvlMazePosition(getXPos() + 1, getYPos()) == 3)
+				&& !((lvl.getLvlMazePosition(getXPos() + 1, getYPos()) == 5))));
 		} else if (dir == 2 && getYPos() + 1 < 19) {
 			return !((lvl.getLvlMazePosition(getXPos(), getYPos() + 1) == 0)
-					&& !((lvl.getLvlMazePosition(getXPos(), getYPos() + 1) == 3)
-							&& !((lvl.getLvlMazePosition(getXPos(), getYPos() + 1) == 5))));
+				&& !((lvl.getLvlMazePosition(getXPos(), getYPos() + 1) == 3)
+				&& !((lvl.getLvlMazePosition(getXPos(), getYPos() + 1) == 5))));
 		} else if (dir == 3 && getXPos() > 0) {
 			return !((lvl.getLvlMazePosition(getXPos() - 1, getYPos()) == 0)
-					&& !((lvl.getLvlMazePosition(getXPos() - 1, getYPos()) == 3)
-							&& !((lvl.getLvlMazePosition(getXPos() - 1, getYPos()) == 5))));
+				&& !((lvl.getLvlMazePosition(getXPos() - 1, getYPos()) == 3)
+				&& !((lvl.getLvlMazePosition(getXPos() - 1, getYPos()) == 5))));
 		} else
 			return false;
 	}
@@ -710,10 +705,8 @@ public class Monster extends Figure implements Serializable {
 				min = tmp;
 				this.player = player;
 			}
-
 		}
 		return result;
-
 	}
 
 	public boolean playerInFreedomVisibilityRange() { // ab hier ist das Monster
@@ -733,15 +726,11 @@ public class Monster extends Figure implements Serializable {
 				min = tmp;
 				this.player = player;
 			}
-
 		}
 		return result;
-		
-	
 	}
 
 	public boolean playerInFightRange() { // ab hier wird attackiert
-		
 		boolean result = false;
 		double tmp;
 		double min = Double.MAX_VALUE;
@@ -752,10 +741,8 @@ public class Monster extends Figure implements Serializable {
 				min = tmp;
 				this.player = player;
 			}
-
 		}
-		return result;
-		
+		return result;	
 		//return (Math.abs(player.getXPos() - this.getXPos()) + Math.abs(player.getYPos() - this.getYPos()) < 2);
 	}
 	
@@ -779,6 +766,4 @@ public class Monster extends Figure implements Serializable {
 	public void setY(int x){
 		this.y = x;
 	}
-	
-	
 }
