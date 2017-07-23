@@ -14,11 +14,9 @@ import javax.imageio.ImageIO;
 import pp2017.team20.shared.Monster;
 
 
-
-//Klasse f�r ein Objetk der types "Player"
+//Klasse fuer ein Objetk der types "Player"
 //Neil Vetter 6021336
 
-// erbt von der Klasse "Figur", �bernommen aus HndiBones
 public class Player extends Figure implements Serializable {
 	public int playerLvl;
 	public int [][] playerMap;
@@ -38,34 +36,6 @@ public class Player extends Figure implements Serializable {
 	
 	private GamingArea window;
 	
-		
-	public Player(String imgFile, GamingArea window){
-		this.window = window;
-
-		setHealthPotNumber(0);
-		setPos(0, 0);
-//		setLeben(100);
-//		setMaxLeben(getLeben());
-//		setName("Hindi Bones");
-		setDamage(12);
-		
-		// Bild fuer den Spieler laden
-		try {
-			setImage(ImageIO.read(new File(imgFile)));
-		} catch (IOException e) {
-			System.err.print("Das Bild "+ imgFile + " konnte nicht geladen werden.");
-		}
-	}
-	
-	//Konstruktor f�r die Anmeldung(Macht jetzt Datebank)
-//	public Player (String playername, String pasword,int PosX,int PosY,int PlayerID,boolean loggedIN){
-//		this.playername=playername;
-//		this.pasword=pasword;
-//		this.xPos=PosX;
-//		this.yPos=PosY;
-//		this.playerID=PlayerID;
-//		this.loggedIN=loggedIN;
-//	}
 	//Konstruktor um einen neuen Spieler zu erstellen
 	//Nach zusammensetzen ohne PosX/PosY
 	public Player (){
@@ -110,27 +80,6 @@ public class Player extends Figure implements Serializable {
 		return ownsKey;
 	}
 	
-//	public Monster attackMonster(){
-//		for (int i = 0; i < window.monsterList.size(); i++) {
-//			Monster m = window.monsterList.get(i);
-//
-//			// Kann der Spieler angreifen?
-//			boolean canAttack = false;
-//			if (m.getType() == 0)
-//				canAttack = true;
-//			if (m.getType() == 1)
-//				canAttack = ownsKey;
-//
-//			if ((Math.sqrt(Math.pow(getXPos() - m.getXPos(), 2)
-//					+ Math.pow(getYPos() - m.getYPos(), 2)) < 2)
-//					&& canAttack) {
-//				return m;
-//			}
-//		}
-//
-//		return null;
-//	}
-	
 	public void collectPotion() {
 		healthPotNumber++;
 	}
@@ -149,6 +98,4 @@ public class Player extends Figure implements Serializable {
 	public void setPlayerID(int playerID){
 		this.playerID=playerID;
 	}
-
-	
 }

@@ -66,17 +66,8 @@ public class Monster extends Figure implements Serializable {
 		lastStep = System.currentTimeMillis();
 		cooldownAttack = 500 - 10 * strength;
 		cooldownWalk = 1000 - 20 * strength - 5 * lvl.getLevelID();
-		setDamage(8 + 2 * strength);
+		setDamage(10 + 2 * strength);
 		state = 0;
-
-		// Bild fuer das Monster laden
-
-		// try {
-		// setImage(ImageIO.read(new File("img//drache" + strength + ".png")));
-		// } catch (IOException e) {
-		// System.err.print("Das Bild drache.png konnte nicht geladen werden.");
-		// }
-
 	}
 
 	/**
@@ -95,26 +86,19 @@ public class Monster extends Figure implements Serializable {
 			switch (state) {
 			case 0:
 				randomWalk(); // -->randomWalk, -->runBehind
-				//System.out.println("Monster randomWalk");
 				break;
 			case 1:
 				runBehind(); // -->runBehind, -->attackPlayer, -->randomWalk
-				System.out.println("Monster runbehind");
 				break;
 			case 2:
 				attackiereSpieler(false); // -->attackPlayer, -->runBehind, -->flee,
 											// -->monsterDies
-				System.out.println("Monster atkSpieler");
 				break;
 			case 3:
 				flee(); // -->flee, -->randomWalk,
 						// -->runBehind(attackPlayer)[Kamikaze-Modus],
-						// -->monsterDies
-				System.out.println("Monster flee");
-				break;
-				
+				break;		
 			}
-
 	}
 
 	public void randomWalk() {
@@ -125,6 +109,7 @@ public class Monster extends Figure implements Serializable {
 		 * 
 		 * @author Sell, Robin, 6071120 (Grundgeruest: HindiBones)
 		 */
+
 		
 		Random random = new Random();
 		dir = random.nextInt(4); // erzeugt zufaellige Zahl zwischen 0 und 3
@@ -133,15 +118,12 @@ public class Monster extends Figure implements Serializable {
 
 		boolean nextWalk = (System.currentTimeMillis() - lastStep) >= cooldownWalk;
 		if (nextWalk) {
-			System.out.println("Monster randomWalk");
-			if (playerInVisibilityRange()) {
+			if (playerInVisibilityRange() || lvl.player.ownsKey()) {
 				state = 1; // Springt zu Zustand: runBehind
 			} else {
 				state = 0; // Weiter: randomWalk (Koennte auch weg)
 			}
-
 		}
-
 	}
 
 	public void runBehind() { // Probleme
@@ -161,7 +143,7 @@ public class Monster extends Figure implements Serializable {
 
 		if (playerInFightRange()) {
 			state = 2; // If im Fight Radius --> Attacke
-		} else if (playerInVisibilityRange() || player.ownsKey()) {
+		} else if (playerInVisibilityRange() || lvl.player.ownsKey()) {
 			boolean nextStep = (System.currentTimeMillis() - lastStep) >= cooldownWalk;
 			if (nextStep) {
 				dir = calculateDirection();
@@ -214,19 +196,17 @@ public class Monster extends Figure implements Serializable {
 			player.changeHealth(-getDamage());
 			state = 2; // koennte auch weggelassen werden, aber zur Uebersicht
 			am = new AttackMessage(1, 0, this.getId(), player.getPlayerID(), player.getHealth());
+			// sende eine AttackMessage
 			return playerINRadius;
 		}
-
 		state = 1;
 		return playerINRadius;
 	}
 
 	public void flee() {
 		/**
-		 * Diese Methode testet zuerst, ob das Monster noch lebt, falls nicht
-		 * --> monsterDies.
 		 * 
-		 * Dann testet es, ob der Spieler den Schluessel hat, falls ja dann
+		 * Diese Methode testet zuerst, ob der Spieler den Schluessel hat, falls ja dann
 		 * wechselt es abhaengig vom Radius in den Kampf- bzw. Verfolgungsmodus.
 		 * 
 		 * Falls das alles verneint wurde, geht es in die Flucht ueber, indem
@@ -252,7 +232,7 @@ public class Monster extends Figure implements Serializable {
 
 		
 
-		if (player.ownsKey()) { // checkt, ob Spieler den Schluessel hat und
+		if (lvl.player.ownsKey()) { // checkt, ob Spieler den Schluessel hat und
 								// wechselt den Modus
 			if (playerInFightRange()) {
 				state = 2; // --> Attackieren
@@ -611,7 +591,8 @@ public class Monster extends Figure implements Serializable {
 	}
 
 	/**
-	 * reine HindiBones Methoden
+	 * HindiBones Methoden
+	 * (mit Ergaenzungen/Abaenderungen)
 	 * 
 	 * @author HindiBones
 	 */
@@ -655,13 +636,14 @@ public class Monster extends Figure implements Serializable {
 		/**
 		 * @author HindiBones
 		 */
-		return type;
+		return this.type;
 	}
 
 	private boolean moveAllowed() { // Pruefe, ob naechster Schritt zulaessig
 									// ist
 		/**
-		 * @author HindiBones
+		 * @author Sell, Robin, 6071120
+		 *(Grundgeruest: HindiBones)
 		 */
 		if (dir == -1)
 			return true;
@@ -700,7 +682,7 @@ public class Monster extends Figure implements Serializable {
 			tmp = Math.sqrt(
 					Math.pow(player.getXPos() - this.getXPos(), 2) + Math.pow(player.getYPos() - this.getYPos(), 2));
 			result = (Math.sqrt(Math.pow(player.getXPos() - this.getXPos(), 2)
-					+ Math.pow(player.getYPos() - this.getYPos(), 2)) < 4);
+					+ Math.pow(player.getYPos() - this.getYPos(), 2)) <7);
 			if (result && tmp < min) {
 				min = tmp;
 				this.player = player;
@@ -710,10 +692,8 @@ public class Monster extends Figure implements Serializable {
 	}
 
 	public boolean playerInFreedomVisibilityRange() { // ab hier ist das Monster
-														// weit genug
-														// gefluechtet, ob
-														// restForHealth zu
-														// machen
+										// weit genug gefluechtet, um restForHealth
+										//zu machen
 		boolean result = false;
 		double tmp;
 		double min = Double.MAX_VALUE;
@@ -721,7 +701,7 @@ public class Monster extends Figure implements Serializable {
 			tmp = (Math.sqrt(
 					Math.pow(player.getXPos() - this.getXPos(), 2) + Math.pow(player.getYPos() - this.getYPos(), 2)));
 			result = (Math.sqrt(
-					Math.pow(player.getXPos() - this.getXPos(), 2) + Math.pow(player.getYPos() - this.getYPos(), 2)) < 6);
+					Math.pow(player.getXPos() - this.getXPos(), 2) + Math.pow(player.getYPos() - this.getYPos(), 2)) < 9);
 			if (result && tmp < min) {
 				min = tmp;
 				this.player = player;
@@ -743,7 +723,6 @@ public class Monster extends Figure implements Serializable {
 			}
 		}
 		return result;	
-		//return (Math.abs(player.getXPos() - this.getXPos()) + Math.abs(player.getYPos() - this.getYPos()) < 2);
 	}
 	
 	public int getStrength(){
@@ -754,16 +733,17 @@ public class Monster extends Figure implements Serializable {
 		return this.monsterID;
 	}
 	
-	public int getX(){
-		return x;
-	}
-	public int getY(){
-		return y;
-	}
 	public void setX(int x){
 		this.x = x;
 	}
+	public int getX(){
+		return x;
+	}
+	
 	public void setY(int x){
 		this.y = x;
+	}
+	public int getY(){
+		return y;
 	}
 }
