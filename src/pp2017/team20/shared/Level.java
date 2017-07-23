@@ -1,5 +1,6 @@
 package pp2017.team20.shared;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.io.Serializable;
 
@@ -11,7 +12,7 @@ import pp2017.team20.server.map.Maze;
 import java.io.Serializable;
 import java.util.LinkedList;
 
-/** Setter - Getter für das Level 
+/** Setter - Getter fï¿½r das Level 
  * 
  * @author Hamid, Kirli 6041663
  * @author Neil, Vetter 6021336
@@ -22,7 +23,7 @@ public class Level implements Serializable {
 	public int[][] lvlMaze;
 	private int xPos;
 	private int yPos;
-	public LinkedList<Monster> monsterList = new LinkedList<Monster>();
+	public ArrayList<Monster> monsterList = new ArrayList<Monster>();
 	public Levelmanagement lvl;
 	
 	

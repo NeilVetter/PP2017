@@ -104,9 +104,6 @@ public class ClientEngine {
 
 		//Ueberpruefen, ob man sich auf eine gueltige Position bewegt, also keine Wand.
 		if (!(window.level.getLvl().getLvlMazePosition(window.player.getXPos(), window.player.getYPos()) == 0)) {
-			System.out.println(window.player.getXPos());
-			System.out.println(window.player.getYPos());
-			System.out.println("zuvor");
 			MoveMessage message = new MoveMessage(clientID, xPos, yPos, playerID);
 			communication.sendMessage(message);
 		}
@@ -353,7 +350,6 @@ public class ClientEngine {
 		}
 
 		for (sendObject m : window.monster) {
-			System.out.println("monsterID: " + m.ID + " pos: " + m.posX + " " + m.posY);
 		}
 
 	}
@@ -371,7 +367,7 @@ public class ClientEngine {
 
 	public void receiveLogInMessage(LogInMessage message) {
 		// Wenn die Enlogdaten korrekt sind, dann wird das Level geladen
-		System.out.println("NEUES LEVEL BAUEN");
+		System.out.println("NEUES LEVEL BAUEN 1");
 		if (message.getSuccess()) {
 			window.setSuccess(true);
 			// Laedt das Level
@@ -389,7 +385,7 @@ public class ClientEngine {
 						//Player uebergeben an GUI
 						window.player = player;
 						window.player.setPlayerID(message.playerID);
-						System.out.println("NEUES LEVEL BAUEN");
+						System.out.println("NEUES LEVEL BAUEN 2");
 					}
 				}
 			}
@@ -397,6 +393,7 @@ public class ClientEngine {
 			// Anzeigen der Spielwelt
 			window.showGamingWorld();
 			window.setVisible(true);
+			Registration.window.dispose();
 
 		}
 
@@ -426,12 +423,9 @@ public class ClientEngine {
 	 */
 
 	public void receiveMoveMessage(MoveMessage message) {
-		System.out.println("test");
 		if (message.success) {
 			//Umsetzen der Bewegung und uebermitteln der neuen Position
 			window.player.setPos(message.xPos, message.yPos);
-			System.out.println(window.player.getXPos());
-			System.out.println(window.player.getYPos());
 		}
 	}
 
@@ -447,7 +441,6 @@ public class ClientEngine {
 
 	public void receiveAttackMessage(AttackMessage message) {
 		if (message.attackType == 0) { // Monster greift Spieler an
-			System.out.println("recieved attack message a: " + message.attackID + " d: " + message.defendID + " ");
 			if (window.player.getPlayerID() == message.defendID) {
 				window.player.setHealth(message.hpDefender);
 			}
@@ -530,8 +523,8 @@ public class ClientEngine {
 				// Neues Level wird geladen
 				window.level = message.getLevel();
 				// Laedt die Startposition des Spielers
-				window.playerID = message.getLevel().getxPos();
-				window.playerID = message.getLevel().getyPos();
+				window.player.setXPos(message.getLevel().getxPos());
+				window.player.setYPos(message.getLevel().getyPos());
 				// Laedt die Monster des Levels
 				window.buffermonsterList = message.getLevel().monsterList;
 				// Wen die Spielfeldkachel nicht vom Spieler belegt wird, also
