@@ -1,8 +1,7 @@
 package pp2017.team20.client;
 
 import pp2017.team20.client.gui.GamingArea;
-import pp2017.team20.client.gui.Registration;
-import pp2017.team20.server.engine.*;
+
 
 /**
  * Klasse der Main-Methode fuer den Client, um den Client zu starten, sich mit
