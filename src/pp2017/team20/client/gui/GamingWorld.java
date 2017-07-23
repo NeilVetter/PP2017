@@ -26,7 +26,7 @@ public class GamingWorld extends JPanel {
 
 	private Image floor, wall, doorOpen, doorClosed, key, healthpot, player, monster1, monster2, monster3, monster6;
 	private GamingArea window;
-	private ClientEngine engine;
+//	private ClientEngine engine;
 
 	public GamingWorld(GamingArea window) {
 		this.window = window;
@@ -65,15 +65,14 @@ public class GamingWorld extends JPanel {
 		// gezeichnet
 		// 0 = Wand
 		// 1 = Boden
-		// 2 = Player
+		// 2 = geschlossene Tuer
 		// 3 = offene Tuer
-//		4 = Trank
-//		5 = Key
-//		6 = Monster
+		// 4 = Trank
+		// 5 = Key
+		// 6 = Monster
 		
 		for (int i = 0; i < window.WIDTH; i++) {
 			for (int j = 0; j < window.HEIGHT; j++) {
-				//System.out.println(window.level.getLvlMazePosition(i, j));
 				switch(window.level.getLvlMazePosition(i, j)){
 				case 0:
 					g.drawImage(wall, i * window.BOX, j * window.BOX, null);
@@ -85,7 +84,6 @@ public class GamingWorld extends JPanel {
 
 				case 2:
 					g.drawImage(floor, i * window.BOX, j * window.BOX, null);
-					
 					g.drawImage(doorClosed, i * window.BOX, j * window.BOX, null);
 					break;
 
@@ -112,11 +110,9 @@ public class GamingWorld extends JPanel {
 					System.err.println("Falsche Matrix");
 				}
 
-//				// hier wird der Spieler an die Position gezeichnet die in
-//				// der Klasse Player uebergeben wird
-				//TODO mehrspieler
+			// hier wird der Spieler an die Position gezeichnet die in
+			// der Klasse Player uebergeben wird
 				g.drawImage(player, window.player.getXPos() * window.BOX, window.player.getYPos() * window.BOX, null);
-				//System.out.println("monsterDraw");
 				
 				if (window.monster != null) {
 					for (sendObject m : window.monster) {

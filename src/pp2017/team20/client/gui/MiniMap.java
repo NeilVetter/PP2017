@@ -50,21 +50,12 @@ public class MiniMap extends JPanel {
 	public void paint(Graphics g) {
 		super.paintComponent(g);
 		
-//		Levelmanagement level = new Levelmanagement(window);
-////		int[][] level = window.level.lvlMaze;
-//		
-		
-		
-////		Levelmanagement level = new Levelmanagement(window);
-//		switch (level.getMaze(i,j)){
-
 		// alle Eintraege des Testlevels (aus GamingArea) werden abgefragt, und
 		// mit unterschiedlich farblichen Rechtecken in der MiniMap dargestellt
 		
 		for (int i = 0; i < window.WIDTH; i++) {
 			for (int j = 0; j < window.HEIGHT; j++) {
 
-				//Levelmanagement level = new Levelmanagement(window);
 				switch (window.level.getLvlMazePosition(i, j)){
 				case 0:
 					g.setColor(Color.BLACK);
@@ -105,36 +96,6 @@ public class MiniMap extends JPanel {
 				}
 			}
 		
-//		for (int i = 0; i < window.HEIGHT; i++) {
-//			for (int j = 0; j < window.WIDTH; j++) {
-//
-//				int[][] levelel;
-//				Levelmanagement level = new Levelmanagement(window);
-//				levelel[i][j] = level.getMaze(i,j);
-//				
-//				if (levelel[i][j] == 0) {
-//					g.setColor(Color.BLACK);
-//					g.fillRect(i * (window.BOX / 4), j * (window.BOX / 4), window.BOX / 4, window.BOX / 4);
-//				} else if (levelel[i][j] == 1) {
-//					g.setColor(Color.WHITE);
-//					g.fillRect(i * (window.BOX / 4), j * (window.BOX / 4), window.BOX / 4, window.BOX / 4);
-//				} else if (levelel[i][j] == 3) {
-//					g.setColor(Color.GREEN);
-//					g.fillRect(i * (window.BOX / 4), j * (window.BOX / 4), window.BOX / 4, window.BOX / 4);
-//				} else if (levelel[i][j] == 6) {
-//					g.setColor(Color.RED);
-//					g.fillRect(i * (window.BOX / 4), j * (window.BOX / 4), window.BOX / 4, window.BOX / 4);
-//				} else if (levelel[i][j] == 5) {
-//					g.setColor(Color.YELLOW);
-//					g.fillRect(i * (window.BOX / 4), j * (window.BOX / 4), window.BOX / 4, window.BOX / 4);
-//				} else if (levelel[i][j] == 4) {
-//					g.setColor(Color.CYAN);
-//					g.fillRect(i * (window.BOX / 4), j * (window.BOX / 4), window.BOX / 4, window.BOX / 4);
-//				}
-//
-//			}
-//		}
-
 		// hier wird der Spieler als pinkes Kaestchen gezeichnet, der sich auf
 		// der
 		// MiniMap mitbewegt, in dem immer die aktuelle Position abgefragt wird

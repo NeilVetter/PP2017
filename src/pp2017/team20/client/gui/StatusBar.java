@@ -61,11 +61,10 @@ public class StatusBar extends JPanel {
 		// gezeichnet
 		g.drawImage(player, 190, 0, window.BOX, window.BOX, null);
 		g.setColor(Color.WHITE);
-		//g.drawString("" + window.player.getPlayername(), window.BOX * (window.WIDTH - 13), 25);
-
+	
 		// das Symbol fuer die Lebenstraenke und die Anzahl werden in die Mitte
 		// unter das Spielfeld gezeichnet
-		g.drawImage(healthpot, 510, 0, window.BOX, window.BOX, null);
+		g.drawImage(healthpot, 460, 0, window.BOX, window.BOX, null);
 		g.drawString("" + window.player.getHealthPotNumber(), window.BOX * (window.WIDTH - 5), 25);
 
 		// hier wird die benoetigte Zeit des aktuellen Spiels angezeigt
@@ -84,7 +83,7 @@ public class StatusBar extends JPanel {
 		// falls der Spieler den Stern gefunden und aufgenommen hat, wird dieser
 		// ebenfalls in der Statusleiste angezeigt
 		if (window.player.ownsKey == true) {
-			g.drawImage(key, 460, 0, window.BOX, window.BOX, null);
+			g.drawImage(key, 510, 0, window.BOX, window.BOX, null);
 		}
 
 	}

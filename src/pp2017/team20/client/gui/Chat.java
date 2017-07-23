@@ -58,8 +58,8 @@ public class Chat extends JPanel {
 		chatInput.setForeground(Color.BLACK);
 		chatInput.requestFocusInWindow();
 
-		// 'Sende Nachricht' Button wird erstellt
-		send = new JButton("Send");
+		// 'Sende' Button wird erstellt
+		send = new JButton("Senden");
 		send.setBackground(Color.WHITE);
 		send.setForeground(Color.BLACK);
 		send.addActionListener(new sendMessageListener());
@@ -76,10 +76,6 @@ public class Chat extends JPanel {
 		chatOutput.setForeground(Color.WHITE);
 		chatOutput.setLineWrap(true);
 
-		// Systemnachricht dass der Spieler angemeldet ist wird im Chat
-		// angezeigt
-		chatOutput.setText("     ---Team20 ist angemeldet---" + "\n" + "\n");
-
 		// scrollbares Ausgabefenster wird in die Mitte hinzugefuegt
 		this.add(new JScrollPane(chatOutput), BorderLayout.CENTER);
 
@@ -90,7 +86,7 @@ public class Chat extends JPanel {
 		left.weightx = 300.0D;
 		left.weighty = 1.0D;
 
-		// Layout des 'Send Message' Button wird designt
+		// Layout des 'Senden' Button wird designt
 		GridBagConstraints below = new GridBagConstraints();
 		below.insets = new Insets(0, 10, 0, 0);
 		below.anchor = GridBagConstraints.LINE_START;
@@ -117,6 +113,9 @@ public class Chat extends JPanel {
 
 		public void actionPerformed(ActionEvent arg0) {
 			window.engine.sendChatMessage(clientID, chatInput.getText());
+			chatOutput.append(window.player.getPlayername() + ": " + chatInput.getText() + "\n");
+			chatInput.setText("");
+			chatInput.requestFocusInWindow();
 		}
 	}
 
