@@ -34,7 +34,7 @@ public class Chat extends JPanel {
 	public JButton send;
 	private JTextField chatInput;
 	public JTextArea chatOutput;
-
+	public String username;
 	public int clientID;
 
 	/**
@@ -43,7 +43,8 @@ public class Chat extends JPanel {
 	 * 
 	 * @author Heck, Liz, 5991099
 	 */
-	public Chat(GamingArea window) {
+	public Chat(GamingArea window, String username) {
+		this.username = username;
 		this.window = window;
 		this.setLayout(new BorderLayout());
 
@@ -113,7 +114,7 @@ public class Chat extends JPanel {
 
 		public void actionPerformed(ActionEvent arg0) {
 			window.engine.sendChatMessage(clientID, chatInput.getText());
-			chatOutput.append(window.player.getPlayername() + ": " + chatInput.getText() + "\n");
+			chatOutput.append(username + ": " + chatInput.getText() + "\n");
 			chatInput.setText("");
 			chatInput.requestFocusInWindow();
 		}

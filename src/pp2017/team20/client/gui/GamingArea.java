@@ -108,7 +108,7 @@ public class GamingArea extends JFrame implements KeyListener {
 		this.statusbar = new StatusBar(this);
 		this.highscore = new Highscore();
 		this.control = new Control();
-		this.chat = new Chat(this);
+		this.chat = new Chat(this, user);
 		this.map = new MiniMap(this);
 
 		// Hier werden Breite und Hoehe der einzelnen Elemente des Spielfeldes
@@ -391,6 +391,7 @@ public class GamingArea extends JFrame implements KeyListener {
 	
 	public void login(String username, String password) {      
 		//Verschluesseltes Passwort wird mit dem generierten Schluessel an den Client uebermittelt
+		chat = new Chat(this, username);
 		engine.sendLogInMessage(clientID, username, password);
 	}
 	
