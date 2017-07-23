@@ -114,7 +114,7 @@ public class Chat extends JPanel {
 
 		public void actionPerformed(ActionEvent arg0) {
 			window.engine.sendChatMessage(clientID, chatInput.getText());
-			chatOutput.append(window.player.getPlayername() + ": " + chatInput.getText() + "\n");
+			chatOutput.append(username + ": " + chatInput.getText() + "\n");
 			chatInput.setText("");
 			chatInput.requestFocusInWindow();
 		}
