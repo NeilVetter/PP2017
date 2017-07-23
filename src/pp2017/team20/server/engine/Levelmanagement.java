@@ -18,7 +18,7 @@ import pp2017.team20.server.map.*;
 public class Levelmanagement implements Serializable {
 	
 	
-	private static final long serialVersionUID = 1L;
+	
 	
 	public int[][] lvlMaze;
 	public int[][] test;
