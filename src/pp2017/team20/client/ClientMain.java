@@ -1,4 +1,4 @@
-package pp2017.team20.client;
+           package pp2017.team20.client;
 
 import pp2017.team20.client.gui.GamingArea;
 import pp2017.team20.client.gui.Registration;

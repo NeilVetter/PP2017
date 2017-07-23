@@ -7,12 +7,11 @@ import java.awt.Graphics;
 
 import javax.swing.JPanel;
 
-import pp2017.team20.server.engine.Levelmanagement;
 import pp2017.team20.shared.sendObject;
 
 /**
- * Klasse in der die MiniMap des Spielfensters erstellt wird, auf der das Level in verkleinerter Form
- * dargestellt ist
+ * Klasse in der die MiniMap des Spielfensters erstellt wird, auf der das Level
+ * in verkleinerter Form dargestellt ist
  * 
  * @author Heck, Liz, 5991099
  *
@@ -49,14 +48,14 @@ public class MiniMap extends JPanel {
 	 */
 	public void paint(Graphics g) {
 		super.paintComponent(g);
-		
+
 		// alle Eintraege des Testlevels (aus GamingArea) werden abgefragt, und
 		// mit unterschiedlich farblichen Rechtecken in der MiniMap dargestellt
-		
+
 		for (int i = 0; i < window.WIDTH; i++) {
 			for (int j = 0; j < window.HEIGHT; j++) {
 
-				switch (window.level.getLvlMazePosition(i, j)){
+				switch (window.level.getLvlMazePosition(i, j)) {
 				case 0:
 					g.setColor(Color.BLACK);
 					g.fillRect(i * (window.BOX / 4), j * (window.BOX / 4), window.BOX / 4, window.BOX / 4);
@@ -68,7 +67,7 @@ public class MiniMap extends JPanel {
 					break;
 				case 2:
 					g.setColor(Color.WHITE);
-						g.fillRect(i * (window.BOX / 4), j * (window.BOX / 4), window.BOX / 4, window.BOX / 4);
+					g.fillRect(i * (window.BOX / 4), j * (window.BOX / 4), window.BOX / 4, window.BOX / 4);
 					break;
 
 				case 3:
@@ -89,29 +88,37 @@ public class MiniMap extends JPanel {
 					g.setColor(Color.WHITE);
 					g.fillRect(i * (window.BOX / 4), j * (window.BOX / 4), window.BOX / 4, window.BOX / 4);
 					break;
-				
 
 				default:
 					System.err.println("Falsche Matrix");
 				}
 			}
-		
-		// hier wird der Spieler als pinkes Kaestchen gezeichnet, der sich auf
-		// der
-		// MiniMap mitbewegt, in dem immer die aktuelle Position abgefragt wird
-		g.setColor(Color.MAGENTA);
-		g.fillRect(window.player.getXPos() * ((window.BOX * window.WIDTH) / 4) / window.WIDTH,
-				window.player.getYPos() * ((window.BOX * window.HEIGHT) / 4) / window.HEIGHT,
-				((window.BOX * window.WIDTH) / 4) / window.WIDTH, ((window.BOX * window.HEIGHT) / 4) / window.HEIGHT);
-		
-		
-		g.setColor(Color.RED);
-		for(sendObject o : window.monster){
-			g.fillRect(o.posX * ((window.BOX * window.WIDTH) / 4) / window.WIDTH,
-					o.posY * ((window.BOX * window.HEIGHT) / 4) / window.HEIGHT,
-					((window.BOX * window.WIDTH) / 4) / window.WIDTH, ((window.BOX * window.HEIGHT) / 4) / window.HEIGHT);
+
+			// hier wird der Spieler als pinkes Kaestchen gezeichnet, der sich
+			// auf
+			// der
+			// MiniMap mitbewegt, in dem immer die aktuelle Position abgefragt
+			// wird
+			g.setColor(Color.MAGENTA);
+			g.fillRect(window.player.getXPos() * ((window.BOX * window.WIDTH) / 4) / window.WIDTH,
+					window.player.getYPos() * ((window.BOX * window.HEIGHT) / 4) / window.HEIGHT,
+					((window.BOX * window.WIDTH) / 4) / window.WIDTH,
+					((window.BOX * window.HEIGHT) / 4) / window.HEIGHT);
+
+			// hier werden die Monsterr jeweils als rotes Kaestchen gezeichnet,
+			// das sich auf
+			// der
+			// MiniMap mitbewegt, in dem immer die aktuelle Position abgefragt
+			// wird
+			g.setColor(Color.RED);
+			for (sendObject o : window.monster) {
+				g.fillRect(o.posX * ((window.BOX * window.WIDTH) / 4) / window.WIDTH,
+						o.posY * ((window.BOX * window.HEIGHT) / 4) / window.HEIGHT,
+						((window.BOX * window.WIDTH) / 4) / window.WIDTH,
+						((window.BOX * window.HEIGHT) / 4) / window.HEIGHT);
+			}
+
+			repaint();
 		}
-		
-		repaint();
-		}}
+	}
 }

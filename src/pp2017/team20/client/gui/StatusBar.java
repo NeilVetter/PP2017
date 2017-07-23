@@ -61,14 +61,15 @@ public class StatusBar extends JPanel {
 		// gezeichnet
 		g.drawImage(player, 190, 0, window.BOX, window.BOX, null);
 		g.setColor(Color.WHITE);
-	
+
 		// das Symbol fuer die Lebenstraenke und die Anzahl werden in die Mitte
 		// unter das Spielfeld gezeichnet
 		g.drawImage(healthpot, 460, 0, window.BOX, window.BOX, null);
 		g.drawString("" + window.player.getHealthPotNumber(), window.BOX * (window.WIDTH - 5), 25);
 
 		// hier wird die benoetigte Zeit des aktuellen Spiels angezeigt
-		g.drawString("Time: " + (System.currentTimeMillis() - window.startTime)/1000, window.BOX * (window.WIDTH + 1), 25);
+		g.drawString("Time: " + (System.currentTimeMillis() - window.startTime) / 1000, window.BOX * (window.WIDTH + 1),
+				25);
 
 		// hier wird das Level in dem sich der Spieler grade befindet angezeigt
 		g.drawString("Level: 1", window.BOX * (window.WIDTH + 3) - 5, 25);
@@ -76,9 +77,10 @@ public class StatusBar extends JPanel {
 		// hier wird die Lebensanzeige des Spielers gezeichnet
 		g.setColor(Color.RED);
 		g.fillRect((window.WIDTH / 2) * window.BOX - 60, getHeight() - 20, 150, 9);
-		
+
 		g.setColor(Color.GREEN);
-		g.fillRect((window.WIDTH / 2) * window.BOX - 60, getHeight() - 20, (int) (150*((double)window.player.getHealth()/(double)window.player.getMaxHealth())), 9);
+		g.fillRect((window.WIDTH / 2) * window.BOX - 60, getHeight() - 20,
+				(int) (150 * ((double) window.player.getHealth() / (double) window.player.getMaxHealth())), 9);
 
 		// falls der Spieler den Stern gefunden und aufgenommen hat, wird dieser
 		// ebenfalls in der Statusleiste angezeigt

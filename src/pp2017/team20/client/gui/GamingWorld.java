@@ -8,10 +8,6 @@ import java.io.File;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
-import pp2017.team20.client.engine.ClientEngine;
-import pp2017.team20.server.engine.Levelmanagement;
-import pp2017.team20.shared.Monster;
-import pp2017.team20.shared.Player;
 import pp2017.team20.shared.sendObject;
 
 /**
@@ -26,7 +22,6 @@ public class GamingWorld extends JPanel {
 
 	private Image floor, wall, doorOpen, doorClosed, key, healthpot, player, monster1, monster2, monster3, monster6;
 	private GamingArea window;
-//	private ClientEngine engine;
 
 	public GamingWorld(GamingArea window) {
 		this.window = window;
@@ -70,10 +65,10 @@ public class GamingWorld extends JPanel {
 		// 4 = Trank
 		// 5 = Key
 		// 6 = Monster
-		
+
 		for (int i = 0; i < window.WIDTH; i++) {
 			for (int j = 0; j < window.HEIGHT; j++) {
-				switch(window.level.getLvlMazePosition(i, j)){
+				switch (window.level.getLvlMazePosition(i, j)) {
 				case 0:
 					g.drawImage(wall, i * window.BOX, j * window.BOX, null);
 					break;
@@ -110,10 +105,14 @@ public class GamingWorld extends JPanel {
 					System.err.println("Falsche Matrix");
 				}
 
-			// hier wird der Spieler an die Position gezeichnet die in
-			// der Klasse Player uebergeben wird
+				// hier wird der Spieler an die Position gezeichnet die in
+				// der Klasse Player uebergeben wird
 				g.drawImage(player, window.player.getXPos() * window.BOX, window.player.getYPos() * window.BOX, null);
-				
+
+				// hier werden die Monster, anhaengig von ihrer Strength die sie
+				// zugeordnet bekommen haben, an die Position gezeichnet die sie
+				// vom Levelmanagement bekommen und dann immer an ihre aktuelle
+				// Position gezeichnet
 				if (window.monster != null) {
 					for (sendObject m : window.monster) {
 						int strength = m.strength;
@@ -126,7 +125,7 @@ public class GamingWorld extends JPanel {
 						} else if (strength == 6) {
 							g.drawImage(monster6, m.posX * window.BOX, m.posY * window.BOX, null);
 						}
-					} 
+					}
 				}
 				repaint();
 

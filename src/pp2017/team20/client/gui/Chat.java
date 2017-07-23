@@ -20,7 +20,8 @@ import javax.swing.JTextField;
 import pp2017.team20.client.gui.GamingArea;
 
 /**
- * Klasse in der der Chat des Spielfensters mit einem Eingabe- und Ausgabefenster erstellt wird
+ * Klasse in der der Chat des Spielfensters mit einem Eingabe- und
+ * Ausgabefenster erstellt wird
  * 
  * @author Heck, Liz, 5991099
  * 
@@ -53,13 +54,13 @@ public class Chat extends JPanel {
 		southPanel.setForeground(Color.WHITE);
 		southPanel.setLayout(new GridBagLayout());
 
-		// Eingabefenster wird erstellt
+		// Eingabefenster wird erstellt (Groesse und Farbe wird festgelegt)
 		chatInput = new JTextField(10);
 		chatInput.setBackground(Color.WHITE);
 		chatInput.setForeground(Color.BLACK);
 		chatInput.requestFocusInWindow();
 
-		// 'Sende' Button wird erstellt
+		// 'Sende' Button wird erstellt (Groesse und Farbe wird festgelegt)
 		send = new JButton("Senden");
 		send.setBackground(Color.WHITE);
 		send.setForeground(Color.BLACK);
@@ -67,8 +68,7 @@ public class Chat extends JPanel {
 		Dimension d = new Dimension(10, 10);
 		send.setSize(d);
 
-		
-		// Ausgabefenster wird erstellt
+		// Ausgabefenster wird erstellt (Groesse und Farbe wird festgelegt)
 		chatOutput = new JTextArea();
 		chatOutput.setEditable(false);
 		chatOutput.setSize(100, 30);
@@ -114,6 +114,9 @@ public class Chat extends JPanel {
 
 		public void actionPerformed(ActionEvent arg0) {
 			window.engine.sendChatMessage(clientID, chatInput.getText());
+
+			// Nachricht aus dem Eingabefeld wird zusammen mit den Spielernamen
+			// ausgegeben
 			chatOutput.append(username + ": " + chatInput.getText() + "\n");
 			chatInput.setText("");
 			chatInput.requestFocusInWindow();

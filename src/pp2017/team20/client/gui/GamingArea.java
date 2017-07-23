@@ -1,6 +1,6 @@
 package pp2017.team20.client.gui;
 
-import java.awt.BorderLayout; 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -45,7 +45,7 @@ public class GamingArea extends JFrame implements KeyListener {
 	public ArrayList<Monster> monsterList;
 	public ArrayList<Monster> buffermonsterList;
 	public ArrayList<sendObject> monster = new ArrayList<sendObject>();
-	
+
 	public Level level;
 	public int clientID;
 	public int id;
@@ -75,14 +75,13 @@ public class GamingArea extends JFrame implements KeyListener {
 	public final int HEIGHT = 19;
 	public final int BOX = 32;
 
-
 	/**
 	 * Diese Methode wird von der Main Methode in der Startklasse aufgerufen
 	 * 
 	 * @author Heck, Liz, 5991099
 	 */
 	public GamingArea(String title) {
-		this.player=new Player ();
+		this.player = new Player();
 		monsterList = new ArrayList<Monster>();
 		buffermonsterList = new ArrayList<Monster>();
 
@@ -90,7 +89,7 @@ public class GamingArea extends JFrame implements KeyListener {
 		communication.start();
 		engine = new ClientEngine(communication, this);
 		initializeJFrame(title);
-		
+
 		startNewGame();
 
 	}
@@ -119,35 +118,32 @@ public class GamingArea extends JFrame implements KeyListener {
 		control.setPreferredSize(new Dimension(WIDTH * BOX, HEIGHT * BOX));
 		chat.setPreferredSize(new Dimension(6 * BOX, HEIGHT));
 		map.setPreferredSize(new Dimension((BOX * WIDTH) / 4, BOX));
-		
-		
-		/** 
+
+		/**
 		 * Ruft das Registration Fenster auf
 		 * 
-		 *  @author Hamid, Kirli , 6041663 
-		 *  
+		 * @author Hamid, Kirli , 6041663
+		 * 
 		 */
-				
+
 		Registration windowTest = new Registration(this);
 		windowTest.window.setVisible(true);
-					
+
 		while (!success) {
-			
+
 			engine.receiveMessage();
-			
+
 		}
-		
+
 		// Standadeinstellungen (Groesse des Fensters nicht veraenderbar, Titel
-		// setzen, sichtbar machen, schliessbar machen
-//		chat.send.addKeyListener(this);
+		// setzen, sichtbar machen, schliessbar machen)
 		this.addKeyListener(this);
 		this.setResizable(false);
 		this.setTitle(title);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-		
 		showGamingWorld();
-		
+
 		// das Spielfenster wird auf dem Bildschirm zentriert
 		final Dimension d = this.getToolkit().getScreenSize();
 		this.setLocation((int) ((d.getWidth() - this.getWidth()) / 2), (int) ((d.getHeight() - this.getHeight()) / 2));
@@ -174,9 +170,8 @@ public class GamingArea extends JFrame implements KeyListener {
 		this.add(map, BorderLayout.WEST);
 
 		// das fertige Spielfeld wird aktiviert
-		
 		this.setVisible(true);
-		
+
 		this.pack();
 		this.requestFocus();
 	}
@@ -247,7 +242,7 @@ public class GamingArea extends JFrame implements KeyListener {
 	 */
 	public void keyPressed(KeyEvent e) {
 
-		// aktuelle Position des Spielers wird übergeben
+		// aktuelle Position des Spielers wird uebergeben
 		int xPos = player.getXPos();
 		int yPos = player.getYPos();
 		if (!gameEnd) {
@@ -255,17 +250,17 @@ public class GamingArea extends JFrame implements KeyListener {
 			// dem aktuellen Feld des Spielers keine Wand ist, bewege den
 			// Spieler ein Feld nach oben
 			if (e.getKeyCode() == KeyEvent.VK_UP) {
-				if (yPos > 0 && !(level.getLvlMazePosition(xPos, yPos - 1) == 0)){
-					yPos=yPos-1;
+				if (yPos > 0 && !(level.getLvlMazePosition(xPos, yPos - 1) == 0)) {
+					yPos = yPos - 1;
 					engine.sendMoveMessage(clientID, xPos, yPos, player.playerID);
 				}
 			}
-			// wenn die Pfeiltaste nach untenn gedrueckt wird und das Feld unter
+			// wenn die Pfeiltaste nach unten gedrueckt wird und das Feld unter
 			// dem aktuellen Feld des Spielers keine Wand ist, bewege den
 			// Spieler ein Feld nach unten
 			else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-				if (yPos < HEIGHT - 1 && !(level.getLvlMazePosition(xPos, yPos+1) == 0)){
-					yPos=yPos+1;
+				if (yPos < HEIGHT - 1 && !(level.getLvlMazePosition(xPos, yPos + 1) == 0)) {
+					yPos = yPos + 1;
 					engine.sendMoveMessage(clientID, xPos, yPos, player.playerID);
 				}
 			}
@@ -273,8 +268,8 @@ public class GamingArea extends JFrame implements KeyListener {
 			// neben dem aktuellen Feld des Spielers keine Wand ist, bewege den
 			// Spieler ein Feld nach links
 			else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-				if (xPos > 0 && !(level.getLvlMazePosition(xPos - 1, yPos) == 0)){
-					xPos=xPos-1;
+				if (xPos > 0 && !(level.getLvlMazePosition(xPos - 1, yPos) == 0)) {
+					xPos = xPos - 1;
 					engine.sendMoveMessage(clientID, xPos, yPos, player.playerID);
 				}
 			}
@@ -283,8 +278,8 @@ public class GamingArea extends JFrame implements KeyListener {
 			// aktuellen Feld des Spielers keine Wand ist, bewege den Spieler
 			// ein Feld nach rechts
 			else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-				if (xPos < WIDTH - 1 && !(level.getLvlMazePosition(xPos + 1, yPos) == 0)){
-					xPos=xPos+1;
+				if (xPos < WIDTH - 1 && !(level.getLvlMazePosition(xPos + 1, yPos) == 0)) {
+					xPos = xPos + 1;
 					engine.sendMoveMessage(clientID, xPos, yPos, player.playerID);
 				}
 			}
@@ -292,9 +287,9 @@ public class GamingArea extends JFrame implements KeyListener {
 			// Spielers ist, wird dieses angegriffen und in seinen Lebenspunkten
 			// geschwaecht
 			else if (e.getKeyCode() == KeyEvent.VK_Q) {
-				for (sendObject m : monster){
+				for (sendObject m : monster) {
 					int distanceOffet = Math.abs((player.getXPos() - m.posX)) + Math.abs(player.getYPos() - m.posY);
-					if(distanceOffet <= 1){
+					if (distanceOffet <= 1) {
 						engine.sendAttackMessage(clientID, player.playerID, m.ID, -1 * player.getDamage());
 					}
 				}
@@ -304,11 +299,11 @@ public class GamingArea extends JFrame implements KeyListener {
 			// hat, reduziere Trankanzahl in der Statusleiste um 1 und setze
 			// Lebensanzeige wieder voll
 			else if (e.getKeyCode() == KeyEvent.VK_B) {
-				
+
 				if (player.healthPotNumber > 0) {
 					engine.sendUsePotionMessage(clientID, id, player.playerID);
 				}
-				
+
 			}
 			// wenn Escape gedrueckt wird, schliesse das Spielfenster
 			else if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
@@ -319,6 +314,8 @@ public class GamingArea extends JFrame implements KeyListener {
 		// dem der Stern oder
 		// ein Trank liegt, nehme Stern/Trank auf und fuege Stern in
 		// Statusleiste hinzu bzw. erhoehe Trankanzahl um 1
+		// wenn der Spieler auf der offenen Tuer steht und den Schluessel
+		// aufgenommen hat, gehe ins naechste Level
 		if (e.getKeyCode() == KeyEvent.VK_SPACE) {
 			if (level.getLvlMazePosition(xPos, yPos) == 5) {
 				engine.sendCollectKeyMessage(clientID);
@@ -340,6 +337,11 @@ public class GamingArea extends JFrame implements KeyListener {
 	public void keyReleased(KeyEvent e) {
 	}
 
+	/**
+	 * Hier wird das Spiel resettet
+	 * 
+	 * @author Heck, Liz, 5991099
+	 */
 	public void resetGame() {
 
 		monsterList = new ArrayList<Monster>();
@@ -347,7 +349,8 @@ public class GamingArea extends JFrame implements KeyListener {
 		if (buffermonsterList != null) {
 			for (int i = 0; i < buffermonsterList.size(); i++) {
 				Monster element = buffermonsterList.get(i);
-				element = new Monster(monsterID, element.getXPos(), element.getYPos(), engine.level.getLvl(), element.getType());
+				element = new Monster(monsterID, element.getXPos(), element.getYPos(), engine.level.getLvl(),
+						element.getType());
 				monsterList.add(element);
 			}
 		}
@@ -359,14 +362,20 @@ public class GamingArea extends JFrame implements KeyListener {
 
 	}
 
+	/**
+	 * Hier wird das Spiel gestartet
+	 * 
+	 * @author Heck, Liz, 5991099
+	 */
 	public void startNewGame() {
 		resetGame();
 		do {
-			if (!gameEnd){
+			if (!gameEnd) {
 				try {
 					Thread.sleep(50);
-				} catch (InterruptedException e) {}
-				
+				} catch (InterruptedException e) {
+				}
+
 				engine.receiveMessage();
 				getGamingWorld().repaint();
 				getStatusBar().repaint();
@@ -375,8 +384,8 @@ public class GamingArea extends JFrame implements KeyListener {
 					gameLost = true;
 				}
 			} else {
-				neededTime = (int) ((System.currentTimeMillis() - startTime) / 1000); 
-				
+				neededTime = (int) ((System.currentTimeMillis() - startTime) / 1000);
+
 				if (gameLost) {
 					engine.sendHighscoreMessage(clientID, user, time);
 					getHighscore().repaint();
@@ -385,28 +394,33 @@ public class GamingArea extends JFrame implements KeyListener {
 					engine.receiveMessage();
 				}
 			}
-		}while(success);
-		
+		} while (success);
+
 	}
-	
-	public void login(String username, String password) {      
-		//Verschluesseltes Passwort wird mit dem generierten Schluessel an den Client uebermittelt
+
+	/**
+	 * Hier wird der LogIn ausgefuehrt
+	 * 
+	 * @author Heck, Liz, 5991099
+	 */
+	public void login(String username, String password) {
+		// Username und Passwort werden an den Client uebermittelt
 		chat = new Chat(this, username);
 		engine.sendLogInMessage(clientID, username, password);
 	}
-	
-	public void setSuccess(boolean success){
-		this.success=success;
+
+	// benoetigte Getter und Setter
+	public void setSuccess(boolean success) {
+		this.success = success;
 	}
 
 	public void setPlayer(Player player) {
-		this.player=player;
-		
+		this.player = player;
+
 	}
 
 	public Player getPlayer() {
-
 		return player;
 	}
-	
+
 }
