@@ -82,7 +82,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
 		} else if (e.getSource() == exitGame) {
 			System.exit(0);
 		} else if (e.getSource() == logOut) {
-			window.engine.sendLogOutMessage(window.playerID);
+			window.engine.sendLogOutMessage(window.clientID, window.playerID);
 			System.exit(0);
 		} else if (e.getSource() == control) {
 			if (window.controlShown) {
