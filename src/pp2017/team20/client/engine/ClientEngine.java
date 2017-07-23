@@ -364,7 +364,6 @@ public class ClientEngine {
 
 	public void receiveLogInMessage(LogInMessage message) {
 		// Wenn die Enlogdaten korrekt sind, dann wird das Level geladen
-		System.out.println("NEUES LEVEL BAUEN 1");
 		if (message.getSuccess()) {
 			window.setSuccess(true);
 			// Laedt das Level
@@ -382,7 +381,6 @@ public class ClientEngine {
 						// Player uebergeben an GUI
 						window.player = player;
 						window.player.setPlayerID(message.playerID);
-						System.out.println("NEUES LEVEL BAUEN 2");
 					}
 				}
 			}
