@@ -1,6 +1,8 @@
 package pp2017.team20.client.gui;
 
 import java.awt.EventQueue;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -13,6 +15,8 @@ import javax.swing.JPasswordField;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 
@@ -48,7 +52,7 @@ public class Registration {
 
 	//Initialisiere das Fenster 
 	 
-	public void initialize() {
+	public void initialize()  {
 		window = new JFrame();
 		//Setze groesse des Fenster fest
 		window.setBounds(100, 100, 542, 409);
@@ -119,11 +123,17 @@ public class Registration {
 		window.getContentPane().add(btnButton);
 		
 		//Lade ein Hintergrundsbild hoch
-		/*lblLabel = new JLabel("");
-		Image img= new ImageIcon(this.getClass().getResource("img//player.png")).getImage();
+		lblLabel = new JLabel("");
+		Image img = null;
+		try {
+			img = ImageIO.read(new File("img//login.jpg"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		lblLabel.setIcon(new ImageIcon(img));
 		lblLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblLabel.setBounds(27, 15, 266, 110);
-		window.getContentPane().add(lblLabel);*/
+		window.getContentPane().add(lblLabel);
 	}
 }
