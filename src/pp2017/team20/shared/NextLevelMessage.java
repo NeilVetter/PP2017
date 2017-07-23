@@ -10,6 +10,7 @@ import pp2017.team20.server.map.*;
  * ueber das Spielende uebermittelt
  * 
  * @author Wagner, Tobias, 5416213
+ * @author Neil, Vetter 6021336
  *
  */
 

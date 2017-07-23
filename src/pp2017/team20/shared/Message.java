@@ -20,47 +20,6 @@ public abstract class Message implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
-	// timestamp
-//	private final long timestamp;
-	
-//	private int type;
-//	
-//	private int subType;
-	
-
-//	public Message(int type, int subType){
-//		this.timestamp = System.currentTimeMillis();
-//		this.type = type;
-//		this.subType = subType;
-//
-//	}
-	
-//	
-//	public void setType(int type){
-//		this.type = type;
-//	}
-//	
-//	
-//	public int getType(){
-//		return type;
-//	}
-//
-//	public void setSubType(int subType){
-//		this.subType = subType;
-//	}
-//	
-//	public int getSubType(){
-//		return subType;
-//	}
-
-	
-//	public String toString() {
-//		SimpleDateFormat dateFormat = new SimpleDateFormat(
-//				"yyyy-MM-DD hh:mm:ss");
-//		return (dateFormat.format(new Date(this.timestamp))
-//				+ " Type: " + this.getType() + " Subtype: " + this.getSubType());
-//	}
-	
 	private int receiver; // dient zur Identifikation des Empfaengers
 
 	public boolean success = false;

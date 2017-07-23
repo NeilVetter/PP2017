@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class sendObject implements Serializable{
 	
 	/**
-	 * 
+	 * @author Neil, Vetter, 6021336
 	 */
 	private static final long serialVersionUID = 1L;
 	public int type; //0 is for monsters, 1 for players
