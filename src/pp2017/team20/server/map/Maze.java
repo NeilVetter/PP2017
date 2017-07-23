@@ -1,7 +1,5 @@
 package pp2017.team20.server.map;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.io.Serializable;
 
 public class Maze implements Serializable{

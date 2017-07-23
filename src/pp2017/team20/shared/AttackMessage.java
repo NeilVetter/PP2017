@@ -1,6 +1,5 @@
 package pp2017.team20.shared;
 
-import javafx.geometry.HPos;
 
 /**
  * 

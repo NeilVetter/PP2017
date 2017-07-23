@@ -1,7 +1,5 @@
 package pp2017.team20.shared;
 
-import pp2017.team20.shared.*;
-import pp2017.team20.server.map.*;
 import javax.crypto.SecretKey;
 
 /**

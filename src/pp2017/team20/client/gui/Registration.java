@@ -1,13 +1,11 @@
 package pp2017.team20.client.gui;
 
-import java.awt.EventQueue;
+
 
 import javax.imageio.ImageIO;
-import javax.swing.*;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import java.awt.Font;
-import java.awt.Frame;
 import java.awt.Image;
 import java.awt.Color;
 import javax.swing.JTextField;
@@ -20,10 +18,6 @@ import java.io.IOException;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 
-import pp2017.team20.server.engine.SqliteConnection;
-import pp2017.team20.shared.LogInMessage;
-
-import java.sql.*;
 
 public class Registration {
 	/**
