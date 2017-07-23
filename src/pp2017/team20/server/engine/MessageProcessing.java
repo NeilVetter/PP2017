@@ -375,6 +375,7 @@ public class MessageProcessing {
 	public void NextLevelMessageProcessing(NextLevelMessage message) {
 		
 		
+		
 		for(Player p : lvl.PlayerList){
 			//Prueft ob Spieler den Schlüssel besitzt und auf der tür steht
 			if(p.ownsKey && (lvl.lvlMaze[p.getXPos()][p.getYPos()] == 3)){

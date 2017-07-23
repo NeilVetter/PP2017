@@ -1,17 +1,9 @@
 package pp2017.team20.client.engine;
 
-import java.util.*;
-
-import javax.crypto.SecretKey;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-
 import pp2017.team20.shared.*;
 import pp2017.team20.client.gui.*;
 import pp2017.team20.client.comm.*;
-import pp2017.team20.server.comm.ClientConnection;
-import pp2017.team20.server.engine.*;
-import pp2017.team20.server.map.*;
+
 
 /**
  * 
@@ -30,7 +22,7 @@ public class ClientEngine {
 	public GamingArea window;
 	public Level level;
 
-	//Spielfenster anzeigen
+	// Spielfenster anzeigen
 	public GamingArea getWindow() {
 		return window;
 	}
@@ -48,7 +40,6 @@ public class ClientEngine {
 		this.window = window;
 	}
 
-
 	/**
 	 * 
 	 * Methode um Nachricht zu empfangen
@@ -60,7 +51,6 @@ public class ClientEngine {
 		Message msg = communication.receiveMessage();
 		receiveRequest(msg);
 	}
-	
 
 	// Erstellung der Nachrichten, die an den Server geschickt werden
 
@@ -102,7 +92,8 @@ public class ClientEngine {
 
 	public void sendMoveMessage(int clientID, int xPos, int yPos, int playerID) {
 
-		//Ueberpruefen, ob man sich auf eine gueltige Position bewegt, also keine Wand.
+		// Ueberpruefen, ob man sich auf eine gueltige Position bewegt, also
+		// keine Wand.
 		if (!(window.level.getLvl().getLvlMazePosition(window.player.getXPos(), window.player.getYPos()) == 0)) {
 			MoveMessage message = new MoveMessage(clientID, xPos, yPos, playerID);
 			communication.sendMessage(message);
@@ -154,10 +145,10 @@ public class ClientEngine {
 		}
 	}
 
-
 	/**
 	 * 
-	 * Erstellung einer Nachricht,um einen Trank benutzen bzw aufnehmen zu koennen
+	 * Erstellung einer Nachricht,um einen Trank benutzen bzw aufnehmen zu
+	 * koennen
 	 * 
 	 * @author Wagner, Tobias, 5416213
 	 * 
@@ -208,7 +199,6 @@ public class ClientEngine {
 		ChatMessage message = new ChatMessage(clientID, content);
 		communication.sendMessage(message);
 	}
-
 
 	/**
 	 * Methode zum Empfangen von Nachrichten, die vom Server geschickt werden.
@@ -283,22 +273,21 @@ public class ClientEngine {
 			receiveChatMessage(message);
 		}
 
-		//Monster fuer das Level empfangen
+		// Monster fuer das Level empfangen
 		else if (msg instanceof UpdateMonsterMessage) {
 			UpdateMonsterMessage message = (UpdateMonsterMessage) msg;
 			if (((UpdateMonsterMessage) msg).get().type == 0)
 				;
 			recieveMonsterUpdateMessage(message);
 		}
-		
-		//Nachricht empfangen, dass ein Monster besiegt wurde
+
+		// Nachricht empfangen, dass ein Monster besiegt wurde
 		else if (msg instanceof DeathMessage) {
 			DeathMessage message = (DeathMessage) msg;
 			recieveDeatheMessage(message);
 		}
 
 	}
-	
 
 	// Ab hier werden die Nachrichten behandelt, die vom Server empfangen werden
 
@@ -367,7 +356,6 @@ public class ClientEngine {
 
 	public void receiveLogInMessage(LogInMessage message) {
 		// Wenn die Enlogdaten korrekt sind, dann wird das Level geladen
-		System.out.println("NEUES LEVEL BAUEN 1");
 		if (message.getSuccess()) {
 			window.setSuccess(true);
 			// Laedt das Level
@@ -377,15 +365,14 @@ public class ClientEngine {
 			for (int i = 0; i < message.getLevel().getlvlMaze().length; i++) {
 				for (int j = 0; j < message.getLevel().getlvlMaze().length; j++) {
 					if (message.getLevel().getLvlMazePosition(i, j) == 2) {
-						//Erzeugen bzw laden des Spielers
+						// Erzeugen bzw laden des Spielers
 						Player player = new Player();
-						//Position des Spielers im Level zu beginn
+						// Position des Spielers im Level zu beginn
 						player.setXPos(i);
 						player.setYPos(j);
-						//Player uebergeben an GUI
+						// Player uebergeben an GUI
 						window.player = player;
 						window.player.setPlayerID(message.playerID);
-						System.out.println("NEUES LEVEL BAUEN 2");
 					}
 				}
 			}
@@ -424,7 +411,7 @@ public class ClientEngine {
 
 	public void receiveMoveMessage(MoveMessage message) {
 		if (message.success) {
-			//Umsetzen der Bewegung und uebermitteln der neuen Position
+			// Umsetzen der Bewegung und uebermitteln der neuen Position
 			window.player.setPos(message.xPos, message.yPos);
 		}
 	}
@@ -485,7 +472,6 @@ public class ClientEngine {
 		}
 	}
 
-
 	/**
 	 * 
 	 * Empfangen einer Nachricht, dass ein Trank genommen wurde
@@ -496,10 +482,10 @@ public class ClientEngine {
 
 	public void receiveUsePotionMessage(UsePotionMessage message) {
 		if (window.player.getPlayerID() == message.playerID) {
-			//Ueberpruefen,b der Spieler genuegend Traenke hat
+			// Ueberpruefen,b der Spieler genuegend Traenke hat
 			window.player.healthPotNumber += message.type;
 			if (message.type < 0) {
-				//Anpassen der Lebensenergie des Spielers
+				// Anpassen der Lebensenergie des Spielers
 				window.player.changeHealth(30);
 			}
 		}

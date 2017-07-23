@@ -14,8 +14,12 @@ import javax.imageio.ImageIO;
 import pp2017.team20.shared.Monster;
 
 
-//Klasse fuer ein Objetk der types "Player"
-//Neil Vetter 6021336
+/** 
+ * Klasse fuer ein Objetk der types "Player"
+ * @autor Neil, Vetter, 6021336
+ * 
+ * */
+
 
 public class Player extends Figure implements Serializable {
 	public int playerLvl;
