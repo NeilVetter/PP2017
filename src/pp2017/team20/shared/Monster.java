@@ -1,12 +1,9 @@
 package pp2017.team20.shared;
 
 import pp2017.team20.server.engine.Levelmanagement;
-import pp2017.team20.server.engine.MessageProcessing;
 
 import java.io.Serializable;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.LinkedList;
 import java.util.Random;
 
@@ -246,9 +243,9 @@ public class Monster extends Figure implements Serializable {
 		boolean nextWalk = (System.currentTimeMillis() - lastStep) >= cooldownWalk;
 		if (nextWalk) {
 			// Spieler ist westl. vom Monster
-			if (player.getXPos() < this.getXPos()) { // Player <---> Monster
+			if (lvl.player.getXPos() < this.getXPos()) { // Player <---> Monster
 
-				if (player.getYPos() < this.getYPos()) { // Player--->
+				if (lvl.player.getYPos() < this.getYPos()) { // Player--->
 															// ---> Monster
 					dir = 1; // fliehe gen Osten
 					if (!moveAllowed()) { // falls Wand, Tuer, Schluessel
@@ -280,7 +277,7 @@ public class Monster extends Figure implements Serializable {
 
 			} else { // Monster <---> Player
 
-				if (player.getYPos() < this.getYPos()) { // <--- Player
+				if (lvl.player.getYPos() < this.getYPos()) { // <--- Player
 															// Monster <---
 					dir = 2; // fliehe gen Sueden
 					if (!moveAllowed()) { // falls Wand, Tuer, Schluessel
@@ -411,14 +408,14 @@ public class Monster extends Figure implements Serializable {
 
 		begin.setPredecessor(null);
 		begin.setDistanceFrom(
-				Math.abs(this.getXPos() - player.getXPos()) + Math.abs(this.getYPos() - player.getYPos()));
+				Math.abs(this.getXPos() - lvl.player.getXPos()) + Math.abs(this.getYPos() - lvl.player.getYPos()));
 		begin.setDistanceTo(0);
 
 		openedList.add(begin); // fuege den begin Knoten zur openList hinzu
 
 		AStarNode current = begin;
 
-		while (!openedList.isEmpty() && !(current.getX() == player.getXPos() && current.getY() == player.getYPos())) {
+		while (!openedList.isEmpty() && !(current.getX() == lvl.player.getXPos() && current.getY() == lvl.player.getYPos())) {
 
 			openedList.remove(current); // entferne den current Knoten aus der
 										// openedList
@@ -454,7 +451,7 @@ public class Monster extends Figure implements Serializable {
 
 					AStarNode node = new AStarNode(current.getX(), current.getY() - 1);
 					node.setDistanceFrom(
-							Math.abs(node.getX() - player.getXPos()) + Math.abs(node.getY() - player.getYPos()));
+							Math.abs(node.getX() - lvl.player.getXPos()) + Math.abs(node.getY() - lvl.player.getYPos()));
 					node.setDistanceTo(current.getDistanceTo() + 1);
 					node.setPredecessor(current);
 					openedList.add(node);
@@ -486,7 +483,7 @@ public class Monster extends Figure implements Serializable {
 
 					AStarNode node = new AStarNode(current.getX(), current.getY() + 1);
 					node.setDistanceFrom(
-							Math.abs(node.getX() - player.getXPos()) + Math.abs(node.getY() - player.getYPos()));
+							Math.abs(node.getX() - lvl.player.getXPos()) + Math.abs(node.getY() - lvl.player.getYPos()));
 					node.setDistanceTo(current.getDistanceTo() + 1);
 					node.setPredecessor(current);
 					openedList.add(node);
@@ -517,7 +514,7 @@ public class Monster extends Figure implements Serializable {
 
 					AStarNode node = new AStarNode(current.getX() - 1, current.getY());
 					node.setDistanceFrom(
-							Math.abs(node.getX() - player.getXPos()) + Math.abs(node.getY() - player.getYPos()));
+							Math.abs(node.getX() - lvl.player.getXPos()) + Math.abs(node.getY() - lvl.player.getYPos()));
 					node.setDistanceTo(current.getDistanceTo() + 1);
 					node.setPredecessor(current);
 					openedList.add(node);
@@ -548,7 +545,7 @@ public class Monster extends Figure implements Serializable {
 
 					AStarNode node = new AStarNode(current.getX() + 1, current.getY());
 					node.setDistanceFrom(
-							Math.abs(node.getX() - player.getXPos()) + Math.abs(node.getY() - player.getYPos()));
+							Math.abs(node.getX() - lvl.player.getXPos()) + Math.abs(node.getY() - lvl.player.getYPos()));
 					node.setDistanceTo(current.getDistanceTo() + 1);
 					node.setPredecessor(current);
 					openedList.add(node);
@@ -572,7 +569,7 @@ public class Monster extends Figure implements Serializable {
 		// Hier wird solange zurueckverfolgt bis man am ersten Knoten
 		// nach dem Startknoten landet, um die naechsten Knoten fuer die
 		// Methode zu erhalten
-		if (current.getX() == player.getXPos() && current.getY() == player.getYPos()) {
+		if (current.getX() == lvl.player.getXPos() && current.getY() == lvl.player.getYPos()) {
 			while (!current.getPredecessor().equals(begin))
 				current = current.getPredecessor();
 

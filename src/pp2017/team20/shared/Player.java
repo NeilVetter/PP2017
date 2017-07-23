@@ -4,12 +4,7 @@ import pp2017.team20.client.gui.GamingArea;
 import pp2017.team20.server.map.*;
 import java.io.Serializable;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.LinkedList;
-
-import javax.imageio.ImageIO;
 
 import pp2017.team20.shared.Monster;
 
