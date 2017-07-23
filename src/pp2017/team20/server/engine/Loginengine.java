@@ -39,8 +39,11 @@ public class Loginengine {
 			 
 			 succses = true;
 			//Schliesst das Registrationsfenster
+			 try{
 			 Registration.window.dispose();
-			
+			 }catch(Exception e){
+				 
+			 }
 		 }
 		 else{
 			 //Wenn Benutzername oder das Passwort falsch sind

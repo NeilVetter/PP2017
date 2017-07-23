@@ -113,6 +113,7 @@ public class GamingWorld extends JPanel {
 				// zugeordnet bekommen haben, an die Position gezeichnet die sie
 				// vom Levelmanagement bekommen und dann immer an ihre aktuelle
 				// Position gezeichnet
+				try{
 				if (window.monster != null) {
 					for (sendObject m : window.monster) {
 						int strength = m.strength;
@@ -126,6 +127,8 @@ public class GamingWorld extends JPanel {
 							g.drawImage(monster6, m.posX * window.BOX, m.posY * window.BOX, null);
 						}
 					}
+				}}catch(Exception e){
+					
 				}
 				repaint();
 
