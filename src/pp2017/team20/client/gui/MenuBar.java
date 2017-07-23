@@ -69,9 +69,12 @@ public class MenuBar extends JMenuBar implements ActionListener {
 	 * @author Heck, Liz, 5991099
 	 */
 	public void actionPerformed(ActionEvent e) {
+		// Neues Spiel starten
 		if (e.getSource() == newGame) {
 			window.resetGame();
-		} else if (e.getSource() == highscore) {
+		}
+		// Highscore anzeigen
+		else if (e.getSource() == highscore) {
 			if (window.highscoreShown) {
 				window.showGamingWorld();
 				highscore.setText("Zeige Highscore");
@@ -79,12 +82,18 @@ public class MenuBar extends JMenuBar implements ActionListener {
 				window.showHighscore();
 				highscore.setText("Zeige Spielfeld");
 			}
-		} else if (e.getSource() == exitGame) {
+		}
+		// Spiel beenden
+		else if (e.getSource() == exitGame) {
 			System.exit(0);
-		} else if (e.getSource() == logOut) {
+		}
+		// Ausloggen
+		else if (e.getSource() == logOut) {
 			window.engine.sendLogOutMessage(window.clientID, window.playerID);
 			System.exit(0);
-		} else if (e.getSource() == control) {
+		}
+		// Steuerung anzeigen
+		else if (e.getSource() == control) {
 			if (window.controlShown) {
 				window.showGamingWorld();
 				control.setText("Steuerung");
@@ -92,8 +101,6 @@ public class MenuBar extends JMenuBar implements ActionListener {
 				window.showControl();
 				control.setText("Zeige Spielfeld");
 			}
-		} else if (e.getSource() == control){
-			
 		}
 	}
 }
