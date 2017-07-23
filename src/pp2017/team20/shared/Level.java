@@ -11,6 +11,11 @@ import pp2017.team20.server.map.Maze;
 import java.io.Serializable;
 import java.util.LinkedList;
 
+/** Setter - Getter für das Level 
+ * 
+ * @author Hamid, Kirli 6041663
+ * @author Neil, Vetter 6021336
+ * */
 public class Level implements Serializable {
 
 	public int LevelID;
@@ -31,11 +36,6 @@ public class Level implements Serializable {
 	public Level(Levelmanagement lvl,int [][]lvlMaze){
 		this.lvl=lvl;
 		this.lvlMaze=lvlMaze;
-//		for (int i= 0; i< monsterfield.length; i++){
-//			for( int j= 0; j<monsterfield.length;j++){
-//				monsterfield[i][j]=-1;
-//			}
-//		}
 	}
 	
 	public Level(int id, int[][] level){
@@ -58,7 +58,7 @@ public class Level implements Serializable {
 	}
 	
 	
-	/**Setzen Startpositionen fest? wie wichtig fï¿½r uns @Tobi */
+	/**Setzen Startpositionen fest */
 	public int getxPos(){
 		return xPos;
 	}
