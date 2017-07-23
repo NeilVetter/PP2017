@@ -10,11 +10,17 @@ package pp2017.team20.shared;
 
 public class LogOutMessage extends Message {
 	
-	
+	public boolean success;
 	public int playerID;
 
-	public LogOutMessage (int clientID) {
+	public LogOutMessage (int clientID,int playerID) {
 		super(clientID);
+		this.playerID=playerID;
+		
+	}
+
+	public void setSuccess(boolean b) {
+	this.success=b;
 		
 	}
 
