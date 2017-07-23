@@ -1,17 +1,9 @@
 package pp2017.team20.client.engine;
 
-import java.util.*;
-
-import javax.crypto.SecretKey;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-
 import pp2017.team20.shared.*;
 import pp2017.team20.client.gui.*;
 import pp2017.team20.client.comm.*;
-import pp2017.team20.server.comm.ClientConnection;
-import pp2017.team20.server.engine.*;
-import pp2017.team20.server.map.*;
+
 
 /**
  * 
