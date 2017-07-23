@@ -85,8 +85,8 @@ public class ClientEngine {
 	 * 
 	 */
 
-	public void sendLogOutMessage(int clientID) {
-		LogOutMessage message = new LogOutMessage(clientID);
+	public void sendLogOutMessage(int clientID, int playerID) {
+		LogOutMessage message = new LogOutMessage(clientID, playerID);
 		communication.sendMessage(message);
 	}
 
