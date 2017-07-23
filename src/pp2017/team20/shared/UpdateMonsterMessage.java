@@ -4,7 +4,11 @@ package pp2017.team20.shared;
 public class UpdateMonsterMessage extends Message {
 
 	
-
+	/** Message Untertyp
+	 * 
+	 * @autor Neil, Vetter, 6021336
+	 */
+	
 	public sendObject obj;
 	
 	public UpdateMonsterMessage(int clientID) {
