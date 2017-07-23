@@ -10,14 +10,16 @@ import java.util.List;
  * **/
 
 public class FloodFill {
-
+     // Hilfswerte zum Speichern von drei Positionen.
 	 protected static Point StartCoord;
 	 public static Point EndCoord;
 	 public static Point NowCoord;
 	
+	 //Initialisierung von einer leeren Map und der Größe
 	 public int[][] Map;
 	 protected int size;
 	 
+	 //Kordinaten
 	 private static final int coordUp = 0;
 	 private static final int coordDown = 1;
 	 private static final int coordLeft = 2;
@@ -112,4 +114,6 @@ public class FloodFill {
 		}
 	}
 	
-
+//Quellen: 
+////https://www.hackerearth.com/practice/algorithms/graphs/flood-fill-algorithm/tutorial/
+////https://www.java-forum.org/thema/labyrinth-mittel-floodfill
