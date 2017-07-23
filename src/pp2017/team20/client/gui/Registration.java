@@ -38,47 +38,26 @@ public class Registration {
 	public String username;
 	public String password;
 	GamingArea ga;
-	/**
-	 * Teste MainMethode
-	 * 
-	 */
-	/*public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Registration windowTest = new Registration();
-					windowTest.window.setVisible(true);
-					
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}*/
 
-	//Ruft die Datenbank auf im SqliteConnection
-//	Connection connection = null;
 	
 	public Registration(GamingArea ga) {
 		this.ga = ga;
 		initialize();
-		//Setzt die "Connection"
-		//connection=SqliteConnection.dbConnector();
-		
+				
 	}
 
 	//Initialisiere das Fenster 
 	 
 	public void initialize() {
 		window = new JFrame();
-		//Setze grï¿½ï¿½e des Fenster fest
+		//Setze groesse des Fenster fest
 		window.setBounds(100, 100, 542, 409);
 		//Beim verlassen schliessen
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.getContentPane().setLayout(null);
 		
 		//erstellt die Beschriftung "Username" + positionieren
-		//setze Farbe, Schriftgrï¿½ï¿½e, Knopfgrï¿½ï¿½e
+		//setze Farbe, Schriftgroessee, Knopfgroessee
 		JLabel lblLogin = new JLabel("Username:");
 		lblLogin.setForeground(Color.GRAY);
 		lblLogin.setFont(new Font("Euphemia", Font.PLAIN, 15));
@@ -116,16 +95,9 @@ public class Registration {
 					 ga.login(username,password);
 					
 				}
-					
-				
+									
 			}
 
-			
-					
-			
-				
-			
-		
 		});
 		
 		btnNewButton.setFont(new Font("Vani", Font.PLAIN, 15));
@@ -136,7 +108,7 @@ public class Registration {
 		btnButton = new JButton("Register");
 		btnButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				// ï¿½ffnet ein zweiten Fenster zum Regestrieren
+				// öffnffnet ein zweiten Fenster zum Regestrieren
 				RegistrationData regdata = new RegistrationData();
 				regdata.setVisible(true);
 				
@@ -147,8 +119,8 @@ public class Registration {
 		window.getContentPane().add(btnButton);
 		
 		//Lade ein Hintergrundsbild hoch
-	/*	lblLabel = new JLabel("");
-		Image img= new ImageIcon(this.getClass().getResource("/menu.png")).getImage();
+		/*lblLabel = new JLabel("");
+		Image img= new ImageIcon(this.getClass().getResource("img//player.png")).getImage();
 		lblLabel.setIcon(new ImageIcon(img));
 		lblLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblLabel.setBounds(27, 15, 266, 110);

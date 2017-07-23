@@ -5,6 +5,7 @@ import javax.swing.*;
 /** 
  * Erstellt die Verbindung zwischen Java und SQLite(Datenbank) auf 
  * 
+ * Diese Klasse wurde erstell mit dem Tutorial von //Youtube.de/Programmingknowledge
  * @author Hamid, Kirli, 6041663 **/
 
 public class SqliteConnection {

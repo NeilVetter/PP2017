@@ -530,8 +530,8 @@ public class ClientEngine {
 				// Neues Level wird geladen
 				window.level = message.getLevel();
 				// Laedt die Startposition des Spielers
-				window.xPos = message.getLevel().getxPos();
-				window.yPos = message.getLevel().getyPos();
+				window.playerID = message.getLevel().getxPos();
+				window.playerID = message.getLevel().getyPos();
 				// Laedt die Monster des Levels
 				window.buffermonsterList = message.getLevel().monsterList;
 				// Wen die Spielfeldkachel nicht vom Spieler belegt wird, also
